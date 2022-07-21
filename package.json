@@ -3,6 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "types": "./dist/lib/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/design-system.es.js",
+      "require": "./dist/design-system.umd.js"
+    }
+  },
+  "main": "./dist/design-system.umd.js",
+  "module": "./dist/design-system.es.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
