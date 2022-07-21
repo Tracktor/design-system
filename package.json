@@ -19,7 +19,7 @@
   "module": "./dist/design-system.es.js",
   "repository": "git@github.com:Tracktor/design-system.git",
   "scripts": {
-    "install": "yarn run build",
+    "install": "npm run build || yarn run build",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
