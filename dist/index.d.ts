@@ -1,4 +1,2 @@
-declare const _default: {
-    Button: () => JSX.Element;
-};
-export default _default;
+import Button from "./components/Button";
+export { Button };
