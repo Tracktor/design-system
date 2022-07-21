@@ -1,9 +1,11 @@
 {
   "name": "design-system",
+  "description": "Tracktor Design System",
   "private": true,
   "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
-  "types": "./dist/lib/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -15,6 +17,7 @@
   },
   "main": "./dist/design-system.umd.js",
   "module": "./dist/design-system.es.js",
+  "repository": "git@github.com:Tracktor/design-system.git",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -34,7 +37,7 @@
     "vite-plugin-dts": "^1.4.0"
   },
   "peerDependencies": {
-    "react" : "^18.2.0",
-    "react-dom" : "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
