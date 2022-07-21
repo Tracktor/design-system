@@ -1,4 +1,4 @@
-src
+src/
 .gitignore
 .npmignore
 tsconfig.json
