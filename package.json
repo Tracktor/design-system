@@ -19,9 +19,10 @@
   "module": "./dist/design-system.es.js",
   "repository": "git@github.com:Tracktor/design-system.git",
   "scripts": {
-    "prepare": "npm run build || yarn run build",
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "prepare": "npm run build || yarn run build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",
+    "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
     "vite-plugin-dts": "^1.4.0"
