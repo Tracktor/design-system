@@ -16,14 +16,6 @@
       "rules": {
         "spaced-comment": "off"
       }
-    },
-    {
-      "files": [
-        "src/index.ts"
-      ],
-      "rules": {
-        "import/prefer-default-export": "off"
-      }
     }
   ]
 }
