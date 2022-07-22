@@ -1,1 +1,9 @@
-export * from "@mui/material";
+import * as mui from "@mui/material";
+import DesignSystemProvider from "@/context/DesignSystemProvider";
+
+const DS = {
+  ...mui,
+  DesignSystemProvider,
+};
+
+export default DS;
