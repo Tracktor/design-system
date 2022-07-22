@@ -8,7 +8,6 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       fileName: (format) => `design-system.${format}.js`,
-      formats: ["es", "umd"],
       name: "design-system",
     },
     rollupOptions: {
