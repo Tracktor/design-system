@@ -14,6 +14,12 @@ or
 yarn add git+https://github.com/Tracktor/design-system.git
 ```
 
+Specific version can be installed
+
+```console
+yarn add git+https://github.com/Tracktor/design-system.git#1.0.0
+```
+
 ## Usage
 
 ``` typescript jsx
