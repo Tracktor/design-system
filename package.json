@@ -11,12 +11,6 @@
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/design-system.es.js",
-      "require": "./dist/design-system.umd.js"
-    }
-  },
   "repository": "git@github.com:Tracktor/design-system.git",
   "scripts": {
     "build": "tsc && vite build",
