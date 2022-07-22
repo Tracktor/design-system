@@ -2260,7 +2260,7 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-micromatch@^4.0.4:
+micromatch@^4.0.4, micromatch@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.5.tgz#bc8999a7cbbf77cdc89f132f6e467051b49090c6"
   integrity sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==
@@ -2984,6 +2984,13 @@ vite-plugin-dts@^1.4.0:
     fast-glob "^3.2.11"
     fs-extra "^10.0.1"
     ts-morph "^14.0.0"
+
+vite-plugin-singlefile@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-singlefile/-/vite-plugin-singlefile-0.10.0.tgz#337180076cb31d22444b9ee73789e0be215cc216"
+  integrity sha512-ZUpIqP+cqhOokuZUqiWDSHWyuhWlHX8movtQlFm0Rer/CfpZ8OqyVwCJvzQ9GLiV5f8sfjpdgDPgXdZnNORRpQ==
+  dependencies:
+    micromatch "^4.0.5"
 
 vite@^3.0.0:
   version "3.0.2"
