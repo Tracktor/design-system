@@ -1,9 +1,4 @@
-import * as mui from "@mui/material";
-import DesignSystemProvider from "@/context/DesignSystemProvider";
+export * from "@mui/material";
 
-const DS = {
-  ...mui,
-  DesignSystemProvider,
-};
-
-export default DS;
+export { default as DesignSystemProvider } from "@/context/DesignSystemProvider";
+export * from "@/context/DesignSystemProvider";
