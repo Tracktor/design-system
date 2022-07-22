@@ -1,3 +1,3 @@
-import Button from "@/components/Button";
+import * as mui from "@mui/material";
 
-export { Button };
+export default mui;
