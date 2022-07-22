@@ -11,7 +11,6 @@ export default defineConfig({
       formats: ["es", "umd"],
       name: "design-system",
     },
-    minify: false,
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
@@ -19,7 +18,6 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
-        sourcemapExcludeSources: true,
       },
     },
     sourcemap: true,

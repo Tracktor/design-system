@@ -2,6 +2,7 @@
   "name": "design-system",
   "description": "Tracktor Design System",
   "private": true,
+  "sideEffects": false,
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
