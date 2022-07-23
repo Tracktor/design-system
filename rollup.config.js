@@ -22,6 +22,7 @@ export default [
         name: "test",
       },
     ],
+    plugins: [dts()],
   },
   {
     input: "src/index.ts",
