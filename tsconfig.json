@@ -25,9 +25,6 @@
     "declaration": true,
     "declarationDir": "types",
     "emitDeclarationOnly": true,
-    "types": [
-      "vitest/globals"
-    ],
     "paths": {
       "@/*": [
         "src/*"
