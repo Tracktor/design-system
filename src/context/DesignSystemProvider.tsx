@@ -1,6 +1,6 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import darkTheme from "@/constants/theme";
 import DesignSystemContext, { designSystemContextDefaultValue } from "@/context/DesignSystemContext";
 

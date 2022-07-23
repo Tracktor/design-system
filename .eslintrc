@@ -1,20 +1,21 @@
 {
   "extends": "eslint-config-react",
-  "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true
-      }
-    ]
-  },
   "overrides": [
     {
       "files": [
-        "src/vite-env.d.ts"
+        "rollup.config.js"
       ],
       "rules": {
-        "spaced-comment": "off"
+        "import/no-extraneous-dependencies": "off",
+        "import/no-anonymous-default-export": "off",
+        "no-restricted-imports": "off"
+      }
+    },{
+      "files": [
+        "src/index.ts"
+      ],
+      "rules": {
+        "import/prefer-default-export": "off"
       }
     }
   ]
