@@ -5,8 +5,9 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist**"
+    "dist/"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint .",
