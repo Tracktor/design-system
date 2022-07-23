@@ -9,30 +9,43 @@ import packageJson from "./package.json";
 
 export default [
   {
+    input: ["src/components/test.ts"],
+    output: [
+      {
+        dir: "dist/esm",
+        format: "esm",
+        name: "test",
+      },
+      {
+        dir: "dist/cjs",
+        format: "cjs",
+        name: "test",
+      },
+    ],
+  },
+  {
     input: "src/index.ts",
     output: [
       {
         file: packageJson.main,
         format: "cjs",
         name: "design-system",
-        sourcemap: true,
       },
       {
         file: packageJson.module,
         format: "esm",
-        sourcemap: true,
       },
     ],
     plugins: [
+      typescript({ tsconfig: "./tsconfig.json" }),
       external(),
       resolve(),
       commonjs(),
+      terser(),
       postcss({
         modules: true,
         plugins: [],
       }),
-      typescript({ tsconfig: "./tsconfig.json" }),
-      terser(),
     ],
   },
   {
