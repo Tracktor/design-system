@@ -29,7 +29,6 @@ export default [
       {
         file: packageJson.main,
         format: "cjs",
-        name: "design-system",
       },
       {
         file: packageJson.module,
