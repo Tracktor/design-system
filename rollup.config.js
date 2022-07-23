@@ -8,22 +8,15 @@ import { terser } from "rollup-plugin-terser";
 import packageJson from "./package.json";
 
 export default [
-  // {
-  //   input: ["src/components/test.ts"],
-  //   output: [
-  //     {
-  //       dir: "dist/esm",
-  //       format: "esm",
-  //       name: "test",
-  //     },
-  //     {
-  //       dir: "dist/cjs",
-  //       format: "cjs",
-  //       name: "test",
-  //     },
-  //   ],
-  //   plugins: [dts()],
-  // },
+  {
+    input: ["src/components/test.ts"],
+    output: {
+      dir: "dist/components",
+      format: "es",
+      name: "test",
+    },
+    plugins: [dts()],
+  },
   {
     input: "src/index.ts",
     output: {
