@@ -8,34 +8,28 @@ import { terser } from "rollup-plugin-terser";
 import packageJson from "./package.json";
 
 export default [
-  {
-    input: ["src/components/test.ts"],
-    output: [
-      {
-        dir: "dist/esm",
-        format: "esm",
-        name: "test",
-      },
-      {
-        dir: "dist/cjs",
-        format: "cjs",
-        name: "test",
-      },
-    ],
-    plugins: [dts()],
-  },
+  // {
+  //   input: ["src/components/test.ts"],
+  //   output: [
+  //     {
+  //       dir: "dist/esm",
+  //       format: "esm",
+  //       name: "test",
+  //     },
+  //     {
+  //       dir: "dist/cjs",
+  //       format: "cjs",
+  //       name: "test",
+  //     },
+  //   ],
+  //   plugins: [dts()],
+  // },
   {
     input: "src/index.ts",
-    output: [
-      {
-        file: packageJson.main,
-        format: "cjs",
-      },
-      {
-        file: packageJson.module,
-        format: "esm",
-      },
-    ],
+    output: {
+      file: packageJson.module,
+      format: "es",
+    },
     plugins: [
       typescript({ tsconfig: "./tsconfig.json" }),
       external(),
@@ -50,7 +44,7 @@ export default [
   },
   {
     external: [/\.css$/],
-    input: "dist/esm/types/index.d.ts",
+    input: "dist/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
   },
