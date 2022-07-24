@@ -16,7 +16,6 @@ export default {
     format: "esm",
     preserveModules: true,
     preserveModulesRoot: "src",
-    sourcemap: true,
   },
   plugins: [
     resolve(),
