@@ -1,7 +1,6 @@
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import { getFiles } from "./scripts/buildUtils";
@@ -20,7 +19,6 @@ export default {
   plugins: [
     resolve(),
     commonjs(),
-    external(),
     terser(),
     postcss({ modules: true }),
     typescript({
