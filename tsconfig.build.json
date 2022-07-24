@@ -2,6 +2,23 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
-    "lib",
-  ]
+    "lib"
+  ],
+//  "compilerOptions": {
+//    "baseUrl": "src/",
+//    "paths": {
+//      "components/*": [
+//        "components/*"
+//      ],
+//      "constants/*": [
+//        "constants/*"
+//      ],
+//      "context/*": [
+//        "context/*"
+//      ],
+//      "styles/*": [
+//        "styles/*"
+//      ]
+//    }
+//  }
 }

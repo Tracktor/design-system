@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src/",
+    "baseUrl": ".",
     "target": "es5",
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,22 +17,12 @@
     "jsx": "react-jsx",
     "importsNotUsedAsValues": "error",
     "noUnusedParameters": true,
-    "rootDir": "src",
     "declaration": true,
     "declarationDir": ".",
     "emitDeclarationOnly": true,
     "paths": {
-      "components/*": [
-        "components/*"
-      ],
-      "constants/*": [
-        "constants/*"
-      ],
-      "context/*": [
-        "context/*"
-      ],
-      "styles/*": [
-        "styles/*"
+      "@/*": [
+        "src/*"
       ]
     }
   },
