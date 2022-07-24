@@ -24,7 +24,7 @@
     "noUnusedParameters": true,
     "rootDir": "src",
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": ".",
     "emitDeclarationOnly": true,
     "paths": {
       "@/*": [
