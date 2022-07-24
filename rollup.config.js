@@ -1,7 +1,6 @@
-import commonjs from "@rollup/plugin-commonjs";
+import path from "node:path";
 import resolve from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
 import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
@@ -9,9 +8,9 @@ import packageJson from "./package.json";
 
 export default [
   {
-    input: "src/components/test.ts",
+    input: path.resolve(__dirname, "src/components/Button/index.ts"),
     output: {
-      dir: "dist/components",
+      dir: "dist/components/Button",
     },
     plugins: [],
   },
@@ -25,7 +24,6 @@ export default [
       typescript({ tsconfig: "./tsconfig.json" }),
       external(),
       resolve(),
-      commonjs(),
       terser(),
       postcss({
         modules: true,
