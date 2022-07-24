@@ -34,7 +34,7 @@ export default {
     dir: "dist",
     format: "esm",
     preserveModules: true,
-    // preserveModulesRoot: "src",
+    preserveModulesRoot: "src",
   },
   plugins: [
     external(),
