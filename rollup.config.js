@@ -6,6 +6,8 @@ import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 
+connt dir
+
 const getFiles = (entry, extensions = [], excludeExtensions = []) => {
   let fileNames = [];
   const dirs = fs.readdirSync(entry);
