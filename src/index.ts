@@ -15,4 +15,4 @@ export { default as BottomNavigationAction } from "@/components/BottomNavigation
 export { default as Box } from "@/components/Box";
 export { default as Breadcrumbs } from "@/components/Breadcrumbs";
 export { default as Button } from "@/components/Button";
-export { default as DesignSystemProvider } from "@/context/DesignSystemProvider";
+export { default as DesignSystemProvider } from "@/context/ThemeProvider";
