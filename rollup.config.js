@@ -9,13 +9,11 @@ import packageJson from "./package.json";
 
 export default [
   {
-    input: ["src/components/test.ts"],
+    input: "src/components/test.ts",
     output: {
       dir: "dist/components",
-      format: "es",
-      name: "test",
     },
-    plugins: [dts()],
+    plugins: [],
   },
   {
     input: "src/index.ts",
