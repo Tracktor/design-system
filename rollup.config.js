@@ -31,7 +31,7 @@ export default {
   external: ["react", "react-dom"],
   input: ["./src/index.ts", ...getFiles("./src/components", [".ts", ".tsx"])],
   output: {
-    dir: "dist",
+    dir: "lib",
     format: "esm",
     preserveModules: true,
     preserveModulesRoot: "src",
@@ -44,7 +44,7 @@ export default {
     postcss({ modules: true }),
     typescript({
       declaration: true,
-      declarationDir: "dist",
+      declarationDir: "lib",
       tsconfig: "./tsconfig.build.json",
     }),
   ],

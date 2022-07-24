@@ -2,12 +2,12 @@
   "name": "design-system",
   "version": "1.0.0",
   "description": "Tracktor Design System",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "outputDir": "dist",
   "files": [
-    "dist"
+    "lib"
   ],
   "sideEffects": false,
   "scripts": {
