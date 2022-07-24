@@ -32,7 +32,7 @@ export default {
   input: ["./src/index.ts", ...getFiles("./src/components", [".ts", ".tsx"])],
   output: {
     dir: "lib",
-    format: "amd",
+    format: "esm",
     preserveModules: true,
     preserveModulesRoot: "src",
   },
