@@ -12,9 +12,9 @@
   "sideEffects": false,
   "scripts": {
     "build": "rollup -c",
+    "install": "npm run build",
     "lint": "eslint .",
     "postbuild": "node scripts/resolveTsPaths",
-    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -51,7 +51,11 @@
     "rollup-plugin-multi-input": "^1.3.1"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rollup-plugin-multi-input": "^1.3.1"
   }
 }
