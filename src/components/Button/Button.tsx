@@ -1,3 +1,3 @@
-const Button = () => <button type="button">Test Button</button>;
+import Button from "@mui/material/Button";
 
 export default Button;
