@@ -3,22 +3,5 @@
   "exclude": [
     "node_modules",
     "lib"
-  ],
-//  "compilerOptions": {
-//    "baseUrl": "src/",
-//    "paths": {
-//      "components/*": [
-//        "components/*"
-//      ],
-//      "constants/*": [
-//        "constants/*"
-//      ],
-//      "context/*": [
-//        "context/*"
-//      ],
-//      "styles/*": [
-//        "styles/*"
-//      ]
-//    }
-//  }
+  ]
 }
