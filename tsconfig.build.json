@@ -9,5 +9,10 @@
     "webpack",
     "jest",
     "src/stories/**"
-  ]
+  ],
+  "paths": {
+    "components/*": [
+      "src/components/*"
+    ],
+  }
 }
