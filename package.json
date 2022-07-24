@@ -23,7 +23,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "lint": "eslint .",
-    "prepare": "npm run build || yarn run build",
+    "preinstall": "npm run build || yarn run build",
     "preview": "vite preview"
   },
   "devDependencies": {
