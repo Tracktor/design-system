@@ -39,8 +39,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/material": "^5.9.1",
-    "tslib": "^2.4.0",
-
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "typescript": "^4.7.4",
