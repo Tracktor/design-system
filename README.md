@@ -5,12 +5,6 @@ A design system React library
 ## Installation
 
 ```console
-npm install git+https://github.com/Tracktor/design-system.git
-```
-
-or
-
-```console
 yarn add git+https://github.com/Tracktor/design-system.git
 ```
 
