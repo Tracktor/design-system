@@ -27,6 +27,9 @@
   },
   "homepage": "https://github.com/Tracktor/design-system#readme",
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.1",
     "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
@@ -36,19 +39,15 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-terser": "^7.0.2",
-    "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
-    "@mui/material": "^5.9.1",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
   },
   "devDependencies": {
-
     "@types/node": "^18.0.6",
     "@types/react": "^18.0.15",
     "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#1.0.0"
   },
   "peerDependencies": {
-    "typescript": "^4.7.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
