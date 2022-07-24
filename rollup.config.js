@@ -8,7 +8,7 @@ import packageJson from "./package.json";
 
 export default [
   {
-    input: path.resolve(__dirname, "src/components/test.ts"),
+    input: "src/components/test.ts",
     output: {
       dir: "dist/components",
     },
