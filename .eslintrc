@@ -9,11 +9,10 @@
         "rollup.config.js"
       ],
       "rules": {
-        "import/no-extraneous-dependencies": "off",
-        "import/no-anonymous-default-export": "off",
-        "no-restricted-imports": "off"
+        "import/no-anonymous-default-export": "off"
       }
-    },{
+    },
+    {
       "files": [
         "src/index.ts"
       ],
