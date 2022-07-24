@@ -26,11 +26,14 @@
     "url": "https://github.com/Tracktor/design-system/issues"
   },
   "homepage": "https://github.com/Tracktor/design-system#readme",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1"
+  },
   "devDependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/material": "^5.9.1",
-    "@rollup/plugin-commonjs": "^22.0.1",
+
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
     "@types/node": "^18.0.6",
