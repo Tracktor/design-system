@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src/",
     "target": "es5",
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,8 +22,17 @@
     "declarationDir": ".",
     "emitDeclarationOnly": true,
     "paths": {
-      "@/*": [
-        "src/*"
+      "components/*": [
+        "components/*"
+      ],
+      "constants/*": [
+        "constants/*"
+      ],
+      "context/*": [
+        "context/*"
+      ],
+      "styles/*": [
+        "styles/*"
       ]
     }
   },
