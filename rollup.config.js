@@ -8,11 +8,19 @@ import packageJson from "./package.json";
 
 export default [
   {
-    input: path.resolve(__dirname, "src/components/Button/index.ts"),
+    input: path.resolve(__dirname, "src/components/test.ts"),
     output: {
-      dir: "dist/components/Button",
+      dir: "dist/components",
     },
-    plugins: [],
+    plugins: [
+      external(),
+      resolve(),
+      terser(),
+      postcss({
+        modules: true,
+        plugins: [],
+      }),
+    ],
   },
   {
     input: "src/index.ts",
