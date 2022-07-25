@@ -1,7 +1,7 @@
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider as ThemeProviderMUI } from "@mui/material/styles";
 import type { ReactNode } from "react";
-import darkTheme from "@/constants/theme";
+import defaultTheme from "@/constants/theme";
 import ThemeContext, { ThemeContextDefaultValue } from "@/context/Theme/ThemeContext";
 
 interface ThemeProviderProps {
@@ -11,7 +11,7 @@ interface ThemeProviderProps {
 
 const ThemeProvider = ({ children, includeCssBaseline = true }: ThemeProviderProps) => (
   <ThemeContext.Provider value={ThemeContextDefaultValue}>
-    <ThemeProviderMUI theme={darkTheme}>
+    <ThemeProviderMUI theme={defaultTheme}>
       {includeCssBaseline && <CssBaseline />}
       {children}
     </ThemeProviderMUI>

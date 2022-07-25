@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-const darkTheme = createTheme({
+const defaultTheme = createTheme({
   palette: {
     background: {
       default: "#000",
@@ -9,4 +9,4 @@ const darkTheme = createTheme({
   },
 });
 
-export default darkTheme;
+export default defaultTheme;
