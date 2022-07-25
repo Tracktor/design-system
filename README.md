@@ -16,19 +16,39 @@ yarn add git+https://github.com/Tracktor/design-system.git#1.0.0
 
 ## Usage
 
+### Basic
+It is recommended to use `ThemeProvider` to
+benefit from the default theme configuration.
+
 ``` typescript jsx
-import { Button } from "design-system";
+import { Button, ThemeProvider } from "design-system";
 
-function App() {
-
-    return (
-        <div className="App">
-            <Button />
-            </div>
-    );
-}
+const App = () => (
+  <ThemeProvider>
+    <Button>Text</Button>
+  </ThemeProvider>
+);
 
 export default App;
+```
+
+### import from module chunk
+For a project that uses only a few components,
+it is recommended to import your components directly
+from module chunked
+
+``` typescript jsx
+import Button from "design-system/lib/components/Button";
+import ThemeProvider from "design-system/lib/context/Theme/ThemeProvider";
+
+const App = () => (
+  <ThemeProvider>
+    <Button>Text</Button>
+  </ThemeProvider>
+);
+
+export default App;
+
 ```
 
 ## Docs
