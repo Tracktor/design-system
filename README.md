@@ -20,7 +20,7 @@ yarn add git+https://github.com/Tracktor/design-system.git#1.0.0
 It is recommended to use `ThemeProvider` to
 benefit from the default theme configuration.
 
-``` typescript jsx
+```typescript jsx
 import { Button, ThemeProvider } from "design-system";
 
 const App = () => (
@@ -37,7 +37,7 @@ For a project that uses only a few components,
 it is recommended to import your components directly
 from module chunked
 
-``` typescript jsx
+```typescript jsx
 import Button from "design-system/lib/components/Button";
 import ThemeProvider from "design-system/lib/context/Theme/ThemeProvider";
 
@@ -48,7 +48,6 @@ const App = () => (
 );
 
 export default App;
-
 ```
 
 ## Docs
