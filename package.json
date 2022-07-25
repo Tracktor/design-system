@@ -4,21 +4,21 @@
   "private": true,
   "sideEffects": false,
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "ISC",
   "type": "module",
-  "types": "./lib/index.d.ts",
-  "main": "./lib/index.js",
-  "module": "./lib/index.js",
-  "outputDir": "./lib",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "outputDir": "lib",
   "files": [
-    "./lib"
+    "lib"
   ],
-  "exports": {
-    ".": {
-      "import": "./lib/index.js"
-    }
-  },
   "repository": "git@github.com:Tracktor/design-system.git",
+  "author": "Mickaël Austoni",
+  "bugs": {
+    "url": "https://github.com/Tracktor/design-system/issues"
+  },
+  "homepage": "https://github.com/Tracktor/design-system#readme",
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
