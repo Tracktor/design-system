@@ -7,15 +7,15 @@
   "license": "MIT",
   "type": "module",
   "types": "./lib/index.d.ts",
-  "main": "./lib/design-system.js",
-  "module": "./lib/design-system.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
   "outputDir": "./lib",
   "files": [
     "./lib"
   ],
   "exports": {
     ".": {
-      "import": "./lib/design-system.js"
+      "import": "./lib/index.js"
     }
   },
   "repository": "git@github.com:Tracktor/design-system.git",
