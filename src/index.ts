@@ -131,7 +131,7 @@ export { default as Zoom } from "@/components/Zoom";
 export { default as StyledEngineProvider } from "@/context/StyledEngine/StyledEngineProvider";
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
 
-// hooks
+// Hooks
 export { default as useAutocomplete } from "@/hooks/useAutocomplete";
 export { default as useMediaQuery } from "@/hooks/useMediaQuery";
 export { default as useScrollTrigger } from "@/hooks/useScrollTrigger";
