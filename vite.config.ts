@@ -15,6 +15,7 @@ export default defineConfig({
       formats: ["es"],
       name: "design-system",
     },
+    minify: true,
     outDir: "lib",
     rollupOptions: {
       external: ["react", "react-dom"],
@@ -31,7 +32,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), dts(), external(), postcss({ modules: true }), resolve(), terser()],
+  plugins: [react(), dts(), external(), postcss({ modules: true }), resolve()],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
