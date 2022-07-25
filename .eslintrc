@@ -16,6 +16,14 @@
       "rules": {
         "spaced-comment": "off"
       }
+    },
+    {
+      "files": [
+        "index.ts"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
     }
   ]
 }

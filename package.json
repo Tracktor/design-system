@@ -6,16 +6,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "type": "module",
-  "types": "./dist/index.d.ts",
-  "main": "./dist/design-system.umd.js",
-  "module": "./dist/design-system.es.js",
+  "types": "./lib/index.d.ts",
+  "main": "./lib/design-system.js",
+  "module": "./lib/design-system.js",
+  "outputDir": "./lib",
   "files": [
-    "dist"
+    "./lib"
   ],
   "exports": {
     ".": {
-      "import": "./dist/design-system.es.js",
-      "require": "./dist/design-system.umd.js"
+      "import": "./lib/design-system.js"
     }
   },
   "repository": "git@github.com:Tracktor/design-system.git",

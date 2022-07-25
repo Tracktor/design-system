@@ -7,16 +7,23 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      fileName: (format) => `design-system.${format}.js`,
+      fileName: "[name]",
+      formats: ["es"],
       name: "design-system",
     },
+    outDir: "lib",
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
+        dir: "lib",
+        format: "es",
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
         },
+        inlineDynamicImports: false,
+        preserveModules: true,
+        preserveModulesRoot: "src",
       },
     },
   },
