@@ -8,7 +8,7 @@ import ThemeContext, { ThemeContextDefaultValue } from "@/context/Theme/ThemeCon
 interface ThemeProviderProps {
   children: ReactNode;
   includeCssBaseline?: boolean;
-  theme: DefaultTheme;
+  theme?: DefaultTheme;
 }
 
 const ThemeProvider = ({ children, includeCssBaseline = true, theme = defaultTheme }: ThemeProviderProps) => (
