@@ -25,11 +25,11 @@
     "noUnusedParameters": true,
     "declaration": true,
     "declarationDir": ".",
-//    "paths": {
-//      "@/*": [
-//        "src/*"
-//      ]
-//    }
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   "include": [
     "src"
