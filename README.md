@@ -1,12 +1,14 @@
 # Tracktor design system
 **A design system React library**
 
-[Features](#Features)  
-[Installation](#Installation)  
-[Usage](#Usage)  
-[Docs](#Docs)  
-[Contributing](#Contributing)  
-[Changelog](#Changelog)  
+- [Features](#Features)  
+- [Installation](#Installation)  
+- [Usage](#Usage)
+  - [Provide the theme](#Provide the theme)
+  - [Import from module chunk](#Import from module chunk)
+- [Docs](#Docs)  
+- [Contributing](#Contributing)  
+- [Changelog](#Changelog)  
 
 ## Features
 
@@ -45,7 +47,7 @@ const App = () => (
 export default App;
 ```
 
-### import from module chunk
+### Import from module chunk
 For a project that uses only a few components,
 it is recommended to import your components directly
 from module chunked
