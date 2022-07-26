@@ -1,8 +1,5 @@
 import path from "node:path";
-import resolve from "@rollup/plugin-node-resolve";
 import react from "@vitejs/plugin-react";
-import external from "rollup-plugin-peer-deps-external";
-import postcss from "rollup-plugin-postcss";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -31,7 +28,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), dts(), external(), postcss({ modules: true }), resolve()],
+  plugins: [react(), dts()],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
