@@ -33,7 +33,7 @@ yarn add git+https://github.com/Tracktor/design-system.git#1.0.0
 ## Usage
 
 ### Provide the theme
-Put`<ThemeProvider>`around your application. Custom theme can be provided as prop`theme={YOUR_THEME}`
+Put`<ThemeProvider>`around your application. Custom theme can be provided as prop `theme={YOUR_THEME}`
 
 ```typescript jsx
 import { Button, ThemeProvider } from "design-system";
