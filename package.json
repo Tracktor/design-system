@@ -6,12 +6,12 @@
   "version": "1.0.0",
   "license": "ISC",
   "type": "module",
-  "types": "./lib/index.d.ts",
-  "main": "./lib/index.js",
-  "module": "./lib/index.js",
-  "outputDir": "./lib",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "outputDir": "lib",
   "files": [
-    "./lib"
+    "lib"
   ],
   "repository": "git@github.com:Tracktor/design-system.git",
   "author": "Mickaël Austoni",
