@@ -15,6 +15,7 @@ export default defineConfig({
     rollupOptions: {
       external: ["react", "react-dom"],
       output: {
+        compact: true,
         dir: "lib",
         format: "es",
         globals: {
