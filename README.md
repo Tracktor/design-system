@@ -1,6 +1,20 @@
 # Tracktor design system
+**A design system React library**
 
-A design system React library
+[Features](#Features)  
+[Installation](#Installation)  
+[Usage](#Usage)  
+[Docs](#Docs)  
+[Contributing](#Contributing)  
+[Changelog](#Changelog)  
+
+## Features
+
+- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
+- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
+- 📐 **[ESLint](https://eslint.org)** - Code analyzer
+- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
+- 🛠️ **[React Testing Library ](https://testing-library.com/docs/react-testing-library/intro/)** - React DOM testing utilities
 
 ## Installation
 
@@ -52,5 +66,7 @@ export default App;
 ## Docs
 
 Read more about the design system: https://zeroheight.com/392e62971/p/7983f7-armature
+
+## Contributing
 
 ## Changelog
