@@ -11,6 +11,7 @@ export default defineConfig({
       formats: ["es"],
       name: "design-system",
     },
+    minify: true,
     outDir: "lib",
     rollupOptions: {
       external: ["react", "react-dom"],
