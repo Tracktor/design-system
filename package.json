@@ -27,6 +27,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+
+  },
+  "dependencies": {
     "@testing-library/react": "^13.3.0",
     "@types/node": "^18.0.6",
     "@types/react": "^18.0.15",
@@ -34,9 +37,7 @@
     "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "vitest": "^0.19.1"
-  },
-  "dependencies": {
+    "vitest": "^0.19.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
