@@ -28,6 +28,9 @@ export default defineConfig({
         preserveModulesRoot: "src",
       },
     },
+    terserOptions: {
+      compress: true,
+    },
   },
   plugins: [react(), dts()],
   resolve: {
