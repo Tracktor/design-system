@@ -128,6 +128,7 @@ export { default as Typography } from "@/components/Typography";
 export { default as Zoom } from "@/components/Zoom";
 
 // Context
+export { default as CssVarsProvider } from "@/context/CssVars/CssVarsProvider";
 export { default as StyledEngineProvider } from "@/context/StyledEngine/StyledEngineProvider";
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
 
@@ -135,3 +136,15 @@ export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
 export { default as useAutocomplete } from "@/hooks/useAutocomplete";
 export { default as useMediaQuery } from "@/hooks/useMediaQuery";
 export { default as useScrollTrigger } from "@/hooks/useScrollTrigger";
+export { default as useTheme } from "@/hooks/useTheme";
+
+// Style
+export { default as createMixins } from "@/styles/createMixins";
+export { default as createStyles } from "@/styles/createStyles";
+export { default as createTheme } from "@/styles/createTheme";
+export { default as createTransitions } from "@/styles/createTransitions";
+export { default as makeStyles } from "@/styles/makeStyles";
+export { default as responsiveFontSizes } from "@/styles/responsiveFontSizes";
+export { default as styled } from "@/styles/styled";
+export { default as withStyles } from "@/styles/withStyles";
+export { default as withTheme } from "@/styles/withTheme";
