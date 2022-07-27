@@ -19,7 +19,8 @@
     },
     {
       "files": [
-        "index.ts"
+        "index.ts",
+        "vite.config.ts"
       ],
       "rules": {
         "no-restricted-imports": "off"

@@ -2,6 +2,7 @@ import path from "node:path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import { peerDependencies, dependencies } from "./package.json";
 
 export default defineConfig({
   build: {
@@ -14,7 +15,7 @@ export default defineConfig({
     minify: "esbuild",
     outDir: "lib",
     rollupOptions: {
-      external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/styled", "@emotion/react"],
+      external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
         globals: {
           react: "React",
