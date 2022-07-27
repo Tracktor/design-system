@@ -148,5 +148,3 @@ export { default as responsiveFontSizes } from "@/styles/responsiveFontSizes";
 export { default as styled } from "@/styles/styled";
 export { default as withStyles } from "@/styles/withStyles";
 export { default as withTheme } from "@/styles/withTheme";
-
-export * from "@mui/material";
