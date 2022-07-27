@@ -7,6 +7,14 @@
   "type": "module",
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/index.js"
+    }
+  },
   "repository": "git@github.com:Tracktor/design-system.git",
   "author": "Mickaël Austoni",
   "bugs": {
