@@ -16,13 +16,10 @@ export default defineConfig({
     rollupOptions: {
       external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/styled", "@emotion/react"],
       output: {
-        esModule: false,
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
         },
-        preserveModules: true,
-        preserveModulesRoot: "src",
       },
     },
   },
