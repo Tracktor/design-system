@@ -4,6 +4,8 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { peerDependencies, dependencies, name } from "./package.json";
 
+console.log([...Object.keys(dependencies), ...Object.keys(peerDependencies)]);
+
 export default defineConfig({
   build: {
     lib: {
