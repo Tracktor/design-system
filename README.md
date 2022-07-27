@@ -5,7 +5,6 @@
 - [Installation](#Installation)  
 - [Usage](#Usage)
   - [Provide the theme](#Provide-the-theme)
-  - [Import from module chunk](#Import-from-module-chunk)
 - [Docs](#Docs)  
 - [Contributing](#Contributing)  
 - [Changelog](#Changelog)  
@@ -37,24 +36,6 @@ Put `<ThemeProvider>` around your application. Custom theme can be provided as p
 
 ```typescript jsx
 import { Button, ThemeProvider } from "design-system";
-
-const App = () => (
-  <ThemeProvider>
-    <Button>Text</Button>
-  </ThemeProvider>
-);
-
-export default App;
-```
-
-### Import from module chunk
-For a project that uses only a few components,
-it is recommended to import your components directly
-from module chunked
-
-```typescript jsx
-import Button from "design-system/lib/components/Button";
-import ThemeProvider from "design-system/lib/context/Theme/ThemeProvider";
 
 const App = () => (
   <ThemeProvider>
