@@ -11,20 +11,14 @@ export default defineConfig({
       formats: ["es"],
       name: "design-system",
     },
-    minify: true,
     outDir: "lib",
     rollupOptions: {
       external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/styled", "@emotion/react"],
       output: {
-        dir: "lib",
-        format: "es",
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
         },
-        inlineDynamicImports: false,
-        preserveModules: true,
-        preserveModulesRoot: "src",
       },
     },
   },
