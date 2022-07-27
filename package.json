@@ -9,9 +9,11 @@
   "main": "lib/index.js",
   "module": "lib/index.js",
   "outputDir": "lib",
-  "files": [
-    "lib"
-  ],
+  "exports": {
+    ".": {
+      "import": "./lib/index.js"
+    }
+  },
   "repository": "git@github.com:Tracktor/design-system.git",
   "author": "Mickaël Austoni",
   "bugs": {
