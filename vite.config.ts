@@ -14,7 +14,7 @@ export default defineConfig({
     minify: "esbuild",
     outDir: "lib",
     rollupOptions: {
-      external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/styled", "@emotion/react"],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
