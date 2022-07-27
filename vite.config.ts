@@ -2,7 +2,7 @@ import path from "node:path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import { peerDependencies, dependencies } from "./package.json";
+import { peerDependencies, dependencies, name } from "./package.json";
 
 export default defineConfig({
   build: {
@@ -10,7 +10,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, "src/index.ts"),
       fileName: "[name]",
       formats: ["es"],
-      name: "design-system",
+      name,
     },
     minify: "esbuild",
     outDir: "lib",
