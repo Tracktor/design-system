@@ -150,3 +150,4 @@ export { default as withStyles } from "@/styles/withStyles";
 export { default as withTheme } from "@/styles/withTheme";
 
 export * from "@mui/material";
+export * from "@mui/material/styles";
