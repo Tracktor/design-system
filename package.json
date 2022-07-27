@@ -8,8 +8,7 @@
   "types": "lib/index.d.ts",
   "module": "lib/index.js",
   "files": [
-    "lib",
-    "!yarn.lock"
+    "lib"
   ],
   "exports": {
     ".": {
