@@ -23,10 +23,9 @@
   "homepage": "https://github.com/Tracktor/design-system#readme",
   "scripts": {
     "build": "tsc && vite build",
-    "clean:source": "rm -rf src/",
     "dev": "vite",
     "lint": "eslint .",
-    "postinstall": "yarn run build && yarn run clean:source",
+    "prepare": "yarn run build",
     "preview": "vite preview"
   },
   "devDependencies": {
