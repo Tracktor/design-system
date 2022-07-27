@@ -11,17 +11,15 @@ export default defineConfig({
       formats: ["es"],
       name: "design-system",
     },
-    minify: true,
+    minify: "esbuild",
     outDir: "lib",
     rollupOptions: {
       external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/styled", "@emotion/react"],
       output: {
-        compact: true,
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
         },
-        inlineDynamicImports: true,
       },
     },
   },
