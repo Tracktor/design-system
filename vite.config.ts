@@ -23,12 +23,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [
-    react({
-      jsxRuntime: "classic",
-    }),
-    dts(),
-  ],
+  plugins: [react(), dts()],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
