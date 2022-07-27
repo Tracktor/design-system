@@ -1,6 +1,5 @@
 import path from "node:path";
 import react from "@vitejs/plugin-react";
-import { GetManualChunkApi } from "rollup";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -22,7 +21,7 @@ export default defineConfig({
           "react-dom": "ReactDOM",
         },
         preserveModules: true,
-        preserveModulesRoot: "lib",
+        preserveModulesRoot: "src",
         // manualChunks: (id, GetManualChunkApi) => {
         //   console.log(GetManualChunkApi);
         //
