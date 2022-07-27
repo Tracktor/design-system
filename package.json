@@ -23,7 +23,7 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "lint": "eslint .",
-    "postinstall": "npm run build",
+    "postinstall": "NODE_ENV=dev npm run build",
     "preview": "vite preview"
   },
   "devDependencies": {
