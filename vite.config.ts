@@ -16,7 +16,6 @@ export default defineConfig({
     rollupOptions: {
       external: ["react", "react-dom", "@mui/material", "@mui/icons-material", "@emotion/styled", "@emotion/react"],
       output: {
-        compact: true,
         dir: "lib",
         format: "es",
         globals: {
