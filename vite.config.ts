@@ -21,6 +21,7 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        inlineDynamicImports: true,
       },
     },
   },
