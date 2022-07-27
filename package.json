@@ -26,7 +26,7 @@
     "clean:source": "rm -rf src/",
     "dev": "vite",
     "lint": "eslint .",
-    "postinstall": "yarn && yarn run build",
+    "postinstall": "yarn run build",
     "preview": "vite preview"
   },
   "devDependencies": {
