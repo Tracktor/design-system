@@ -1,5 +1,6 @@
 import path from "node:path";
 import react from "@vitejs/plugin-react";
+import { GetManualChunkApi } from "rollup";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
@@ -20,16 +21,20 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
-        manualChunks: (id) => {
-          if (id.includes("node_modules")) {
-            if (id.includes("@mui/material")) return "vendor_mui_material";
-            if (id.includes("@mui/icons-material")) return "vendor_mui_icons_material";
-            if (id.includes("@emotion/styled")) return "vendor_emotion_styled";
-            if (id.includes("@emotion/styled")) return "vendor_emotion_react";
-            return "vendor";
-          }
-          return null;
-        },
+        preserveModules: true,
+        preserveModulesRoot: "lib",
+        // manualChunks: (id, GetManualChunkApi) => {
+        //   console.log(GetManualChunkApi);
+        //
+        //   if (id.includes("node_modules")) {
+        //     if (id.includes("@mui/material")) return "vendor_mui_material";
+        //     if (id.includes("@mui/icons-material")) return "vendor_mui_icons_material";
+        //     if (id.includes("@emotion/styled")) return "vendor_emotion_styled";
+        //     if (id.includes("@emotion/styled")) return "vendor_emotion_react";
+        //     return "vendor";
+        //   }
+        //   return null;
+        // },
       },
     },
   },
