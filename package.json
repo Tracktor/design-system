@@ -30,7 +30,8 @@
     "prepare": "yarn run build",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build-storybook-docs": "build-storybook --docs"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
