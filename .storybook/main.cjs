@@ -1,3 +1,6 @@
+const path = require("path");
+const { mergeConfig } = require("vite");
+
 module.exports = {
   stories: [
     "../src/**/*.stories.mdx",
@@ -16,5 +19,17 @@ module.exports = {
   },
   features: {
     "storyStoreV7": true
-  }
+  },
+  typescript: {
+    reactDocgen: "react-docgen"
+  },
+  async viteFinal(config) {
+    // return the customized config
+    return mergeConfig(config, {
+      // customize the Vite config here
+      resolve: {
+        alias: [{ find: "@", replacement: path.resolve(__dirname, "../src") }],
+      },
+    });
+  },
 }
