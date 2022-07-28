@@ -1,22 +1,6 @@
 {
   "extends": "eslint-config-react",
-  "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true
-      }
-    ]
-  },
   "overrides": [
-    {
-      "files": [
-        "src/vite-env.d.ts"
-      ],
-      "rules": {
-        "spaced-comment": "off"
-      }
-    },
     {
       "files": [
         "index.ts",
