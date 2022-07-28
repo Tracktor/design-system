@@ -17,13 +17,9 @@ export default defineConfig({
     rollupOptions: {
       external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
-        chunkFileNames: (a) => (a.name.endsWith(".js") ? a.name : "[name].js"),
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-        },
-        manualChunks: {
-          "icons/icons-material": ["@mui/icons-material/index.js"],
         },
       },
     },
