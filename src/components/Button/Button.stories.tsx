@@ -10,4 +10,4 @@ export default {
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Text = Template.bind({});
-Text.args = {};
+Text.args = { children: "Hello !" };
