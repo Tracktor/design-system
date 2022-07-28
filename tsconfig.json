@@ -32,7 +32,11 @@
   "include": [
     "src"
   ],
-  "exclude": ["*.module.scss"],
+  "exclude": [
+    ".storybook",
+    "src/stories",
+    "*.stories.tsx"
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
