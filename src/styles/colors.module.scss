@@ -10,11 +10,10 @@ $Yellow500: #FECB00;
 $Red500: #FF686E;
 
 // Neutral variant
-$Grey500: #8B8D8E;
-$Grey400: #ADAFAF;
-$Grey300: #C9CAC8;
 $Grey200: #E0E1DD;
-$Grey100: #F6F6F6;
+$Grey300: #C9CAC8;
+$Grey400: #ADAFAF;
+$Grey500: #8B8D8E;
 
 // Blue variant
 $Blue400: #CAE9EB;
@@ -27,10 +26,17 @@ $Red400: #FFE1E2;
 
 :export {
   $Black;
-  $White;
   $Blue500;
+  $Blue400;
   $Dark;
   $Grey100;
-  $Yellow500;
+  $Grey200;
+  $Grey300;
+  $Grey400;
+  $Grey500;
+  $Red400;
   $Red500;
+  $White;
+  $Yellow500;
+  $Yellow400;
 }
