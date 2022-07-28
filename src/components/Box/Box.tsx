@@ -1,3 +1,3 @@
-import Box from "@mui/material/Box";
+import * as Box from "@mui/material/Box";
 
 export default Box;
