@@ -1,6 +1,6 @@
 // Primary
-$Black: #00000;
-$White: #fffff;
+$Black: #000000;
+$White: #ffffff;
 $Blue500: #009BA6;
 $Dark: #616365;
 $Grey100: #F6F6F6;
@@ -25,18 +25,18 @@ $Yellow400: #F8EDC5;
 $Red400: #FFE1E2;
 
 :export {
-  $Black;
-  $Blue500;
-  $Blue400;
-  $Dark;
-  $Grey100;
-  $Grey200;
-  $Grey300;
-  $Grey400;
-  $Grey500;
-  $Red400;
-  $Red500;
-  $White;
-  $Yellow500;
-  $Yellow400;
+  black: $Black;
+  blue500: $Blue500;
+  blue400: $Blue400;
+  dark: $Dark;
+  grey100: $Grey100;
+  grey200: $Grey200;
+  grey300: $Grey300;
+  grey400: $Grey400;
+  grey500: $Grey500;
+  red400: $Red400;
+  red500 : $Red500;
+  white: $White;
+  yellow400 : $Yellow400;
+  yellow500 : $Yellow500;
 }

@@ -1,9 +1,10 @@
 import { createTheme } from "@mui/material/styles";
+import colors from "@/styles/colors.module.scss";
 
 export const lightTheme = createTheme({
   palette: {
     background: {
-      default: "#fff",
+      default: colors.white,
     },
     mode: "light",
   },
@@ -12,7 +13,7 @@ export const lightTheme = createTheme({
 export const darkTheme = createTheme({
   palette: {
     background: {
-      default: "#000",
+      default: colors.black,
     },
     mode: "dark",
   },

@@ -36,6 +36,7 @@
     "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.54.0",
     "vitest": "^0.19.1"
   },
   "dependencies": {

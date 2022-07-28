@@ -23,8 +23,6 @@
     "jsx": "react-jsx",
     "importsNotUsedAsValues": "error",
     "noUnusedParameters": true,
-    "declaration": true,
-    "declarationDir": ".",
     "paths": {
       "@/*": [
         "src/*"
@@ -34,6 +32,7 @@
   "include": [
     "src"
   ],
+  "exclude": ["*.module.scss"],
   "references": [
     {
       "path": "./tsconfig.node.json"
