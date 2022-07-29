@@ -1,3 +1,3 @@
-import Accordion from "@mui/material/Accordion";
+import { Accordion } from "@mui/material";
 
 export default Accordion;
