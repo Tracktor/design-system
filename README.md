@@ -1,12 +1,14 @@
 # Tracktor design system
 **A design system React library**
 
+>The library is based on [MUI Core](https://mui.com/material-ui/getting-started/overview/)
+
 - [Features](#Features)  
 - [Installation](#Installation)  
 - [Usage](#Usage)
   - [Provide the theme](#Provide-the-theme)
 - [Docs](#Docs)  
-- [Contributing](#Contributing)  
+  - [Storybook](#Storybook)  
 - [Changelog](#Changelog)  
 
 ## Features
@@ -32,7 +34,8 @@ yarn add git+https://github.com/Tracktor/design-system.git#1.0.0
 ## Usage
 
 ### Provide the theme
-Put `<ThemeProvider>` around your application. Custom theme can be provided as prop `theme={YOUR_THEME}`
+Put `<ThemeProvider>` around your application. 
+Custom theme can be provided as prop `theme={YOUR_CUSTOM_THEME}`
 
 ```typescript jsx
 import { Button, ThemeProvider } from "design-system";
@@ -48,8 +51,14 @@ export default App;
 
 ## Docs
 
-Read more about the design system: https://zeroheight.com/392e62971/p/7983f7-armature
+- [Material UI (MUI)](https://mui.com/material-ui/getting-started/overview)
+- [Zeroheight](https://zeroheight.com/392e62971/p/7983f7-armature)
 
-## Contributing
+### Storybook
+
+Run storybook
+```console
+yarn storybook
+```
 
 ## Changelog
