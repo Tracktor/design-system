@@ -1,6 +1,5 @@
-// import Button, { ButtonProps } from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import Button from "./Button";
 
 export default {
   component: Button,
@@ -9,5 +8,9 @@ export default {
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
-export const Text = Template.bind({});
-Text.args = { children: "Hello !" };
+export const Default = Template.bind({});
+Default.args = {
+  children: "Hello !",
+  fullWidth: false,
+  size: "medium",
+};
