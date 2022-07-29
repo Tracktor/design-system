@@ -48,7 +48,7 @@
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "babel-loader": "^8.2.5",
-    "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#1.1.0",
+    "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.54.0",
