@@ -3,7 +3,7 @@ import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import Button from "./Button";
 
 const Template: ComponentStory<typeof Button> = (args) => (
-  <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center" height="100%">
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Button size="small" {...args}>
       Small
     </Button>
