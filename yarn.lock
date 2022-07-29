@@ -5617,7 +5617,7 @@ eslint-config-react-app@^7.0.1:
 
 "eslint-config-react@git+https://github.com/Tracktor/eslint-config-react":
   version "1.0.0"
-  resolved "git+https://github.com/Tracktor/eslint-config-react#a353071490201926d5d44090df28ee420b21d2bf"
+  resolved "git+https://github.com/Tracktor/eslint-config-react#d8f7b58b77734748c508a882e330d0e2325a53ff"
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.30.7"
     "@typescript-eslint/parser" "^5.30.7"
