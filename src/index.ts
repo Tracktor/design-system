@@ -15,7 +15,10 @@ export { default as Backdrop } from "@/components/Backdrop";
 export { default as Badge } from "@/components/Badge";
 export { default as BottomNavigation } from "@/components/BottomNavigation";
 export { default as BottomNavigationAction } from "@/components/BottomNavigationAction";
+
 export { default as Box } from "@/components/Box";
+export * from "@/components/Box";
+
 export { default as Breadcrumbs } from "@/components/Breadcrumbs";
 export { default as Button } from "@/components/Button";
 export { default as ButtonBase } from "@/components/ButtonBase";
