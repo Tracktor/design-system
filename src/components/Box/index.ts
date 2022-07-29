@@ -1,3 +1,4 @@
-// eslint-disable-next-line no-restricted-exports
-export { default } from "@mui/material/Box";
+import { Box } from "@mui/material";
+
 export * from "@mui/material/Box";
+export default Box;
