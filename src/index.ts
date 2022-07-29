@@ -53,7 +53,7 @@ export { default as Button } from "@/components/Button";
 export * from "@/components/Button";
 
 export { default as ButtonBase } from "@/components/ButtonBase";
-export * from "@/components/Box";
+export * from "@/components/ButtonBase";
 
 export { default as ButtonGroup } from "@/components/ButtonGroup";
 export * from "@/components/ButtonGroup";
@@ -362,7 +362,7 @@ export { default as TextareaAutosize } from "@/components/TextareaAutosize";
 export * from "@/components/TextareaAutosize";
 
 export { default as TextField } from "@/components/TextField";
-export * from "@/components/Box";
+export * from "@/components/TextField";
 
 export { default as ToggleButton } from "@/components/ToggleButton";
 export * from "@/components/ToggleButton";
