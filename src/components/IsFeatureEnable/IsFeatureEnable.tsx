@@ -15,7 +15,8 @@ interface IsFeatureEnableProps {
    */
   fallback?: ReactNode;
   /**
-   * Predicate default is "ABTest"
+   * Predicate
+   * @default "ABTest"
    */
   predicate?: string;
   /**

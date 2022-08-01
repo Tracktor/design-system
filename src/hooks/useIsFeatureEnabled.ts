@@ -4,7 +4,8 @@ interface UseIsFeatureEnabledParams {
    */
   name?: string | string[];
   /**
-   * Predicate default is "ABTest"
+   * Predicate
+   * @default "ABTest"
    */
   predicate?: string;
   /**
