@@ -32,7 +32,6 @@ describe("Test useUserHasABTest", () => {
     ["not ordered array", ["feature2", "feature1"], true],
     ["empty", "", false],
     ["unknown", "azerty", false],
-    ["undefined", undefined, false],
     ["array with some wrong", ["feature1", "xxx"], false],
     ["array with more wrong", ["feature1", "staffing_actions", "xxx"], false],
   ])("%s name ABTest", (_, name, expected) => {

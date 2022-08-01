@@ -5,7 +5,7 @@ interface IsFeatureEnableProps {
   /**
    *  Feature name
    */
-  name?: string | string[];
+  name: string | string[];
   /**
    *  The content of the component
    */
