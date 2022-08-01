@@ -4,6 +4,10 @@ interface UseIsFeatureEnabledParams {
    */
   name?: string | string[];
   /**
+   * Predicate default is "ABTest"
+   */
+  predicate?: string;
+  /**
    * User object
    */
   user?: {
@@ -15,21 +19,21 @@ interface UseIsFeatureEnabledParams {
 /**
  * Return { boolean } user feature enable
  * @param name
+ * @param predicate
  * @param user
  * @return boolean
  */
-export const useIsFeatureEnabled = ({ name, user }: UseIsFeatureEnabledParams): boolean => {
-  const { ABTest } = user || {};
+export const useIsFeatureEnabled = ({ name, predicate = "ABTest", user }: UseIsFeatureEnabledParams): boolean => {
+  const ABTest = user?.[predicate] || [];
 
-  const hasFeature = (nameABTest: string) => ABTest?.some((n) => nameABTest.includes(n)) || false;
-
+  const hasFeature = (featureName: string, features: string[]) => features?.some((feature) => featureName.includes(feature)) || false;
   if (!name) return false;
 
   if (Array.isArray(name)) {
-    return name.every((n) => hasFeature(n));
+    return name.every((n) => hasFeature(n, ABTest));
   }
 
-  return hasFeature(name);
+  return hasFeature(name, ABTest);
 };
 
 export default useIsFeatureEnabled;

@@ -15,6 +15,10 @@ interface IsFeatureEnableProps {
    */
   fallback?: ReactNode;
   /**
+   * Predicate default is "ABTest"
+   */
+  predicate?: string;
+  /**
    * User object
    */
   user?: {
@@ -22,8 +26,8 @@ interface IsFeatureEnableProps {
   };
 }
 
-const IsFeatureEnable = ({ children, fallback, name, user }: IsFeatureEnableProps) => {
-  const featureEnabled = useIsFeatureEnabled({ name, user });
+const IsFeatureEnable = ({ children, fallback, name, predicate = "ABTest", user }: IsFeatureEnableProps) => {
+  const featureEnabled = useIsFeatureEnabled({ name, predicate, user });
 
   if (featureEnabled) {
     return children;
