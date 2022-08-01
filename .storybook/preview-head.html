@@ -2,6 +2,69 @@
     html, body, #root {
         height: 100%;
     }
+
+    .dark-on body,
+    .dark-on .sbdocs-wrapper,
+    .dark-on .sbdocs-preview {
+        background: #333;
+    }
+
+    .dark-on .sbdocs-title,
+    .dark-on .sbdocs-h1,
+    .dark-on .sbdocs-h2,
+    .dark-on .sbdocs-h3,
+    .dark-on .subheading {
+        color: #fff;
+    }
+
+    .dark-on .sbdocs-h2 {
+        border-bottom-color: rgb(255, 255, 255, .10);
+    }
+
+    .dark-on .sbdocs-li,
+    .dark-on .sbdocs-p,
+    .dark-on .sbdocs-span,
+    .dark-on .tip-wrapper {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .dark-on .os-theme-dark {
+        background-color: #2f2f2f;
+    }
+
+    .dark-on code,
+    .docblock-argstable-body td code {
+        background-color: rgb(255, 255, 255, .10);
+        color: #fff;
+        border: 0;
+    }
+
+    .dark-on .link-item,
+    .dark-on .sbdocs-preview {
+        border-color: rgb(255, 255, 255, .10);
+    }
+
+    .dark-on .docblock-argstable-head span {
+        color: white;
+    }
+
+    .dark-on .docblock-argstable-body tr:not(:first-child) {
+        border-top-color: rgba(255, 255, 255, .1) !important;
+    }
+
+    .dark-on .docblock-argstable-body td {
+        background-color: #333 !important;
+        color: rgba(255, 255, 255, 0.55);;
+    }
+
+    .dark-on .docblock-argstable-body tr:first-child td:first-child {
+        border-top-left-radius: 0 !important;
+
+    }
+
+    .dark-on .docblock-argstable-body tr:first-child td:last-child {
+        border-top-right-radius: 0 !important;
+    }
 </style>
 
 <script>
