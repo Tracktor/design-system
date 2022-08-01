@@ -32,6 +32,9 @@ export const lightTheme = createTheme({
     primary: {
       main: colors.blue500,
     },
+    secondary: {
+      main: colors.yellow500,
+    },
   },
 });
 
@@ -44,6 +47,9 @@ export const darkTheme = createTheme({
     mode: "dark",
     primary: {
       main: colors.blue500,
+    },
+    secondary: {
+      main: colors.yellow500,
     },
   },
 });
