@@ -13,6 +13,9 @@ const Template: ComponentStory<typeof Button> = (args) => (
     <Button size="large" {...args}>
       Large
     </Button>
+    <Button size="small" disabled {...args}>
+      Disabled
+    </Button>
   </Stack>
 );
 
