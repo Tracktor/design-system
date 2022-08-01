@@ -32,8 +32,8 @@ const Template: ComponentStory<typeof Accordion> = (args) => (
   </Stack>
 );
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const Elevation = Template.bind({});
+Elevation.args = {
   variant: "elevation",
 };
 

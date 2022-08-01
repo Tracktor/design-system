@@ -28,5 +28,5 @@ WithDeleteIcon.args = {
 
 export default {
   component: Chip,
-  title: "Components/DataDisplay/Chip",
+  title: "Components/Data Display/Chip",
 } as ComponentMeta<typeof Chip>;
