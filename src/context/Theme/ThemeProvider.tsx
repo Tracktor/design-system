@@ -1,4 +1,5 @@
 import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider as ThemeProviderMUI } from "@mui/material/styles";
 import type { DefaultTheme } from "@mui/private-theming/defaultTheme";
 import type { ReactNode } from "react";
 import defaultTheme from "@/constants/theme";
@@ -10,10 +11,10 @@ interface ThemeProviderProps {
 }
 
 const ThemeProvider = ({ children, includeCssBaseline = true, theme = defaultTheme }: ThemeProviderProps) => (
-  <ThemeProvider theme={theme}>
+  <ThemeProviderMUI theme={theme}>
     {includeCssBaseline && <CssBaseline />}
     {children}
-  </ThemeProvider>
+  </ThemeProviderMUI>
 );
 
 export default ThemeProvider;
