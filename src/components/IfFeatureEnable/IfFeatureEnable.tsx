@@ -9,26 +9,19 @@ interface IsFeatureEnableProps {
   /**
    *  The content of the component
    */
-  children?: ReactNode;
+  children: ReactNode;
   /**
    * A fallback react tree to show when user has not ABTest
    */
   fallback?: ReactNode;
   /**
-   * Predicate
-   * @default "features"
+   * Features optional if not given to provider
    */
-  predicate?: string;
-  /**
-   * User object
-   */
-  user?: {
-    features?: string[];
-  };
+  features?: string[];
 }
 
-const IsFeatureEnable = ({ children, fallback, name, predicate = "features", user }: IsFeatureEnableProps) => {
-  const featureEnabled = useIsFeatureEnabled({ name, predicate, user });
+const IfFeatureEnable = ({ children, fallback, name, features }: IsFeatureEnableProps) => {
+  const featureEnabled = useIsFeatureEnabled({ features, name });
 
   if (featureEnabled) {
     return children;
@@ -41,4 +34,4 @@ const IsFeatureEnable = ({ children, fallback, name, predicate = "features", use
   return null;
 };
 
-export default IsFeatureEnable;
+export default IfFeatureEnable;
