@@ -1,7 +1,7 @@
-import path from "node:path";
+import path from "path";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import { defineConfig } from "vitest/config";
 import { peerDependencies, dependencies, name } from "./package.json";
 
 export default defineConfig({
@@ -27,5 +27,14 @@ export default defineConfig({
   plugins: [react(), dts()],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+  },
+  test: {
+    coverage: {
+      exclude: ["node_modules/", "src/config/setupTests.ts"],
+      reporter: ["text", "html"],
+    },
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "src/config/setupTests.ts",
   },
 });
