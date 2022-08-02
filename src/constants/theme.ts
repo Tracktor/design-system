@@ -2,25 +2,11 @@ import { createTheme } from "@mui/material/styles";
 import type { ThemeOptions } from "@mui/material/styles/createTheme";
 import colors from "@/styles/colors.module.scss";
 
-const components: ThemeOptions["components"] = {
-  MuiButton: {
-    styleOverrides: {
-      root: ({ ownerState }) => ({
-        borderRadius: 3,
-        ...(ownerState.color === "secondary" && {
-          "&:hover": {
-            backgroundColor: colors.yellow500,
-            borderColor: colors.yellow500,
-            color: colors.black,
-          },
-          backgroundColor: colors.yellow500,
-          borderColor: colors.yellow500,
-          color: colors.dark,
-        }),
-      }),
-    },
-  },
+const typography: ThemeOptions["typography"] = {
+  fontFamily: ["Poppins", "sans-serif"].join(","),
 };
+
+const components: ThemeOptions["components"] = {};
 
 export const lightTheme = createTheme({
   components,
@@ -36,6 +22,7 @@ export const lightTheme = createTheme({
       main: colors.yellow500,
     },
   },
+  typography,
 });
 
 export const darkTheme = createTheme({
@@ -52,6 +39,7 @@ export const darkTheme = createTheme({
       main: colors.yellow500,
     },
   },
+  typography,
 });
 
 export default lightTheme;
