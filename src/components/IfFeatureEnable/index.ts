@@ -1,3 +1,3 @@
-import IfFeatureEnable from "./IsFeatureEnable";
+import IfFeatureEnable from "./IfFeatureEnable";
 
 export default IfFeatureEnable;
