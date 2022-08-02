@@ -9,7 +9,7 @@ interface IsFeatureEnableProps {
   /**
    *  The content of the component
    */
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * A fallback react tree to show when user has not ABTest
    */
