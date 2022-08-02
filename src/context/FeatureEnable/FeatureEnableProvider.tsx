@@ -6,7 +6,7 @@ export interface FeatureEnableProviderProps {
   features?: string[];
 }
 
-const FeatureEnableProvider = ({ children, features }: FeatureEnableProviderProps) => (
+export const FeatureEnableProvider = ({ children, features }: FeatureEnableProviderProps) => (
   <FeatureEnableContext.Provider value={features || defaultValueFeatureEnableContext}>{children}</FeatureEnableContext.Provider>
 );
 

@@ -20,7 +20,7 @@ export interface IfFeatureEnableProps {
   features?: string[];
 }
 
-const IfFeatureEnable = ({ children, fallback, name, features }: IfFeatureEnableProps) => {
+export const IfFeatureEnable = ({ children, fallback, name, features }: IfFeatureEnableProps) => {
   const featureEnabled = useIsFeatureEnabled({ features, name });
 
   if (featureEnabled) {
