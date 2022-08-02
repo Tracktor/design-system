@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { useIsFeatureEnabled } from "./useIsFeatureEnabled";
 
 describe("Test useUserHasABTest", () => {
-  it("user without ABTest", () => {
+  it("user without features", () => {
     const user = { email: "user@gmail.com", unknown: undefined };
     const name = "feature1";
     const { result } = renderHook(() => useIsFeatureEnabled({ name, user }));
@@ -35,7 +35,7 @@ describe("Test useUserHasABTest", () => {
     ["array with some wrong", ["feature1", "xxx"], false],
     ["array with more wrong", ["feature1", "staffing_actions", "xxx"], false],
   ])("%s name ABTest", (_, name, expected) => {
-    const user = { ABTest: ["feature1", "feature2"], email: "user@gmail.com", unknown: undefined };
+    const user = { email: "user@gmail.com", features: ["feature1", "feature2"], unknown: undefined };
     const { result } = renderHook(() => useIsFeatureEnabled({ name, user }));
 
     expect(result.current).toBe(expected);
