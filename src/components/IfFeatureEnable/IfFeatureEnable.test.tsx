@@ -12,4 +12,14 @@ describe("Test <IfFeatureEnable/>", () => {
 
     expect(getByText("Test Child")).toBeInTheDocument();
   });
+
+  it("not render children", () => {
+    const { queryByText } = render(
+      <IfFeatureEnable name="featureName1" features={["featureName2"]}>
+        Test Child
+      </IfFeatureEnable>
+    );
+
+    expect(queryByText("Test Child")).not.toBeInTheDocument();
+  });
 });
