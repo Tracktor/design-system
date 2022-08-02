@@ -24,11 +24,11 @@ const IfFeatureEnable = ({ children, fallback, name, features }: IsFeatureEnable
   const featureEnabled = useIsFeatureEnabled({ features, name });
 
   if (featureEnabled) {
-    return children;
+    return <> {children} </>;
   }
 
   if (!featureEnabled && fallback) {
-    return fallback;
+    return <> {fallback} </>;
   }
 
   return null;
