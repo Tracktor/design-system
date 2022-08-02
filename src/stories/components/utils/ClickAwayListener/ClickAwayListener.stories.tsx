@@ -61,5 +61,5 @@ export default {
     },
   },
   component: ClickAwayListener,
-  title: "Utils/ClickAwayListener",
+  title: "Components/Utils/ClickAwayListener",
 } as ComponentMeta<typeof ClickAwayListener>;
