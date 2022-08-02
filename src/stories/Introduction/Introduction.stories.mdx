@@ -7,6 +7,7 @@ import Flow from './assets/flow.svg';
 import Plugin from './assets/plugin.svg';
 import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
+import Figma from './assets/figma.svg';
 
 <Meta title="DesignSystem/Introduction" />
 
@@ -28,6 +29,13 @@ import StackAlt from './assets/stackalt.svg';
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr;
+      row-gap: 10px;
+    }
+
+    .link-list-full {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
       row-gap: 10px;
     }
 
@@ -130,6 +138,22 @@ Les fondations
 Les composants
 Les patterns
 Toutes les ressources externes associées
+
+<div className="subheading">Design System</div>
+
+<div className="link-list-full">
+  <a
+    className="link-item"
+    href="https://www.figma.com/file/3fprVesPjVIo124UWy9xhU/MUI-for-Figma-Material-Pro-v5.9.0?node-id=10405%3A70380"
+    target="_blank"
+  >
+    <img src={Figma} alt="Figma" />
+    <span>
+      <strong>Figma</strong>
+      Tracktor Material Design.
+    </span>
+  </a>
+</div>
 
 <div className="subheading">Configure</div>
 
