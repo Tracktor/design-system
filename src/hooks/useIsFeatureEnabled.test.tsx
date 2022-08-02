@@ -11,7 +11,7 @@ describe("Test useUserHasABTest", () => {
     expect(result.current).toBe(false);
   });
 
-  it("user with custom predicate ABTest", () => {
+  it("user with custom predicate", () => {
     const user = { email: "user@gmail.com", test: ["feature1", "feature2"], unknown: undefined };
     const name = "feature1";
     const { result } = renderHook(() =>
@@ -28,13 +28,13 @@ describe("Test useUserHasABTest", () => {
   it.each([
     ["string", "feature1", true],
     ["same", ["feature1", "feature1"], true],
-    ["ordered array feature", ["feature1", "feature2"], true],
-    ["not ordered array", ["feature2", "feature1"], true],
+    ["ordered array", ["feature1", "feature2"], true],
+    ["not ordered", ["feature2", "feature1"], true],
     ["empty", "", false],
     ["unknown", "azerty", false],
     ["array with some wrong", ["feature1", "xxx"], false],
     ["array with more wrong", ["feature1", "staffing_actions", "xxx"], false],
-  ])("%s name ABTest", (_, name, expected) => {
+  ])("%s feature(s) name", (_, name, expected) => {
     const user = { email: "user@gmail.com", features: ["feature1", "feature2"], unknown: undefined };
     const { result } = renderHook(() => useIsFeatureEnabled({ name, user }));
 
