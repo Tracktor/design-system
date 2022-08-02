@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import FeatureEnableContext, { defaultValueFeatureEnableContext } from "@/context/FeatureEnable/FeatureEnableContext";
 
-interface FeatureEnableProviderProps {
+export interface FeatureEnableProviderProps {
   children: ReactNode;
   features?: string[];
 }

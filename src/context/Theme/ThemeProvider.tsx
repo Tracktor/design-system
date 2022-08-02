@@ -4,7 +4,7 @@ import type { DefaultTheme } from "@mui/private-theming/defaultTheme";
 import type { ReactNode } from "react";
 import defaultTheme from "@/constants/theme";
 
-interface ThemeProviderProps {
+export interface ThemeProviderProps {
   children: ReactNode;
   includeCssBaseline?: boolean;
   theme?: DefaultTheme;
