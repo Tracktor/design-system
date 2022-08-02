@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import FeatureEnableContext from "@/context/FeatureEnable/FeatureEnableContext";
+
 interface UseIsFeatureEnabledParams {
   /**
    *  Name to check
@@ -16,8 +19,16 @@ interface UseIsFeatureEnabledParams {
  * @return boolean
  */
 export const useIsFeatureEnabled = ({ name, features }: UseIsFeatureEnabledParams): boolean => {
-  const userFeature = features || [];
-  const hasFeature = (searchFeature: string, matchFeatures: string[]) => matchFeatures.some((feature) => searchFeature === feature);
+  const featureContext = useContext(FeatureEnableContext);
+  const userFeature = features || featureContext;
+
+  const hasFeature = (searchFeature: string, matchFeatures: string[]) => {
+    if (searchFeature === "" || !matchFeatures.length) {
+      return false;
+    }
+
+    return matchFeatures.some((feature) => searchFeature === feature);
+  };
 
   if (Array.isArray(name)) {
     return name.every((nameString) => hasFeature(nameString, userFeature));
