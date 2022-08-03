@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import IfFeatureEnable from "./IfFeatureEnable";
+import IfFeatureEnable from "../IfFeatureEnable";
 
 describe("Test <IfFeatureEnable/>", () => {
   it("render children", () => {
