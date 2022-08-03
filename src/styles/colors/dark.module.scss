@@ -1,0 +1,71 @@
+// Background
+$background: #333333;
+
+// Text
+$textPrimary: #ffffff;
+$textSecondary: #999999;
+$textDisabled: #636262;
+
+// Primary
+$primaryMain: #009BA6;
+$primaryDark: #006C74;
+$primaryLight: #33AFB7;
+
+// Secondary
+$secondaryMain: #FECB00;
+$secondaryDark: #B18E00;
+$secondaryLight: #FED533;
+
+// Error
+$errorMain: #FF686E;
+$errorDark: #C73443;
+$errorLight: #FF9A9C;
+
+// Warning
+$warningMain: #FFA726;
+$warningDark: #C77800;
+$warningLight: #FFD95B;
+
+// Info
+$infoMain: #4D85E0;
+$infoDark: #0059AE;
+$infoLight: #85B4FF;
+
+// Success
+$successMain: #5DD39E;
+$successDark: #41936E;
+$successLight: #7DDBB1;
+
+
+:export {
+  // Background
+  background: $background;
+  // Text
+  textPrimary: $textPrimary;
+  textSecondary: $textSecondary;
+  textDisabled: $textDisabled;
+  // Primary
+  primaryMain: $primaryMain;
+  primaryDark: $primaryDark;
+  primaryLight: $primaryLight;
+  // Secondary
+  secondaryMain: $secondaryMain;
+  secondaryDark: $secondaryDark;
+  secondaryLight: $secondaryLight;
+  // Error
+  errorMain: $errorMain;
+  errorDark: $errorDark;
+  errorLight: $errorLight;
+  // Warning
+  warningMain: $warningMain;
+  warningDark: $warningDark;
+  warningLight: $warningLight;
+  // Info
+  infoMain: $infoMain;
+  infoDark: $infoDark;
+  infoLight: $infoLight;
+  // Success
+  successMain: $successMain;
+  successDark: $successDark;
+  successLight: $successLight;
+}
