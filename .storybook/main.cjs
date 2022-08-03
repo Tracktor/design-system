@@ -2,10 +2,6 @@ const path = require("path");
 const { mergeConfig } = require("vite");
 
 module.exports = {
-  stories: [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -13,13 +9,17 @@ module.exports = {
     "@storybook/addon-storysource",
     "storybook-dark-mode"
   ],
-  framework: "@storybook/react",
   core: {
     "builder": "@storybook/builder-vite"
   },
+  framework: "@storybook/react",
   features: {
     "storyStoreV7": true
   },
+  stories: [
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+  ],
   typescript: {
     reactDocgen: "react-docgen-typescript"
   },

@@ -57,6 +57,9 @@ const paletteLight: ThemeOptions["palette"] = {
 };
 
 const paletteDark: ThemeOptions["palette"] = {
+  background: {
+    default: colorsDark.background,
+  },
   error: {
     dark: colorsDark.errorDark,
     light: colorsDark.errorLight,
