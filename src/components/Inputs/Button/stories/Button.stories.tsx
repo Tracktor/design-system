@@ -4,13 +4,13 @@ import Button from "./Button";
 
 const Template: ComponentStory<typeof Button> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <Button size="small" {...args}>
+    <Button size="small" color="error" {...args}>
       Small
     </Button>
     <Button size="medium" {...args}>
       Medium
     </Button>
-    <Button size="large" {...args}>
+    <Button size="large" color="secondary" {...args}>
       Large
     </Button>
     <Button size="small" disabled {...args}>
@@ -18,11 +18,6 @@ const Template: ComponentStory<typeof Button> = (args) => (
     </Button>
   </Stack>
 );
-
-export const Text = Template.bind({});
-Text.args = {
-  variant: "text",
-};
 
 export const Contained = Template.bind({});
 Contained.args = {
@@ -32,6 +27,11 @@ Contained.args = {
 export const Outlined = Template.bind({});
 Outlined.args = {
   variant: "outlined",
+};
+
+export const Text = Template.bind({});
+Text.args = {
+  variant: "text",
 };
 
 export default {
