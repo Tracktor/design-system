@@ -9,11 +9,15 @@ const Template: ComponentStory<typeof Logo> = (args) => (
 );
 
 export const Black = Template.bind({});
-Black.args = {};
+Black.args = {
+  color: "black",
+  component: "img",
+};
 
 export const White = Template.bind({});
 White.args = {
   color: "white",
+  component: "img",
 };
 
 export const RenderAsSvgBlack = Template.bind({});
