@@ -1,8 +1,8 @@
 export * from "@mui/material";
 
 // Components
-export { default as IfFeatureEnable } from "@/components/IfFeatureEnable";
-export * from "@/components/IfFeatureEnable";
+export { default as IfFeatureEnable } from "@/components/Layout/IfFeatureEnable";
+export * from "@/components/Layout/IfFeatureEnable";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
