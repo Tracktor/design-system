@@ -1,0 +1,23 @@
+import { Meta, Source } from '@storybook/addon-docs';
+
+<Meta title=" Hooks/useIsFeatureEnabled"/>
+
+<style>
+  {}
+</style>
+
+<h1><code>useIsFeatureEnabled</code></h1>
+
+<p>Return <strong>boolean</strong> user feature enable</p>
+
+### Basic usage
+
+<Source
+  dark
+  language='typescript'
+  format={false}
+  code={`
+import { useIsFeatureEnabled } from "design-system";
+const enabled = useIsFeatureEnabled({ features: ["a"], name: "a" });
+  `}
+/>
