@@ -26,7 +26,9 @@ const Logo = ({ component = "img", color = "black", height = 32, width = 259 }: 
 
   // Get image async
   useEffect(() => {
-    if (component === "svg") return;
+    if (component === "svg") {
+      return;
+    }
 
     (async () => {
       const module = color === "white" ? await import("@/assets/img/tracktor-black.svg") : await import("@/assets/img/tracktor-black.svg");
