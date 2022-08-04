@@ -30,8 +30,8 @@
     "prepare": "yarn run build",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "build-storybook-docs": "build-storybook --docs",
+    "storybook:build": "build-storybook",
+    "storybook:build:docs": "build-storybook --docs",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui"
