@@ -2,22 +2,47 @@ import { Meta, Source } from '@storybook/addon-docs';
 
 <Meta title=" Hooks/useIsFeatureEnabled"/>
 
-<style>
-  {}
-</style>
+# `useIsFeatureEnabled`
 
-<h1><code>useIsFeatureEnabled</code></h1>
-
-<p>Return <strong>boolean</strong> user feature enable</p>
+This hook return `true/false` if user hase given feature.
 
 ### Basic usage
 
-<Source
-  dark
-  language='typescript'
-  format={false}
-  code={`
+```typescript jsx
 import { useIsFeatureEnabled } from "design-system";
-const enabled = useIsFeatureEnabled({ features: ["a"], name: "a" });
-  `}
-/>
+
+const hasCheckout = useIsFeatureEnabled({ features: ["order", "checkout"], name: "order" }); // return true
+const hasBill = useIsFeatureEnabled({ features: ["order", "checkout"], name: "bill" }); // return false
+```
+
+### Provide user features
+
+Put `<FeatureEnableProvider>` to provide user `features`
+
+```typescript jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Home from "./Home";
+import { FeatureEnableProvider } from 'design-system';
+
+const App = () => (
+    <FeatureEnableProvider features={["order", "checkout"]}>
+      <Home />
+    </FeatureEnableProvider>
+);
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <App/>
+  </React.StrictMode>
+);
+```
+
+Then in `home.tsx` you can use the hook
+
+```typescript jsx
+import { useIsFeatureEnabled } from "design-system";
+
+const hasCheckout = useIsFeatureEnabled({ name: "checkout" }); // return true
+const hasBill = useIsFeatureEnabled({ name: "bill" }); // return false
+```

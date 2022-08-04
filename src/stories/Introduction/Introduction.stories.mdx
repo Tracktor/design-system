@@ -8,8 +8,9 @@ import Plugin from './assets/plugin.svg';
 import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
 import Figma from './assets/figma.svg';
+import Mui from './assets/mui.svg';
 
-<Meta title="DesignSystem/Introduction" />
+<Meta title="Introduction" />
 
 <style>
   {`
@@ -28,7 +29,6 @@ import Figma from './assets/figma.svg';
     .link-list {
       display: grid;
       grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
       row-gap: 10px;
     }
 
@@ -58,10 +58,11 @@ import Figma from './assets/figma.svg';
     .link-item {
       display: block;
       padding: 20px 30px 20px 15px;
-      border: 1px solid #00000010;
+      border: 1px solid ;
+      border-color: rgb(255, 255, 255, .10);
       border-radius: 5px;
       transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
-      color: #333333;
+      color: rgba(255, 255, 255, 0.55);
       display: flex;
       align-items: flex-start;
     }
@@ -141,7 +142,7 @@ Toutes les ressources externes associées
 
 <div className="subheading">Design System</div>
 
-<div className="link-list-full">
+<div className="link-list">
   <a
     className="link-item"
     href="https://www.figma.com/file/3fprVesPjVIo124UWy9xhU/MUI-for-Figma-Material-Pro-v5.9.0?node-id=10405%3A70380"
@@ -150,7 +151,18 @@ Toutes les ressources externes associées
     <img src={Figma} alt="Figma" />
     <span>
       <strong>Figma</strong>
-      Tracktor Material Design.
+      Tracktor Material Design
+    </span>
+  </a>
+  <a
+    className="link-item"
+    href="https://mui.com/"
+    target="_blank"
+  >
+    <img src={Mui} alt="Mui" />
+    <span>
+      <strong>Mui</strong>
+      Intuitive React UI tools
     </span>
   </a>
 </div>
@@ -166,7 +178,7 @@ Toutes les ressources externes associées
     <img src={Plugin} alt="plugin" />
     <span>
       <strong>Presets for popular tools</strong>
-      Easy setup for TypeScript, SCSS and more.
+      Easy setup for TypeScript, SCSS and more
     </span>
   </a>
   <a
