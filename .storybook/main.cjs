@@ -17,6 +17,7 @@ module.exports = {
     "storyStoreV7": true
   },
   stories: [
+    "../src/stories/Introduction/Introduction.stories.mdx",
     "../src/**/*.stories.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
