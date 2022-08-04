@@ -31,7 +31,7 @@ const Logo = ({ component = "img", color = "black", height = 32, width = 259 }: 
     }
 
     (async () => {
-      const module = color === "white" ? await import("@/assets/img/tracktor-black.svg") : await import("@/assets/img/tracktor-black.svg");
+      const module = color === "white" ? await import("@/assets/img/tracktor-white.svg") : await import("@/assets/img/tracktor-black.svg");
       setLogoSrc(module.default);
     })();
   }, [color, component]);
