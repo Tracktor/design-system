@@ -31,6 +31,12 @@ RenderAsSvgWhite.args = {
   component: "svg",
 };
 
+export const CustomSize = Template.bind({});
+CustomSize.args = {
+  height: 50,
+  width: 404,
+};
+
 export default {
   component: Logo,
   title: "Components/Data Display/Logo",
