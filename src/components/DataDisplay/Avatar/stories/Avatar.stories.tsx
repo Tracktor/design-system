@@ -2,24 +2,24 @@ import { Stack, AvatarGroup, Badge } from "@mui/material";
 import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import Avatar from "./Avatar";
 
-const src = "https://avatars.githubusercontent.com/u/108873902?v=4";
+const avatarSrc = "https://avatars.githubusercontent.com/u/16801167?s=200&v=4";
 
 const TemplateImage: ComponentStory<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <Avatar src={src} sx={{ height: 24, width: 24 }} {...args} />
-    <Avatar src={src} {...args} />
-    <Avatar src={src} sx={{ height: 56, width: 56 }} {...args} />
+    <Avatar src={avatarSrc} sx={{ height: 24, width: 24 }} {...args} />
+    <Avatar src={avatarSrc} {...args} />
+    <Avatar src={avatarSrc} sx={{ height: 56, width: 56 }} {...args} />
   </Stack>
 );
 
 const TemplateLetter: ComponentStory<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Avatar sx={{ height: 24, width: 24 }} {...args}>
-      M
+      T
     </Avatar>
-    <Avatar {...args}>M</Avatar>
+    <Avatar {...args}>T</Avatar>
     <Avatar sx={{ height: 56, width: 56 }} {...args}>
-      M
+      T
     </Avatar>
   </Stack>
 );
@@ -27,11 +27,11 @@ const TemplateLetter: ComponentStory<typeof Avatar> = (args) => (
 const TemplateGrouped: ComponentStory<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <AvatarGroup max={4}>
-      <Avatar alt="Mickaël Austoni" src={src} {...args} />
-      <Avatar alt="Lorem Ipsum" src={src} {...args} />
-      <Avatar alt="Lorem Ipsum" src={src} {...args} />
-      <Avatar alt="Lorem Ipsum" src={src} {...args} />
-      <Avatar alt="Lorem Ipsum" src={src} {...args} />
+      <Avatar alt="Tracktor" src={avatarSrc} {...args} />
+      <Avatar alt="Tracktor" src={avatarSrc} {...args} />
+      <Avatar alt="Tracktor" src={avatarSrc} {...args} />
+      <Avatar alt="Tracktor" src={avatarSrc} {...args} />
+      <Avatar alt="Tracktor" src={avatarSrc} {...args} />
     </AvatarGroup>
   </Stack>
 );
@@ -41,9 +41,9 @@ const TemplateBadge: ComponentStory<typeof Avatar> = (args) => (
     <Badge
       overlap="circular"
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      badgeContent={<Avatar src={src} sx={{ height: 20, width: 20 }} {...args} />}
+      badgeContent={<Avatar src={avatarSrc} sx={{ height: 20, width: 20 }} {...args} />}
     >
-      <Avatar alt="Travis Howard" src={src} {...args} />
+      <Avatar alt="Travis Howard" src={avatarSrc} {...args} />
     </Badge>
   </Stack>
 );
