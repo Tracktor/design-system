@@ -28,13 +28,14 @@ Basic.args = {
   variant: "outlined",
 };
 
-export const Standard = Template.bind({});
-Standard.args = {
-  variant: "standard",
-};
 export const Filled = Template.bind({});
 Filled.args = {
   variant: "filled",
+};
+
+export const Standard = Template.bind({});
+Standard.args = {
+  variant: "standard",
 };
 
 export default {
