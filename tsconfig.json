@@ -37,7 +37,7 @@
   ],
   "exclude": [
     ".storybook",
-    "src/stories",
+    "**/stories/**",
     "*.stories.tsx"
   ],
   "references": [
