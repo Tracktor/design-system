@@ -1,4 +1,4 @@
-import { render, act, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import Logo from "../Logo";
 
