@@ -1,15 +1,15 @@
-import { render } from "@testing-library/react";
+import { render, act, waitFor } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import Logo from "../Logo";
 
-describe("Test <IfFeatureEnable/>", () => {
-  it("render img", () => {
-    const { container } = render(<Logo component="img" />);
-    const img = container.querySelector("img");
+describe("Test <Logo/>", () => {
+  it("render img", async () => {
+    const { container, getByRole } = render(<Logo component="img" />);
     const svg = container.querySelector("svg");
+    const img = await waitFor(() => getByRole("img"));
 
-    expect(img).toBeInTheDocument();
     expect(svg).not.toBeInTheDocument();
+    expect(img).toBeInTheDocument();
     expect(img).toHaveProperty("alt", "Tracktor");
   });
 
