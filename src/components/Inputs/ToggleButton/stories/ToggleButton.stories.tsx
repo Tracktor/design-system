@@ -13,13 +13,13 @@ const TemplateExclusive: ComponentStory<typeof ToggleButton> = (args) => {
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
       <ToggleButtonGroup value={value} onChange={handleAlignment} aria-label="Tracktor" exclusive>
-        <ToggleButton {...args} value="a" onChange={handleAlignment}>
+        <ToggleButton {...args} value="a" color="primary">
           Tracktor
         </ToggleButton>
-        <ToggleButton {...args} value="b" onChange={handleAlignment}>
+        <ToggleButton {...args} value="b" color="secondary">
           is
         </ToggleButton>
-        <ToggleButton {...args} value="c" onChange={handleAlignment}>
+        <ToggleButton {...args} value="c" color="error">
           awesome
         </ToggleButton>
       </ToggleButtonGroup>
@@ -37,13 +37,13 @@ const TemplateMultiple: ComponentStory<typeof ToggleButton> = (args) => {
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
       <ToggleButtonGroup value={value} onChange={handleAlignment} aria-label="Tracktor">
-        <ToggleButton {...args} value="a" onChange={handleAlignment}>
+        <ToggleButton {...args} value="a" color="primary">
           Tracktor
         </ToggleButton>
-        <ToggleButton {...args} value="b" onChange={handleAlignment}>
+        <ToggleButton {...args} value="b" color="secondary">
           is
         </ToggleButton>
-        <ToggleButton {...args} value="c" onChange={handleAlignment}>
+        <ToggleButton {...args} value="c" color="error">
           awesome
         </ToggleButton>
       </ToggleButtonGroup>
