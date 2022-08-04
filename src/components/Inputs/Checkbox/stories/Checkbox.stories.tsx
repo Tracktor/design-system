@@ -30,6 +30,7 @@ const TemplateColor: ComponentStory<typeof Checkbox> = (args) => (
     <Checkbox {...label} defaultChecked color="success" {...args} />
     <Checkbox {...label} defaultChecked color="warning" {...args} />
     <Checkbox {...label} defaultChecked color="default" {...args} />
+    <Checkbox {...label} defaultChecked color="error" {...args} />
   </Stack>
 );
 
