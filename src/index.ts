@@ -1,4 +1,5 @@
 export * from "@mui/material";
+export { makeStyles } from "@mui/material";
 
 // Components
 export { default as IfFeatureEnable } from "@/components/Layout/IfFeatureEnable";
