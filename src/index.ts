@@ -1,5 +1,3 @@
-export * from "@mui/material";
-
 // Components
 export { default as IfFeatureEnable } from "@/components/Layout/IfFeatureEnable";
 export * from "@/components/Layout/IfFeatureEnable";
@@ -15,3 +13,5 @@ export * from "@/context/FeatureEnable/FeatureEnableProvider";
 // Hooks
 export { default as useIsFeatureEnabled } from "@/hooks/useIsFeatureEnabled";
 export * from "@/hooks/useIsFeatureEnabled";
+
+export * from "@mui/material";
