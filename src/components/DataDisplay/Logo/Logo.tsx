@@ -1,4 +1,4 @@
-import Skeleton from "@mui/material/Skeleton";
+import { Skeleton } from "@mui/material";
 import { forwardRef, LegacyRef, useEffect, useState } from "react";
 
 export interface LogoProps {
