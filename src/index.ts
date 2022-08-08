@@ -13,5 +13,5 @@ export { default as FeatureEnableProvider } from "@/context/FeatureEnable/Featur
 export * from "@/context/FeatureEnable/FeatureEnableProvider";
 
 // Hooks
-export { default as useIsFeatureEnabled } from "@/hooks/useIsFeatureEnabled";
-export * from "@/hooks/useIsFeatureEnabled";
+// export { default as useIsFeatureEnabled } from "@/hooks/useIsFeatureEnabled";
+// export * from "@/hooks/useIsFeatureEnabled";
