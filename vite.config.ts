@@ -6,6 +6,7 @@ import { peerDependencies, dependencies, name } from "./package.json";
 
 export default defineConfig({
   build: {
+    cssCodeSplit: true,
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       fileName: "[name]",
