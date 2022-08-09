@@ -11973,6 +11973,13 @@ vite-plugin-dts@^1.4.0:
     fs-extra "^10.0.1"
     ts-morph "^14.0.0"
 
+vite-plugin-fonts@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-fonts/-/vite-plugin-fonts-0.6.0.tgz#8fd43712689f524f2c5f2f77efc12583fdcaf22a"
+  integrity sha512-dV6nnLEju8k5EmvlBH6egxkVZ+rgc5zWsJr9+cNRXBMEDnpRGHcZPI260UEDNg2yB99wSTNER2eduEvZFbMIGw==
+  dependencies:
+    fast-glob "^3.2.11"
+
 "vite@^2.9.12 || ^3.0.0-0", vite@^3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/vite/-/vite-3.0.4.tgz#c61688d6b97573e96cf5ac25f2d68597b5ce68e8"
