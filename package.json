@@ -65,6 +65,7 @@
     "react-test-renderer": "^18.2.0",
     "sass": "^1.54.0",
     "storybook-dark-mode": "^1.1.0",
+    "vite-plugin-style-inject": "^0.0.1",
     "vitest": "^0.19.1"
   },
   "dependencies": {
