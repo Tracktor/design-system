@@ -1,5 +1,4 @@
-import { createTheme } from "@mui/material/styles";
-import type { ThemeOptions } from "@mui/material/styles/createTheme";
+import { createTheme, ThemeOptions } from "@mui/material";
 import colorsDark from "@/styles/colors/dark.module.scss";
 import colorsLight from "@/styles/colors/light.module.scss";
 
