@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       fileName: "[name]",
-      formats: ["cjs", "es"],
+      formats: ["umd"],
       name,
     },
     minify: "esbuild",
