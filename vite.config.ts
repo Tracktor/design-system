@@ -24,7 +24,12 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), dts()],
+  plugins: [
+    react({
+      jsxImportSource: "@emotion/react",
+    }),
+    dts(),
+  ],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
