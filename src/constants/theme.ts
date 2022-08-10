@@ -1,116 +1,84 @@
 import { createTheme, ThemeOptions } from "@mui/material";
-import colorsDark from "@/styles/colors/dark.module.scss";
-import colorsLight from "@/styles/colors/light.module.scss";
+import commonColors from "@/styles/colors/common.module.scss";
+import darkColors from "@/styles/colors/dark.module.scss";
+import lightColors from "@/styles/colors/light.module.scss";
 
-const components: ThemeOptions["components"] = {};
-
-const paletteLight: ThemeOptions["palette"] = {
-  action: {
-    active: colorsLight.actionActive,
-    disabled: colorsLight.actionDisabled,
-    disabledBackground: colorsLight.actionDisabledBackground,
-    focus: colorsLight.actionFocus,
-    hover: colorsLight.actionHover,
-    selected: colorsLight.actionSelected,
+const commonThemeOptions: ThemeOptions = {
+  palette: {
+    error: {
+      dark: commonColors.errorDark,
+      light: commonColors.errorLight,
+      main: commonColors.errorMain,
+    },
+    info: {
+      dark: commonColors.infoDark,
+      light: commonColors.infoLight,
+      main: commonColors.infoMain,
+    },
+    primary: {
+      dark: commonColors.primaryDark,
+      light: commonColors.primaryLight,
+      main: commonColors.primaryMain,
+    },
+    secondary: {
+      dark: commonColors.secondaryDark,
+      light: commonColors.secondaryLight,
+      main: commonColors.secondaryMain,
+    },
+    success: {
+      dark: commonColors.successDark,
+      light: commonColors.successLight,
+      main: commonColors.successMain,
+    },
+    warning: {
+      dark: commonColors.warningDark,
+      light: commonColors.warningLight,
+      main: commonColors.warningMain,
+    },
   },
-  background: {
-    default: colorsLight.background,
-  },
-  divider: colorsLight.divider,
-  error: {
-    dark: colorsLight.errorDark,
-    light: colorsLight.errorLight,
-    main: colorsLight.errorMain,
-  },
-  info: {
-    dark: colorsLight.infoDark,
-    light: colorsLight.infoLight,
-    main: colorsLight.infoMain,
-  },
-  mode: "light",
-  primary: {
-    dark: colorsLight.primaryDark,
-    light: colorsLight.primaryLight,
-    main: colorsLight.primaryMain,
-  },
-  secondary: {
-    dark: colorsLight.secondaryDark,
-    light: colorsLight.secondaryLight,
-    main: colorsLight.secondaryMain,
-  },
-  success: {
-    dark: colorsLight.successDark,
-    light: colorsLight.successLight,
-    main: colorsLight.successMain,
-  },
-  text: {
-    disabled: colorsLight.textDisabled,
-    primary: colorsLight.textPrimary,
-    secondary: colorsLight.textSecondary,
-  },
-  warning: {
-    dark: colorsLight.warningDark,
-    light: colorsLight.warningLight,
-    main: colorsLight.warningMain,
+  typography: {
+    fontFamily: ["Poppins", "sans-serif"].join(","),
   },
 };
 
-const paletteDark: ThemeOptions["palette"] = {
-  background: {
-    default: colorsDark.background,
-  },
-  error: {
-    dark: colorsDark.errorDark,
-    light: colorsDark.errorLight,
-    main: colorsDark.errorMain,
-  },
-  info: {
-    dark: colorsDark.infoDark,
-    light: colorsDark.infoLight,
-    main: colorsDark.infoMain,
-  },
-  mode: "dark",
-  primary: {
-    dark: colorsDark.primaryDark,
-    light: colorsDark.primaryLight,
-    main: colorsDark.primaryMain,
-  },
-  secondary: {
-    dark: colorsDark.secondaryDark,
-    light: colorsDark.secondaryLight,
-    main: colorsDark.secondaryMain,
-  },
-  success: {
-    dark: colorsDark.successDark,
-    light: colorsDark.successLight,
-    main: colorsDark.successMain,
-  },
-  text: {
-    disabled: colorsDark.textDisabled,
-    primary: colorsDark.textPrimary,
-    secondary: colorsDark.textSecondary,
-  },
-  warning: {
-    dark: colorsDark.warningDark,
-    light: colorsDark.warningLight,
-    main: colorsDark.warningMain,
+const lightThemeOptions: ThemeOptions = {
+  palette: {
+    action: {
+      active: lightColors.actionActive,
+      disabled: lightColors.actionDisabled,
+      disabledBackground: lightColors.actionDisabledBackground,
+      focus: lightColors.actionFocus,
+      hover: lightColors.actionHover,
+      selected: lightColors.actionSelected,
+    },
+    background: {
+      default: lightColors.background,
+    },
+    divider: lightColors.divider,
+    mode: "light",
+    text: {
+      disabled: lightColors.textDisabled,
+      primary: lightColors.textPrimary,
+      secondary: lightColors.textSecondary,
+    },
   },
 };
 
-const typography: ThemeOptions["typography"] = {
-  fontFamily: ["Poppins", "sans-serif"].join(","),
+const darkThemeOptions: ThemeOptions = {
+  palette: {
+    background: {
+      default: darkColors.background,
+    },
+    mode: "dark",
+    text: {
+      disabled: darkColors.textDisabled,
+      primary: darkColors.textPrimary,
+      secondary: darkColors.textSecondary,
+    },
+  },
 };
 
-export const lightTheme = createTheme({
-  components,
-  palette: paletteLight,
-  typography,
-});
-
-export const darkTheme = createTheme({
-  components,
-  palette: paletteDark,
-  typography,
-});
+export const lightTheme = createTheme(lightThemeOptions, commonThemeOptions);
+export const darkTheme = createTheme(darkThemeOptions, commonThemeOptions);
 
 export default lightTheme;
