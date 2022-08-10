@@ -1,7 +1,6 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import VitePluginStyleInject from "vite-plugin-style-inject";
 import { defineConfig } from "vitest/config";
 import { peerDependencies, dependencies, name } from "./package.json";
 
@@ -25,7 +24,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), dts(), VitePluginStyleInject()],
+  plugins: [react(), dts()],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },

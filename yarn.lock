@@ -11973,11 +11973,6 @@ vite-plugin-dts@^1.4.0:
     fs-extra "^10.0.1"
     ts-morph "^14.0.0"
 
-vite-plugin-style-inject@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-style-inject/-/vite-plugin-style-inject-0.0.1.tgz#93a93ee472231e35bca120529beb4fb2a6fbb586"
-  integrity sha512-VsaBOb8ozMQn3kpMt4gIcyNt4BRMQ3Cq30eLIBtq1CH8U6iB1FnxVYspwITzJdXbMQA61QhyAx9QnNLwVRbDlg==
-
 "vite@^2.9.12 || ^3.0.0-0", vite@^3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/vite/-/vite-3.0.4.tgz#c61688d6b97573e96cf5ac25f2d68597b5ce68e8"
