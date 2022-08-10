@@ -80,5 +80,4 @@ const darkThemeOptions: ThemeOptions = {
 
 export const lightTheme = createTheme(lightThemeOptions, commonThemeOptions);
 export const darkTheme = createTheme(darkThemeOptions, commonThemeOptions);
-
 export default lightTheme;
