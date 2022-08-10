@@ -1,5 +1,6 @@
 const path = require("path");
-const { mergeConfig } = require("vite");
+const {mergeConfig} = require("vite");
+const react = require("@vitejs/plugin-react");
 
 module.exports = {
   addons: [
@@ -25,12 +26,25 @@ module.exports = {
     reactDocgen: "react-docgen-typescript"
   },
   async viteFinal(config) {
-    // return the customized config
+    config.plugins = config.plugins.filter((plugin) => !(Array.isArray(plugin) && plugin[0]?.name.includes("vite:react")));
+    config.plugins.push(
+      react({
+        babel: {
+          plugins: ["@emotion/babel-plugin"],
+        },
+        //exclude: [/\.stories\.(t|j)sx?$/, /node_modules/],
+        exclude: [/\.stories\.(t|j)sx?$/, /node_modules/],
+        jsxImportSource: "@emotion/react",
+      })
+    );
+
     return mergeConfig(config, {
-      // customize the Vite config here
       resolve: {
-        alias: [{ find: "@", replacement: path.resolve(__dirname, "../src") }],
+        alias: [{find: "@", replacement: path.resolve(__dirname, "../src")}],
       },
+      // esbuild: {
+      //   logOverride: {'this-is-undefined-in-esm': 'silent'}
+      // }
     });
   },
 }

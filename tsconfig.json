@@ -21,10 +21,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
     "importsNotUsedAsValues": "error",
     "noUnusedParameters": true,
     "types": [
-      "vitest/globals"
+      "vitest/globals",
+      "@emotion/react/types/css-prop"
     ],
     "paths": {
       "@/*": [

@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Styles"/>
+
+
+# Styles
+The system prop `sx` that allows defining system overrides as well as additional CSS styles or
+use`Emotion-based` styling solution provided by MUI to style your components.
+
+## System Prop
+
+```typescript jsx
+import { Box } from "@mui/material";
+<Box
+  sx={{
+    backgroundColor: "red",
+    height: 150,
+    width: 150,
+    "&:hover": {
+      backgroundColor: "blue",
+    },
+  }}
+/>
+```
+
+## Emotion
+
+```typescript jsx
+/* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import Slider from '@mui/material/Slider';
+import Box from '@mui/material/Box';
+
+export default function EmotionCSS() {
+  return (
+    <Box sx={{ width: 300 }}>
+      <Slider defaultValue={30} />
+      <Slider
+        defaultValue={30}
+        css={css`
+          background-color: red;
+          height: 150px;
+          width: 150px;
+
+          :hover {
+            background-color: blue;
+          }
+        `}
+      />
+    </Box>
+  );
+}
+
+```
+
+## Global style
+
+
+For injecting global style you can use `GlobalStyles` and `css` from Material UI. It is an alias of `Global` from emotion css.
+
+```typescript jsx
+import { GlobalStyles, css } from "@mui/material";
+
+<GlobalStyles styles={{ backgroundColor: "red" }} />
+```
+
+Or `css` with `GlobalStyles`
+
+```typescript jsx
+import { GlobalStyles, css } from "@mui/material";
+
+<GlobalStyles
+  styles={css`
+    background-color: red;
+  `}
+/>
+```
