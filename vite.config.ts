@@ -28,7 +28,7 @@ export default defineConfig({
     react({
       jsxImportSource: "@emotion/react",
     }),
-    dts({ include: ["src/components", "src/context", "src/hooks"] }),
+    dts(),
   ],
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
