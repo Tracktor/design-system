@@ -7,62 +7,55 @@ import { Meta } from '@storybook/addon-docs';
 The system prop `sx` that allows defining system overrides as well as additional CSS styles or
 use`Emotion-based` styling solution provided by MUI to style your components.
 
-## System Prop
+### System Prop
 
 ```typescript jsx
 import { Box } from "@mui/material";
 <Box
   sx={{
-    backgroundColor: "red",
-    height: 150,
-    width: 150,
     "&:hover": {
       backgroundColor: "blue",
     },
+    backgroundColor: "red",
+    height: 150,
+    width: 150,
   }}
 />
 ```
 
-## Emotion
+### Emotion based
 
 ```typescript jsx
-/* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import Slider from '@mui/material/Slider';
-import Box from '@mui/material/Box';
+import { Box, css } from "@mui/material";
 
-export default function EmotionCSS() {
-  return (
-    <Box sx={{ width: 300 }}>
-      <Slider defaultValue={30} />
-      <Slider
-        defaultValue={30}
-        css={css`
-          background-color: red;
-          height: 150px;
-          width: 150px;
+const myCss = css({
+  ":hover": {
+    backgroundColor: "blue",
+  },
+  backgroundColor: "red",
+  height: "150px",
+  width: "150px",
+});
 
-          :hover {
-            background-color: blue;
-          }
-        `}
-      />
-    </Box>
-  );
-}
-
+<Box css={myCss}/>
 ```
+> __warning__ : If you want test your component inside story which includes emotion css,<br/>
+put `/** @jsxImportSource @emotion/react */` at the top of your story file
 
-## Global style
-
-
+### Global style
 For injecting global style you can use `GlobalStyles` and `css` from Material UI. It is an alias of `Global` from emotion css.
 
 ```typescript jsx
 import { GlobalStyles, css } from "@mui/material";
 
-<GlobalStyles styles={{ backgroundColor: "red" }} />
+<GlobalStyles
+  styles={{
+    ".some-class": {
+      color: "red",
+      textAlign: "center",
+    },
+  }}
+/>
 ```
 
 Or `css` with `GlobalStyles`
@@ -72,7 +65,9 @@ import { GlobalStyles, css } from "@mui/material";
 
 <GlobalStyles
   styles={css`
-    background-color: red;
+    .some-class {
+      color: red;
+    }
   `}
 />
 ```
