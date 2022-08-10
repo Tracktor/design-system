@@ -21,7 +21,8 @@
 - ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
 - 📐 **[ESLint](https://eslint.org)** - Code analyzer
 - 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
-- 🛠️ **[React Testing Library ](https://testing-library.com/docs/react-testing-library/intro/)** - React DOM testing utilities
+- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing utilities
+- 💅 **[Emotion CSS](https://emotion.sh/docs/introduction)** - Writing css styles with JavaScript
 
 ## Available Scripts
 
