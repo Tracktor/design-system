@@ -37,7 +37,7 @@ const commonThemeOptions: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: ["Poppins", "sans-serif"].join(","),
+    fontFamily: "Poppins, sans-serif",
   },
 };
 
@@ -78,6 +78,8 @@ const darkThemeOptions: ThemeOptions = {
   },
 };
 
+export const commonTheme = createTheme(commonThemeOptions);
 export const lightTheme = createTheme(lightThemeOptions, commonThemeOptions);
 export const darkTheme = createTheme(darkThemeOptions, commonThemeOptions);
+
 export default lightTheme;
