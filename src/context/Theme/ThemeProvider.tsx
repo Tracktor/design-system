@@ -1,7 +1,8 @@
-import { CssBaseline, ThemeProvider as ThemeProviderMUI, GlobalStyles, css } from "@mui/material";
+import { css, CssBaseline, GlobalStyles, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import type { DefaultTheme } from "@mui/private-theming/defaultTheme";
 import type { ReactNode } from "react";
-import { commonTheme, darkTheme, lightTheme } from "@/constants/theme";
+import { commonTheme } from "@/constants/theme";
+import useThemeProvider from "@/context/Theme/useThemeProvider";
 
 export interface ThemeProviderProps {
   children: ReactNode;
@@ -10,18 +11,8 @@ export interface ThemeProviderProps {
   theme?: "dark" | "light" | DefaultTheme;
 }
 
-const getTheme = (theme: ThemeProviderProps["theme"]) => {
-  if (theme === "dark") {
-    return darkTheme;
-  }
-  if (theme === "light") {
-    return lightTheme;
-  }
-
-  return theme || {};
-};
-
 const ThemeProvider = ({ children, importFont = true, includeCssBaseline = true, theme = "light" }: ThemeProviderProps) => {
+  const { getTheme } = useThemeProvider();
   const fontName = commonTheme.typography.fontFamily?.split(",")[0];
 
   return (
