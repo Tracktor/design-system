@@ -79,7 +79,7 @@ const darkThemeOptions: ThemeOptions = {
 };
 
 export const commonTheme = createTheme(commonThemeOptions);
-export const lightTheme = createTheme(lightThemeOptions, commonThemeOptions);
-export const darkTheme = createTheme(darkThemeOptions, commonThemeOptions);
+export const lightTheme = createTheme(commonThemeOptions, lightThemeOptions);
+export const darkTheme = createTheme(commonThemeOptions, darkThemeOptions);
 
 export default lightTheme;
