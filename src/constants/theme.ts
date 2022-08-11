@@ -70,6 +70,7 @@ const darkThemeOptions: ThemeOptions = {
       default: darkColors.background,
       paper: darkColors.background,
     },
+    divider: darkColors.divider,
     mode: "dark",
     text: {
       disabled: darkColors.textDisabled,

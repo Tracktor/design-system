@@ -8,6 +8,9 @@ $textPrimary: #ffffff;
 $textSecondary: #999999;
 $textDisabled: #636262;
 
+// Other/Misc
+$divider: rgba(0, 0, 0, 0.12);
+
 
 :export {
   // Background
@@ -16,4 +19,6 @@ $textDisabled: #636262;
   textPrimary: $textPrimary;
   textSecondary: $textSecondary;
   textDisabled: $textDisabled;
+  // Other/Misc
+  divider: $divider;
 }
