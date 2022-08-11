@@ -1,5 +1,6 @@
 import { Skeleton } from "@mui/material";
 import { forwardRef, LegacyRef, useEffect, useState } from "react";
+import useLogo from "@/components/DataDisplay/Logo/useLogo";
 
 export interface LogoProps {
   /**
@@ -21,8 +22,10 @@ export interface LogoProps {
   width?: number | string;
 }
 
-const Logo = ({ component = "img", color = "black", height = 32, width = 259 }: LogoProps, ref: LegacyRef<any>) => {
+const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps, ref: LegacyRef<any>) => {
   const [logoSrc, setLogoSrc] = useState("");
+  const { getColor } = useLogo();
+  const colorLogo = getColor(color);
 
   // Get image async
   useEffect(() => {
@@ -31,10 +34,11 @@ const Logo = ({ component = "img", color = "black", height = 32, width = 259 }: 
     }
 
     (async () => {
-      const module = color === "white" ? await import("@/assets/img/tracktor-white.svg") : await import("@/assets/img/tracktor-black.svg");
+      const module =
+        colorLogo === "white" ? await import("@/assets/img/tracktor-white.svg") : await import("@/assets/img/tracktor-black.svg");
       setLogoSrc(module.default);
     })();
-  }, [color, component]);
+  }, [colorLogo, component]);
 
   if (component === "img") {
     return logoSrc ? (
@@ -46,7 +50,7 @@ const Logo = ({ component = "img", color = "black", height = 32, width = 259 }: 
 
   return (
     <svg fill="none" height={height} width={width} viewBox="0 0 259 32" xmlns="http://www.w3.org/2000/svg" ref={ref}>
-      <g fill={color}>
+      <g fill={colorLogo}>
         <path d="m67.3801 11.77v-3.24996h-6.07v22.78996h6.07v-13.56c1.52-2.04 6.5-3.51 9.14-3.6l-.52-6.10996c-3.38.18-6.67 1.39-8.62 3.72996z" />
         <path d="m94.4203 10.5998c-1.86-1.90996-4.12-2.50996-6.37-2.50996-6.41 0-11.27 5.02996-11.27 11.78996s4.85 11.87 11.22 11.87c2.47 0 4.72-.78 6.41-2.51v2.08h6.0697v-22.79996h-6.0697v2.07996zm0 12.48c-1.04 1.65-3.12 2.69-5.42 2.69-3.47 0-6.07-2.51-6.07-5.85s2.64-5.85 6.11-5.85c2.25 0 4.33 1 5.37 2.6v6.41z" />
         <path d="m115.52 25.5001c-3.34 0-5.85-2.34-5.85-5.55 0-3.25 2.56-5.63 5.89-5.63 2.08 0 3.86.95 4.9 2.6l4.51-4.42c-2.17-2.73002-5.72-4.42002-9.53-4.42002-6.63 0-12.13 5.16002-12.13 11.92002 0 6.63 5.33 11.74 12.05 11.74 4.16 0 8.1-1.99 10.44-5.11l-4.81-4.16c-1.14 1.91-3.13 3.03-5.47 3.03z" />

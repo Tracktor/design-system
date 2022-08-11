@@ -8,6 +8,9 @@ const Template: ComponentStory<typeof Logo> = (args) => (
   </Stack>
 );
 
+export const AutoColorFromTheme = Template.bind({});
+AutoColorFromTheme.args = {};
+
 export const Black = Template.bind({});
 Black.args = {
   color: "black",
@@ -22,6 +25,7 @@ White.args = {
 
 export const RenderAsSvgBlack = Template.bind({});
 RenderAsSvgBlack.args = {
+  color: "black",
   component: "svg",
 };
 

@@ -1,5 +1,5 @@
-import LogoComponent, { LogoProps } from "../Logo";
+import Component, { LogoProps } from "../Logo";
 
-const Logo = (props: LogoProps) => <LogoComponent {...props} />;
+const Logo = (props: LogoProps) => <Component {...props} />;
 
 export default Logo;
