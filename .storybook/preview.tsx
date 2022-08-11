@@ -21,12 +21,18 @@ export const parameters = {
     },
   },
   darkMode: {
-    dark: {...themes.dark},
-    light: {...themes.light},
+    dark: {
+      ...themes.dark,
+      brandImage: "../src/assets/img/tracktor-white.svg"
+    },
+    light: {
+      ...themes.light,
+      brandImage: "../src/assets/img/tracktor-black.svg"
+    },
     darkClass: "dark-on",
     lightClass: "lights-on",
     current: 'dark',
-    stylePreview: true
+    stylePreview: true,
   },
   docs: {
     theme: themes.dark,
