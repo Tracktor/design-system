@@ -1,9 +1,9 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { useIsFeatureEnabled } from "./useIsFeatureEnabled";
 import FeatureEnableProvider from "@/context/FeatureEnable/FeatureEnableProvider";
 
-describe("Test useUserHasABTest", () => {
+describe("Test useIsFeatureEnabled", () => {
   it("provide name & features with empty string array", () => {
     const name = [""];
     const features = [""];
