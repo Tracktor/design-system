@@ -1,4 +1,4 @@
-import BoxMui, { BoxProps } from "@mui/material/Box";
+import { Box as BoxMui, BoxProps } from "@mui/material";
 
 const Box = (props: BoxProps) => <BoxMui {...props} />;
 

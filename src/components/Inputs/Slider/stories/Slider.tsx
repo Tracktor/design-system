@@ -1,4 +1,4 @@
-import SliderMui, { SliderProps } from "@mui/material/Slider";
+import { Slider as SliderMui, SliderProps } from "@mui/material";
 
 const Select = (props: SliderProps) => <SliderMui {...props} />;
 

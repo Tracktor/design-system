@@ -1,4 +1,4 @@
-import AvatarMui, { AvatarProps } from "@mui/material/Avatar";
+import { Avatar as AvatarMui, AvatarProps } from "@mui/material";
 
 export const Avatar = (props: AvatarProps) => <AvatarMui {...props} />;
 

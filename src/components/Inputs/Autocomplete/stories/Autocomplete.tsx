@@ -1,4 +1,4 @@
-import AutocompleteMui, { AutocompleteProps } from "@mui/material/Autocomplete";
+import { Autocomplete as AutocompleteMui, AutocompleteProps } from "@mui/material";
 
 const Autocomplete = (props: AutocompleteProps<any, any, any, any>) => <AutocompleteMui {...props} />;
 

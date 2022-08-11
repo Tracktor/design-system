@@ -1,4 +1,4 @@
-import RatingMui, { RatingProps } from "@mui/material/Rating";
+import { Rating as RatingMui, RatingProps } from "@mui/material";
 
 const Rating = (props: RatingProps) => <RatingMui {...props} />;
 

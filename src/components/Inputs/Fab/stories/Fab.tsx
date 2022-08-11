@@ -1,4 +1,4 @@
-import FabMui, { FabProps } from "@mui/material/Fab";
+import { Fab as FabMui, FabProps } from "@mui/material";
 
 const Fab = (props: FabProps) => <FabMui {...props} />;
 

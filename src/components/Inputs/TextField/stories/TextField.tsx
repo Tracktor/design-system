@@ -1,4 +1,4 @@
-import TextFieldMui, { BaseTextFieldProps } from "@mui/material/TextField";
+import { TextField as TextFieldMui, BaseTextFieldProps } from "@mui/material";
 
 const TextField = (props: BaseTextFieldProps) => <TextFieldMui {...props} />;
 

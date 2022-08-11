@@ -1,4 +1,4 @@
-import RadioMui, { RadioProps } from "@mui/material/Radio";
+import { Radio as RadioMui, RadioProps } from "@mui/material";
 
 const Radio = (props: RadioProps) => <RadioMui {...props} />;
 

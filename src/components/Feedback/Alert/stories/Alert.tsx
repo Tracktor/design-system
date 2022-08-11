@@ -1,4 +1,4 @@
-import AlertMui, { AlertProps } from "@mui/material/Alert";
+import { Alert as AlertMui, AlertProps } from "@mui/material";
 
 const Alert = (props: AlertProps) => <AlertMui {...props} />;
 
