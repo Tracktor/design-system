@@ -23,14 +23,15 @@ export const parameters = {
   darkMode: {
     dark: {...themes.dark},
     light: {...themes.light},
-    darkClass: 'dark-on',
-    lightClass: 'lights-on',
+    darkClass: "dark-on",
+    lightClass: "lights-on",
     current: 'dark',
     stylePreview: true
   },
   docs: {
     theme: themes.dark,
-  }
+  },
+  order: ["Introduction", "Installation", "Styles"]
 }
 
 export const decorators = [
