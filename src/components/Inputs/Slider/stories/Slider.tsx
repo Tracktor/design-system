@@ -1,5 +1,5 @@
-import { Slider as SliderMui, SliderProps } from "@mui/material";
+import { Slider as Component, SliderProps } from "@mui/material";
 
-const Select = (props: SliderProps) => <SliderMui {...props} />;
+const Select = (props: SliderProps) => <Component {...props} />;
 
 export default Select;

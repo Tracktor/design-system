@@ -1,5 +1,5 @@
-import { Radio as RadioMui, RadioProps } from "@mui/material";
+import { Radio as Component, RadioProps } from "@mui/material";
 
-const Radio = (props: RadioProps) => <RadioMui {...props} />;
+const Radio = (props: RadioProps) => <Component {...props} />;
 
 export default Radio;

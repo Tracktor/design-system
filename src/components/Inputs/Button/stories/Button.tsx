@@ -1,5 +1,5 @@
-import { Button as ButtonMui, ButtonProps } from "@mui/material";
+import { Button as Component, ButtonProps } from "@mui/material";
 
-const Button = (props: ButtonProps) => <ButtonMui {...props} />;
+const Button = (props: ButtonProps) => <Component {...props} />;
 
 export default Button;

@@ -1,5 +1,5 @@
-import { Select as SelectMui, SelectProps } from "@mui/material";
+import { Select as Component, SelectProps } from "@mui/material";
 
-const Select = (props: SelectProps<any>) => <SelectMui {...props} />;
+const Select = (props: SelectProps<any>) => <Component {...props} />;
 
 export default Select;

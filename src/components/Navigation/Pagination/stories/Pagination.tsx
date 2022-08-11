@@ -1,5 +1,5 @@
-import { Pagination as PaginationMui, PaginationProps } from "@mui/material";
+import { Pagination as Component, PaginationProps } from "@mui/material";
 
-const Pagination = (props: PaginationProps) => <PaginationMui {...props} />;
+const Pagination = (props: PaginationProps) => <Component {...props} />;
 
 export default Pagination;

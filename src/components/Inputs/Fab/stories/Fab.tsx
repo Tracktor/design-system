@@ -1,5 +1,5 @@
-import { Fab as FabMui, FabProps } from "@mui/material";
+import { Fab as Component, FabProps } from "@mui/material";
 
-const Fab = (props: FabProps) => <FabMui {...props} />;
+const Fab = (props: FabProps) => <Component {...props} />;
 
 export default Fab;

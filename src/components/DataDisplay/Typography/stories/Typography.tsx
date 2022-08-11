@@ -1,5 +1,5 @@
-import { Typography as TypographyMui, TypographyProps } from "@mui/material";
+import { Typography as Component, TypographyProps } from "@mui/material";
 
-export const Typography = (props: TypographyProps) => <TypographyMui {...props} />;
+export const Typography = (props: TypographyProps) => <Component {...props} />;
 
 export default Typography;

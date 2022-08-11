@@ -1,5 +1,5 @@
-import { ButtonGroup as ButtonGroupMui, ButtonGroupProps } from "@mui/material";
+import { ButtonGroup as Component, ButtonGroupProps } from "@mui/material";
 
-const ButtonGroup = (props: ButtonGroupProps) => <ButtonGroupMui {...props} />;
+const ButtonGroup = (props: ButtonGroupProps) => <Component {...props} />;
 
 export default ButtonGroup;

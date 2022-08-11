@@ -1,5 +1,5 @@
-import { Box as BoxMui, BoxProps } from "@mui/material";
+import { Box as Component, BoxProps } from "@mui/material";
 
-const Box = (props: BoxProps) => <BoxMui {...props} />;
+const Box = (props: BoxProps) => <Component {...props} />;
 
 export default Box;

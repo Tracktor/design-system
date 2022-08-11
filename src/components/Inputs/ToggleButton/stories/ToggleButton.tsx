@@ -1,5 +1,5 @@
-import { ToggleButton as ToggleButtonMui, ToggleButtonProps } from "@mui/material";
+import { ToggleButton as Component, ToggleButtonProps } from "@mui/material";
 
-const ToggleButton = (props: ToggleButtonProps) => <ToggleButtonMui {...props} />;
+const ToggleButton = (props: ToggleButtonProps) => <Component {...props} />;
 
 export default ToggleButton;

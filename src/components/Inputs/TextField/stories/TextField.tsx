@@ -1,5 +1,5 @@
-import { TextField as TextFieldMui, BaseTextFieldProps } from "@mui/material";
+import { TextField as Component, BaseTextFieldProps } from "@mui/material";
 
-const TextField = (props: BaseTextFieldProps) => <TextFieldMui {...props} />;
+const TextField = (props: BaseTextFieldProps) => <Component {...props} />;
 
 export default TextField;
