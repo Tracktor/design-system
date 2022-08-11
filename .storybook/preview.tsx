@@ -31,7 +31,11 @@ export const parameters = {
   docs: {
     theme: themes.dark,
   },
-  order: ["Introduction", "Installation", "Styles"]
+  options: {
+    storySort: {
+      order: ["Introduction", "Installation", "Styles"]
+    },
+  },
 }
 
 export const decorators = [
