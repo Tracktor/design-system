@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title=" Hooks/useColorMode"/>
+
+# `useColorMode`
+
+This hook allows switch theme color mode
+
+### Provide color mode
+Put `<ColorModeProvider>` around your application and `<ColorModeConsumer>` to provide `colorMode` to `<ThemeProvider>`
+
+```typescript jsx
+import { ColorModeConsumer, ColorModeProvider, ThemeProvider } from "design-system";
+
+const App = () => (
+  <ColorModeProvider>
+    <ColorModeConsumer>
+      {({ colorMode }) => (
+        <ThemeProvider theme={colorMode}>
+          ...
+        </ThemeProvider>
+      )}
+    </ColorModeConsumer>
+  </ColorModeProvider>
+);
+
+export default App;
+
+```
+
+### Use the hook
+Once `colorMode` is provided, you can toggle theme color mode anywhere in your application
+
+```typescript jsx
+import { Button, useColorMode } from "design-system";
+
+const MyComponent = () => {
+  const { toggleColorMode } = useColorMode();
+
+  return (
+    <Button onClick={toggleColorMode}>
+      Toggle theme color mode
+    </Button>
+  );
+};
+
+export default MyComponent;
+
+```
