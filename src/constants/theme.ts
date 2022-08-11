@@ -37,8 +37,7 @@ const commonThemeOptions: ThemeOptions = {
     },
   },
   typography: {
-    // fontFamily: "Poppins, sans-serif",
-    fontFamily: ["Poppins", "sans-serif"].join(","),
+    fontFamily: "Poppins, sans-serif",
   },
 };
 
