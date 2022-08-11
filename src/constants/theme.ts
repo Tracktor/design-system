@@ -66,6 +66,14 @@ const lightThemeOptions: ThemeOptions = {
 
 const darkThemeOptions: ThemeOptions = {
   palette: {
+    action: {
+      active: darkColors.actionActive,
+      disabled: darkColors.actionDisabled,
+      disabledBackground: darkColors.actionDisabledBackground,
+      focus: darkColors.actionFocus,
+      hover: darkColors.actionHover,
+      selected: darkColors.actionSelected,
+    },
     background: {
       default: darkColors.background,
       paper: darkColors.background,

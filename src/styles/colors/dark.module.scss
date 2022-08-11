@@ -8,11 +8,26 @@ $textPrimary: #ffffff;
 $textSecondary: #999999;
 $textDisabled: #636262;
 
+// Action
+$actionActive: rgba(255, 255, 255, 0.54);
+$actionHover: rgba(255, 255, 255, 0.04);
+$actionSelected: rgba(255, 255, 255, 0.08);
+$actionDisabled: rgba(255, 255, 255, 0.26);
+$actionDisabledBackground: rgba(255, 255, 255, 0.12);
+$actionFocus: rgba(255, 255, 255, 0.12);
+
 // Other/Misc
 $divider: rgba(0, 0, 0, 0.12);
 
 
 :export {
+  // Action
+  actionActive: $actionActive;
+  actionHover: $actionHover;
+  actionSelected: $actionSelected;
+  actionDisabled: $actionDisabled;
+  actionDisabledBackground: $actionDisabledBackground;
+  actionFocus: $actionFocus;
   // Background
   background: $background;
   // Text
