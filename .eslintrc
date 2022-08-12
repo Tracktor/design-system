@@ -3,7 +3,6 @@
   "overrides": [
     {
       "files": [
-        "index.ts",
         "vite.config.ts"
       ],
       "rules": {

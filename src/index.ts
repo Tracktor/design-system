@@ -18,6 +18,6 @@ export * from "@/context/ColorMode/ColorModeConsumer";
 
 // Hooks
 export { default as useColorMode } from "@/hooks/useColorMode";
-export * from "@/hooks/useIsFeatureEnabled";
+export * from "@/hooks/useColorMode";
 export { default as useIsFeatureEnabled } from "@/hooks/useIsFeatureEnabled";
 export * from "@/hooks/useIsFeatureEnabled";
