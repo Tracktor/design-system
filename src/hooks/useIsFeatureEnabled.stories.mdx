@@ -1,4 +1,4 @@
-import { Meta, Source } from '@storybook/addon-docs';
+import { Meta } from '@storybook/addon-docs';
 
 <Meta title=" Hooks/useIsFeatureEnabled"/>
 
@@ -22,7 +22,6 @@ In this example above static data is provided, but you can fetch user features.
 
 ```typescript jsx
 import React from 'react'
-import ReactDOM from 'react-dom/client'
 import Home from "./Home";
 import { FeatureEnableProvider } from 'design-system';
 
@@ -32,14 +31,10 @@ const App = () => (
     </FeatureEnableProvider>
 );
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>
-);
+export default App;
 ```
 
-Then in `home.tsx` you can use the hook without give features
+Then anywhere in your application like `home.tsx` you can use the hook without give features
 
 ```typescript jsx
 import { useIsFeatureEnabled } from "design-system";

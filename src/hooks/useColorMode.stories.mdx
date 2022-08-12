@@ -11,13 +11,14 @@ Put `<ColorModeProvider>` around your application and `<ColorModeConsumer>` to p
 
 ```typescript jsx
 import { ColorModeConsumer, ColorModeProvider, ThemeProvider } from "design-system";
+import Home from "./Home";
 
 const App = () => (
   <ColorModeProvider>
     <ColorModeConsumer>
       {({ colorMode }) => (
         <ThemeProvider theme={colorMode}>
-          ...
+          <Home />
         </ThemeProvider>
       )}
     </ColorModeConsumer>
@@ -25,16 +26,15 @@ const App = () => (
 );
 
 export default App;
-
 ```
 
-### Use the hook
+### Toggle color mode
 Once `colorMode` is provided, you can toggle theme color mode anywhere in your application
 
 ```typescript jsx
 import { Button, useColorMode } from "design-system";
 
-const MyComponent = () => {
+const Home = () => {
   const { toggleColorMode } = useColorMode();
 
   return (
@@ -44,6 +44,5 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
-
+export default Home;
 ```
