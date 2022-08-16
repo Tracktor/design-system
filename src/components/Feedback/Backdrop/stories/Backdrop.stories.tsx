@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof Backdrop> = (args) => {
 
   return (
     <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ height: "100%" }}>
-      <Button onClick={handleToggle} variant="contained">
+      <Button onClick={handleToggle} variant="outlined">
         Click to show backdrop
       </Button>
       <Backdrop {...args} sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={open} onClick={handleClose}>
