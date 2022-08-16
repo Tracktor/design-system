@@ -61,7 +61,7 @@ const CustomTemplate: ComponentStory<typeof Snackbar> = (args) => {
   return (
     <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
       <Button onClick={handleClick} variant="outlined">
-        Open simple snackbar
+        Open custom snackbar
       </Button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} {...args}>
         <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }} variant="filled">
