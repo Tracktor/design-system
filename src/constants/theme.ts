@@ -76,7 +76,7 @@ const darkThemeOptions: ThemeOptions = {
     },
     background: {
       default: darkColors.background,
-      paper: darkColors.background,
+      paper: darkColors.paper,
     },
     divider: darkColors.divider,
     mode: "dark",

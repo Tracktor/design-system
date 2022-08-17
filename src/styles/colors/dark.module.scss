@@ -2,6 +2,7 @@
 
 // Background
 $background: #333333;
+$paper: #393939;
 
 // Text
 $textPrimary: #ffffff;
@@ -30,6 +31,7 @@ $divider: rgba(255, 255, 255, 0.12);
   actionFocus: $actionFocus;
   // Background
   background: $background;
+  paper: $paper;
   // Text
   textPrimary: $textPrimary;
   textSecondary: $textSecondary;
