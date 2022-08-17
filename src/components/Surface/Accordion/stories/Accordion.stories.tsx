@@ -16,6 +16,7 @@ const ArrowIcon = () => {
     </svg>
   );
 };
+
 const Template: ComponentStory<typeof Accordion> = (args) => (
   <Stack spacing={0} alignItems="stretch" justifyContent="center" height="100%">
     <Accordion {...args}>
