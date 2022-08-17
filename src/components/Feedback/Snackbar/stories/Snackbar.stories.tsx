@@ -50,7 +50,7 @@ const CustomTemplate: ComponentStory<typeof Snackbar> = (args) => {
     setOpen(true);
   };
 
-  const handleClose = (_?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (_?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
