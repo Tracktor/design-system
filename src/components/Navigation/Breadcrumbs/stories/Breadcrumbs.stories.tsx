@@ -63,7 +63,7 @@ Collapsed.args = {
 };
 
 export const Custom = CustomTemplate.bind({});
-Collapsed.args = {};
+Custom.args = {};
 
 export default {
   component: Breadcrumbs,
