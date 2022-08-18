@@ -5,6 +5,8 @@ import Popover from "./Popover";
 
 const Template: ComponentStory<typeof Popover> = (args) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -13,9 +15,6 @@ const Template: ComponentStory<typeof Popover> = (args) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center" height="100%">
