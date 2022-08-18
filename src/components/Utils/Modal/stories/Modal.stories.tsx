@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Fade, Typography } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
 import Modal from "./Modal";
@@ -40,6 +40,39 @@ const Template: ComponentStory<typeof Modal> = (args) => {
   );
 };
 
+const TransitionTemplate: ComponentStory<typeof Modal> = (args) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+      <Button onClick={handleOpen} variant="outlined">
+        Open fade transition modal
+      </Button>
+      <Modal
+        {...args}
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+      >
+        <Fade in={open} timeout={1000}>
+          <Box sx={ModalStyle}>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
+    </Box>
+  );
+};
+
 export const Basic = Template.bind({});
 Basic.args = {};
 
@@ -47,6 +80,9 @@ export const KeepMounted = Template.bind({});
 KeepMounted.args = {
   keepMounted: true,
 };
+
+export const Transition = TransitionTemplate.bind({});
+Transition.args = {};
 
 export default {
   component: Modal,
