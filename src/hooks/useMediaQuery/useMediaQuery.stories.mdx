@@ -14,7 +14,7 @@ The media query string can be any valid CSS media query, e.g. `(prefers-color-sc
 import { useMediaQuery } from "design-system";
 
 export default function SimpleMediaQuery() {
-  const matches = useMediaQuery('(min-width:600px)');
+  const matches = useMediaQuery("(min-width:600px)");
 
   return <span>{`(min-width:600px) matches: ${matches}`}</span>;
 }
@@ -28,7 +28,7 @@ import { useMediaQuery, useTheme } from "design-system"
 
 function MyComponent() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return <span>{`theme.breakpoints.up('sm') matches: ${matches}`}</span>;
 }
