@@ -394,7 +394,7 @@ const VerticalTemplate: ComponentStory<typeof Stepper> = (args) => {
                 <Typography>{step.description}</Typography>
                 <Box sx={{ mb: 2 }}>
                   <div>
-                    <Button variant="contained" onClick={handleNext} sx={{ mr: 1, mt: 1 }}>
+                    <Button variant="outlined" onClick={handleNext} sx={{ mr: 1, mt: 1 }}>
                       {index === steps.length - 1 ? "Finish" : "Continue"}
                     </Button>
                     <Button disabled={index === 0} onClick={handleBack} sx={{ mr: 1, mt: 1 }}>

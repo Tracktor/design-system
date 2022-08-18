@@ -1,5 +1,5 @@
-import { Stack, Box, SxProps, Button } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Box, Button, Stack, SxProps } from "@mui/material";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
 import ClickAwayListener from "./ClickAwayListener";
 
@@ -28,7 +28,7 @@ const Template: ComponentStory<typeof ClickAwayListener> = (args) => {
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
       <ClickAwayListener {...args} onClickAway={handleClickAway}>
         <Box sx={{ position: "relative" }}>
-          <Button type="button" variant="contained" onClick={handleClick}>
+          <Button type="button" variant="outlined" onClick={handleClick}>
             Open menu dropdown
           </Button>
           {open ? <Box sx={styles}>Click me, I will stay visible until you click outside.</Box> : null}
