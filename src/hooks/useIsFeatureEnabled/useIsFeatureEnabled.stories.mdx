@@ -1,6 +1,6 @@
-import { Meta } from '@storybook/addon-docs';
+import { Meta } from "@storybook/addon-docs";
 
-<Meta title=" Hooks/useIsFeatureEnabled"/>
+<Meta title="Hooks/useIsFeatureEnabled"/>
 
 # `useIsFeatureEnabled`
 
@@ -21,9 +21,8 @@ Put `<FeatureEnableProvider>` to provide user `features`<br/>
 In this example above static data is provided, but you can fetch user features.
 
 ```typescript jsx
-import React from 'react'
 import Home from "./Home";
-import { FeatureEnableProvider } from 'design-system';
+import { FeatureEnableProvider } from "design-system";
 
 const App = () => (
     <FeatureEnableProvider features={["order", "checkout"]}>
