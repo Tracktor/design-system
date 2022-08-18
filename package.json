@@ -64,7 +64,6 @@
     "react-test-renderer": "^18.2.0",
     "sass": "^1.54.0",
     "storybook-dark-mode": "^1.1.0",
-    "trim-newlines": "^4.0.2",
     "vitest": "^0.22.1"
   },
   "dependencies": {
