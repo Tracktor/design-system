@@ -5,16 +5,16 @@
   "version": "1.0.0",
   "license": "ISC",
   "type": "module",
-  "types": "lib/index.d.ts",
-  "main": "lib/index.cjs",
-  "module": "lib/index.js",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "files": [
     "lib"
   ],
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "repository": "git@github.com:Tracktor/design-system.git",
