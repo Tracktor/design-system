@@ -38,7 +38,7 @@
     "src"
   ],
   "exclude": [
-    "lib",
+    "dist",
     ".storybook",
   ],
   "references": [
