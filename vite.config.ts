@@ -9,7 +9,6 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/main.ts"),
       fileName: "[name]",
-      formats: ["cjs", "es"],
       name,
     },
     minify: "esbuild",
