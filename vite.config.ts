@@ -7,13 +7,12 @@ import { dependencies, name, peerDependencies } from "./package.json";
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: resolve(__dirname, "lib/main.ts"),
       fileName: "[name]",
       formats: ["cjs", "es"],
       name,
     },
     minify: "esbuild",
-    outDir: "lib",
     rollupOptions: {
       external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
