@@ -1,13 +1,3 @@
 {
-  "extends": "eslint-config-react",
-  "overrides": [
-    {
-      "files": [
-        "vite.config.ts"
-      ],
-      "rules": {
-        "no-restricted-imports": "off"
-      }
-    }
-  ]
+  "extends": "eslint-config-react"
 }
