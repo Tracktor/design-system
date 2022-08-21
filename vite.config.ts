@@ -1,13 +1,13 @@
-import path from "path";
+import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vitest/config";
-import { peerDependencies, dependencies, name } from "./package.json";
+import { dependencies, name, peerDependencies } from "./package.json";
 
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
+      entry: resolve(__dirname, "src/index.ts"),
       fileName: "[name]",
       formats: ["cjs", "es"],
       name,
@@ -31,7 +31,7 @@ export default defineConfig({
     dts(),
   ],
   resolve: {
-    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+    alias: [{ find: "@", replacement: resolve(__dirname, "src") }],
   },
   test: {
     coverage: {
