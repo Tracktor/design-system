@@ -13,6 +13,7 @@
   - [Provide the theme](#Provide-the-theme)
 - [Docs](#Docs)  
   - [Storybook](#Storybook)  
+- [Convention](#Convention)
 - [Changelog](#Changelog)  
 
 ## Features
