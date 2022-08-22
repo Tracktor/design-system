@@ -1,7 +1,6 @@
 {
   "name": "design-system",
   "description": "Tracktor Design System",
-  "private": true,
   "version": "1.0.0",
   "license": "ISC",
   "type": "module",
