@@ -5842,9 +5842,9 @@ eslint-config-react-app@^7.0.1:
     eslint-plugin-react-hooks "^4.3.0"
     eslint-plugin-testing-library "^5.0.1"
 
-"eslint-config-react@git+https://github.com/Tracktor/eslint-config-react#v1.0.0":
+"eslint-config-react@git+https://github.com/Tracktor/eslint-config-react.git#v1.0.0":
   version "1.0.0"
-  resolved "git+https://github.com/Tracktor/eslint-config-react#7c8dbca63b1517bcf1a999eedb7d5c84ccc1bdc8"
+  resolved "git+https://github.com/Tracktor/eslint-config-react.git#7c8dbca63b1517bcf1a999eedb7d5c84ccc1bdc8"
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.30.7"
     "@typescript-eslint/parser" "^5.30.7"
