@@ -57,7 +57,7 @@
     "@types/react-dom": "^18.0.6",
     "@vitest/ui": "^0.22.1",
     "babel-loader": "^8.2.5",
-    "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react",
+    "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#v1.0.0",
     "jsdom": "^20.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
