@@ -40,7 +40,7 @@ You will also see any lint errors in the console.
 Builds the library for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
+The build is minified and the filenames include the hashes.
 
 See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
 
