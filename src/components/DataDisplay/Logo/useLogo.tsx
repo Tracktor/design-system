@@ -5,7 +5,7 @@ const useLogo = () => {
   const { palette } = useTheme();
   const { mode } = palette;
 
-  const getColor = (color: LogoProps["color"]) => {
+  const getTextColor = (color: LogoProps["color"]) => {
     if (color) {
       return color;
     }
@@ -13,7 +13,7 @@ const useLogo = () => {
     return mode === "light" ? "black" : "white";
   };
 
-  return { getColor };
+  return { getTextColor };
 };
 
 export default useLogo;

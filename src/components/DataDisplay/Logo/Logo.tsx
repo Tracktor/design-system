@@ -1,5 +1,5 @@
-import { Skeleton } from "@mui/material";
-import { forwardRef, LegacyRef, useEffect, useState } from "react";
+import { Box, Skeleton, useTheme } from "@mui/material";
+import { forwardRef, Ref, useEffect, useState } from "react";
 import useLogo from "@/components/DataDisplay/Logo/useLogo";
 
 export interface LogoProps {
@@ -22,10 +22,11 @@ export interface LogoProps {
   width?: number | string;
 }
 
-const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps, ref: LegacyRef<any>) => {
+const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps, ref: Ref<any>) => {
   const [logoSrc, setLogoSrc] = useState("");
-  const { getColor } = useLogo();
-  const colorLogo = getColor(color);
+  const { palette } = useTheme();
+  const { getTextColor } = useLogo();
+  const colorTextLogo = getTextColor(color);
 
   // Get image async
   useEffect(() => {
@@ -35,22 +36,26 @@ const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps,
 
     (async () => {
       const module =
-        colorLogo === "white" ? await import("@/assets/img/tracktor-white.svg") : await import("@/assets/img/tracktor-black.svg");
+        colorTextLogo === "white" ? await import("@/assets/img/tracktor-white.svg") : await import("@/assets/img/tracktor-black.svg");
       setLogoSrc(module.default);
     })();
-  }, [colorLogo, component]);
+  }, [colorTextLogo, component]);
 
   if (component === "img") {
-    return logoSrc ? (
-      <img src={logoSrc} alt="Tracktor" height={height} width={width} ref={ref} />
-    ) : (
-      <Skeleton variant="text" width={width} height={height} />
+    return (
+      <Box ref={ref} sx={{ display: "inline-block", fontSize: 0 }}>
+        {logoSrc ? (
+          <img src={logoSrc} alt="Tracktor" height={height} width={width} />
+        ) : (
+          <Skeleton variant="rounded" width={width} height={height} />
+        )}
+      </Box>
     );
   }
 
   return (
     <svg fill="none" height={height} width={width} viewBox="0 0 259 32" xmlns="http://www.w3.org/2000/svg" ref={ref}>
-      <g fill={colorLogo}>
+      <g fill={colorTextLogo}>
         <path d="m67.3801 11.77v-3.24996h-6.07v22.78996h6.07v-13.56c1.52-2.04 6.5-3.51 9.14-3.6l-.52-6.10996c-3.38.18-6.67 1.39-8.62 3.72996z" />
         <path d="m94.4203 10.5998c-1.86-1.90996-4.12-2.50996-6.37-2.50996-6.41 0-11.27 5.02996-11.27 11.78996s4.85 11.87 11.22 11.87c2.47 0 4.72-.78 6.41-2.51v2.08h6.0697v-22.79996h-6.0697v2.07996zm0 12.48c-1.04 1.65-3.12 2.69-5.42 2.69-3.47 0-6.07-2.51-6.07-5.85s2.64-5.85 6.11-5.85c2.25 0 4.33 1 5.37 2.6v6.41z" />
         <path d="m115.52 25.5001c-3.34 0-5.85-2.34-5.85-5.55 0-3.25 2.56-5.63 5.89-5.63 2.08 0 3.86.95 4.9 2.6l4.51-4.42c-2.17-2.73002-5.72-4.42002-9.53-4.42002-6.63 0-12.13 5.16002-12.13 11.92002 0 6.63 5.33 11.74 12.05 11.74 4.16 0 8.1-1.99 10.44-5.11l-4.81-4.16c-1.14 1.91-3.13 3.03-5.47 3.03z" />
@@ -66,7 +71,7 @@ const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps,
         <path d="m249.82 17.8103v13.33h-5.96v-22.41005h5.96v3.19005c1.92-2.30005 5.15-3.49005 8.48-3.66005l.51 6.01005c-2.6.09-7.5 1.53-8.99 3.54z" />
         <path d="m230.01 20.4302c.01-3.28 2.68-5.94 5.96-5.94v16.65h-5.96z" />
       </g>
-      <g fill="#009ba6">
+      <g fill={palette.primary.main}>
         <path d="m16.3301.100098v14.910002h14.91c0-8.24-6.67-14.910002-14.91-14.910002z" />
         <path d="m.00976562.100098v14.910002h14.91003438c0-8.24-6.68003-14.910002-14.91003438-14.910002z" />
         <path d="m14.91 16.4199s.01 0 0 0v14.91h-14.91c0-8.24 6.68-14.91 14.91-14.91z" />
