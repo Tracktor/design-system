@@ -2,16 +2,7 @@ import { Box, Skeleton, useTheme } from "@mui/material";
 import { forwardRef, Ref, useEffect, useState } from "react";
 import useLogo from "@/components/DataDisplay/Logo/useLogo";
 
-export interface LogoProps {
-  /**
-   * The color of text logo
-   */
-  color?: "black" | "white";
-  /**
-   * The component used for the root node.
-   * Either a string to use an HTML element or a component.
-   */
-  component?: "img" | "svg";
+interface CommonLogoProps {
   /**
    * Logo height
    */
@@ -21,6 +12,25 @@ export interface LogoProps {
    */
   width?: number | string;
 }
+
+type SvgLogoProps = CommonLogoProps & {
+  /**
+   * The color of text logo
+   */
+  color?: "black" | "white" | string;
+  /**
+   * The component used for the root node.
+   * Either a string to use an HTML element or a component.
+   */
+  component?: "svg";
+};
+
+type ImgLogoProps = CommonLogoProps & {
+  color?: "black" | "white";
+  component?: "img";
+};
+
+export type LogoProps = SvgLogoProps | ImgLogoProps;
 
 const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps, ref: Ref<any>) => {
   const [logoSrc, setLogoSrc] = useState("");
@@ -43,9 +53,9 @@ const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps,
 
   if (component === "img") {
     return (
-      <Box ref={ref} sx={{ display: "inline-block", fontSize: 0 }}>
+      <Box ref={ref} sx={{ color: "red", display: "inline-block", fontSize: 0 }}>
         {logoSrc ? (
-          <img src={logoSrc} alt="Tracktor" height={height} width={width} />
+          <img src={logoSrc} alt="Tracktor" height={height} width={width} style={{ color: "red" }} />
         ) : (
           <Skeleton variant="rounded" width={width} height={height} />
         )}
