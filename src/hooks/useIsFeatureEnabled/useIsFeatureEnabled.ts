@@ -22,7 +22,7 @@ export const useIsFeatureEnabled = ({ name, features }: UseIsFeatureEnabledParam
   const featureContext = useContext(FeatureEnableContext);
   const userFeature = features || featureContext;
 
-  const hasFeature = (searchFeature: string, matchFeatures: string[]) => {
+  const hasFeature = (searchFeature: string, matchFeatures: string[]): boolean => {
     if (searchFeature === "" || !matchFeatures.length) {
       return false;
     }
