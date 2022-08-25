@@ -5,7 +5,7 @@ const useLogo = () => {
   const { palette } = useTheme();
   const { mode } = palette;
 
-  const getTextColor = (color: LogoProps["color"]): LogoProps["color"] => {
+  const getTextColor = (color: LogoProps["color"]): NonNullable<LogoProps["color"]> => {
     if (color) {
       return color;
     }
