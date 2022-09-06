@@ -1,0 +1,35 @@
+version: 2.1
+
+orbs:
+  sre: tracktor/ci-tools@0.1.5
+
+references:
+  staging_context: &staging_context
+    - docker
+  production_context: &production_context
+    - docker
+
+executors:
+  build-docker:
+    docker:
+      - image: cimg/base:current
+
+jobs:
+  # Docker Build + Publish
+  publish-storybook-docker:
+    executor: build-docker
+    steps:
+      - sre/build-docker:
+          image_name: "tracktor/design-system-storybook"
+          registry_pwd: $CONTAINER_REGISTRY_PWD
+          registry_user: $CONTAINER_REGISTRY_USER
+          publish: true
+
+workflows:
+  main:
+    when:
+      matches:
+        pattern: "^main$"
+        value: << pipeline.git.branch >>
+    jobs:
+      - publish-storybook-docker
