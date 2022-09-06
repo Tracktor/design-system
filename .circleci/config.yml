@@ -4,8 +4,6 @@ orbs:
   sre: tracktor/ci-tools@0.1.5
 
 references:
-  staging_context: &staging_context
-    - docker
   production_context: &production_context
     - docker
 
@@ -32,4 +30,5 @@ workflows:
         pattern: "^main$"
         value: << pipeline.git.branch >>
     jobs:
-      - publish-storybook-docker
+      - publish-storybook-docker:
+          context: *production_context
