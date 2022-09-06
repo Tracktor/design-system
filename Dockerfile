@@ -12,7 +12,6 @@ COPY . .
 
 # Install app dependencies
 RUN yarn install
-#RUN npm set progress=false && npm install
 
 # Make port 6006 available
 EXPOSE 6006
