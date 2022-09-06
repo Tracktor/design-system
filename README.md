@@ -84,10 +84,17 @@ export default App;
 
 ### Storybook
 
-Run storybook
+Start storybook
 ```console
 yarn storybook
 ```
+
+Or you can start storybook with docker
+```console
+docker-compose up
+```
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+
 
 ## Convention
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
