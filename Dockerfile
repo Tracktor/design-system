@@ -1,20 +1,29 @@
-# Select reference image
-FROM node:14
+# Install Deps
+FROM node:16-alpine AS builder
 
-# This is optional. Sets the level of logging that you see
-ENV NPM_CONFIG_LOGLEVEL warn
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 
-# Create app directory
-WORKDIR /usr/src/app
+RUN apk add --no-cache libc6-compat git
 
-# Copy project files into the docker image
+WORKDIR /app
+
 COPY . .
 
-# Install app dependencies
-RUN yarn install
+RUN yarn install && yarn build-storybook
 
-# Make port 6006 available
-EXPOSE 6006
+# Server
 
-# run storybook app
-CMD ["npm", "run", "storybook"]
+FROM python:3.10-alpine AS runner
+
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 storybook
+RUN adduser --system --uid 1001 storybook
+
+COPY --from=builder /app/storybook-static ./
+
+USER storybook
+
+EXPOSE 8080
+
+CMD ["python", "-m", "http.server", "8080"]
