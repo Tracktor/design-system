@@ -39,7 +39,7 @@
   ],
   "exclude": [
     "dist",
-    ".storybook",
+    ".storybook"
   ],
   "references": [
     {
