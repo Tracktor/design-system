@@ -110,7 +110,7 @@ Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
       <p>      
         <span>If you got a message</span>
         <code>Failed to fetch dynamically imported module: http://localhost:6006/.storybook/preview.tsx</code>
-        <span>when you start the storybook, then restart the storybook</span>
+        <span>when you start the storybook, then restart the storybook.</span>
       </p>
     </li>
   </ul>
