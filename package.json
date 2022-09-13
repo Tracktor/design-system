@@ -25,7 +25,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint .",
-    "prepare": "yarn run build",
+    "prepare": "yarn run build && husky install",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
@@ -57,6 +57,7 @@
     "@vitest/ui": "^0.22.1",
     "babel-loader": "^8.2.5",
     "eslint-config-react": "git+https://github.com/Tracktor/eslint-config-react#v1.0.1",
+    "husky": "^8.0.0",
     "jsdom": "^20.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
