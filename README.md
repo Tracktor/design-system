@@ -26,6 +26,9 @@
 - 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
   utilities
 - 💅 **[Emotion CSS](https://emotion.sh/docs/introduction)** - Writing css styles with JavaScript
+- 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
+
+
 
 
 ## Installation
