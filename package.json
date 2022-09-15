@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Tracktor/design-system#readme",
   "scripts": {
     "build": "tsc && vite build",
-    "lint": "eslint && tsc --noEmit",
+    "lint": "eslint . && tsc --noEmit",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
