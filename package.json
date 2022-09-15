@@ -1,7 +1,7 @@
 {
-  "name": "design-system",
+  "name": "design-system-tracktor",
   "description": "Tracktor Design System",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "license": "ISC",
   "type": "module",
   "types": "dist/main.d.ts",
@@ -16,12 +16,12 @@
       "require": "./dist/main.umd.cjs"
     }
   },
-  "repository": "git@github.com:Tracktor/design-system.git",
+  "repository": "git@github.com:Tracktor/design-system-tracktor.git",
   "author": "Mickaël Austoni",
   "bugs": {
-    "url": "https://github.com/Tracktor/design-system/issues"
+    "url": "https://github.com/Tracktor/design-system-tracktor/issues"
   },
-  "homepage": "https://github.com/Tracktor/design-system#readme",
+  "homepage": "https://github.com/Tracktor/design-system-tracktor#readme",
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint && tsc --noEmit",

@@ -34,13 +34,7 @@
 ## Installation
 
 ```console
-yarn add git+https://github.com/Tracktor/design-system
-```
-
-Specific version can be installed
-
-```console
-yarn add git+https://github.com/Tracktor/design-system#1.0.0
+yarn add design-system-tracktor
 ```
 
 ## Usage
@@ -51,7 +45,7 @@ Put `<ThemeProvider>` around your application.
 Custom theme can be provided as prop `theme={YOUR_CUSTOM_THEME}`
 
 ```typescript jsx
-import { Button, ThemeProvider } from "design-system";
+import { Button, ThemeProvider } from "design-system-tracktor";
 
 const App = () => (
   <ThemeProvider>
