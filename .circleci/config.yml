@@ -2,15 +2,20 @@ version: 2.1
 
 orbs:
   sre: tracktor/ci-tools@0.1.5
+  gh: circleci/github-cli@2.1.0
 
 references:
   production_context: &production_context
     - docker
+    - npm
 
 executors:
   build-docker:
     docker:
       - image: cimg/base:current
+  publish-npm:
+    docker:
+      - image: cimg/node:16.17.0
 
 jobs:
   # Docker Build + Publish
@@ -25,13 +30,32 @@ jobs:
           registry_pwd: $CONTAINER_REGISTRY_PWD
           registry_user: $CONTAINER_REGISTRY_USER
           publish: true
+  publish-npm:
+    executor: publish-npm
+    steps:
+      - gh/setup
+      - checkout
+      - run:
+          name: Yarn install
+          command: yarn
+      - run:
+          name: Create Github release
+          command: |
+            export TAG=$(grep '"version":' ./package.json | cut -d\" -f4)
+            gh release create -F CHANGELOG.md $TAG
+      - run:
+          name: publish on npm
+          command: yarn publish
 
 workflows:
   main:
     when:
       matches:
-        pattern: "^main$"
+        pattern: "^master$"
         value: << pipeline.git.branch >>
     jobs:
       - publish-storybook-docker:
           context: *production_context
+      - publish-npm:
+          context: *production_context
+
