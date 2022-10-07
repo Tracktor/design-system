@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn && yarn install && yarn build-storybook
+RUN yarn install && yarn build-storybook
 
 # Server
 
@@ -22,7 +22,7 @@ RUN adduser -D static
 USER static
 
 COPY --from=builder /app/storybook-static ./
-COPY src/assets/ /src/assets/
+COPY src/assets/ /app/assets/
 
 EXPOSE 8080
 
