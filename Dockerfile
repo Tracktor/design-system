@@ -13,17 +13,15 @@ RUN yarn install && yarn build-storybook
 
 # Server
 
-FROM python:3.10-alpine AS runner
+FROM busybox:1.35 AS runner
 
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 storybook
-RUN adduser --system --uid 1001 storybook
+RUN adduser -D static
+USER static
 
 COPY --from=builder /app/storybook-static ./
 
-USER storybook
-
 EXPOSE 8080
 
-CMD ["python", "-m", "http.server", "8080"]
+CMD ["busybox", "httpd", "-p", "8080"]
