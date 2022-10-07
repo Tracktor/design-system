@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install && yarn build-storybook
+RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn && yarn install && yarn build-storybook
 
 # Server
 
@@ -18,10 +18,14 @@ FROM busybox:1.35 AS runner
 WORKDIR /app
 
 RUN adduser -D static
+
 USER static
 
 COPY --from=builder /app/storybook-static ./
+COPY src/assets/ /src/assets/
 
 EXPOSE 8080
 
-CMD ["busybox", "httpd", "-p", "8080"]
+ENTRYPOINT ["busybox", "httpd"]
+
+CMD ["-f", "-p", "8080"]
