@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  sre: tracktor/ci-tools@0.2.0
+  sre: tracktor/ci-tools@0.2.1
   gh: circleci/github-cli@2.1.0
 
 references:
