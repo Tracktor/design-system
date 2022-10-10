@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install && yarn build-storybook
+RUN --mount=type=cache,target=/app/.yarn YARN_CACHE_FOLDER=/app/.yarn yarn --frozen-lockfile && yarn build-storybook
 
 # Server
 
@@ -22,7 +22,7 @@ RUN adduser -D static
 USER static
 
 COPY --from=builder /app/storybook-static ./
-# COPY src/assets/ app/
+COPY src/assets/ /app/src/assets/
 
 EXPOSE 8080
 

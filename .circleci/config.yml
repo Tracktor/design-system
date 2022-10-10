@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  sre: tracktor/ci-tools@0.1.5
+  sre: tracktor/ci-tools@0.2.0
   gh: circleci/github-cli@2.1.0
 
 references:
@@ -25,10 +25,12 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
       - checkout
+      - sre/load-package-version
       - sre/build-docker:
           image_name: "tracktor/design-system-storybook"
           registry_pwd: $CONTAINER_REGISTRY_PWD
           registry_user: $CONTAINER_REGISTRY_USER
+          version: $VERSION
           publish: true
   publish-npm:
     executor: publish-npm
@@ -58,4 +60,3 @@ workflows:
           context: *production_context
       - publish-npm:
           context: *production_context
-
