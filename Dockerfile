@@ -22,7 +22,7 @@ RUN adduser -D static
 USER static
 
 COPY --from=builder /app/storybook-static ./
-COPY src/assets/ /app/assets/
+# COPY src/assets/ app/
 
 EXPOSE 8080
 
