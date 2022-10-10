@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  sre: tracktor/ci-tools@0.2.1
+  sre: tracktor/ci-tools@0.2.2
   gh: circleci/github-cli@2.1.0
 
 references:
@@ -26,17 +26,24 @@ jobs:
           version: 20.10.14
       - checkout
       - sre/load-package-version
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
       - sre/build-docker:
           image_name: "tracktor/design-system-storybook"
           registry_pwd: $CONTAINER_REGISTRY_PWD
           registry_user: $CONTAINER_REGISTRY_USER
           version: $VERSION
           publish: true
+
   publish-npm:
     executor: publish-npm
     steps:
       - gh/setup
       - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
       - run:
           name: Yarn install
           command: yarn
@@ -48,6 +55,10 @@ jobs:
       - run:
           name: publish on npm
           command: yarn publish
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
 workflows:
   main:
