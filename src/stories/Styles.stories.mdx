@@ -10,7 +10,7 @@ use`Emotion-based` styling solution provided by MUI to style your components.
 ### System Prop
 
 ```typescript jsx
-import { Box } from "@mui/material";
+import { Box } from "design-system-tracktor";
 
 <Box
   sx={{
@@ -27,7 +27,7 @@ import { Box } from "@mui/material";
 ### Emotion based
 
 ```typescript jsx
-import { Box, css } from "@mui/material";
+import { Box, css } from "design-system-tracktor";
 
 const myCss = css({
   ":hover": {
@@ -47,7 +47,7 @@ put `/** @jsxImportSource @emotion/react */` at the top of your story file
 For injecting global style you can use `GlobalStyles` and `css` from Material UI. It is an alias of `Global` from emotion css.
 
 ```typescript jsx
-import { GlobalStyles, css } from "@mui/material";
+import { GlobalStyles, css } from "design-system-tracktor";
 
 <GlobalStyles
   styles={{
@@ -62,7 +62,7 @@ import { GlobalStyles, css } from "@mui/material";
 Or `css` with `GlobalStyles`
 
 ```typescript jsx
-import { GlobalStyles, css } from "@mui/material";
+import { GlobalStyles, css } from "design-system-tracktor";
 
 <GlobalStyles
   styles={css`

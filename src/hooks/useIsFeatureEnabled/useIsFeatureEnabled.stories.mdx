@@ -9,7 +9,7 @@ This hook return `true/false` if user hase given feature.
 ### Basic usage
 
 ```typescript jsx
-import { useIsFeatureEnabled } from "design-system";
+import { useIsFeatureEnabled } from "design-system-tracktor";
 
 const hasCheckout = useIsFeatureEnabled({ features: ["order", "checkout"], name: "order" }); // return true
 const hasBill = useIsFeatureEnabled({ features: ["order", "checkout"], name: "bill" }); // return false
@@ -22,7 +22,7 @@ In this example above static data is provided, but you can fetch user features.
 
 ```typescript jsx
 import Home from "./Home";
-import { FeatureEnableProvider } from "design-system";
+import { FeatureEnableProvider } from "design-system-tracktor";
 
 const App = () => (
     <FeatureEnableProvider features={["order", "checkout"]}>
@@ -36,7 +36,7 @@ export default App;
 Then anywhere in your application like `home.tsx` you can use the hook without give features
 
 ```typescript jsx
-import { useIsFeatureEnabled } from "design-system";
+import { useIsFeatureEnabled } from "design-system-tracktor";
 
 const hasCheckout = useIsFeatureEnabled({ name: "checkout" }); // return true
 const hasBill = useIsFeatureEnabled({ name: "bill" }); // return false
