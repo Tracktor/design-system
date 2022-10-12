@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useIsFeatureEnabled } from "@/hooks/useIsFeatureEnabled";
+import { useFeatureEnabled } from "@/hooks/useFeatureEnabled";
 
 export interface IfFeatureEnableProps {
   /**
@@ -21,13 +21,14 @@ export interface IfFeatureEnableProps {
 }
 
 export const IfFeatureEnable = ({ children, fallback, name, features }: IfFeatureEnableProps) => {
-  const featureEnabled = useIsFeatureEnabled({ features, name });
+  const { getIsFeatureEnabled } = useFeatureEnabled();
+  const isFeatureEnabled = getIsFeatureEnabled(name, features);
 
-  if (featureEnabled) {
+  if (isFeatureEnabled) {
     return <> {children} </>;
   }
 
-  if (!featureEnabled && fallback) {
+  if (!isFeatureEnabled && fallback) {
     return <> {fallback} </>;
   }
 

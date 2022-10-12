@@ -1,0 +1,58 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Hooks/useFeatureEnabled"/>
+
+# `useFeatureEnabled`
+
+Utility hook for features
+
+### Basic usage
+
+```typescript jsx
+import { useFeatureEnabled } from "design-system-tracktor";
+
+const { getIsFeatureEnabled } = useFeatureEnabled();
+const hasCheckout = getIsFeatureEnabled("order", ["order", "checkout"]); // return true
+const hasBill = getIsFeatureEnabled("bill", ["order", "checkout"]); // return false
+
+console.log(hasCheckout) // true
+console.log(hasBill) // false
+```
+
+### Provide user features
+
+Put `<FeatureEnableProvider>` to provide user `features`<br/>
+In this example above static data is provided, but you can fetch user features.
+
+```typescript jsx
+import Home from "./Home";
+import { FeatureEnableProvider } from "design-system-tracktor";
+
+const App = () => (
+    <FeatureEnableProvider features={["order", "checkout"]}>
+      <Home />
+    </FeatureEnableProvider>
+);
+
+export default App;
+```
+
+Then anywhere in your application like `home.tsx` you can use the hook without give features
+
+```typescript jsx
+import { useFeatureEnabled } from "design-system-tracktor";
+
+const { getIsFeatureEnabled } = useFeatureEnabled();
+const hasCheckout = getIsFeatureEnabled("checkout");
+const hasBill = getIsFeatureEnabled("bill");
+
+console.log(hasCheckout) // true
+console.log(hasBill) // false
+```
+
+### Available function
+
+| Name                  | Description                 |
+|-----------------------|-----------------------------|
+| `getIsFeatureEnabled` | Check if feature is enabled |
+| `appendFeature`       | Append feature to context   |

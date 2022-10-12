@@ -152,8 +152,6 @@ const IconTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
     setValue(newValue);
   };
 
-  console.log(name);
-
   return (
     <Box display="flex" alignItems="center" justifyContent="center" height="100%" width="100%">
       <Box>

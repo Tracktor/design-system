@@ -1,15 +1,17 @@
 import { renderHook } from "@testing-library/react-hooks";
 import { describe, expect, it } from "vitest";
-import { useIsFeatureEnabled } from "./useIsFeatureEnabled";
+import { useFeatureEnabled } from "./useFeatureEnabled";
 import FeatureEnableProvider from "@/context/FeatureEnable/FeatureEnableProvider";
 
 describe("Test useIsFeatureEnabled", () => {
   it("provide name & features with empty string array", () => {
     const name = [""];
     const features = [""];
-    const { result } = renderHook(() => useIsFeatureEnabled({ features, name }));
+    const { result } = renderHook(() => useFeatureEnabled());
+    const { getIsFeatureEnabled } = result.current;
+    const isFeatureEnabled = getIsFeatureEnabled(name, features);
 
-    expect(result.current).toBe(false);
+    expect(isFeatureEnabled).toBe(false);
   });
 
   it.each([
@@ -17,9 +19,11 @@ describe("Test useIsFeatureEnabled", () => {
     ["give empty string name", "", false],
     ["give empty string array name", [""], false],
   ])("%s without features)", (_, name, expected) => {
-    const { result } = renderHook(() => useIsFeatureEnabled({ name }));
+    const { result } = renderHook(() => useFeatureEnabled());
+    const { getIsFeatureEnabled } = result.current;
+    const isFeatureEnabled = getIsFeatureEnabled(name);
 
-    expect(result.current).toBe(expected);
+    expect(isFeatureEnabled).toBe(expected);
   });
 
   it.each([
@@ -33,9 +37,11 @@ describe("Test useIsFeatureEnabled", () => {
     ["not ordered match", ["feature2", "feature1"], true],
   ])("%s and features provided by context props)", (_, name, expected) => {
     const features = ["feature1", "feature2"];
-    const { result } = renderHook(() => useIsFeatureEnabled({ features, name }));
+    const { result } = renderHook(() => useFeatureEnabled());
+    const { getIsFeatureEnabled } = result.current;
+    const isFeatureEnabled = getIsFeatureEnabled(name, features);
 
-    expect(result.current).toBe(expected);
+    expect(isFeatureEnabled).toBe(expected);
   });
 
   it.each([
@@ -50,8 +56,10 @@ describe("Test useIsFeatureEnabled", () => {
   ])("%s and features provided by context", (_, name, expected) => {
     const features = ["feature1", "feature2"];
     const wrapper = ({ children }: any) => <FeatureEnableProvider features={features}>{children}</FeatureEnableProvider>;
-    const { result } = renderHook(() => useIsFeatureEnabled({ name }), { wrapper });
+    const { result } = renderHook(() => useFeatureEnabled(), { wrapper });
+    const { getIsFeatureEnabled } = result.current;
+    const isFeatureEnabled = getIsFeatureEnabled(name);
 
-    expect(result.current).toBe(expected);
+    expect(isFeatureEnabled).toBe(expected);
   });
 });

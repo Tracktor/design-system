@@ -1,3 +1,4 @@
+// MUI
 export * from "@mui/material";
 export * from "@mui/material/transitions";
 
@@ -20,5 +21,5 @@ export * from "@/context/ColorMode/ColorModeConsumer";
 // Hooks
 export { default as useColorMode } from "@/hooks/useColorMode";
 export * from "@/hooks/useColorMode";
-export { default as useIsFeatureEnabled } from "@/hooks/useIsFeatureEnabled";
-export * from "@/hooks/useIsFeatureEnabled";
+export { default as useIsFeatureEnabled } from "@/hooks/useFeatureEnabled";
+export * from "@/hooks/useFeatureEnabled";
