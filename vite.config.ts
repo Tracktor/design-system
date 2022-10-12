@@ -2,7 +2,7 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vitest/config";
-import { dependencies, name, peerDependencies } from "./package.json";
+import { dependencies, name } from "./package.json";
 
 export default defineConfig({
   build: {
@@ -13,7 +13,7 @@ export default defineConfig({
     },
     minify: "esbuild",
     rollupOptions: {
-      external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
+      external: [...Object.keys(dependencies)],
       output: {
         globals: {
           "@mui/material'": "material",
