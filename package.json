@@ -1,7 +1,7 @@
 {
   "name": "design-system-tracktor",
   "description": "Tracktor Design System",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "ISC",
   "type": "module",
   "types": "dist/main.d.ts",
@@ -55,7 +55,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
-    "@vitest/ui": "^0.22.1",
+    "@vitest/ui": "^0.24.1",
     "babel-loader": "^8.2.5",
     "eslint-config-react-tracktor": "^1.0.3",
     "husky": "^8.0.0",
@@ -65,9 +65,9 @@
     "react-test-renderer": "^18.2.0",
     "sass": "^1.54.0",
     "storybook-dark-mode": "^1.1.2",
-    "vite": "^3.1.1",
-    "vite-plugin-dts": "^1.5.0",
-    "vitest": "^0.22.1"
+    "vite": "^3.1.7",
+    "vite-plugin-dts": "^1.6.5",
+    "vitest": "^0.24.1"
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
