@@ -12,36 +12,19 @@ use`Emotion-based` styling solution provided by MUI to style your components.
 ```typescript jsx
 import { Box } from "design-system-tracktor";
 
-<Box
-  sx={{
+const styles = {
+  box : {
     "&:hover": {
       backgroundColor: "blue",
     },
     backgroundColor: "red",
     height: 150,
     width: 150,
-  }}
-/>
+  }
+}
+
+<Box sx={styles.box} />
 ```
-
-### Emotion based
-
-```typescript jsx
-import { Box, css } from "design-system-tracktor";
-
-const myCss = css({
-  ":hover": {
-    backgroundColor: "blue",
-  },
-  backgroundColor: "red",
-  height: "150px",
-  width: "150px",
-});
-
-<Box css={myCss}/>
-```
-> __warning__ : If you want test your component inside story which includes emotion css,<br/>
-put `/** @jsxImportSource @emotion/react */` at the top of your story file
 
 ### Global style
 For injecting global style you can use `GlobalStyles` and `css` from Material UI. It is an alias of `Global` from emotion css.
