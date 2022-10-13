@@ -18,7 +18,6 @@ export default defineConfig({
         globals: {
           "@mui/material": "material",
           react: "React",
-          "react-dom": "ReactDOM",
         },
       },
     },
