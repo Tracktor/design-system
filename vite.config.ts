@@ -16,7 +16,7 @@ export default defineConfig({
       external: [...Object.keys(dependencies)],
       output: {
         globals: {
-          "@mui/material'": "material",
+          "@mui/material": "material",
           react: "React",
           "react-dom": "ReactDOM",
         },
