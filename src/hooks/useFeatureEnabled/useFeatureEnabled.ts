@@ -2,14 +2,10 @@ import { useContext } from "react";
 import FeatureEnableContext from "@/context/FeatureEnable/FeatureEnableContext";
 import hasFeature from "@/utils/hasFeature";
 
-/**
- * useFeatureEnabled hook
- * @return boolean
- */
 export const useFeatureEnabled = () => {
   const { features: featureContext, setFeatures } = useContext(FeatureEnableContext);
 
-  const getIsFeatureEnabled = (name: string | string[], features?: string[]) => {
+  const getIsFeatureEnabled = (name: string | string[], features?: string[]): boolean => {
     const userFeature = features || featureContext;
 
     if (!userFeature) {
@@ -23,7 +19,7 @@ export const useFeatureEnabled = () => {
     return hasFeature(name, userFeature);
   };
 
-  const appendFeature = (name: string) => {
+  const appendFeature = (name: string): void => {
     setFeatures((prevState) => {
       if (prevState) {
         return [...prevState, name];
