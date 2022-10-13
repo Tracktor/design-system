@@ -1,11 +1,11 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
-export interface DefaultValueColorModeFeatureEnableContextContext {
+export interface DefaultValueFeatureEnableContext {
   features?: string[];
   setFeatures: Dispatch<SetStateAction<string[] | undefined>>;
 }
 
-export const defaultValueFeatureEnableContext: DefaultValueColorModeFeatureEnableContextContext = {
+export const defaultValueFeatureEnableContext: DefaultValueFeatureEnableContext = {
   features: undefined,
   setFeatures: () => {},
 };
