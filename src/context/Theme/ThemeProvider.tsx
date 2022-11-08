@@ -9,31 +9,29 @@ export interface ThemeProviderProps {
   includeCssBaseline?: boolean;
   theme?: "dark" | "light" | DefaultTheme;
   font?: {
-    googleFontName?: string;
-    import?: boolean;
-    fontWeight?: number[];
+    googleFontName?: string; // Google font name to load
+    import?: boolean; // Inject font @import in css
+    fontWeight?: number[]; // Font weight to load
   };
 }
 
-const ThemeProvider = ({
-  children,
-  includeCssBaseline = true,
-  theme = "light",
-  font = {
-    fontWeight: [400, 500, 700],
-    import: true,
-  },
-}: ThemeProviderProps) => {
+const defaultFont: ThemeProviderProps["font"] = {
+  fontWeight: [400, 500, 700],
+  import: true,
+};
+
+const ThemeProvider = ({ children, includeCssBaseline = true, theme = "light", font = defaultFont }: ThemeProviderProps) => {
   const { getTheme } = useThemeProvider();
-  const googleFontName = font?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
-  const googleWeight = font.fontWeight?.join(";");
+  const fontOptions = { ...defaultFont, ...font };
+  const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
+  const fontWeight = fontOptions?.fontWeight?.join(";");
 
   return (
     <ThemeProviderMUI theme={getTheme(theme)}>
-      {font.import && (
+      {fontOptions.import && (
         <GlobalStyles
           styles={css`
-            @import url("https://fonts.googleapis.com/css2?family=${googleFontName}:wght@${googleWeight}&display=swap");
+            @import url("https://fonts.googleapis.com/css2?family=${fontName}:wght@${fontWeight}&display=swap");
           `}
         />
       )}

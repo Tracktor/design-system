@@ -1,5 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.1.0
-- Add possibility to custom font with theme provider
-- Upgrade storybook to version 6.5.13
+## v1.1.1
+- Fix font options
+- Rename props font options 
