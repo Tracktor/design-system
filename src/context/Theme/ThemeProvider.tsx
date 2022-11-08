@@ -6,21 +6,34 @@ import useThemeProvider from "@/context/Theme/useThemeProvider";
 
 export interface ThemeProviderProps {
   children: ReactNode;
-  importFont?: boolean;
   includeCssBaseline?: boolean;
   theme?: "dark" | "light" | DefaultTheme;
+  font?: {
+    googleFontName?: string;
+    import?: boolean;
+    fontWeight?: number[];
+  };
 }
 
-const ThemeProvider = ({ children, importFont = true, includeCssBaseline = true, theme = "light" }: ThemeProviderProps) => {
+const ThemeProvider = ({
+  children,
+  includeCssBaseline = true,
+  theme = "light",
+  font = {
+    fontWeight: [400, 500, 700],
+    import: true,
+  },
+}: ThemeProviderProps) => {
   const { getTheme } = useThemeProvider();
-  const fontName = commonTheme.typography.fontFamily?.split(",")[0];
+  const googleFontName = font?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
+  const googleWeight = font.fontWeight?.join(";");
 
   return (
     <ThemeProviderMUI theme={getTheme(theme)}>
-      {importFont && (
+      {font.import && (
         <GlobalStyles
           styles={css`
-            @import url("https://fonts.googleapis.com/css2?family=${fontName}:wght@300;400;500;700&display=swap");
+            @import url("https://fonts.googleapis.com/css2?family=${googleFontName}:wght@${googleWeight}&display=swap");
           `}
         />
       )}

@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.0.12
-- remove color mode hook & context
+## v1.1.0
+- Add possibility to custom font with theme provider
+- Upgrade storybook to version 6.5.13
