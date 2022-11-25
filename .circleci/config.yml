@@ -8,6 +8,7 @@ references:
   production_context: &production_context
     - docker
     - npm
+    - github
 
 executors:
   build-docker:
