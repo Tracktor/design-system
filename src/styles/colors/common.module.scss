@@ -28,6 +28,9 @@ $successMain: #5DD39E;
 $successDark: #41936E;
 $successLight: #7DDBB1;
 
+// Grey
+$grey300: #E0E0E0;
+
 :export {
   // Primary
   primaryMain: $primaryMain;
@@ -53,4 +56,6 @@ $successLight: #7DDBB1;
   successMain: $successMain;
   successDark: $successDark;
   successLight: $successLight;
+  // grey
+  grey300: $grey300
 }

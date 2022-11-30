@@ -14,18 +14,22 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiCard: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
+          ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
           borderRadius: 8,
-        },
+        }),
       },
     },
     MuiSelect: {
       variants: [
         {
           props: { variant: "outlined" },
-          style: {
+          style: ({ theme }) => ({
+            "& .MuiOutlinedInput-notchedOutline": {
+              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
+            },
             borderRadius: 8,
-          },
+          }),
         },
         {
           props: { variant: "filled" },
@@ -40,11 +44,14 @@ const commonThemeOptions: ThemeOptions = {
       variants: [
         {
           props: { variant: "outlined" },
-          style: {
+          style: ({ theme }) => ({
             "& .MuiInputBase-root": {
               borderRadius: 8,
             },
-          },
+            "& .MuiOutlinedInput-notchedOutline": {
+              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
+            },
+          }),
         },
         {
           props: { variant: "filled" },
