@@ -12,6 +12,13 @@ const commonThemeOptions: ThemeOptions = {
         },
       },
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
     MuiSelect: {
       variants: [
         {
