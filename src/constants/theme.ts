@@ -4,6 +4,61 @@ import darkColors from "@/styles/colors/dark.module.scss";
 import lightColors from "@/styles/colors/light.module.scss";
 
 const commonThemeOptions: ThemeOptions = {
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
+    MuiSelect: {
+      variants: [
+        {
+          props: { variant: "outlined" },
+          style: {
+            borderRadius: 8,
+          },
+        },
+        {
+          props: { variant: "filled" },
+          style: {
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+          },
+        },
+      ],
+    },
+    MuiTextField: {
+      variants: [
+        {
+          props: { variant: "outlined" },
+          style: {
+            "& .MuiInputBase-root": {
+              borderRadius: 8,
+            },
+          },
+        },
+        {
+          props: { variant: "filled" },
+          style: {
+            "& .MuiInputBase-root": {
+              borderTopLeftRadius: 8,
+              borderTopRightRadius: 8,
+            },
+          },
+        },
+      ],
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          padding: "8px 11px",
+        },
+      },
+    },
+  },
   palette: {
     error: {
       dark: commonColors.errorDark,
