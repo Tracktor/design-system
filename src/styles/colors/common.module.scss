@@ -29,6 +29,7 @@ $successDark: #41936E;
 $successLight: #7DDBB1;
 
 // Grey
+$grey50: #F5F7F7;
 $grey300: #E0E0E0;
 
 :export {
@@ -57,5 +58,6 @@ $grey300: #E0E0E0;
   successDark: $successDark;
   successLight: $successLight;
   // grey
-  grey300: $grey300
+  grey50: $grey300;
+  grey300: $grey300;
 }

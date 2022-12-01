@@ -6528,10 +6528,10 @@ eslint-config-react-app@^7.0.1:
     eslint-plugin-react-hooks "^4.3.0"
     eslint-plugin-testing-library "^5.0.1"
 
-eslint-config-react-tracktor@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-react-tracktor/-/eslint-config-react-tracktor-1.0.3.tgz#cf6874e0ca05e242e935de2f98f55533ece8199e"
-  integrity sha512-2KIEzMUbiGzXOHCyjI78DZ1P35GnIhf2apliDpD3tOtbakPvDpZR0SgJm8C2NtrnaOZM3pomRAzH1b53KY0bpQ==
+eslint-config-react-tracktor@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-react-tracktor/-/eslint-config-react-tracktor-1.0.5.tgz#47c2632a21fcafffac313774d970f6a9038831fb"
+  integrity sha512-BVCv1SeL83e8sN35CEsGhVa1mPc4wA1+mMTgRZLLZ1uXdNyxfQXq7NFpZBaX15pQs13ShogbIDDJpyLVA46R1w==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.30.7"
     "@typescript-eslint/parser" "^5.30.7"

@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Chip from "./Chip";
 
 const Template: ComponentStory<typeof Chip> = (args) => (
@@ -19,6 +19,12 @@ export const Outlined = Template.bind({});
 Outlined.args = {
   onDelete: undefined,
   variant: "outlined",
+};
+
+export const Rounded = Template.bind({});
+Rounded.args = {
+  onDelete: undefined,
+  variant: "rounded",
 };
 
 export const WithDeleteIcon = Template.bind({});

@@ -1,4 +1,6 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.1.5
-- Update border component style
+## v1.2.0
+- Add new chip variant `rounded`
+- Update color `grey50`
+- Upgrade config eslint 

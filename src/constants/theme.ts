@@ -3,6 +3,12 @@ import commonColors from "@/styles/colors/common.module.scss";
 import darkColors from "@/styles/colors/dark.module.scss";
 import lightColors from "@/styles/colors/light.module.scss";
 
+declare module "@mui/material/Chip" {
+  interface ChipPropsVariantOverrides {
+    rounded: true;
+  }
+}
+
 const commonThemeOptions: ThemeOptions = {
   components: {
     MuiButton: {
@@ -16,9 +22,19 @@ const commonThemeOptions: ThemeOptions = {
       styleOverrides: {
         root: ({ theme }) => ({
           ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
-          borderRadius: 8,
+          borderRadius: 4,
         }),
       },
+    },
+    MuiChip: {
+      variants: [
+        {
+          props: { variant: "rounded" },
+          style: {
+            borderRadius: 4,
+          },
+        },
+      ],
     },
     MuiSelect: {
       variants: [
@@ -78,6 +94,10 @@ const commonThemeOptions: ThemeOptions = {
       dark: commonColors.errorDark,
       light: commonColors.errorLight,
       main: commonColors.errorMain,
+    },
+    grey: {
+      300: commonColors.grey300,
+      50: commonColors.grey50,
     },
     info: {
       dark: commonColors.infoDark,
