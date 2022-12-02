@@ -96,6 +96,7 @@ const commonThemeOptions: ThemeOptions = {
       main: commonColors.errorMain,
     },
     grey: {
+      200: commonColors.grey200,
       300: commonColors.grey300,
       50: commonColors.grey50,
     },
