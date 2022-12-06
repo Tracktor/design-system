@@ -2,6 +2,7 @@ import { Box, SvgIcon, Tab, Typography, useTheme } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ReactNode, SyntheticEvent, useState } from "react";
 import Tabs from "./Tabs";
+import LinkTab from "@/components/Navigation/Tabs/LinkTab/LinkTab";
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -41,7 +42,7 @@ const Template: ComponentStory<typeof Tabs> = (args, { name }) => {
     <Box display="flex" alignItems="center" justifyContent="center" height="100%">
       <Box sx={{ maxWidth: isScrollableContext ? 380 : "auto", width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" {...args}>
+          <Tabs {...args} value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="Item One" {...a11yProps(0)} />
             <Tab label="Item Two" {...a11yProps(1)} />
             <Tab label={isDisabledContext ? "Disabled" : "Item Three"} {...a11yProps(2)} disabled={isDisabledContext} />
@@ -79,7 +80,7 @@ const WrappedLabelsTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
   return (
     <Box display="flex" alignItems="center" justifyContent="center" height="100%" width="100%">
       <Box>
-        <Tabs value={value} onChange={handleChange} aria-label="wrapped label tabs example" {...args}>
+        <Tabs {...args} value={value} onChange={handleChange} aria-label="wrapped label tabs example">
           <Tab value="one" label="New Arrivals in the Longest Text of Nonfiction that should appear in the next line" wrapped />
           <Tab value="two" label="Item Two" disabled={name === "Disabled"} />
           <Tab value="three" label="Item Three" />
@@ -101,14 +102,13 @@ const VerticalTemplate: ComponentStory<typeof Tabs> = (args) => {
     <Box display="flex" alignItems="center" justifyContent="center" height="100%" width="100%">
       <Box sx={{ backgroundColor: "background.paper", display: "flex", flexGrow: 1, height: 224 }}>
         <Tabs
+          {...args}
           orientation="vertical"
           variant="scrollable"
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          // eslint-disable-next-line sort-keys
           sx={{ borderColor: `${palette.divider} !important`, borderRight: 1 }}
-          {...args}
         >
           <Tab label="Item One" />
           <Tab label="Item Two" />
@@ -155,7 +155,7 @@ const IconTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
   return (
     <Box display="flex" alignItems="center" justifyContent="center" height="100%" width="100%">
       <Box>
-        <Tabs value={value} onChange={handleChange} aria-label="icon tabs example" {...args}>
+        <Tabs {...args} value={value} onChange={handleChange} aria-label="icon tabs example">
           <Tab
             icon={
               <SvgIcon>
@@ -208,6 +208,28 @@ const IconTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
             label={isIconWithLabelContext ? "NEARBY" : ""}
           />
         </Tabs>
+      </Box>
+    </Box>
+  );
+};
+
+const LinkTabsTemplate: ComponentStory<typeof Tabs> = (args) => {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (_: SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs {...args} value={value} onChange={handleChange} aria-label="Nav tabs example">
+            <LinkTab label="Page One" href="/drafts" />
+            <LinkTab label="Page Two" href="/trash" />
+            <LinkTab label="Page Three" href="/spam" />
+          </Tabs>
+        </Box>
       </Box>
     </Box>
   );
@@ -266,6 +288,9 @@ Icon.args = {};
 
 export const IconWithLabel = IconTemplate.bind({});
 IconWithLabel.args = {};
+
+export const NavTabs = LinkTabsTemplate.bind({});
+NavTabs.args = {};
 
 export default {
   component: Tabs,
