@@ -9,6 +9,8 @@ export { default as Logo } from "@/components/DataDisplay/Logo";
 export * from "@/components/DataDisplay/Logo";
 export { default as LinkTab } from "@/components/Navigation/Tabs/LinkTab";
 export * from "@/components/Navigation/Tabs/LinkTab";
+export { default as CardModal } from "@/components/Surface/CardModal";
+export * from "@/components/Surface/CardModal";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
