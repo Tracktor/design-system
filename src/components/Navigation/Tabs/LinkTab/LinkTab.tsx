@@ -1,14 +1,17 @@
 import { Tab } from "@mui/material";
-import type { MouseEvent } from "react";
+import type { TabProps } from "@mui/material/Tab/Tab";
+import type { ElementType, MouseEvent } from "react";
 
-export interface LinkTabProps {
+export interface LinkTabProps extends Omit<TabProps, "onClick"> {
+  component?: ElementType;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
   label?: string;
   href?: string;
 }
 
-const LinkTab = (props: LinkTabProps) => (
+const LinkTab = ({ component = "a", ...props }: LinkTabProps) => (
   <Tab
-    component="a"
+    component={component}
     onClick={(e: MouseEvent<HTMLAnchorElement>) => e.preventDefault()}
     /* eslint-disable-next-line react/jsx-props-no-spreading */
     {...props}
