@@ -1,8 +1,9 @@
 import { Card, CardProps } from "@mui/material";
+import { forwardRef, Ref } from "react";
 
 export interface CardModalProps extends CardProps {}
 
-const CardModal = ({ children, sx, ...props }: CardProps) => (
+const CardModal = ({ children, sx, ...props }: CardProps, ref: Ref<HTMLDivElement>) => (
   <Card
     sx={{
       boxShadow: 24,
@@ -15,6 +16,7 @@ const CardModal = ({ children, sx, ...props }: CardProps) => (
       width: "100%",
       ...sx,
     }}
+    ref={ref}
     /* eslint-disable-next-line react/jsx-props-no-spreading */
     {...props}
   >
@@ -22,4 +24,4 @@ const CardModal = ({ children, sx, ...props }: CardProps) => (
   </Card>
 );
 
-export default CardModal;
+export default forwardRef(CardModal);
