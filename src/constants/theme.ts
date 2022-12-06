@@ -22,7 +22,6 @@ const commonThemeOptions: ThemeOptions = {
       styleOverrides: {
         root: ({ theme }) => ({
           ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
-          borderRadius: 4,
         }),
       },
     },
@@ -125,6 +124,9 @@ const commonThemeOptions: ThemeOptions = {
       light: commonColors.warningLight,
       main: commonColors.warningMain,
     },
+  },
+  shape: {
+    borderRadius: 8,
   },
   typography: {
     fontFamily: "Poppins, sans-serif",
