@@ -18,8 +18,8 @@ $actionDisabledBackground: rgba(255, 255, 255, 0.12);
 $actionFocus: rgba(255, 255, 255, 0.12);
 
 // Other/Misc
+$outlineBorder: rgba(255, 255, 255, 0.23);
 $divider: rgba(255, 255, 255, 0.12);
-
 
 :export {
   // Action
@@ -37,5 +37,6 @@ $divider: rgba(255, 255, 255, 0.12);
   textSecondary: $textSecondary;
   textDisabled: $textDisabled;
   // Other/Misc
+  outlineBorder: $outlineBorder;
   divider: $divider;
 }

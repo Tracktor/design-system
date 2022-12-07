@@ -1,5 +1,5 @@
-import { Box, FormControl, FormControlLabel, FormLabel, RadioGroup } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Box, FormControl, FormControlLabel, FormLabel, RadioGroup, Stack, Typography } from "@mui/material";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Radio from "./Radio";
 
 const TemplateVertical: ComponentStory<typeof Radio> = (args) => (
@@ -42,6 +42,30 @@ const TemplateColor: ComponentStory<typeof Radio> = (args) => (
   </Box>
 );
 
+const TemplateCard: ComponentStory<typeof Radio> = (args) => (
+  <Box alignItems="center" justifyContent="center" height="100%" display="flex">
+    <FormControl>
+      <FormLabel id="demo-radio-buttons-group-label">Rôle</FormLabel>
+      <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
+        <FormControlLabel
+          variant="card"
+          value="Gestionnaire"
+          control={<Radio {...args} />}
+          label={
+            <Stack>
+              <Typography>Gestionnaire</Typography>
+              <Typography color="textSecondary">Peut réserver du matériel et gérer toutes les locations</Typography>
+            </Stack>
+          }
+        />
+        <FormControlLabel variant="card" value="Membre" control={<Radio {...args} />} label="Membre" />
+        <FormControlLabel variant="card" value="Comptable" control={<Radio {...args} />} label="Comptable" />
+        <FormControlLabel variant="card" value="disabled" disabled control={<Radio {...args} />} label="Disabled" />
+      </RadioGroup>
+    </FormControl>
+  </Box>
+);
+
 export const Vertical = TemplateVertical.bind({});
 Vertical.args = {};
 
@@ -55,6 +79,9 @@ Size.args = {
 
 export const Color = TemplateColor.bind({});
 Color.args = {};
+
+export const CardVariant = TemplateCard.bind({});
+CardVariant.args = {};
 
 export default {
   component: Radio,
