@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from "@mui/material";
+import { alpha, createTheme, ThemeOptions } from "@mui/material";
 import commonColors from "@/styles/colors/common.module.scss";
 import darkColors from "@/styles/colors/dark.module.scss";
 import lightColors from "@/styles/colors/light.module.scss";
@@ -45,31 +45,28 @@ const commonThemeOptions: ThemeOptions = {
       variants: [
         {
           props: { variant: "card" },
-          style: ({ theme }) => {
-            console.log(theme);
-
-            return {
-              "& .MuiRadio-root": {
-                border: `solid 1px ${theme.palette.mode === "light" ? commonColors.grey300 : darkColors.outlineBorder}`,
-                borderRadius: theme.shape.borderRadius,
-                height: "100%",
-                left: 0,
-                margin: 0,
-                position: "absolute",
-                top: 0,
-                width: "100%",
-              },
-              "& .MuiRadio-root > span": {
-                display: "none",
-              },
-              "& .MuiRadio-root.Mui-checked": {
-                borderColor: theme.palette.primary.main,
-              },
-              margin: `${theme.spacing(1)} 0 `,
-              padding: theme.spacing(2),
-              position: "relative",
-            };
-          },
+          style: ({ theme }) => ({
+            "& .MuiRadio-root": {
+              border: `solid 1px ${theme.palette.mode === "light" ? commonColors.grey300 : darkColors.outlineBorder}`,
+              borderRadius: theme.shape.borderRadius,
+              height: "100%",
+              left: 0,
+              margin: 0,
+              position: "absolute",
+              top: 0,
+              width: "100%",
+            },
+            "& .MuiRadio-root > span": {
+              display: "none",
+            },
+            "& .MuiRadio-root.Mui-checked": {
+              backgroundColor: alpha(theme.palette.primary.main, 0.08),
+              borderColor: theme.palette.primary.main,
+            },
+            margin: `${theme.spacing(1)} 0 `,
+            padding: theme.spacing(2),
+            position: "relative",
+          }),
         },
       ],
     },

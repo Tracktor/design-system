@@ -8,7 +8,9 @@ const CardModal = ({ children, sx, ...props }: CardModalProps, ref: Ref<HTMLDivE
     sx={{
       boxShadow: 24,
       left: "50%",
+      maxHeight: "90%",
       maxWidth: 500,
+      overflow: "auto",
       p: 3,
       position: "absolute",
       top: "50%",
