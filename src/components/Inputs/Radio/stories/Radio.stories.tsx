@@ -42,29 +42,38 @@ const TemplateColor: ComponentStory<typeof Radio> = (args) => (
   </Box>
 );
 
-const TemplateCard: ComponentStory<typeof Radio> = (args) => (
-  <Box alignItems="center" justifyContent="center" height="100%" display="flex">
-    <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label">Rôle</FormLabel>
-      <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
-        <FormControlLabel
-          variant="card"
-          value="Gestionnaire"
-          control={<Radio {...args} />}
-          label={
-            <Stack>
-              <Typography>Gestionnaire</Typography>
-              <Typography color="textSecondary">Peut réserver du matériel et gérer toutes les locations</Typography>
-            </Stack>
-          }
-        />
-        <FormControlLabel variant="card" value="Membre" control={<Radio {...args} />} label="Membre" />
-        <FormControlLabel variant="card" value="Comptable" control={<Radio {...args} />} label="Comptable" />
-        <FormControlLabel variant="card" value="disabled" disabled control={<Radio {...args} />} label="Disabled" />
-      </RadioGroup>
-    </FormControl>
-  </Box>
-);
+const TemplateCard: ComponentStory<any> = (args) => {
+  const { direction, size } = args;
+
+  return (
+    <Box alignItems="center" justifyContent="center" height="100%" display="flex">
+      <FormControl>
+        <FormLabel id="demo-radio-buttons-group-label" sx={{ marginBottom: 1 }}>
+          Rôle
+        </FormLabel>
+        <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="Gestionnaire" name="radio-buttons-group">
+          <Stack spacing={2} direction={direction}>
+            <FormControlLabel
+              size={size}
+              variant="card"
+              value="Gestionnaire"
+              control={<Radio />}
+              label={
+                <Stack>
+                  <Typography>Gestionnaire</Typography>
+                  <Typography color="textSecondary">Peut réserver du matériel et gérer toutes les locations</Typography>
+                </Stack>
+              }
+            />
+            <FormControlLabel variant="card" value="Membre" control={<Radio />} label="Membre" size={size} />
+            <FormControlLabel variant="card" value="Comptable" control={<Radio />} label="Comptable" size={size} />
+            <FormControlLabel variant="card" value="disabled" disabled control={<Radio />} label="Disabled" size={size} />
+          </Stack>
+        </RadioGroup>
+      </FormControl>
+    </Box>
+  );
+};
 
 export const Vertical = TemplateVertical.bind({});
 Vertical.args = {};
@@ -82,6 +91,16 @@ Color.args = {};
 
 export const CardVariant = TemplateCard.bind({});
 CardVariant.args = {};
+
+export const CardVariantHorizontal = TemplateCard.bind({});
+CardVariantHorizontal.args = {
+  direction: "row",
+};
+
+export const CardVariantSmall = TemplateCard.bind({});
+CardVariantSmall.args = {
+  size: "small",
+};
 
 export default {
   component: Radio,

@@ -12,6 +12,7 @@ declare module "@mui/material/Chip" {
 declare module "@mui/material/FormControlLabel" {
   interface FormControlLabelProps {
     variant?: "card";
+    size?: "small" | "medium";
   }
 }
 
@@ -63,9 +64,15 @@ const commonThemeOptions: ThemeOptions = {
               backgroundColor: alpha(theme.palette.primary.main, 0.08),
               borderColor: theme.palette.primary.main,
             },
-            margin: `${theme.spacing(1)} 0 `,
+            margin: "inherit",
             padding: theme.spacing(2),
             position: "relative",
+          }),
+        },
+        {
+          props: { size: "small" },
+          style: ({ theme }) => ({
+            padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
           }),
         },
       ],
