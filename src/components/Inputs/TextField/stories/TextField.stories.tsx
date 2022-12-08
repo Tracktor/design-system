@@ -1,10 +1,16 @@
 import { Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import TextField from "./TextField";
 
 const Template: ComponentStory<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <TextField id="outlined-basic" label="Outlined" {...args} />
+  </Stack>
+);
+
+const TemplatePicture: ComponentStory<typeof TextField> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <TextField id="outlined-basic" label="Outlined" className="picture" {...args} />
   </Stack>
 );
 
@@ -21,6 +27,12 @@ Filled.args = {
 export const Standard = Template.bind({});
 Standard.args = {
   variant: "standard",
+};
+
+export const TypeFilePicture = TemplatePicture.bind({});
+TypeFilePicture.args = {
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
 };
 
 export default {

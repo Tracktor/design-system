@@ -1,4 +1,5 @@
 import { alpha, createTheme, ThemeOptions } from "@mui/material";
+import landscape from "@/assets/img/landscape.svg";
 import commonColors from "@/styles/colors/common.module.scss";
 import darkColors from "@/styles/colors/dark.module.scss";
 import lightColors from "@/styles/colors/light.module.scss";
@@ -98,6 +99,47 @@ const commonThemeOptions: ThemeOptions = {
       ],
     },
     MuiTextField: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.picture": {
+            "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
+              display: "none",
+            },
+            "& .MuiInputBase-root": {
+              height: "100%",
+            },
+            "& .MuiInputLabel-root": {
+              alignItems: "center",
+              cursor: "pointer",
+              display: "flex",
+              fontSize: 14,
+              height: "100%",
+              maxWidth: "100%",
+              pointerEvents: "auto",
+              transform: "none",
+              whiteSpace: "initial",
+              width: "100%",
+            },
+            "& .MuiInputLabel-root:before": {
+              content: `url(${landscape})`,
+              height: 30,
+              marginLeft: theme.spacing(2),
+              marginRight: theme.spacing(2),
+              width: 33,
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderStyle: "dashed",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: theme.palette.primary.main,
+            },
+            height: 80,
+            justifyContent: "center",
+            maxWidth: 400,
+            width: "100%",
+          },
+        }),
+      },
       variants: [
         {
           props: { variant: "outlined" },
