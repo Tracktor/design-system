@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.6.1
-- Add `TextField` style picture for input file
+## v1.6.2
+- Add fullWidth props for `TextField` picture input file

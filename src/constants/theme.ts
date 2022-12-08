@@ -100,7 +100,7 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiTextField: {
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({ theme, fullWidth }) => ({
           "&.picture": {
             "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
               display: "none",
@@ -135,7 +135,7 @@ const commonThemeOptions: ThemeOptions = {
             },
             height: 80,
             justifyContent: "center",
-            maxWidth: 400,
+            maxWidth: fullWidth ? "100%" : 400,
             width: "100%",
           },
         }),
