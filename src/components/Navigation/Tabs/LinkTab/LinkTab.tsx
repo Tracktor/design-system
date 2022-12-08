@@ -10,12 +10,7 @@ export interface LinkTabProps extends Omit<TabProps, "onClick"> {
 }
 
 const LinkTab = ({ component = "a", ...props }: LinkTabProps) => (
-  <Tab
-    component={component}
-    onClick={(e: MouseEvent<HTMLAnchorElement>) => e.preventDefault()}
-    /* eslint-disable-next-line react/jsx-props-no-spreading */
-    {...props}
-  />
+  <Tab component={component} onClick={(e: MouseEvent<HTMLAnchorElement>) => e.preventDefault()} {...props} />
 );
 
 export default LinkTab;

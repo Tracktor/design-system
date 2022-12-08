@@ -11,6 +11,8 @@ export { default as LinkTab } from "@/components/Navigation/Tabs/LinkTab";
 export * from "@/components/Navigation/Tabs/LinkTab";
 export { default as CardModal } from "@/components/Surface/CardModal";
 export * from "@/components/Surface/CardModal";
+export { default as TextArea } from "@/components/Inputs/TextArea";
+export * from "@/components/Inputs/TextArea";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";

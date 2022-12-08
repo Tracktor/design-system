@@ -1,3 +1,11 @@
 {
-  "extends": "eslint-config-react-tracktor"
+  "extends": "eslint-config-react-tracktor",
+  "overrides": [
+    {
+      "files": "*.tsx",
+      "rules": {
+        "react/jsx-props-no-spreading" : "off"
+      }
+    }
+  ]
 }

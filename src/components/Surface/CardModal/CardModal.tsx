@@ -19,7 +19,6 @@ const CardModal = ({ children, sx, ...props }: CardModalProps, ref: Ref<HTMLDivE
       ...sx,
     }}
     ref={ref}
-    /* eslint-disable-next-line react/jsx-props-no-spreading */
     {...props}
   >
     {children}
