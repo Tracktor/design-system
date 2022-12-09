@@ -1,4 +1,5 @@
 import { alpha, createTheme, ThemeOptions } from "@mui/material";
+import type { ChangeEvent } from "react";
 import landscape from "@/assets/img/landscape.svg";
 import commonColors from "@/styles/colors/common.module.scss";
 import darkColors from "@/styles/colors/dark.module.scss";
@@ -16,6 +17,8 @@ declare module "@mui/material/FormControlLabel" {
     size?: "small" | "medium";
   }
 }
+
+let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const commonThemeOptions: ThemeOptions = {
   components: {
@@ -99,6 +102,29 @@ const commonThemeOptions: ThemeOptions = {
       ],
     },
     MuiTextField: {
+      defaultProps: {
+        onChange: (e: ChangeEvent<HTMLInputElement>) => {
+          const { currentTarget } = e;
+
+          if (
+            currentTarget?.classList.contains("MuiInputBase-input") &&
+            currentTarget?.type === "file" &&
+            currentTarget?.tagName === "INPUT" &&
+            currentTarget?.files &&
+            currentMuiTextFieldRef?.classList.contains("picture")
+          ) {
+            const fileName = currentTarget?.files[0]?.name;
+            const label = currentMuiTextFieldRef?.querySelector("label");
+
+            if (label && fileName) {
+              label.textContent = fileName;
+            }
+          }
+        },
+        ref: (instance) => {
+          currentMuiTextFieldRef = instance;
+        },
+      },
       styleOverrides: {
         root: ({ theme, fullWidth }) => ({
           "&.picture": {
