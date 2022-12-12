@@ -32,7 +32,7 @@ const commonThemeOptions: ThemeOptions = {
     MuiCard: {
       styleOverrides: {
         root: ({ theme }) => ({
-          ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
+          ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
         }),
       },
     },
@@ -52,7 +52,7 @@ const commonThemeOptions: ThemeOptions = {
           props: { variant: "card" },
           style: ({ theme }) => ({
             "& .MuiRadio-root": {
-              border: `solid 1px ${theme.palette.mode === "light" ? commonColors.grey300 : darkColors.outlineBorder}`,
+              border: `solid 1px ${theme.palette.mode === "light" ? commonColors.grey200 : darkColors.outlineBorder}`,
               borderRadius: theme.shape.borderRadius,
               height: "100%",
               left: 0,
@@ -87,7 +87,7 @@ const commonThemeOptions: ThemeOptions = {
           props: { variant: "outlined" },
           style: ({ theme }) => ({
             "& .MuiOutlinedInput-notchedOutline": {
-              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
+              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
             },
             borderRadius: 8,
           }),
@@ -107,10 +107,9 @@ const commonThemeOptions: ThemeOptions = {
           const { currentTarget } = e;
 
           if (
-            currentTarget?.classList.contains("MuiInputBase-input") &&
+            currentTarget?.files &&
             currentTarget?.type === "file" &&
             currentTarget?.tagName === "INPUT" &&
-            currentTarget?.files &&
             currentMuiTextFieldRef?.classList.contains("picture")
           ) {
             const fileName = currentTarget?.files[0]?.name;
@@ -174,7 +173,7 @@ const commonThemeOptions: ThemeOptions = {
               borderRadius: 8,
             },
             "& .MuiOutlinedInput-notchedOutline": {
-              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey300 }),
+              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
             },
           }),
         },
@@ -205,9 +204,15 @@ const commonThemeOptions: ThemeOptions = {
       main: commonColors.errorMain,
     },
     grey: {
+      100: commonColors.grey100,
       200: commonColors.grey200,
       300: commonColors.grey300,
+      400: commonColors.grey400,
       50: commonColors.grey50,
+      500: commonColors.grey500,
+      600: commonColors.grey600,
+      700: commonColors.grey700,
+      800: commonColors.grey800,
     },
     info: {
       dark: commonColors.infoDark,

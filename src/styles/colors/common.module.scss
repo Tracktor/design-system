@@ -30,8 +30,14 @@ $successLight: #7DDBB1;
 
 // Grey
 $grey50: #F5F7F7;
-$grey200: #EEEEEE;
-$grey300: #E0E0E0;
+$grey100: #E3E8E8;
+$grey200: #D2D8D8;
+$grey300: #9DAAAB;
+$grey400: #7B8B8C;
+$grey500: #586C6D;
+$grey600: #354D4F;
+$grey700: #233E40;
+$grey800: #001F21;
 
 :export {
   // Primary
@@ -60,6 +66,12 @@ $grey300: #E0E0E0;
   successLight: $successLight;
   // grey
   grey50: $grey50;
+  grey100: $grey100;
   grey200: $grey200;
   grey300: $grey300;
+  grey400: $grey400;
+  grey500: $grey500;
+  grey600: $grey600;
+  grey700: $grey700;
+  grey800: $grey800;
 }
