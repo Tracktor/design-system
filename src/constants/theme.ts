@@ -22,12 +22,55 @@ let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const commonThemeOptions: ThemeOptions = {
   components: {
+    MuiAlert: {
+      variants: [
+        {
+          props: { variant: "filled" },
+          style: {
+            color: "white",
+          },
+        },
+      ],
+    },
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 8,
         },
       },
+      variants: [
+        {
+          props: { color: "primary", variant: "outlined" },
+          style: ({ theme }) => ({
+            backgroundColor: alpha(theme.palette.primary.main, 0.08),
+            borderColor: alpha(theme.palette.primary.main, 0.5),
+          }),
+        },
+        {
+          props: { variant: "contained" },
+          style: {
+            color: "white",
+          },
+        },
+        {
+          props: { size: "small" },
+          style: ({ theme }) => ({
+            padding: `${theme.spacing(1)} ${theme.spacing(3)}`,
+          }),
+        },
+        {
+          props: { size: "medium" },
+          style: ({ theme }) => ({
+            padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+          }),
+        },
+        {
+          props: { size: "large" },
+          style: ({ theme }) => ({
+            padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
+          }),
+        },
+      ],
     },
     MuiCard: {
       styleOverrides: {

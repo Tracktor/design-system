@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Button from "./Button";
 
 const Template: ComponentStory<typeof Button> = (args) => (
@@ -10,10 +10,16 @@ const Template: ComponentStory<typeof Button> = (args) => (
     <Button size="medium" {...args}>
       Medium
     </Button>
-    <Button size="large" color="secondary" {...args}>
+    <Button size="medium" color="info" {...args}>
+      info
+    </Button>
+    <Button size="medium" color="warning" {...args}>
+      warning
+    </Button>
+    <Button size="large" color="success" {...args}>
       Large
     </Button>
-    <Button size="small" disabled {...args}>
+    <Button size="medium" disabled {...args}>
       Disabled
     </Button>
   </Stack>
