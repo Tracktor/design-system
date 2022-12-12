@@ -1,7 +1,7 @@
 {
   "name": "design-system-tracktor",
   "description": "Tracktor Design System",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "license": "ISC",
   "type": "module",
   "types": "dist/main.d.ts",

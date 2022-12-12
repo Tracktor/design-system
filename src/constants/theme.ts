@@ -172,6 +172,7 @@ const commonThemeOptions: ThemeOptions = {
         ref: (instance) => {
           currentMuiTextFieldRef = instance;
         },
+        size: "medium",
       },
       styleOverrides: {
         root: ({ theme, fullWidth }) => ({
