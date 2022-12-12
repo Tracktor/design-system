@@ -18,6 +18,12 @@ declare module "@mui/material/FormControlLabel" {
   }
 }
 
+declare module "@mui/material/TextField" {
+  interface TextFieldPropsSizeOverrides {
+    large: true;
+  }
+}
+
 let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const commonThemeOptions: ThemeOptions = {
@@ -228,6 +234,20 @@ const commonThemeOptions: ThemeOptions = {
               borderTopRightRadius: 8,
             },
           },
+        },
+        {
+          props: { size: "medium", variant: "outlined" },
+          style: () => ({
+            "& .MuiInputBase-root": {
+              height: 48,
+            },
+            "& .MuiInputLabel-root": {
+              transform: "translate(14px, 12px) scale(1)",
+            },
+            "& .MuiInputLabel-shrink": {
+              transform: "translate(14px, -9px) scale(0.75)",
+            },
+          }),
         },
       ],
     },

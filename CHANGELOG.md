@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.6.5
-- Update style button & Alert
+## v1.7.0
+- Update `TextField` size `small` & `medium` 
+- Add `TextField` size `large`

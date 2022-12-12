@@ -4,7 +4,9 @@ import TextField from "./TextField";
 
 const Template: ComponentStory<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <TextField id="outlined-basic" label="Outlined" {...args} />
+    <TextField id="outlined-basic" label="Small" size="small" {...args} />
+    <TextField id="outlined-basic" label="Medium" size="medium" {...args} />
+    <TextField id="outlined-basic" label="Large" size="large" {...args} />
   </Stack>
 );
 
