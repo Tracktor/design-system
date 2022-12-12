@@ -1,5 +1,5 @@
 import { Stack, TextField } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Autocomplete from "./Autocomplete";
 
 const topFilms = [
@@ -21,6 +21,24 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
       options={topFilms}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Movie" />}
+      size="small"
+    />
+    <Autocomplete
+      {...args}
+      disablePortal
+      id="combo-box-demo"
+      options={topFilms}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Movie" />}
+    />
+    <Autocomplete
+      {...args}
+      disablePortal
+      id="combo-box-demo"
+      options={topFilms}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Movie" />}
+      size="large"
     />
   </Stack>
 );

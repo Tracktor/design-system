@@ -1,10 +1,11 @@
 import { FormControl, InputLabel, MenuItem, SelectChangeEvent, Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
 import Select from "./Select";
 
 const Template: ComponentStory<typeof Select> = (args) => {
   const [age, setAge] = useState("");
+  const { variant } = args;
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
@@ -13,8 +14,21 @@ const Template: ComponentStory<typeof Select> = (args) => {
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select labelId="demo-simple-select-label" id="demo-simple-select" value={age} label="Age" onChange={handleChange} {...args}>
+        <InputLabel id="demo-simple-select-label-small" size="small" variant={variant}>
+          Age (small)
+        </InputLabel>
+        <Select labelId="demo-simple-select-label-small" value={age} label="Age (small)" onChange={handleChange} size="small" {...args}>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl sx={{ width: 200 }}>
+        <InputLabel id="demo-simple-select-label" variant={variant}>
+          Age
+        </InputLabel>
+        <Select labelId="demo-simple-select-label" value={age} label="Age" onChange={handleChange} {...args}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
