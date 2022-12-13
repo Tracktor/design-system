@@ -36,6 +36,12 @@ declare module "@mui/material/Autocomplete" {
   }
 }
 
+declare module "@mui/material/InputLabel" {
+  interface InputLabelPropsSizeOverrides {
+    large: true;
+  }
+}
+
 let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const commonThemeOptions: ThemeOptions = {
@@ -175,6 +181,17 @@ const commonThemeOptions: ThemeOptions = {
           style: () => ({
             "&.MuiInputLabel-outlined": {
               transform: "translate(14px, 12px) scale(1)",
+            },
+            "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
+              transform: "translate(14px, -9px) scale(0.75)",
+            },
+          }),
+        },
+        {
+          props: { className: "large" },
+          style: () => ({
+            "&.MuiInputLabel-outlined": {
+              transform: "translate(14px, 16px) scale(1)",
             },
             "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
               transform: "translate(14px, -9px) scale(0.75)",

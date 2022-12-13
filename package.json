@@ -1,7 +1,7 @@
 {
   "name": "design-system-tracktor",
   "description": "Tracktor Design System",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "license": "ISC",
   "type": "module",
   "types": "dist/main.d.ts",
@@ -25,6 +25,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint && tsc --noEmit",
+    "postinstall": "patch-package",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
@@ -60,6 +61,7 @@
     "eslint-config-react-tracktor": "^1.0.5",
     "husky": "^8.0.0",
     "jsdom": "^20.0.0",
+    "patch-package": "^6.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-test-renderer": "^18.2.0",
@@ -71,9 +73,9 @@
     "vitest": "^0.24.1"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.0",
-    "@emotion/styled": "^11.10.0",
-    "@mui/material": "^5.10.1"
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

@@ -25,10 +25,21 @@ const Template: ComponentStory<typeof Select> = (args) => {
       </FormControl>
 
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-simple-select-label" variant={variant}>
+        <InputLabel id="demo-simple-select-label" variant={variant} size="normal">
           Age
         </InputLabel>
         <Select labelId="demo-simple-select-label" value={age} label="Age" onChange={handleChange} {...args}>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl sx={{ width: 200 }}>
+        <InputLabel id="demo-simple-select-label-large" variant={variant} size="large" margin="dense">
+          Age (large)
+        </InputLabel>
+        <Select labelId="demo-simple-select-label-small" value={age} label="Age (large)" onChange={handleChange} size="large" {...args}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
           <MenuItem value={30}>Thirty</MenuItem>
