@@ -398,6 +398,7 @@ const commonThemeOptions: ThemeOptions = {
     },
     warning: {
       dark: commonColors.warningDark,
+
       light: commonColors.warningLight,
       main: commonColors.warningMain,
     },
@@ -407,6 +408,36 @@ const commonThemeOptions: ThemeOptions = {
   },
   typography: {
     fontFamily: "Poppins, sans-serif",
+    h1: {
+      fontSize: 40,
+      fontWeight: 700,
+      lineHeight: "60px",
+    },
+    h2: {
+      fontSize: 32,
+      fontWeight: 600,
+      lineHeight: "48px",
+    },
+    h3: {
+      fontSize: 24,
+      fontWeight: 600,
+      lineHeight: "36px",
+    },
+    h4: {
+      fontSize: 20,
+      fontWeight: 500,
+      lineHeight: "30px",
+    },
+    h5: {
+      fontSize: 16,
+      fontWeight: 500,
+      lineHeight: "24px",
+    },
+    h6: {
+      fontSize: 14,
+      fontWeight: 500,
+      lineHeight: "21px",
+    },
   },
 };
 

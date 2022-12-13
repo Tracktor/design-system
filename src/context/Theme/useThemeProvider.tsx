@@ -1,4 +1,4 @@
-import { darkTheme, lightTheme } from "@/constants/theme";
+import { darkTheme, lightTheme } from "@/config/theme";
 import type { ThemeProviderProps } from "@/context/Theme/ThemeProvider";
 
 const useThemeProvider = () => {

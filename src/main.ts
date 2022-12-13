@@ -24,6 +24,6 @@ export * from "@/context/FeatureEnable/FeatureEnableProvider";
 export { default as useIsFeatureEnabled } from "@/hooks/useFeatureEnabled";
 export * from "@/hooks/useFeatureEnabled";
 
-// Constants
-export { default as theme } from "@/constants/theme";
-export * from "@/constants/theme";
+// Config
+export { default as theme } from "@/config/theme";
+export * from "@/config/theme";

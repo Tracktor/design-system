@@ -1,7 +1,8 @@
 import { css, CssBaseline, GlobalStyles, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import type { DefaultTheme } from "@mui/private-theming/defaultTheme";
 import type { ReactNode } from "react";
-import { commonTheme } from "@/constants/theme";
+import { commonTheme } from "@/config/theme";
+import defaultFontWeight from "@/constants/defaultFontWeight";
 import useThemeProvider from "@/context/Theme/useThemeProvider";
 
 export interface ThemeProviderProps {
@@ -16,7 +17,7 @@ export interface ThemeProviderProps {
 }
 
 const defaultFont: ThemeProviderProps["font"] = {
-  fontWeight: [400, 500, 700],
+  fontWeight: defaultFontWeight,
   import: true,
 };
 
