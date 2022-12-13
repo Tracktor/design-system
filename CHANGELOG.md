@@ -1,7 +1,6 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.8.0
-- Upgrade material ui `v5.10.1` to `v5.11.0`
-- Patch `InputLabel` prop size `large`
-- Update typography title
-- Add font weight 600
+## v1.8.1
+- Remove patch-package
+- Remove `InputLabel` prop size `large` & replace with `className`
+- Fix path config theme storybook

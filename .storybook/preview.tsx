@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "react";
 import ThemeProvider from "../src/context/Theme/ThemeProvider";
-import { darkTheme, lightTheme } from "../src/constants/theme";
+import { darkTheme, lightTheme } from "../src/config/theme";
 import { themes } from '@storybook/theming';
 import { useDarkMode } from 'storybook-dark-mode';
 

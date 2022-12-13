@@ -36,12 +36,6 @@ declare module "@mui/material/Autocomplete" {
   }
 }
 
-declare module "@mui/material/InputLabel" {
-  interface InputLabelPropsSizeOverrides {
-    large: true;
-  }
-}
-
 let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const commonThemeOptions: ThemeOptions = {

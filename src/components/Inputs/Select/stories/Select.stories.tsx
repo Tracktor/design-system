@@ -36,7 +36,7 @@ const Template: ComponentStory<typeof Select> = (args) => {
       </FormControl>
 
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-simple-select-label-large" variant={variant} size="large" margin="dense">
+        <InputLabel id="demo-simple-select-label-large" variant={variant} className="large">
           Age (large)
         </InputLabel>
         <Select labelId="demo-simple-select-label-small" value={age} label="Age (large)" onChange={handleChange} size="large" {...args}>
