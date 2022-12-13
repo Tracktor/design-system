@@ -172,25 +172,25 @@ const commonThemeOptions: ThemeOptions = {
       variants: [
         {
           props: { size: "normal" },
-          style: () => ({
+          style: {
             "&.MuiInputLabel-outlined": {
               transform: "translate(14px, 12px) scale(1)",
             },
             "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
               transform: "translate(14px, -9px) scale(0.75)",
             },
-          }),
+          },
         },
         {
           props: { className: "large" },
-          style: () => ({
+          style: {
             "&.MuiInputLabel-outlined": {
               transform: "translate(14px, 16px) scale(1)",
             },
             "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
               transform: "translate(14px, -9px) scale(0.75)",
             },
-          }),
+          },
         },
       ],
     },

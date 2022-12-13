@@ -25,7 +25,6 @@
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint && tsc --noEmit",
-    "postinstall": "patch-package",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",

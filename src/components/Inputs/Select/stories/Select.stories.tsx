@@ -1,7 +1,8 @@
-import { FormControl, InputLabel, MenuItem, SelectChangeEvent, Stack } from "@mui/material";
+import { FormControl, MenuItem, SelectChangeEvent, Stack } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
 import Select from "./Select";
+import SelectInputLabel from "@/components/Inputs/SelectInputLabel";
 
 const Template: ComponentStory<typeof Select> = (args) => {
   const [age, setAge] = useState("");
@@ -14,9 +15,9 @@ const Template: ComponentStory<typeof Select> = (args) => {
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-simple-select-label-small" size="small" variant={variant}>
+        <SelectInputLabel id="demo-simple-select-label-small" size="small" variant={variant}>
           Age (small)
-        </InputLabel>
+        </SelectInputLabel>
         <Select labelId="demo-simple-select-label-small" value={age} label="Age (small)" onChange={handleChange} size="small" {...args}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
@@ -25,9 +26,9 @@ const Template: ComponentStory<typeof Select> = (args) => {
       </FormControl>
 
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-simple-select-label" variant={variant} size="normal">
+        <SelectInputLabel id="demo-simple-select-label" variant={variant}>
           Age
-        </InputLabel>
+        </SelectInputLabel>
         <Select labelId="demo-simple-select-label" value={age} label="Age" onChange={handleChange} {...args}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>
@@ -36,9 +37,9 @@ const Template: ComponentStory<typeof Select> = (args) => {
       </FormControl>
 
       <FormControl sx={{ width: 200 }}>
-        <InputLabel id="demo-simple-select-label-large" variant={variant} className="large">
+        <SelectInputLabel id="demo-simple-select-label-large" variant={variant} size="large">
           Age (large)
-        </InputLabel>
+        </SelectInputLabel>
         <Select labelId="demo-simple-select-label-small" value={age} label="Age (large)" onChange={handleChange} size="large" {...args}>
           <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>

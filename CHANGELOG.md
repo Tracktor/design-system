@@ -2,5 +2,5 @@
 
 ## v1.8.1
 - Remove patch-package
-- Remove `InputLabel` prop size `large` & replace with `className`
+- Add `SelectInputLabel` component
 - Fix path config theme storybook

@@ -13,6 +13,8 @@ export { default as CardModal } from "@/components/Surface/CardModal";
 export * from "@/components/Surface/CardModal";
 export { default as TextArea } from "@/components/Inputs/TextArea";
 export * from "@/components/Inputs/TextArea";
+export { default as SelectInputLabel } from "@/components/Inputs/SelectInputLabel";
+export * from "@/components/Inputs/SelectInputLabel";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
