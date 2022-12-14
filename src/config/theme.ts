@@ -66,7 +66,7 @@ const commonThemeOptions: ThemeOptions = {
             "& .MuiInputBase-root": {
               height: 56,
             },
-            "& .MuiInputLabel-root": {
+            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
               transform: "translate(14px, 16px) scale(1)",
             },
           }),
@@ -96,19 +96,19 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "small" },
           style: ({ theme }) => ({
-            padding: `${theme.spacing(1)} ${theme.spacing(3)}`,
+            padding: `${theme.spacing(0.954)} ${theme.spacing(3)}`,
           }),
         },
         {
           props: { size: "medium" },
           style: ({ theme }) => ({
-            padding: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+            padding: `${theme.spacing(1.469)} ${theme.spacing(3)}`,
           }),
         },
         {
           props: { size: "large" },
           style: ({ theme }) => ({
-            padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
+            padding: `${theme.spacing(1.86)} ${theme.spacing(3)}`,
           }),
         },
       ],
@@ -267,7 +267,7 @@ const commonThemeOptions: ThemeOptions = {
               height: "100%",
               maxWidth: "100%",
               pointerEvents: "auto",
-              transform: "none",
+              transform: "none !important",
               whiteSpace: "initial",
               width: "100%",
             },
@@ -320,7 +320,7 @@ const commonThemeOptions: ThemeOptions = {
             "& .MuiInputBase-root": {
               height: 48,
             },
-            "& .MuiInputLabel-root": {
+            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
               transform: "translate(14px, 12px) scale(1)",
             },
           }),
@@ -328,7 +328,7 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "large", variant: "outlined" },
           style: () => ({
-            "& .MuiInputLabel-root": {
+            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
               transform: "translate(14px, 16px) scale(1)",
             },
           }),
