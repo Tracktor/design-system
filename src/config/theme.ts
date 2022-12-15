@@ -110,6 +110,12 @@ const commonThemeOptions: ThemeOptions = {
             position: "relative",
           }),
         },
+        {
+          props: { size: "small", variant: "card" },
+          style: ({ theme }) => ({
+            padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+          }),
+        },
       ],
     },
     MuiInputBase: {
