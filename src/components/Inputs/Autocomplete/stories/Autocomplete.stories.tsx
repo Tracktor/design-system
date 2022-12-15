@@ -31,15 +31,6 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params} label="Movie" />}
     />
-    <Autocomplete
-      {...args}
-      disablePortal
-      id="combo-box-demo"
-      options={topFilms}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Movie" />}
-      size="large"
-    />
   </Stack>
 );
 

@@ -18,24 +18,6 @@ declare module "@mui/material/FormControlLabel" {
   }
 }
 
-declare module "@mui/material/TextField" {
-  interface TextFieldPropsSizeOverrides {
-    large: true;
-  }
-}
-
-declare module "@mui/material/InputBase" {
-  interface InputBasePropsSizeOverrides {
-    large: true;
-  }
-}
-
-declare module "@mui/material/Autocomplete" {
-  interface AutocompletePropsSizeOverrides {
-    large: true;
-  }
-}
-
 let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const commonThemeOptions: ThemeOptions = {
@@ -47,29 +29,6 @@ const commonThemeOptions: ThemeOptions = {
           style: {
             color: "white",
           },
-        },
-      ],
-    },
-    MuiAutocomplete: {
-      variants: [
-        {
-          props: { size: "medium" },
-          style: ({ theme }) => ({
-            "& .MuiAutocomplete-input.MuiInputBase-input": {
-              paddingTop: theme.spacing(1 / 2),
-            },
-          }),
-        },
-        {
-          props: { size: "large" },
-          style: () => ({
-            "& .MuiInputBase-root": {
-              height: 56,
-            },
-            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
-              transform: "translate(14px, 16px) scale(1)",
-            },
-          }),
         },
       ],
     },
@@ -92,12 +51,6 @@ const commonThemeOptions: ThemeOptions = {
           style: {
             color: "white",
           },
-        },
-        {
-          props: { size: "small" },
-          style: ({ theme }) => ({
-            padding: `${theme.spacing(0.954)} ${theme.spacing(3)}`,
-          }),
         },
         {
           props: { size: "medium" },
@@ -157,47 +110,31 @@ const commonThemeOptions: ThemeOptions = {
             position: "relative",
           }),
         },
+      ],
+    },
+    MuiInputBase: {
+      variants: [
         {
           props: { size: "small" },
-          style: ({ theme }) => ({
-            padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-          }),
+          style: {
+            height: 48,
+          },
         },
       ],
     },
     MuiInputLabel: {
-      defaultProps: {
-        size: "normal",
-      },
       variants: [
         {
-          props: { size: "normal" },
+          props: { size: "small" },
           style: {
-            "&.MuiInputLabel-outlined": {
+            "&.MuiInputLabel-sizeSmall:not(.MuiInputLabel-shrink)": {
               transform: "translate(14px, 12px) scale(1)",
-            },
-            "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
-              transform: "translate(14px, -9px) scale(0.75)",
-            },
-          },
-        },
-        {
-          props: { className: "large" },
-          style: {
-            "&.MuiInputLabel-outlined": {
-              transform: "translate(14px, 16px) scale(1)",
-            },
-            "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
-              transform: "translate(14px, -9px) scale(0.75)",
             },
           },
         },
       ],
     },
     MuiSelect: {
-      defaultProps: {
-        size: "medium",
-      },
       variants: [
         {
           props: { variant: "outlined" },
@@ -206,14 +143,6 @@ const commonThemeOptions: ThemeOptions = {
               ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
             },
             borderRadius: 8,
-          }),
-        },
-        {
-          props: { size: "medium", variant: "outlined" },
-          style: ({ theme }) => ({
-            "& .MuiSelect-outlined": {
-              padding: `${theme.spacing(1.5625)} 14px`,
-            },
           }),
         },
         {
@@ -247,8 +176,6 @@ const commonThemeOptions: ThemeOptions = {
         ref: (instance) => {
           currentMuiTextFieldRef = instance;
         },
-        size: "medium",
-        variant: "outlined",
       },
       styleOverrides: {
         root: ({ theme, fullWidth }) => ({
@@ -300,36 +227,6 @@ const commonThemeOptions: ThemeOptions = {
             },
             "& .MuiOutlinedInput-notchedOutline": {
               ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
-            },
-          }),
-        },
-        {
-          props: { size: "small", variant: "outlined" },
-          style: () => ({
-            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
-              transform: "translate(14px, 9px) scale(1)",
-            },
-            "& .MuiInputLabel-root.MuiInputLabel-outlined.MuiInputLabel-shrink": {
-              transform: "translate(14px, -9px) scale(0.75)",
-            },
-          }),
-        },
-        {
-          props: { size: "medium", variant: "outlined" },
-          style: () => ({
-            "& .MuiInputBase-root": {
-              height: 48,
-            },
-            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
-              transform: "translate(14px, 12px) scale(1)",
-            },
-          }),
-        },
-        {
-          props: { size: "large", variant: "outlined" },
-          style: () => ({
-            "& .MuiInputLabel-root.MuiInputLabel-outlined": {
-              transform: "translate(14px, 16px) scale(1)",
             },
           }),
         },
