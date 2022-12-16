@@ -91,21 +91,21 @@ jobs:
           command: yarn publish
 
 workflows:
-  test_unit:
+  Unit Test:
     when:
       and:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - run-tests
-  test_visual:
+  Visual Test:
     when:
       and:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - chromatic-deployment
-  release:
+  Release:
     when:
       equal: [ master, << pipeline.git.branch >> ]
     jobs:
