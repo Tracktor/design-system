@@ -67,6 +67,8 @@ jobs:
       - run:
           command: yarn test
   chromatic-deployment:
+    docker:
+      - image: circleci/node:16
     working_directory: ~/repo
     steps:
       - checkout
@@ -81,7 +83,6 @@ workflows:
   chromatic-deploy:
     jobs:
       - chromatic-deployment:
-          context: *production_context
           filters:
             branches:
               only: master
