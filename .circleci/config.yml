@@ -91,20 +91,24 @@ jobs:
           command: yarn publish
 
 workflows:
-  features:
+  test_unit:
     when:
       and:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - run-tests
+  test_visual:
+    when:
+      and:
+        - not:
+            equal: [ master, << pipeline.git.branch >> ]
+    jobs:
       - chromatic-deployment:
           requires: [ run-tests ]
   release:
     when:
-      matches:
-        pattern: "^master$"
-        value: << pipeline.git.branch >>
+      equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - publish-storybook-docker:
           context: *production_context
