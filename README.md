@@ -27,9 +27,7 @@
   utilities
 - 💅 **[Emotion CSS](https://emotion.sh/docs/introduction)** - Writing css styles with JavaScript
 - 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
-
-
-
+- 🚦 **[Chromatic](https://www.chromatic.com/)** - Visual testing regression
 
 ## Installation
 
