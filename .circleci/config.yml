@@ -82,8 +82,8 @@ jobs:
 workflows:
   chromatic-deploy:
     jobs:
-      - chromatic-deployment&
-        - filters:
+      - chromatic-deployment:
+          filters:
             branches:
               only: master
   main:
