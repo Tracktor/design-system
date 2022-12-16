@@ -67,8 +67,6 @@ jobs:
       - run:
           command: yarn test
   chromatic-deployment:
-    docker:
-      - image: cimg/node:16
     working_directory: ~/repo
     steps:
       - checkout
