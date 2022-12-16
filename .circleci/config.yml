@@ -104,8 +104,7 @@ workflows:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
-      - chromatic-deployment:
-          requires: [ run-tests ]
+      - chromatic-deployment
   release:
     when:
       equal: [ master, << pipeline.git.branch >> ]
