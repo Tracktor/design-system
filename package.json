@@ -16,8 +16,13 @@
       "require": "./dist/main.umd.cjs"
     }
   },
-  "repository": "git@github.com:Tracktor/design-system-tracktor.git",
-  "author": "Mickaël Austoni",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Tracktor/design-system-tracktor.git"
+  },
+  "author": {
+    "name": "Mickaël Austoni"
+  },
   "bugs": {
     "url": "https://github.com/Tracktor/design-system-tracktor/issues"
   },
@@ -32,7 +37,8 @@
     "storybook:build:docs": "build-storybook --docs",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "test:visual": "chromatic --project-token=c9bbc986d0d6 --exit-zero-on-changes"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
@@ -57,6 +63,7 @@
     "@vitejs/plugin-react": "^2.1.0",
     "@vitest/ui": "^0.24.1",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.13.1",
     "eslint-config-react-tracktor": "^1.0.5",
     "husky": "^8.0.0",
     "jsdom": "^20.0.0",
@@ -78,5 +85,7 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "design-system-tracktor@1.8.4"
 }

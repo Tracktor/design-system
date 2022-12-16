@@ -60,8 +60,32 @@ jobs:
           key: dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
+  test:
+    executor: node/default
+    steps:
+      - node/restore-workspace
+      - run:
+          command: yarn test
+  chromatic-deployment:
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - run: yarn test:visual
 
 workflows:
+  chromatic-deploy:
+    jobs:
+      - chromatic-deployment&
+        - filters:
+            branches:
+              only: master
   main:
     when:
       matches:

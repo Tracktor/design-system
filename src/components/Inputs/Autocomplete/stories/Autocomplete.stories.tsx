@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
       id="combo-box-demo"
       options={topFilms}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Movie" />}
+      renderInput={(params) => <TextField {...params} label="Movie (small)" />}
       size="small"
     />
     <Autocomplete
@@ -29,7 +29,7 @@ const Template: ComponentStory<typeof Autocomplete> = (args) => (
       id="combo-box-demo"
       options={topFilms}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Movie" />}
+      renderInput={(params) => <TextField {...params} label="Movie (medium)" />}
     />
   </Stack>
 );
