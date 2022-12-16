@@ -68,7 +68,7 @@ jobs:
           command: yarn test
   chromatic-deployment:
     docker:
-      - image: cimg/base:current
+      - image: circleci/node:16
     working_directory: ~/repo
     steps:
       - checkout
