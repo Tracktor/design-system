@@ -49,6 +49,7 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "package.json" }}
+      - run: yarn install
       - run: yarn test:visual
 
   # Docker Build + Publish
@@ -77,6 +78,9 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Yarn install
+          command: yarn
       - run:
           name: Create Github release
           command: |
