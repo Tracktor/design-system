@@ -54,15 +54,27 @@ const commonThemeOptions: ThemeOptions = {
         },
         {
           props: { size: "medium" },
-          style: ({ theme }) => ({
-            padding: `${theme.spacing(1.469)} ${theme.spacing(3)}`,
-          }),
+          style: {
+            padding: "11.75px 24px",
+          },
         },
         {
           props: { size: "large" },
-          style: ({ theme }) => ({
-            padding: `${theme.spacing(1.86)} ${theme.spacing(3)}`,
-          }),
+          style: {
+            padding: "14.88px 24px",
+          },
+        },
+        {
+          props: { size: "medium", variant: "outlined" },
+          style: {
+            padding: "10.75px 24px",
+          },
+        },
+        {
+          props: { size: "large", variant: "outlined" },
+          style: {
+            padding: "13.88px 24px",
+          },
         },
       ],
     },
