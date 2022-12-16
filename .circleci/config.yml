@@ -83,6 +83,7 @@ workflows:
   chromatic-deploy:
     jobs:
       - chromatic-deployment:
+          context: *production_context
           filters:
             branches:
               only: master
