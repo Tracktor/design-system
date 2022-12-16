@@ -111,7 +111,5 @@ workflows:
     jobs:
       - publish-storybook-docker:
           context: *production_context
-          requires: [ chromatic-deployment ]
       - publish-npm:
           context: *production_context
-          requires: [ chromatic-deployment ]
