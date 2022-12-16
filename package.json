@@ -1,7 +1,7 @@
 {
   "name": "design-system-tracktor",
   "description": "Tracktor Design System",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "license": "ISC",
   "type": "module",
   "types": "dist/main.d.ts",
@@ -35,7 +35,7 @@
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
     "storybook:build:docs": "build-storybook --docs",
-    "test": "vitest",
+    "test": "yarn lint && vitest",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:visual": "chromatic --project-token=c9bbc986d0d6 --exit-zero-on-changes"

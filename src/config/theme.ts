@@ -70,6 +70,7 @@ const commonThemeOptions: ThemeOptions = {
       styleOverrides: {
         root: ({ theme }) => ({
           ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
+          borderRadius: 12,
         }),
       },
     },
