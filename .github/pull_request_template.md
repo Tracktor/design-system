@@ -2,5 +2,3 @@
 - [ ] Change version & describe your change inside [CHANGELOG.md](CHANGELOG.md)
 - [ ] Add tests
 - [ ] Add stories
-
-
