@@ -57,11 +57,12 @@ export default App;
 ## Docs
 
 - [Material UI (MUI)](https://mui.com/material-ui/getting-started/overview)
-- [Zeroheight](https://zeroheight.com/392e62971/p/7983f7-armature)
+- [Figma](https://www.figma.com/file/3fprVesPjVIo124UWy9xhU/MUI-for-Figma-Material-Pro-v5.9.0?node-id=4662%3A14)
+- [Storybook](https://storybook.tracktor.fr/)
 
 ### Storybook
 
-Start storybook
+Start local storybook
 
 ```console
 yarn storybook
