@@ -13,14 +13,14 @@ const useThemeProvider = () => {
     }
 
     if (theme?.palette?.mode === "dark") {
-      return createTheme(theme, darkTheme);
+      return createTheme(darkTheme, theme);
     }
 
     if (theme?.palette?.mode === "light") {
-      return createTheme(theme, lightTheme);
+      return createTheme(lightTheme, theme);
     }
 
-    return createTheme(theme, commonTheme);
+    return createTheme(commonTheme, theme || {});
   };
 
   return { getTheme };

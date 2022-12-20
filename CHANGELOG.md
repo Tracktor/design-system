@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.8.9
-- Improve custom theme options
+## v1.8.10
+- Fix custom theme options override
