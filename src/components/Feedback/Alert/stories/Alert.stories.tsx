@@ -1,26 +1,33 @@
 import { AlertTitle, Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Alert from "./Alert";
 
 const Template: ComponentStory<typeof Alert> = (args) => (
   <Stack spacing={2} alignItems="stretch" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
+    <Alert {...args}>
+      This is an <strong>default</strong> severity alert — check it out!
+    </Alert>
     <Alert severity="error" {...args}>
-      This is an error alert — check it out!
+      This is an <strong>error</strong> severity alert — check it out!
     </Alert>
     <Alert severity="warning" {...args}>
-      This is a warning alert — check it out!
+      This is a <strong>warning</strong> severity alert — check it out!
     </Alert>
     <Alert severity="info" {...args}>
-      This is an info alert — check it out!
+      This is an <strong>info</strong> severity alert — check it out!
     </Alert>
     <Alert severity="success" {...args}>
-      This is a success alert — check it out!
+      This is a <strong>success</strong> severity alert — check it out!
     </Alert>
   </Stack>
 );
 
 const TemplateWithTitle: ComponentStory<typeof Alert> = (args) => (
   <Stack spacing={2} alignItems="stretch" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
+    <Alert {...args}>
+      <AlertTitle>Default</AlertTitle>
+      This is an error alert — <strong>check it out!</strong>
+    </Alert>
     <Alert severity="error" {...args}>
       <AlertTitle>Error</AlertTitle>
       This is an error alert — <strong>check it out!</strong>
