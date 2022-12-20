@@ -1,12 +1,11 @@
 import type { FunctionComponent } from "react";
 import ThemeProvider from "../src/context/Theme/ThemeProvider";
-import { darkTheme, lightTheme } from "../src/config/theme";
 import { themes } from '@storybook/theming';
 import { useDarkMode } from 'storybook-dark-mode';
 
 const ThemeWrapper = (props: any) => {
   return (
-    <ThemeProvider theme={useDarkMode() ? darkTheme : lightTheme}>
+    <ThemeProvider theme={useDarkMode() ? "dark" : "light"}>
       {props.children}
     </ThemeProvider>
   );

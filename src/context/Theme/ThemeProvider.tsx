@@ -1,5 +1,5 @@
 import { css, CssBaseline, GlobalStyles, ThemeProvider as ThemeProviderMUI } from "@mui/material";
-import type { DefaultTheme } from "@mui/private-theming/defaultTheme";
+import type { ThemeOptions } from "@mui/material/styles/createTheme";
 import type { ReactNode } from "react";
 import { commonTheme } from "@/config/theme";
 import defaultFontWeight from "@/constants/defaultFontWeight";
@@ -8,7 +8,7 @@ import useThemeProvider from "@/context/Theme/useThemeProvider";
 export interface ThemeProviderProps {
   children: ReactNode;
   includeCssBaseline?: boolean;
-  theme?: "dark" | "light" | DefaultTheme;
+  theme?: "dark" | "light" | ThemeOptions;
   font?: {
     googleFontName?: string; // Google font name to load
     import?: boolean; // Inject font @import in css

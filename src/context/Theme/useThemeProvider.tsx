@@ -1,4 +1,5 @@
-import { darkTheme, lightTheme } from "@/config/theme";
+import { createTheme } from "@mui/material";
+import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import type { ThemeProviderProps } from "@/context/Theme/ThemeProvider";
 
 const useThemeProvider = () => {
@@ -6,11 +7,20 @@ const useThemeProvider = () => {
     if (theme === "dark") {
       return darkTheme;
     }
+
     if (theme === "light") {
       return lightTheme;
     }
 
-    return theme || {};
+    if (theme?.palette?.mode === "dark") {
+      return createTheme(theme, darkTheme);
+    }
+
+    if (theme?.palette?.mode === "light") {
+      return createTheme(theme, lightTheme);
+    }
+
+    return createTheme(theme, commonTheme);
   };
 
   return { getTheme };

@@ -316,7 +316,6 @@ const commonThemeOptions: ThemeOptions = {
     },
     warning: {
       dark: commonColors.warningDark,
-
       light: commonColors.warningLight,
       main: commonColors.warningMain,
     },
