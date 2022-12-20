@@ -23,6 +23,14 @@ let currentMuiTextFieldRef: null | HTMLDivElement = null;
 const commonThemeOptions: ThemeOptions = {
   components: {
     MuiAlert: {
+      styleOverrides: {
+        root: ({ ownerState, theme }) => ({
+          ...(!ownerState.square && { borderRadius: 12 }),
+          ...(ownerState.variant === "standard" && {
+            border: `solid 1px ${theme.palette[ownerState.severity || "success"].main}`,
+          }),
+        }),
+      },
       variants: [
         {
           props: { variant: "filled" },
