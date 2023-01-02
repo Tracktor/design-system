@@ -13,6 +13,8 @@ export { default as CardModal } from "@/components/Surface/CardModal";
 export * from "@/components/Surface/CardModal";
 export { default as TextArea } from "@/components/Inputs/TextArea";
 export * from "@/components/Inputs/TextArea";
+export { default as QuantityField } from "@/components/Inputs/QuantityField";
+export * from "@/components/Inputs/QuantityField";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
@@ -23,7 +25,3 @@ export * from "@/context/FeatureEnable/FeatureEnableProvider";
 // Hooks
 export { default as useIsFeatureEnabled } from "@/hooks/useFeatureEnabled";
 export * from "@/hooks/useFeatureEnabled";
-
-// Config
-export { default as theme } from "@/config/theme";
-export * from "@/config/theme";

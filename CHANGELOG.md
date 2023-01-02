@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.8.10
-- Fix custom theme options override
+## v1.9.0
+- Add input component `QuantityField` 
