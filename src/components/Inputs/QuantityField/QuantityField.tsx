@@ -1,10 +1,10 @@
 import { IconButton, InputAdornment, SvgIcon, TextField, TextFieldProps } from "@mui/material";
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import type { ChangeEvent } from "react";
 
 type QuantityFieldProps = TextFieldProps & {
   max?: number;
   min?: number;
-  setValue?: Dispatch<SetStateAction<number>>;
+  setValue?(quantity: number): void;
 };
 
 const QuantityField = ({ value, setValue, min = 1, max = 50, ...props }: QuantityFieldProps) => {

@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.9.0
-- Add input component `QuantityField` 
+## v1.9.1
+- Change type `setValue` to `QuantityField` 
