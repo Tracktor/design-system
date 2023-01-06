@@ -179,6 +179,15 @@ const commonThemeOptions: ThemeOptions = {
             borderTopRightRadius: 8,
           },
         },
+        {
+          props: { disableUnderline: true, variant: "standard" },
+          style: ({ theme }) => ({
+            "& .MuiSelect-select": {
+              background: "none !important",
+            },
+            color: theme.palette.text.secondary,
+          }),
+        },
       ],
     },
     MuiTextField: {
