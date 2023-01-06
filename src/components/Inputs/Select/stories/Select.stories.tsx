@@ -36,6 +36,27 @@ const Template: ComponentStory<typeof Select> = (args) => {
     </Stack>
   );
 };
+
+const TemplateText: ComponentStory<typeof Select> = (args) => {
+  const [age, setAge] = useState("20");
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+
+  return (
+    <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+      <FormControl>
+        <Select size="small" value={age} label="Age" onChange={handleChange} {...args}>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </Stack>
+  );
+};
+
 export const Basic = Template.bind({});
 Basic.args = {
   variant: "outlined",
@@ -48,6 +69,12 @@ Filled.args = {
 
 export const Standard = Template.bind({});
 Standard.args = {
+  variant: "standard",
+};
+
+export const Text = TemplateText.bind({});
+Text.args = {
+  disableUnderline: true,
   variant: "standard",
 };
 
