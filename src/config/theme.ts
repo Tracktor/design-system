@@ -104,6 +104,13 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiDialog: {
+      defaultProps: {
+        PaperProps: {
+          elevation: 0,
+        },
+      },
+    },
     MuiFormControlLabel: {
       variants: [
         {
