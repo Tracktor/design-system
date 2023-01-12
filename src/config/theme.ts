@@ -168,6 +168,18 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiPaper: {
+      variants: [
+        {
+          props: {
+            square: false,
+          },
+          style: {
+            borderRadius: 12,
+          },
+        },
+      ],
+    },
     MuiSelect: {
       variants: [
         {
