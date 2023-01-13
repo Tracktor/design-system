@@ -1,4 +1,4 @@
-import { alpha, createTheme, ThemeOptions } from "@mui/material";
+import { alpha, createTheme, Paper, PaperProps as PaperPropsMui, Theme, ThemeOptions } from "@mui/material";
 import type { ChangeEvent } from "react";
 import landscape from "@/assets/img/landscape.svg";
 import commonColors from "@/styles/colors/common.module.scss";
@@ -20,6 +20,14 @@ declare module "@mui/material/FormControlLabel" {
 
 let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
+const PaperDropdownElevation = 10;
+
+const PaperProps = {
+  sx: {
+    border: ({ palette }: Theme) => `solid 1px ${palette.divider}`,
+  },
+};
+
 const commonThemeOptions: ThemeOptions = {
   components: {
     MuiAlert: {
@@ -39,6 +47,11 @@ const commonThemeOptions: ThemeOptions = {
           },
         },
       ],
+    },
+    MuiAutocomplete: {
+      defaultProps: {
+        PaperComponent: (props: PaperPropsMui) => <Paper {...props} {...PaperProps} elevation={PaperDropdownElevation} />,
+      },
     },
     MuiButton: {
       styleOverrides: {
@@ -170,7 +183,8 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiMenu: {
       defaultProps: {
-        elevation: 10,
+        elevation: PaperDropdownElevation,
+        PaperProps,
       },
     },
     MuiPaper: {
@@ -179,14 +193,18 @@ const commonThemeOptions: ThemeOptions = {
           props: {
             square: false,
           },
-          style: ({ theme }) => ({
-            border: `solid 1px ${theme.palette.divider}`,
+          style: {
             borderRadius: 12,
-          }),
+          },
         },
       ],
     },
     MuiSelect: {
+      defaultProps: {
+        MenuProps: {
+          PaperProps,
+        },
+      },
       variants: [
         {
           props: { variant: "outlined" },
@@ -214,6 +232,14 @@ const commonThemeOptions: ThemeOptions = {
           }),
         },
       ],
+    },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          border: `solid 1px ${theme.palette.divider}`,
+          borderRadius: theme.shape.borderRadius,
+        }),
+      },
     },
     MuiTextField: {
       defaultProps: {
