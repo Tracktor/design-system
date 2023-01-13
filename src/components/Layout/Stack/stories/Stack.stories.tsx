@@ -10,9 +10,15 @@ const PaperStyle = {
 const Template: ComponentStory<typeof Stack> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <Stack spacing={2} {...args}>
-      <Paper sx={PaperStyle}>Item 1</Paper>
-      <Paper sx={PaperStyle}>Item 2</Paper>
-      <Paper sx={PaperStyle}>Item 3</Paper>
+      <Paper variant="outlined" sx={PaperStyle}>
+        Item 1
+      </Paper>
+      <Paper variant="outlined" sx={PaperStyle}>
+        Item 2
+      </Paper>
+      <Paper variant="outlined" sx={PaperStyle}>
+        Item 3
+      </Paper>
     </Stack>
   </Box>
 );
