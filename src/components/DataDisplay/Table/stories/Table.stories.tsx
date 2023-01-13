@@ -94,7 +94,7 @@ const Template: ComponentStory<typeof Table> = (args) => {
 
   return (
     <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
-      <TableContainer component={Paper} sx={{ maxHeight: stickyHeader ? 250 : "auto" }}>
+      <TableContainer sx={{ maxHeight: stickyHeader ? 250 : "auto" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table" {...args}>
           <TableHead>
             <TableRow>
