@@ -50,6 +50,11 @@ Outlined.args = {
   variant: "outlined",
 };
 
+export const Square = Template.bind({});
+Square.args = {
+  square: true,
+};
+
 export const Elevation = ElevationTemplate.bind({});
 Elevation.args = {};
 
