@@ -1,5 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
 
-## v1.11.0
-- Update paper radius
-- Add new paper stories 
+## v1.12.0
+- Update paper
