@@ -96,6 +96,16 @@ const commonThemeOptions: ThemeOptions = {
           borderRadius: 12,
         }),
       },
+      variants: [
+        {
+          props: {
+            variant: undefined,
+          },
+          style: () => ({
+            borderColor: "transparent",
+          }),
+        },
+      ],
     },
     MuiChip: {
       variants: [
