@@ -62,7 +62,7 @@ export default App;
 
 ### Storybook
 
-Start local storybook
+Our online storybook is available at https://storybook.tracktor.fr or you can run local storybook.
 
 ```console
 yarn storybook

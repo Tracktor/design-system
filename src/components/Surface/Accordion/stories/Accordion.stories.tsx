@@ -47,10 +47,44 @@ const Template: ComponentStory<typeof Accordion> = (args) => (
   </Stack>
 );
 
+const TemplateRight: ComponentStory<typeof Accordion> = (args) => (
+  <Stack spacing={0} alignItems="stretch" justifyContent="center" height="100%">
+    <Accordion {...args}>
+      <AccordionSummary expandIcon={<ArrowIcon />} aria-controls="panel1a-content" id="panel1a-header" sx={{ textAlign: "right" }}>
+        <Typography variant="h6" width="100%" align="right" sx={{ textDecoration: "underline" }}>
+          Accordion 1
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
+    <Accordion {...args}>
+      <AccordionSummary expandIcon={<ArrowIcon />} aria-controls="panel2a-content" id="panel2a-header">
+        <Typography variant="h6" width="100%" align="right" sx={{ textDecoration: "underline" }}>
+          Accordion 2
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
+    <Accordion disabled {...args}>
+      <AccordionSummary expandIcon={<ArrowIcon />} aria-controls="panel3a-content" id="panel3a-header">
+        <Typography variant="h6" width="100%" align="right" sx={{ textDecoration: "underline" }}>
+          Disabled Accordion
+        </Typography>
+      </AccordionSummary>
+    </Accordion>
+  </Stack>
+);
+
 export const Basic = Template.bind({});
-Basic.args = {
-  variant: "elevation",
-};
+Basic.args = {};
 
 export const Outlined = Template.bind({});
 Outlined.args = {
@@ -61,6 +95,32 @@ export const Square = Template.bind({});
 Square.args = {
   square: true,
 };
+
+export const SquareWithNoElevation = Template.bind({});
+SquareWithNoElevation.args = {
+  elevation: 0,
+  square: true,
+};
+
+export const DisableGutters = Template.bind({});
+DisableGutters.args = {
+  disableGutters: true,
+};
+
+export const WithoutDivider = Template.bind({});
+WithoutDivider.args = {
+  disableGutters: true,
+  elevation: 0,
+  square: true,
+  sx: {
+    "&:before": {
+      display: "none",
+    },
+  },
+};
+
+export const AlignRight = TemplateRight.bind({});
+AlignRight.args = {};
 
 export default {
   component: Accordion,
