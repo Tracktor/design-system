@@ -2,13 +2,21 @@ import { Box, Button, Fade, Stack, styled, tooltipClasses, TooltipProps, Typogra
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Tooltip from "./Tooltip";
 
-const CustomWidthTooltip = styled(({ className, ...props }: TooltipProps) => <Tooltip {...props} classes={{ popper: className }} />)({
+const CustomWidthTooltip = styled(({ children, className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }}>
+    {children}
+  </Tooltip>
+))({
   [`& .${tooltipClasses.tooltip}`]: {
     maxWidth: 500,
   },
 });
 
-const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => <Tooltip {...props} classes={{ popper: className }} />)({
+const NoMaxWidthTooltip = styled(({ children, className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }}>
+    {children}
+  </Tooltip>
+))({
   [`& .${tooltipClasses.tooltip}`]: {
     maxWidth: "none",
   },
@@ -98,15 +106,16 @@ WithLeaveDelay.args = {
 };
 
 export default {
+  // eslint-disable-next-line sort-keys
+  args: {
+    arrow: false,
+  },
+
   argTypes: {
     placement: {
       control: { type: "select" },
       options: ["top", "right", "bottom", "left"],
     },
-  },
-  // eslint-disable-next-line sort-keys
-  args: {
-    arrow: false,
   },
   component: Tooltip,
   title: "Components/Data Display/Tooltip",
