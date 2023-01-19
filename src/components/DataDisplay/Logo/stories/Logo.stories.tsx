@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import Logo from "./Logo";
 
 const Template: ComponentStory<typeof Logo> = (args) => (

@@ -1,4 +1,4 @@
-import Component, { LogoProps } from "../Logo";
+import Component, { LogoProps } from "@/components/DataDisplay/Logo";
 
 const Logo = (props: LogoProps) => <Component {...props} />;
 

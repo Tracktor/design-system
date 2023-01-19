@@ -1,4 +1,4 @@
-import IfFeatureEnableComponent, { IfFeatureEnableProps } from "../IfFeatureEnable";
+import IfFeatureEnableComponent, { IfFeatureEnableProps } from "@/components/Layout/IfFeatureEnable/IfFeatureEnable";
 
 const IfFeatureEnable = (props: IfFeatureEnableProps) => <IfFeatureEnableComponent {...props} />;
 
