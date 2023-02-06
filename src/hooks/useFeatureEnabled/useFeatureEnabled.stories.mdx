@@ -9,7 +9,7 @@ Utility hook for features
 ### Basic usage
 
 ```typescript jsx
-import { useFeatureEnabled } from "design-system-tracktor";
+import { useFeatureEnabled } from "@tracktor/design-system";
 
 const { getIsFeatureEnabled } = useFeatureEnabled();
 const hasCheckout = getIsFeatureEnabled("order", ["order", "checkout"]); // return true
@@ -26,7 +26,7 @@ In this example above static data is provided, but you can fetch user features.
 
 ```typescript jsx
 import Home from "./Home";
-import { FeatureEnableProvider } from "design-system-tracktor";
+import { FeatureEnableProvider } from "@tracktor/design-system";
 
 const App = () => (
     <FeatureEnableProvider features={["order", "checkout"]}>
@@ -40,7 +40,7 @@ export default App;
 Then anywhere in your application like `home.tsx` you can use the hook without give features
 
 ```typescript jsx
-import { useFeatureEnabled } from "design-system-tracktor";
+import { useFeatureEnabled } from "@tracktor/design-system";
 
 const { getIsFeatureEnabled } = useFeatureEnabled();
 const hasCheckout = getIsFeatureEnabled("checkout");

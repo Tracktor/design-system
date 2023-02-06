@@ -18,15 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Tracktor/design-system-tracktor.git"
+    "url": "git+ssh://git@github.com/Tracktor/design-system.git"
   },
   "author": {
     "name": "Mickaël Austoni"
   },
   "bugs": {
-    "url": "https://github.com/Tracktor/design-system-tracktor/issues"
+    "url": "https://github.com/Tracktor/design-system/issues"
   },
-  "homepage": "https://github.com/Tracktor/design-system-tracktor#readme",
+  "homepage": "https://github.com/Tracktor/design-system#readme",
   "scripts": {
     "build": "tsc && vite build",
     "lint": "eslint . --max-warnings=0 && tsc --noEmit",

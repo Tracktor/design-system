@@ -1,4 +1,4 @@
-# [Versions](https://github.com/Tracktor/design-system-tracktor/releases)
+# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.13.0
-- update tracktor dependencies
+## v1.13.1
+- docs

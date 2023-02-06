@@ -43,7 +43,7 @@ Put `<ThemeProvider>` around your application.
 Custom theme can be provided as prop `theme={YOUR_CUSTOM_THEME}`
 
 ```typescript jsx
-import { Button, ThemeProvider } from "design-system-tracktor";
+import { Button, ThemeProvider } from "@tracktor/design-system";
 
 const App = () => (
   <ThemeProvider>
