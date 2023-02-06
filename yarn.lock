@@ -3003,6 +3003,28 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
   integrity sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==
 
+"@tracktor/eslint-config-react-tracktor@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@tracktor/eslint-config-react-tracktor/-/eslint-config-react-tracktor-1.0.6.tgz#02688a487d41e9cdd0c01576fcd06c2b37ca801a"
+  integrity sha512-XV4JKZg0NPomqyoeHDeRSxv0st4oolFVzUu51cXbYd5C7hzljAmZr1jebNZvU35AYXDSxkIe6plh3R3DPo4QkQ==
+  dependencies:
+    "@typescript-eslint/eslint-plugin" "^5.30.7"
+    "@typescript-eslint/parser" "^5.30.7"
+    "@typescript-eslint/types" "^5.30.7"
+    eslint "8.22.0"
+    eslint-config-airbnb "^19.0.4"
+    eslint-config-prettier "^8.5.0"
+    eslint-config-react-app "^7.0.1"
+    eslint-plugin-import "^2.26.0"
+    eslint-plugin-jsx "^0.1.0"
+    eslint-plugin-jsx-a11y "^6.6.0"
+    eslint-plugin-prettier "^4.2.1"
+    eslint-plugin-react "^7.30.1"
+    eslint-plugin-react-hooks "^4.6.0"
+    eslint-plugin-sort-keys-fix "^1.1.2"
+    prettier "^2.7.1"
+    prettier-eslint "^15.0.1"
+
 "@ts-morph/common@~0.18.0":
   version "0.18.1"
   resolved "https://registry.yarnpkg.com/@ts-morph/common/-/common-0.18.1.tgz#ca40c3a62c3f9e17142e0af42633ad63efbae0ec"
@@ -6315,28 +6337,6 @@ eslint-config-react-app@^7.0.1:
     eslint-plugin-react "^7.27.1"
     eslint-plugin-react-hooks "^4.3.0"
     eslint-plugin-testing-library "^5.0.1"
-
-eslint-config-react-tracktor@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/eslint-config-react-tracktor/-/eslint-config-react-tracktor-1.0.5.tgz#47c2632a21fcafffac313774d970f6a9038831fb"
-  integrity sha512-BVCv1SeL83e8sN35CEsGhVa1mPc4wA1+mMTgRZLLZ1uXdNyxfQXq7NFpZBaX15pQs13ShogbIDDJpyLVA46R1w==
-  dependencies:
-    "@typescript-eslint/eslint-plugin" "^5.30.7"
-    "@typescript-eslint/parser" "^5.30.7"
-    "@typescript-eslint/types" "^5.30.7"
-    eslint "8.22.0"
-    eslint-config-airbnb "^19.0.4"
-    eslint-config-prettier "^8.5.0"
-    eslint-config-react-app "^7.0.1"
-    eslint-plugin-import "^2.26.0"
-    eslint-plugin-jsx "^0.1.0"
-    eslint-plugin-jsx-a11y "^6.6.0"
-    eslint-plugin-prettier "^4.2.1"
-    eslint-plugin-react "^7.30.1"
-    eslint-plugin-react-hooks "^4.6.0"
-    eslint-plugin-sort-keys-fix "^1.1.2"
-    prettier "^2.7.1"
-    prettier-eslint "^15.0.1"
 
 eslint-import-resolver-node@^0.3.7:
   version "0.3.7"

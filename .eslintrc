@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-react-tracktor",
+  "extends": "@tracktor/eslint-config-react-tracktor",
   "overrides": [
     {
       "files": "*.tsx",
