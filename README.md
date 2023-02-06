@@ -32,7 +32,7 @@
 ## Installation
 
 ```console
-yarn add @tracktor/design-system-tracktor
+yarn add @tracktor/design-system
 ```
 
 ## Usage
