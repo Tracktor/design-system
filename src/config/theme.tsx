@@ -261,7 +261,7 @@ const commonThemeOptions: ThemeOptions = {
       },
       styleOverrides: {
         root: ({ theme, fullWidth }) => ({
-          "&.picture": {
+          "&.picture, &.picture-vertical": {
             "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
               display: "none",
             },
@@ -298,6 +298,16 @@ const commonThemeOptions: ThemeOptions = {
             justifyContent: "center",
             maxWidth: fullWidth ? "100%" : 400,
             width: "100%",
+          },
+          "&.picture-vertical": {
+            "& .MuiInputLabel-root": {
+              flexDirection: "column",
+              justifyContent: "center",
+            },
+            "& .MuiInputLabel-root:before": {
+              marginBottom: theme.spacing(1),
+            },
+            height: 150,
           },
         }),
       },

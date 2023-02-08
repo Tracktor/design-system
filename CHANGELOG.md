@@ -2,3 +2,4 @@
 
 ## v1.14.0
 - fix height text field picture
+- Add text field picture vertical

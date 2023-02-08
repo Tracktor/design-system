@@ -15,6 +15,12 @@ const TemplatePicture: ComponentStory<typeof TextField> = (args) => (
   </Stack>
 );
 
+const TemplatePictureVerticale: ComponentStory<typeof TextField> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <TextField id="picture-vertical" label="Outlined" className="picture-vertical" {...args} />
+  </Stack>
+);
+
 export const Basic = Template.bind({});
 Basic.args = {
   variant: "outlined",
@@ -32,6 +38,12 @@ Standard.args = {
 
 export const TypeFilePicture = TemplatePicture.bind({});
 TypeFilePicture.args = {
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
+};
+
+export const TypeFilePictureVertical = TemplatePictureVerticale.bind({});
+TypeFilePictureVertical.args = {
   label: "Ajouter une photo ou un fichier",
   type: "file",
 };
