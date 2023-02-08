@@ -2,4 +2,5 @@
 
 ## v1.14.0
 - fix height text field picture
-- Add text field picture vertical
+- Simplifies use `TextField` type `file`
+- Add new `TextField` type `file` direction with `dir="column"` 
