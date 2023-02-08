@@ -234,6 +234,22 @@ const commonThemeOptions: ThemeOptions = {
       },
     },
     MuiTextField: {
+      defaultProps: {
+        ref: (instance) => {
+          instance?.addEventListener("change", (e: Event) => {
+            const target = e.target as HTMLInputElement;
+
+            if (target?.files && target?.type === "file" && target?.tagName === "INPUT") {
+              const fileName = target?.files[0]?.name;
+              const label = instance?.querySelector("label");
+
+              if (label && fileName) {
+                label.textContent = fileName;
+              }
+            }
+          });
+        },
+      },
       variants: [
         {
           props: { variant: "outlined" },
