@@ -9,9 +9,9 @@ const Template: ComponentStory<typeof TextField> = (args) => (
   </Stack>
 );
 
-const TemplatePicture: ComponentStory<typeof TextField> = (args) => (
+const TemplateFile: ComponentStory<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <TextField id="picture" label="Outlined" className="picture" {...args} />
+    <TextField id="picture" {...args} />
   </Stack>
 );
 
@@ -30,8 +30,21 @@ Standard.args = {
   variant: "standard",
 };
 
-export const TypeFilePicture = TemplatePicture.bind({});
-TypeFilePicture.args = {
+export const File = Template.bind({});
+File.args = {
+  label: "",
+  type: "file",
+};
+
+export const FileWithLabel = TemplateFile.bind({});
+FileWithLabel.args = {
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
+};
+
+export const FileWithLabelDirectionColumn = TemplateFile.bind({});
+FileWithLabelDirectionColumn.args = {
+  dir: "column",
   label: "Ajouter une photo ou un fichier",
   type: "file",
 };

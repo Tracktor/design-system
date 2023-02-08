@@ -1,5 +1,4 @@
-import { alpha, createTheme, ThemeOptions } from "@mui/material";
-import type { ChangeEvent } from "react";
+import { alpha, ComponentsPropsList, createTheme, Theme, ThemeOptions } from "@mui/material";
 import landscape from "@/assets/img/landscape.svg";
 import commonColors from "@/styles/colors/common.module.scss";
 import darkColors from "@/styles/colors/dark.module.scss";
@@ -17,8 +16,6 @@ declare module "@mui/material/FormControlLabel" {
     size?: "small" | "medium";
   }
 }
-
-let currentMuiTextFieldRef: null | HTMLDivElement = null;
 
 const PaperDropdownElevation = 10;
 
@@ -237,69 +234,6 @@ const commonThemeOptions: ThemeOptions = {
       },
     },
     MuiTextField: {
-      defaultProps: {
-        onChange: (e: ChangeEvent<HTMLInputElement>) => {
-          const { currentTarget } = e;
-
-          if (
-            currentTarget?.files &&
-            currentTarget?.type === "file" &&
-            currentTarget?.tagName === "INPUT" &&
-            currentMuiTextFieldRef?.classList.contains("picture")
-          ) {
-            const fileName = currentTarget?.files[0]?.name;
-            const label = currentMuiTextFieldRef?.querySelector("label");
-
-            if (label && fileName) {
-              label.textContent = fileName;
-            }
-          }
-        },
-        ref: (instance) => {
-          currentMuiTextFieldRef = instance;
-        },
-      },
-      styleOverrides: {
-        root: ({ theme, fullWidth }) => ({
-          "&.picture": {
-            "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
-              display: "none",
-            },
-            "& .MuiInputBase-root": {
-              height: "100%",
-            },
-            "& .MuiInputLabel-root": {
-              alignItems: "center",
-              cursor: "pointer",
-              display: "flex",
-              fontSize: 14,
-              height: "100%",
-              maxWidth: "100%",
-              pointerEvents: "auto",
-              transform: "none !important",
-              whiteSpace: "initial",
-              width: "100%",
-            },
-            "& .MuiInputLabel-root:before": {
-              content: `url(${landscape})`,
-              height: 30,
-              marginLeft: theme.spacing(2),
-              marginRight: theme.spacing(2),
-              width: 33,
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderStyle: "dashed",
-            },
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.primary.main,
-            },
-            height: 80,
-            justifyContent: "center",
-            maxWidth: fullWidth ? "100%" : 400,
-            width: "100%",
-          },
-        }),
-      },
       variants: [
         {
           props: { variant: "outlined" },
@@ -320,6 +254,60 @@ const commonThemeOptions: ThemeOptions = {
               borderTopRightRadius: 8,
             },
           },
+        },
+        {
+          props: {
+            type: "file",
+          },
+          style: ({
+            theme,
+            ownerState,
+            fullWidth,
+            dir,
+          }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => ({
+            ...(ownerState?.label && {
+              "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
+                display: "none",
+              },
+              "& .MuiInputBase-root": {
+                height: "100%",
+              },
+              "& .MuiInputLabel-root": {
+                alignItems: "center",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: dir === "column" ? "column" : "row",
+                fontSize: 14,
+                height: "100%",
+                justifyContent: dir === "column" ? "center" : "left",
+                maxWidth: "100%",
+                pointerEvents: "auto",
+                transform: "none !important",
+                whiteSpace: "initial",
+                width: "100%",
+              },
+              "& .MuiInputLabel-root:before": {
+                content: `url(${landscape})`,
+                height: 30,
+                marginLeft: theme.spacing(2),
+                marginRight: theme.spacing(2),
+                width: 33,
+                ...(dir === "column" && { marginBottom: theme.spacing(1) }),
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderStyle: "dashed",
+                top: 0,
+              },
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                borderColor: theme.palette.primary.main,
+              },
+              height: dir === "column" ? 150 : 80,
+              justifyContent: "center",
+              "label + &": {},
+              maxWidth: fullWidth ? "100%" : 400,
+              width: "100%",
+            }),
+          }),
         },
       ],
     },
