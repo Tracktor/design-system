@@ -289,6 +289,7 @@ const commonThemeOptions: ThemeOptions = {
             },
             "& .MuiOutlinedInput-notchedOutline": {
               borderStyle: "dashed",
+              top: 0,
             },
             "&:hover .MuiOutlinedInput-notchedOutline": {
               borderColor: theme.palette.primary.main,
