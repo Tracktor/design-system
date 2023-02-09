@@ -40,6 +40,19 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiAutocomplete: {
+      variants: [
+        {
+          props: { size: "small" },
+          style: {
+            "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
+              paddingBottom: 10,
+              paddingTop: 10,
+            },
+          },
+        },
+      ],
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -161,7 +174,10 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "small" },
           style: {
-            height: 48,
+            "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall": {
+              paddingBottom: 12.5,
+              paddingTop: 12.5,
+            },
           },
         },
       ],
@@ -171,7 +187,7 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "small" },
           style: {
-            "&.MuiInputLabel-sizeSmall:not(.MuiInputLabel-shrink)": {
+            "&.MuiInputLabel-outlined.MuiInputLabel-sizeSmall:not(.MuiInputLabel-shrink)": {
               transform: "translate(14px, 12px) scale(1)",
             },
           },

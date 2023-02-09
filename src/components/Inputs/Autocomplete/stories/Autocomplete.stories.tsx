@@ -12,30 +12,42 @@ const topFilms = [
   { label: "Pulp Fiction", year: 1994 },
 ];
 
-const Template: ComponentStory<typeof Autocomplete> = (args) => (
-  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <Autocomplete
-      {...args}
-      disablePortal
-      id="combo-box-demo"
-      options={topFilms}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Movie (small)" />}
-      size="small"
-    />
-    <Autocomplete
-      {...args}
-      disablePortal
-      id="combo-box-demo"
-      options={topFilms}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Movie (medium)" />}
-    />
-  </Stack>
-);
+const Template: ComponentStory<typeof Autocomplete> = (args) => {
+  const defaultValuesWithContext = args?.multiple ? topFilms.slice(0, 2) : topFilms[0];
 
+  return (
+    <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+      <Autocomplete
+        {...args}
+        defaultValue={defaultValuesWithContext}
+        disablePortal
+        id="combo-box-demo"
+        options={topFilms}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Movie (small)" />}
+        size="small"
+        isOptionEqualToValue={(option, value) => option.label === value.label}
+      />
+      <Autocomplete
+        {...args}
+        defaultValue={defaultValuesWithContext}
+        disablePortal
+        id="combo-box-demo"
+        options={topFilms}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Movie (medium)" />}
+        isOptionEqualToValue={(option, value) => option.label === value.label}
+      />
+    </Stack>
+  );
+};
 export const ComboBox = Template.bind({});
 ComboBox.args = {};
+
+export const ComboBoxMultiple = Template.bind({});
+ComboBoxMultiple.args = {
+  multiple: true,
+};
 
 export default {
   component: Autocomplete,
