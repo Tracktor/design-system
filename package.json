@@ -17,11 +17,7 @@
     },
     "./colors": {
       "import": "./dist/colors.js",
-      "require": "./dist/clors.cjs"
-    },
-    "./transitions": {
-      "import": "./dist/transitions.js",
-      "require": "./dist/transitions.cjs"
+      "require": "./dist/colors.cjs"
     }
   },
   "repository": {

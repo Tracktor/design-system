@@ -7,11 +7,7 @@ import { dependencies, name, peerDependencies } from "./package.json";
 export default defineConfig({
   build: {
     lib: {
-      entry: [
-        resolve(__dirname, "packages/main.ts"),
-        resolve(__dirname, "packages/colors.ts"),
-        resolve(__dirname, "packages/transitions.ts"),
-      ],
+      entry: [resolve(__dirname, "src/main.ts"), resolve(__dirname, "src/colors.ts")],
       fileName: "[name]",
       name,
     },
@@ -31,7 +27,7 @@ export default defineConfig({
     react({
       jsxImportSource: "@emotion/react",
     }),
-    dts({ include: ["packages/**/*.ts"] }),
+    dts(),
   ],
   resolve: {
     alias: [{ find: "@", replacement: resolve(__dirname, "src") }],
