@@ -8,16 +8,19 @@
   "main": "dist/main.cjs",
   "module": "dist/main.js",
   "files": [
-    "dist"
+    "dist",
+    "*.d.ts"
   ],
   "exports": {
     ".": {
       "import": "./dist/main.js",
-      "require": "./dist/main.cjs"
+      "require": "./dist/main.cjs",
+      "types": "./dist/main.d.ts"
     },
     "./colors": {
       "import": "./dist/colors.js",
-      "require": "./dist/colors.cjs"
+      "require": "./dist/colors.cjs",
+      "types": "./dist/colors.d.ts"
     }
   },
   "repository": {

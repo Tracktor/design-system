@@ -7,7 +7,10 @@ import { dependencies, name, peerDependencies } from "./package.json";
 export default defineConfig({
   build: {
     lib: {
-      entry: [resolve(__dirname, "src/main.ts"), resolve(__dirname, "src/colors.ts")],
+      entry: {
+        colors: resolve(__dirname, "src/colors.ts"),
+        main: resolve(__dirname, "src/main.ts"),
+      },
       fileName: "[name]",
       name,
     },
@@ -15,6 +18,7 @@ export default defineConfig({
     rollupOptions: {
       external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
+        externalImportAssertions: true,
         globals: {
           "@mui/material": "material",
           react: "React",
