@@ -1,11 +1,11 @@
 {
   "name": "@tracktor/design-system",
   "description": "Tracktor Design System",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "license": "ISC",
   "type": "module",
   "types": "dist/main.d.ts",
-  "main": "dist/main.umd.cjs",
+  "main": "dist/main.cjs",
   "module": "dist/main.js",
   "files": [
     "dist"
@@ -13,7 +13,15 @@
   "exports": {
     ".": {
       "import": "./dist/main.js",
-      "require": "./dist/main.umd.cjs"
+      "require": "./dist/main.cjs"
+    },
+    "./colors": {
+      "import": "./dist/colors.js",
+      "require": "./dist/clors.cjs"
+    },
+    "./transitions": {
+      "import": "./dist/transitions.js",
+      "require": "./dist/transitions.cjs"
     }
   },
   "repository": {

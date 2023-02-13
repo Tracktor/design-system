@@ -1,6 +1,5 @@
 // MUI
 export * from "@mui/material";
-export * from "@mui/material/transitions";
 
 // Components
 export { default as IfFeatureEnable } from "@/components/Layout/IfFeatureEnable";

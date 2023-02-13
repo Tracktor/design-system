@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.16.0
-- Fix `Autocomplete` small size variant
+## v1.17.0
+- Add colors package mui
