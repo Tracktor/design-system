@@ -6,6 +6,12 @@
       "rules": {
         "react/jsx-props-no-spreading" : "off"
       }
+    },
+    {
+      "files": "*.d.ts",
+      "rules": {
+        "no-restricted-imports" : "off"
+      }
     }
   ]
 }
