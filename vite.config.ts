@@ -18,7 +18,6 @@ export default defineConfig({
     rollupOptions: {
       external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
       output: {
-        externalImportAssertions: true,
         globals: {
           "@mui/material": "material",
           react: "React",
