@@ -8,7 +8,7 @@
       }
     },
     {
-      "files": "*.d.ts",
+      "files": "colors/*",
       "rules": {
         "no-restricted-imports" : "off"
       }
