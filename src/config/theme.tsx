@@ -288,6 +288,30 @@ const commonThemeOptions: ThemeOptions = {
           },
         },
         {
+          props: { type: "search" },
+          style: ({ theme }) => {
+            const fillColor = encodeURIComponent(theme.palette.action.active);
+
+            return {
+              "& .MuiInputBase-input::-webkit-search-cancel-button": {
+                "&:hover": {
+                  backgroundColor: alpha(theme.palette.action.active, theme.palette.action.hoverOpacity),
+                },
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' aria-hidden='true' viewBox='0 0 24 24'%3E%3Cpath d='M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' fill='${fillColor}'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "20px 20px",
+                borderRadius: "50%",
+                cursor: "pointer",
+                fontSize: 24,
+                height: 28,
+                WebkitAppearance: "none",
+                width: 28,
+              },
+            };
+          },
+        },
+        {
           props: {
             type: "file",
           },
@@ -296,50 +320,59 @@ const commonThemeOptions: ThemeOptions = {
             ownerState,
             fullWidth,
             dir,
-          }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => ({
-            ...(ownerState?.label && {
-              "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
-                display: "none",
-              },
-              "& .MuiInputBase-root": {
-                height: "100%",
-              },
-              "& .MuiInputLabel-root": {
-                alignItems: "center",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: dir === "column" ? "column" : "row",
-                fontSize: 14,
-                height: "100%",
-                justifyContent: dir === "column" ? "center" : "left",
-                maxWidth: "100%",
-                pointerEvents: "auto",
-                transform: "none !important",
-                whiteSpace: "initial",
+          }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
+            const isSmallSize = ownerState?.size === "small";
+            const smallHeight = dir === "column" ? 130 : 60;
+            const mediumHeight = dir === "column" ? 150 : 80;
+
+            return {
+              ...(ownerState?.label && {
+                "& .MuiFormHelperText-root": {
+                  position: "absolute",
+                  top: "100%",
+                },
+                "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
+                  display: "none",
+                },
+                "& .MuiInputBase-root": {
+                  height: "100%",
+                },
+                "& .MuiInputLabel-root": {
+                  alignItems: "center",
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: dir === "column" ? "column" : "row",
+                  fontSize: 14,
+                  height: "100%",
+                  justifyContent: dir === "column" ? "center" : "left",
+                  maxWidth: "100%",
+                  pointerEvents: "auto",
+                  transform: "none !important",
+                  whiteSpace: "initial",
+                  width: "100%",
+                },
+                "& .MuiInputLabel-root:before": {
+                  content: `url(${landscape})`,
+                  height: 30,
+                  marginLeft: theme.spacing(2),
+                  marginRight: theme.spacing(2),
+                  width: 33,
+                  ...(dir === "column" && { marginBottom: theme.spacing(1) }),
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderStyle: "dashed",
+                  top: 0,
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: theme.palette.primary.main,
+                },
+                height: isSmallSize ? smallHeight : mediumHeight,
+                justifyContent: "center",
+                maxWidth: fullWidth ? "100%" : 400,
                 width: "100%",
-              },
-              "& .MuiInputLabel-root:before": {
-                content: `url(${landscape})`,
-                height: 30,
-                marginLeft: theme.spacing(2),
-                marginRight: theme.spacing(2),
-                width: 33,
-                ...(dir === "column" && { marginBottom: theme.spacing(1) }),
-              },
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderStyle: "dashed",
-                top: 0,
-              },
-              "&:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.primary.main,
-              },
-              height: dir === "column" ? 150 : 80,
-              justifyContent: "center",
-              "label + &": {},
-              maxWidth: fullWidth ? "100%" : 400,
-              width: "100%",
-            }),
-          }),
+              }),
+            };
+          },
         },
       ],
     },

@@ -11,7 +11,8 @@ const Template: ComponentStory<typeof TextField> = (args) => (
 
 const TemplateFile: ComponentStory<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <TextField id="picture" {...args} />
+    <TextField size="small" {...args} />
+    <TextField size="medium" {...args} />
   </Stack>
 );
 
@@ -30,6 +31,11 @@ Standard.args = {
   variant: "standard",
 };
 
+export const Search = Template.bind({});
+Search.args = {
+  type: "search",
+};
+
 export const File = Template.bind({});
 File.args = {
   label: "",
@@ -45,6 +51,20 @@ FileWithLabel.args = {
 export const FileWithLabelDirectionColumn = TemplateFile.bind({});
 FileWithLabelDirectionColumn.args = {
   dir: "column",
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
+};
+
+export const FileWithHelperText = Template.bind({});
+FileWithHelperText.args = {
+  helperText: "Helper text",
+  label: "",
+  type: "file",
+};
+
+export const FileWithLabelAndHelperText = Template.bind({});
+FileWithLabelAndHelperText.args = {
+  helperText: "Helper text",
   label: "Ajouter une photo ou un fichier",
   type: "file",
 };
