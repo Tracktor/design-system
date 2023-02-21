@@ -1,6 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.18.0
-- Add `TextField` type `search`
-- Improve `TextField` type `file` size
-- Fix helper text `TextField` type `file`
+## v1.19.0
+- Fix check validity HTML5 on`TextField` type `file`

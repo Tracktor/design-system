@@ -332,7 +332,9 @@ const commonThemeOptions: ThemeOptions = {
                   top: "100%",
                 },
                 "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
-                  display: "none",
+                  height: 0,
+                  opacity: 0,
+                  width: 0,
                 },
                 "& .MuiInputBase-root": {
                   height: "100%",
