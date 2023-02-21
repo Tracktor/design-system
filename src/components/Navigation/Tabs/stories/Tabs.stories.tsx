@@ -2,7 +2,7 @@ import { Box, SvgIcon, Tab, Typography, useTheme } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ReactNode, SyntheticEvent, useState } from "react";
 import Tabs from "./Tabs";
-import LinkTab from "@/components/Navigation/Tabs/LinkTab/LinkTab";
+import LinkTabComponent from "@/components/Navigation/Tabs/LinkTab/LinkTab";
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -225,9 +225,9 @@ const LinkTabsTemplate: ComponentStory<typeof Tabs> = (args) => {
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs {...args} value={value} onChange={handleChange} aria-label="Nav tabs example">
-            <LinkTab label="Page One" href="/drafts" />
-            <LinkTab label="Page Two" href="/trash" />
-            <LinkTab label="Page Three" href="/spam" />
+            <LinkTabComponent label="Page One" href="/drafts" />
+            <LinkTabComponent label="Page Two" href="/trash" />
+            <LinkTabComponent label="Page Three" href="/spam" />
           </Tabs>
         </Box>
       </Box>
@@ -289,8 +289,8 @@ Icon.args = {};
 export const IconWithLabel = IconTemplate.bind({});
 IconWithLabel.args = {};
 
-export const NavTabs = LinkTabsTemplate.bind({});
-NavTabs.args = {};
+export const LinkTab = LinkTabsTemplate.bind({});
+LinkTab.args = {};
 
 export default {
   component: Tabs,
