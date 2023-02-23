@@ -2,6 +2,9 @@ import { useContext } from "react";
 import FeatureEnableContext from "@/context/FeatureEnable/FeatureEnableContext";
 import hasFeature from "@/utils/hasFeature";
 
+/**
+ * Hook to manage the state of a feature.
+ */
 export const useFeatureEnabled = () => {
   const { features: featureContext, setFeatures } = useContext(FeatureEnableContext);
 

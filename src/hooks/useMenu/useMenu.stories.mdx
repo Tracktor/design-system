@@ -1,0 +1,39 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Hooks/useMenu"/>
+
+# `useMenu`
+
+Utility hook for handle menu
+
+###  Usage
+
+```typescript jsx
+import { Button, Menu, MenuItem, useMenu } from "@tracktor/design-system";
+
+const { isMenuOpen, anchorMenu, closeMenu, openMenu } = useMenu();
+
+const App = () => (
+  <>
+    <Button onClick={openMenu}>Open menu</Button>
+    <Menu
+      open={isMenuOpen}
+      onClose={closeMenu}
+      anchorEl={anchorMenu}
+    >
+      <MenuItem>...</MenuItem>
+    </Menu>
+  </>
+);
+
+export default App;
+```
+
+### Available state & function
+
+| Name         | Type        | Description                  |
+|--------------|-------------|------------------------------|
+| `closeMenu`  | Function    | Handle close menu function   |
+| `openMenu`   | Function    | Handle open menu function    |
+| `anchorMenu` | HTMLElement | Anchor menu is a HTMLElement |
+| `isMenuOpen` | boolean     | Boolean open menu            |
