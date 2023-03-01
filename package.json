@@ -85,9 +85,9 @@
     "vitest": "^0.28.4"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.11.4"
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.11"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

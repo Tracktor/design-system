@@ -27,10 +27,10 @@ export default defineConfig({
     },
   },
   plugins: [
+    dts(),
     react({
       jsxImportSource: "@emotion/react",
     }),
-    dts(),
   ],
   resolve: {
     alias: [{ find: "@", replacement: resolve(__dirname, "src") }],

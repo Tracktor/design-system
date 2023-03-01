@@ -4,3 +4,5 @@
 - Improve `QuantityField` with props fullWidth
 - Add new size `xSmall` to `Chip`
 - Update theme font size value in `rem` instead `px`
+- Fix warning build project `@emotion/react/jsx-runtime`
+- Upgrade dependencies
