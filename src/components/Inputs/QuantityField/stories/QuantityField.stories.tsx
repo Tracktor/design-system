@@ -17,6 +17,11 @@ const Template: ComponentStory<typeof QuantityField> = (args) => {
 export const Basic = Template.bind({});
 Basic.args = {};
 
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+  fullWidth: true,
+};
+
 export default {
   component: QuantityField,
   title: "Components/Inputs/QuantityField",

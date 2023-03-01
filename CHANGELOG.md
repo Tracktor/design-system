@@ -1,4 +1,6 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.20.1
-- Improve type for `useMenu` hook
+## v1.21.0
+- Improve `QuantityField` with props fullWidth
+- Add new size `xSmall` to `Chip`
+- Update theme font size value in `rem` instead `px`
