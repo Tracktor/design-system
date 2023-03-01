@@ -7,7 +7,7 @@ type QuantityFieldProps = TextFieldProps & {
   setValue?(quantity: number): void;
 };
 
-const QuantityField = ({ value, setValue, min = 1, max = 50, ...props }: QuantityFieldProps) => {
+const QuantityField = ({ fullWidth, value, setValue, min = 1, max = 50, ...props }: QuantityFieldProps) => {
   const isMin = value === min || value === 0;
   const isMax = value === max;
 
@@ -56,10 +56,11 @@ const QuantityField = ({ value, setValue, min = 1, max = 50, ...props }: Quantit
         sx: {
           "& .MuiInputBase-input": {
             textAlign: "center",
-            width: 40,
+            ...(!fullWidth && { width: 40 }),
           },
         },
       }}
+      fullWidth={fullWidth}
       value={value}
       {...props}
     />

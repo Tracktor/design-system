@@ -1,5 +1,6 @@
 import { alpha, ComponentsPropsList, createTheme, Theme, ThemeOptions } from "@mui/material";
 import landscape from "@/assets/img/landscape.svg";
+import { defaultFontFamily } from "@/constants/fonts";
 import commonColors from "@/styles/colors/common.module.scss";
 import darkColors from "@/styles/colors/dark.module.scss";
 import lightColors from "@/styles/colors/light.module.scss";
@@ -7,6 +8,9 @@ import lightColors from "@/styles/colors/light.module.scss";
 declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
     rounded: true;
+  }
+  interface ChipPropsSizeOverrides {
+    xSmall: true;
   }
 }
 
@@ -124,6 +128,23 @@ const commonThemeOptions: ThemeOptions = {
           style: {
             borderRadius: 4,
           },
+        },
+        {
+          props: { size: "xSmall" },
+          style: ({ theme }) => ({
+            "& .MuiChip-deleteIcon": {
+              fontSize: theme.typography.pxToRem(14),
+            },
+            "& .MuiChip-icon": {
+              fontSize: theme.typography.pxToRem(16),
+            },
+            "& .MuiChip-label": {
+              fontSize: theme.typography.pxToRem(12),
+              paddingLeft: 8,
+              paddingRight: 8,
+            },
+            height: 20,
+          }),
         },
       ],
     },
@@ -303,7 +324,7 @@ const commonThemeOptions: ThemeOptions = {
                 backgroundSize: "20px 20px",
                 borderRadius: "50%",
                 cursor: "pointer",
-                fontSize: 24,
+                fontSize: theme.typography.pxToRem(24),
                 height: 28,
                 WebkitAppearance: "none",
                 width: 28,
@@ -344,7 +365,7 @@ const commonThemeOptions: ThemeOptions = {
                   cursor: "pointer",
                   display: "flex",
                   flexDirection: dir === "column" ? "column" : "row",
-                  fontSize: 14,
+                  fontSize: theme.typography.pxToRem(14),
                   height: "100%",
                   justifyContent: dir === "column" ? "center" : "left",
                   maxWidth: "100%",
@@ -460,38 +481,45 @@ const commonThemeOptions: ThemeOptions = {
   shape: {
     borderRadius: 8,
   },
-  typography: {
-    fontFamily: "Poppins, sans-serif",
-    h1: {
-      fontSize: 40,
-      fontWeight: 700,
-      lineHeight: "60px",
-    },
-    h2: {
-      fontSize: 32,
-      fontWeight: 600,
-      lineHeight: "48px",
-    },
-    h3: {
-      fontSize: 24,
-      fontWeight: 600,
-      lineHeight: "36px",
-    },
-    h4: {
-      fontSize: 20,
-      fontWeight: 500,
-      lineHeight: "30px",
-    },
-    h5: {
-      fontSize: 16,
-      fontWeight: 500,
-      lineHeight: "24px",
-    },
-    h6: {
-      fontSize: 14,
-      fontWeight: 500,
-      lineHeight: "21px",
-    },
+  typography: () => {
+    const fontSize = 14;
+    const htmlFontSize = 16;
+    const coefficient = fontSize / 14;
+    const pxToRem = (size: number) => `${(size / htmlFontSize) * coefficient}rem`;
+
+    return {
+      fontFamily: defaultFontFamily,
+      h1: {
+        fontSize: pxToRem(40),
+        fontWeight: 700,
+        lineHeight: "60px",
+      },
+      h2: {
+        fontSize: pxToRem(32),
+        fontWeight: 600,
+        lineHeight: "48px",
+      },
+      h3: {
+        fontSize: pxToRem(24),
+        fontWeight: 600,
+        lineHeight: "36px",
+      },
+      h4: {
+        fontSize: pxToRem(20),
+        fontWeight: 500,
+        lineHeight: "30px",
+      },
+      h5: {
+        fontSize: pxToRem(16),
+        fontWeight: 500,
+        lineHeight: "24px",
+      },
+      h6: {
+        fontSize: pxToRem(14),
+        fontWeight: 500,
+        lineHeight: "21px",
+      },
+    };
   },
 };
 
