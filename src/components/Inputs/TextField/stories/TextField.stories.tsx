@@ -69,6 +69,19 @@ FileWithLabelAndHelperText.args = {
   type: "file",
 };
 
+export const Multiline = Template.bind({});
+Multiline.args = {
+  minRows: 3,
+  multiline: true,
+};
+
+export const MultilineFilled = Template.bind({});
+MultilineFilled.args = {
+  minRows: 3,
+  multiline: true,
+  variant: "filled",
+};
+
 export default {
   component: TextField,
   title: "Components/Inputs/TextField",

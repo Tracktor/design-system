@@ -199,6 +199,10 @@ const commonThemeOptions: ThemeOptions = {
               paddingBottom: 12.5,
               paddingTop: 12.5,
             },
+            "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall.MuiInputBase-inputMultiline": {
+              paddingBottom: 0,
+              paddingTop: 0,
+            },
           },
         },
       ],
