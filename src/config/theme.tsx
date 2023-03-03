@@ -195,9 +195,13 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "small" },
           style: {
-            "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall:not(.MuiInputBase-inputMultiline)": {
+            "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall": {
               paddingBottom: 12.5,
               paddingTop: 12.5,
+            },
+            "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall.MuiInputBase-inputMultiline": {
+              paddingBottom: 0,
+              paddingTop: 0,
             },
           },
         },
