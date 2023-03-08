@@ -59,9 +59,9 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiButton: {
       styleOverrides: {
-        root: {
-          borderRadius: 8,
-        },
+        root: ({ theme }) => ({
+          borderRadius: theme.shape.borderRadius,
+        }),
       },
       variants: [
         {
@@ -125,9 +125,9 @@ const commonThemeOptions: ThemeOptions = {
       variants: [
         {
           props: { variant: "rounded" },
-          style: {
-            borderRadius: 4,
-          },
+          style: ({ theme }) => ({
+            borderRadius: theme.shape.borderRadius / 2,
+          }),
         },
         {
           props: { size: "xSmall" },
@@ -219,9 +219,31 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& .MuiSvgIcon-root": {
+            fontSize: theme.typography.pxToRem(20),
+          },
+        }),
+      },
+    },
     MuiMenu: {
       defaultProps: {
         elevation: PaperDropdownElevation,
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& .MuiMenu-list": {
+            padding: theme.spacing(1),
+          },
+          "& .MuiMenu-list .MuiMenuItem-root": {
+            borderRadius: theme.shape.borderRadius / 2,
+            padding: theme.spacing(1, 2),
+            ...theme.typography.body2,
+            lineHeight: theme.typography.pxToRem(24),
+          },
+        }),
       },
     },
     MuiPaper: {
@@ -245,7 +267,7 @@ const commonThemeOptions: ThemeOptions = {
             "& .MuiOutlinedInput-notchedOutline": {
               ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
             },
-            borderRadius: 8,
+            borderRadius: theme.shape.borderRadius,
           }),
         },
         {
@@ -296,7 +318,7 @@ const commonThemeOptions: ThemeOptions = {
           props: { variant: "outlined" },
           style: ({ theme }) => ({
             "& .MuiInputBase-root": {
-              borderRadius: 8,
+              borderRadius: theme.shape.borderRadius,
             },
             "& .MuiOutlinedInput-notchedOutline": {
               ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
@@ -405,10 +427,10 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiToggleButton: {
       styleOverrides: {
-        root: {
-          borderRadius: 8,
+        root: ({ theme }) => ({
+          borderRadius: theme.shape.borderRadius,
           padding: "8px 11px",
-        },
+        }),
       },
     },
   },

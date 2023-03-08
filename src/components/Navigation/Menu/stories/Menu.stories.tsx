@@ -1,17 +1,4 @@
-import {
-  Button,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
-  Paper,
-  Stack,
-  SvgIcon,
-  Typography,
-} from "@mui/material";
+import { Button, List, ListItem, ListItemIcon, ListItemText, MenuItem, Stack, SvgIcon, Typography } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { MouseEvent, useState } from "react";
 import Menu from "./Menu";
@@ -57,11 +44,40 @@ const Template: ComponentStory<typeof Menu> = (args) => {
   );
 };
 
-const IconTemplate: ComponentStory<typeof MenuList> = (args) => (
-  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <Paper sx={{ maxWidth: "100%", width: 320 }}>
-      <MenuList {...args}>
-        <MenuItem>
+const TemplateWithIcon: ComponentStory<typeof Menu> = (args) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+      <Button
+        id="basic-button"
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        Dashboard
+      </Button>
+      <Menu
+        {...args}
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <SvgIcon>
               <svg
@@ -75,12 +91,9 @@ const IconTemplate: ComponentStory<typeof MenuList> = (args) => (
               </svg>
             </SvgIcon>
           </ListItemIcon>
-          <ListItemText>Cut</ListItemText>
-          <Typography variant="body2" color="text.secondary">
-            ⌘X
-          </Typography>
+          Cut
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <SvgIcon>
               <svg
@@ -94,12 +107,9 @@ const IconTemplate: ComponentStory<typeof MenuList> = (args) => (
               </svg>
             </SvgIcon>
           </ListItemIcon>
-          <ListItemText>Copy</ListItemText>
-          <Typography variant="body2" color="text.secondary">
-            ⌘C
-          </Typography>
+          Copy
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <SvgIcon>
               <svg
@@ -113,32 +123,12 @@ const IconTemplate: ComponentStory<typeof MenuList> = (args) => (
               </svg>
             </SvgIcon>
           </ListItemIcon>
-          <ListItemText>Paste</ListItemText>
-          <Typography variant="body2" color="text.secondary">
-            ⌘V
-          </Typography>
+          <Typography variant="h5">Paste with custom typography (h5)</Typography>
         </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <SvgIcon>
-              <svg
-                className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-1k33q06"
-                focusable="false"
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                data-testid="CloudIcon"
-              >
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
-              </svg>
-            </SvgIcon>
-          </ListItemIcon>
-          <ListItemText>Web Clipboard</ListItemText>
-        </MenuItem>
-      </MenuList>
-    </Paper>
-  </Stack>
-);
+      </Menu>
+    </Stack>
+  );
+};
 
 const SelectedTemplate: ComponentStory<typeof Menu> = (args) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -217,13 +207,8 @@ Positioned.args = {
   },
 };
 
-export const WithIcon = IconTemplate.bind({});
+export const WithIcon = TemplateWithIcon.bind({});
 WithIcon.args = {};
-
-export const Dense = IconTemplate.bind({});
-Dense.args = {
-  dense: true,
-};
 
 export const Selected = SelectedTemplate.bind({});
 Selected.args = {};
