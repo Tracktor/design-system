@@ -14,11 +14,9 @@ executors:
   build-docker:
     docker:
       - image: cimg/base:current
-
   publish-npm:
     docker:
       - image: cimg/node:16.17.0
-
   tests:
     docker:
       - image: cimg/node:16.17.0
@@ -40,7 +38,6 @@ jobs:
           key: dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
-
   chromatic-deployment:
     executor: tests
     working_directory: ~/repo
