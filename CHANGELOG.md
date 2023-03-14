@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.22.1
-- Update style `Menu`
+## v1.23.0
+- Add `loading`, `loadingIndicator` & `loadingPosition` props to `Button` component

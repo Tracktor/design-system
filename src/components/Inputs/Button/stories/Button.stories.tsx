@@ -49,6 +49,9 @@ const Template: ComponentStory<typeof Button> = (args) => (
     <Button size="medium" color="warning" {...args}>
       Medium warning
     </Button>
+    <Button size="large" {...args}>
+      Large
+    </Button>
     <Button size="large" disabled {...args}>
       Large Disabled
     </Button>
@@ -79,6 +82,91 @@ const IconWithLabelTemplate: ComponentStory<typeof Button> = () => (
   </Stack>
 );
 
+const TemplateLoading: ComponentStory<typeof Button> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
+    <Stack spacing={2} alignItems="center">
+      <Button size="small" variant="outlined" {...args}>
+        S outlined
+      </Button>
+      <Button size="medium" variant="outlined" {...args}>
+        M outlined
+      </Button>
+      <Button size="large" variant="outlined" {...args}>
+        L outlined
+      </Button>
+      <Button variant="outlined" loadingIndicator="Loading..." {...args}>
+        Loading indicator outlined
+      </Button>
+      <Button variant="outlined" loading fullWidth {...args}>
+        Full Width outlined
+      </Button>
+      <Button variant="outlined" loading loadingIndicator="Loading..." fullWidth {...args}>
+        Full Width indicator outlined
+      </Button>
+      <Button variant="outlined" loading loadingPosition="start" {...args}>
+        Loading start
+      </Button>
+      <Button variant="outlined" loading loadingPosition="end" {...args}>
+        Loading end
+      </Button>
+    </Stack>
+
+    <Stack spacing={2} alignItems="center">
+      <Button size="small" variant="text" {...args}>
+        S text
+      </Button>
+      <Button size="medium" variant="text" {...args}>
+        M text
+      </Button>
+      <Button size="large" variant="text" {...args}>
+        L text
+      </Button>
+      <Button variant="text" loadingIndicator="Loading..." {...args}>
+        Loading indicator text
+      </Button>
+      <Button variant="text" loading fullWidth {...args}>
+        Full Width text
+      </Button>
+      <Button variant="text" loading loadingIndicator="Loading..." fullWidth {...args}>
+        Full Width indicator text
+      </Button>
+      <Button variant="text" loading loadingPosition="start" {...args}>
+        Loading start text
+      </Button>
+      <Button variant="text" loading loadingPosition="end" {...args}>
+        Loading end text
+      </Button>
+    </Stack>
+
+    <Stack spacing={2} alignItems="center">
+      <Button variant="contained" size="small" {...args}>
+        S contained
+      </Button>
+      <Button size="medium" variant="contained" {...args}>
+        M contained
+      </Button>
+      <Button variant="contained" size="large" {...args}>
+        L contained
+      </Button>
+      <Button variant="contained" loadingIndicator="Loading..." {...args}>
+        Loading indicator contained
+      </Button>
+      <Button variant="contained" loading fullWidth {...args}>
+        Full Width contained
+      </Button>
+      <Button variant="contained" loading loadingIndicator="Loading..." fullWidth {...args}>
+        Full Width indicator contained
+      </Button>
+      <Button variant="text" loading loadingPosition="start" {...args}>
+        Loading start contained
+      </Button>
+      <Button variant="text" loading loadingPosition="end" {...args}>
+        Loading end contained
+      </Button>
+    </Stack>
+  </Stack>
+);
+
 export const Contained = Template.bind({});
 Contained.args = {
   variant: "contained",
@@ -99,6 +187,11 @@ Icon.args = {};
 
 export const IconWithLabel = IconWithLabelTemplate.bind({});
 IconWithLabel.args = {};
+
+export const Loading = TemplateLoading.bind({});
+Loading.args = {
+  loading: true,
+};
 
 export default {
   component: Button,
