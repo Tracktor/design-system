@@ -1,7 +1,7 @@
 import { Box, Button as Component, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
 import { forwardRef, PropsWithChildren, ReactNode, Ref } from "react";
 
-interface ButtonProps extends MuiButtonProps {
+export interface ButtonProps extends MuiButtonProps {
   loading?: boolean;
   loadingIndicator?: ReactNode;
   loadingPosition?: "start" | "end";

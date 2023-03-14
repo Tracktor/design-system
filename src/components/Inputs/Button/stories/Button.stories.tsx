@@ -1,6 +1,6 @@
 import { IconButton, Stack, SvgIcon } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import Button from "../Button";
+import Button from "./Button";
 
 const AddShoppingCartIcon = () => (
   <SvgIcon
