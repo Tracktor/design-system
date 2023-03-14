@@ -15,6 +15,8 @@ export { default as TextArea } from "@/components/Inputs/TextArea";
 export * from "@/components/Inputs/TextArea";
 export { default as QuantityField } from "@/components/Inputs/QuantityField";
 export * from "@/components/Inputs/QuantityField";
+export { default as Button } from "@/components/Inputs/Button";
+export * from "@/components/Inputs/Button";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
