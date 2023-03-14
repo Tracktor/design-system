@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.23.3
-- **[FIX]** Error missing props `css` to `Button` component
+## v1.23.4
+- **[FIX]** Error props `component` to `Button` component

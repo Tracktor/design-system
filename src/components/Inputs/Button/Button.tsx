@@ -1,5 +1,5 @@
 import type { Interpolation, Theme } from "@emotion/react";
-import { Box, Button as Component, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
+import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
 import { forwardRef, ReactNode, Ref } from "react";
 
 export interface ButtonProps extends MuiButtonProps {
@@ -82,11 +82,11 @@ const Button = (
   { disabled, children, loading, loadingIndicator, loadingPosition, size, ...props }: ButtonProps,
   ref: Ref<HTMLButtonElement>
 ) => (
-  <Component disabled={disabled || loading} ref={ref} size={size} {...props}>
+  <MuiButton disabled={disabled || loading} ref={ref} size={size} {...props}>
     <WrapChildren loading={loading} loadingIndicator={loadingIndicator} loadingPosition={loadingPosition} size={size}>
       {children}
     </WrapChildren>
-  </Component>
+  </MuiButton>
 );
 
 export default forwardRef(Button);
