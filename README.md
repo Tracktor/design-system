@@ -1,5 +1,7 @@
 # Tracktor design system
 
+[![npm version](https://badge.fury.io/js/@tracktor%2Fdesign-system.svg)](https://badge.fury.io/js/@tracktor%2Fdesign-system)
+
 **A design system React library**
 
 > The library is based on [MUI Core](https://mui.com/material-ui/getting-started/overview/)

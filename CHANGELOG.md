@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.23.4
-- **[FIX]** Error props `component` to `Button` component
+## v1.23.5
+- **[DOCS]** : Add npm tag to README.md
