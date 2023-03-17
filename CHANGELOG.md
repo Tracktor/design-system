@@ -1,4 +1,6 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.23.5
-- **[DOCS]** : Add npm tag to README.md
+## v1.24.0
+- **[REFACTOR]** : Update default style
+- **[CHORE]** : Update version eslint config
+- **[DOCS]** : Add new stories for `Dialog` component
