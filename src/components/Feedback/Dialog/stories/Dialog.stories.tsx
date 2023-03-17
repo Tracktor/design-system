@@ -80,36 +80,9 @@ const SimpleDialog = (props: SimpleDialogProps) => {
   );
 };
 
-const Template: ComponentStory<typeof Dialog> = () => {
-  const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(emails[1]);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value: string) => {
-    setOpen(false);
-    setSelectedValue(value);
-  };
-
-  return (
-    <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ height: "100%" }}>
-      <Typography variant="subtitle1" component="div">
-        Selected: {selectedValue}
-      </Typography>
-      <br />
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open simple dialog
-      </Button>
-      <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
-    </Stack>
-  );
-};
-
 // eslint-disable-next-line react/prop-types
-const AlertTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...args }) => {
-  const [open, setOpen] = useState(false);
+const BasicTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...args }, { parameters }) => {
+  const [open, setOpen] = useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -139,8 +112,10 @@ const AlertTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleClose} variant={parameters?.variantButton}>
+            Disagree
+          </Button>
+          <Button onClick={handleClose} variant={parameters?.variantButton}>
             Agree
           </Button>
         </DialogActions>
@@ -149,8 +124,35 @@ const AlertTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...
   );
 };
 
+const WithListTemplate: ComponentStory<typeof Dialog> = () => {
+  const [open, setOpen] = useState(true);
+  const [selectedValue, setSelectedValue] = useState(emails[1]);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value: string) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
+
+  return (
+    <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ height: "100%" }}>
+      <Typography variant="subtitle1" component="div">
+        Selected: {selectedValue}
+      </Typography>
+      <br />
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open simple dialog
+      </Button>
+      <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
+    </Stack>
+  );
+};
+
 const FullScreenTemplate: ComponentStory<typeof Dialog> = (args) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -193,16 +195,26 @@ const FullScreenTemplate: ComponentStory<typeof Dialog> = (args) => {
   );
 };
 
-export const Basic = Template.bind({});
+export const Basic = BasicTemplate.bind({});
 Basic.args = {};
 
-export const Alert = AlertTemplate.bind({});
-Alert.args = {};
-
-export const AlertWithTransition = AlertTemplate.bind({});
-AlertWithTransition.args = {
+export const BasicWithTransition = BasicTemplate.bind({});
+BasicWithTransition.args = {
   TransitionComponent: TransitionSample,
 };
+
+export const DialogActionsOutlined = BasicTemplate.bind({});
+DialogActionsOutlined.parameters = {
+  variantButton: "outlined",
+};
+
+export const DialogActionsContained = BasicTemplate.bind({});
+DialogActionsContained.parameters = {
+  variantButton: "contained",
+};
+
+export const WithList = WithListTemplate.bind({});
+WithList.args = {};
 
 export const FullScreen = FullScreenTemplate.bind({});
 FullScreen.args = {

@@ -47,7 +47,7 @@ const Template: ComponentStory<typeof Button> = (args) => (
       Medium info
     </Button>
     <Button size="medium" color="warning" {...args}>
-      a Medium warning
+      Medium warning
     </Button>
     <Button size="large" {...args}>
       Large

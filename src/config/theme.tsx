@@ -1,4 +1,5 @@
 import { alpha, ComponentsPropsList, createTheme, Theme, ThemeOptions } from "@mui/material";
+import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
 import { defaultFontFamily } from "@/constants/fonts";
 import commonColors from "@/styles/colors/common.module.scss";
@@ -152,6 +153,24 @@ const commonThemeOptions: ThemeOptions = {
       defaultProps: {
         PaperProps: {
           elevation: 0,
+        },
+      },
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => {
+          const children = Children.toArray(ownerState.children);
+          const lastChild = children[children.length - 1];
+
+          if (isValidElement(lastChild)) {
+            if (lastChild.props.variant === "contained" || lastChild.props.variant === "outlined") {
+              return {
+                padding: theme.spacing(3),
+              };
+            }
+          }
+
+          return undefined;
         },
       },
     },
