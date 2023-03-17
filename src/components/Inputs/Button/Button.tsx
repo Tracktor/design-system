@@ -1,13 +1,10 @@
-import type { Interpolation, Theme } from "@emotion/react";
 import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
-import { ElementType, forwardRef, ReactNode, Ref } from "react";
+import { forwardRef, ReactNode, Ref } from "react";
 
-export interface ButtonProps extends MuiButtonProps {
+export interface ButtonProps extends MuiButtonProps<any> {
   loading?: boolean;
   loadingIndicator?: ReactNode;
   loadingPosition?: "start" | "end";
-  css?: Interpolation<Theme>;
-  component?: ElementType;
 }
 
 interface WrapChildrenProps {
