@@ -112,10 +112,10 @@ const BasicTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} variant={parameters?.variantButton}>
+          <Button onClick={handleClose} variant={parameters?.variantButton} size={parameters?.sizeButton}>
             Disagree
           </Button>
-          <Button onClick={handleClose} variant={parameters?.variantButton}>
+          <Button onClick={handleClose} variant={parameters?.variantButton} size={parameters?.sizeButton}>
             Agree
           </Button>
         </DialogActions>
@@ -219,6 +219,11 @@ WithList.args = {};
 export const FullScreen = FullScreenTemplate.bind({});
 FullScreen.args = {
   fullScreen: true,
+};
+
+export const smallActionsButton = BasicTemplate.bind({});
+smallActionsButton.parameters = {
+  sizeButton: "small",
 };
 
 export default {

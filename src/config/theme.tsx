@@ -1,4 +1,5 @@
 import { alpha, ComponentsPropsList, createTheme, Theme, ThemeOptions } from "@mui/material";
+import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
 import { defaultFontFamily } from "@/constants/fonts";
@@ -23,6 +24,32 @@ declare module "@mui/material/FormControlLabel" {
 }
 
 const PaperDropdownElevation = 10;
+
+const actionStyleOverrides: Partial<
+  OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<Theme, "components">>
+> = {
+  root: ({ theme, ownerState }) => {
+    const children = Children.toArray(ownerState.children);
+    const lastChild = children[children.length - 1];
+
+    if (isValidElement(lastChild)) {
+      if (lastChild.props.variant === "contained" || lastChild.props.variant === "outlined") {
+        return {
+          padding: theme.spacing(3),
+        };
+      }
+
+      if (lastChild.props.size === "small") {
+        return {
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
+        };
+      }
+    }
+
+    return undefined;
+  },
+};
 
 const commonThemeOptions: ThemeOptions = {
   components: {
@@ -122,6 +149,14 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiCardActions: {
+      styleOverrides: actionStyleOverrides,
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: ({ theme }) => ({ padding: theme.spacing(3) }),
+      },
+    },
     MuiChip: {
       variants: [
         {
@@ -157,22 +192,7 @@ const commonThemeOptions: ThemeOptions = {
       },
     },
     MuiDialogActions: {
-      styleOverrides: {
-        root: ({ theme, ownerState }) => {
-          const children = Children.toArray(ownerState.children);
-          const lastChild = children[children.length - 1];
-
-          if (isValidElement(lastChild)) {
-            if (lastChild.props.variant === "contained" || lastChild.props.variant === "outlined") {
-              return {
-                padding: theme.spacing(3),
-              };
-            }
-          }
-
-          return undefined;
-        },
-      },
+      styleOverrides: actionStyleOverrides,
     },
     MuiFormControlLabel: {
       variants: [

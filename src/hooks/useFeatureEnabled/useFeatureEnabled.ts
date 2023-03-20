@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import FeatureEnableContext from "@/context/FeatureEnable/FeatureEnableContext";
 import hasFeature from "@/utils/hasFeature";
 
@@ -8,29 +8,35 @@ import hasFeature from "@/utils/hasFeature";
 export const useFeatureEnabled = () => {
   const { features: featureContext, setFeatures } = useContext(FeatureEnableContext);
 
-  const getIsFeatureEnabled = (name: string | string[], features?: string[]): boolean => {
-    const userFeature = features || featureContext;
+  const getIsFeatureEnabled = useCallback(
+    (name: string | string[], features?: string[]): boolean => {
+      const userFeature = features || featureContext;
 
-    if (!userFeature) {
-      return false;
-    }
-
-    if (Array.isArray(name)) {
-      return name.every((nameString) => hasFeature(nameString, userFeature));
-    }
-
-    return hasFeature(name, userFeature);
-  };
-
-  const appendFeature = (name: string): void => {
-    setFeatures((prevState) => {
-      if (prevState) {
-        return [...prevState, name];
+      if (!userFeature) {
+        return false;
       }
 
-      return undefined;
-    });
-  };
+      if (Array.isArray(name)) {
+        return name.every((nameString) => hasFeature(nameString, userFeature));
+      }
+
+      return hasFeature(name, userFeature);
+    },
+    [featureContext]
+  );
+
+  const appendFeature = useCallback(
+    (name: string): void => {
+      setFeatures((prevState) => {
+        if (prevState) {
+          return [...prevState, name];
+        }
+
+        return undefined;
+      });
+    },
+    [setFeatures]
+  );
 
   return { appendFeature, getIsFeatureEnabled };
 };
