@@ -15,9 +15,7 @@ const UnderlineTemplate: ComponentStory<typeof Link> = () => (
     <Link underline="none">underline=&quot;none&quot;</Link>
     <Link underline="hover">underline=&quot;hover&quot;</Link>
     <Link underline="always">underline=&quot;always&quot;</Link>
-    <Link underline="always" variant="h5">
-      underline=&quot;always&quot;
-    </Link>
+    <Link underline="always">underline=&quot;always&quot;</Link>
   </Stack>
 );
 
