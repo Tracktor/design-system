@@ -40,8 +40,6 @@
   "exclude": [
     "dist",
     ".storybook",
-    "stories/**/*",
-    "**/*.stories.tsx"
   ],
   "references": [
     {
