@@ -1,24 +1,16 @@
 import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
-import { ElementType, forwardRef, ReactNode, Ref } from "react";
+import { ElementType, ForwardedRef, forwardRef, ReactNode } from "react";
 
-export interface ButtonProps extends MuiButtonProps<"button" | ElementType> {
+export type ButtonProps<C extends ElementType = "button"> = MuiButtonProps<C, { component?: C }> & {
   loading?: boolean;
   loadingIndicator?: ReactNode;
   loadingPosition?: "start" | "end";
-}
-
-interface WrapChildrenProps {
-  loading: ButtonProps["loading"];
-  children: ButtonProps["children"];
-  loadingIndicator: ButtonProps["loadingIndicator"];
-  loadingPosition: ButtonProps["loadingPosition"];
-  size: ButtonProps["size"];
-}
+};
 
 interface LoaderProps {
   size: ButtonProps["size"];
-  position?: "relative" | "absolute";
   loadingPosition?: ButtonProps["loadingPosition"];
+  position?: "relative" | "absolute";
 }
 
 const ICON_LOADING_SIZE = {
@@ -50,7 +42,7 @@ const Loader = ({ size, loadingPosition, position = "absolute" }: LoaderProps) =
   </Box>
 );
 
-const WrapChildren = ({ children, loading, loadingIndicator, loadingPosition, size }: WrapChildrenProps) => {
+const WrapChildren = ({ children, loading, loadingIndicator, loadingPosition, size }: ButtonProps) => {
   if (loading && loadingPosition) {
     return (
       <Stack direction={loadingPosition === "start" ? "row" : "row-reverse"} alignItems="center">
@@ -76,15 +68,16 @@ const WrapChildren = ({ children, loading, loadingIndicator, loadingPosition, si
   return <> {children} </>;
 };
 
-const Button = (
-  { disabled, children, loading, loadingIndicator, loadingPosition, size, ...props }: ButtonProps,
-  ref: Ref<HTMLButtonElement>
-) => (
-  <MuiButton disabled={disabled || loading} ref={ref} size={size} {...props}>
-    <WrapChildren loading={loading} loadingIndicator={loadingIndicator} loadingPosition={loadingPosition} size={size}>
-      {children}
-    </WrapChildren>
-  </MuiButton>
-);
+const Button = <C extends ElementType>(props: ButtonProps<C>, ref: ForwardedRef<any>) => {
+  const { children, disabled, loading, loadingIndicator, loadingPosition, size, ...restProps } = props;
+
+  return (
+    <MuiButton disabled={disabled || loading} ref={ref} size={size} {...restProps}>
+      <WrapChildren loading={loading} loadingIndicator={loadingIndicator} loadingPosition={loadingPosition} size={size}>
+        {children}
+      </WrapChildren>
+    </MuiButton>
+  );
+};
 
 export default forwardRef(Button);

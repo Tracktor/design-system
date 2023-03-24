@@ -167,6 +167,12 @@ const TemplateLoading: ComponentStory<typeof Button> = (args) => (
   </Stack>
 );
 
+const ButtonAsLinkTemplate: ComponentStory<typeof Button> = () => (
+  <Stack spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
+    <Button component="a">Button as link</Button>
+  </Stack>
+);
+
 export const Contained = Template.bind({});
 Contained.args = {
   variant: "contained",
@@ -192,6 +198,9 @@ export const Loading = TemplateLoading.bind({});
 Loading.args = {
   loading: true,
 };
+
+export const ButtonAsLink = ButtonAsLinkTemplate.bind({});
+ButtonAsLink.args = {};
 
 export default {
   component: Button,
