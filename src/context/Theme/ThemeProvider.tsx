@@ -8,6 +8,7 @@ import useThemeProvider from "@/context/Theme/useThemeProvider";
 export interface ThemeProviderProps {
   children: ReactNode;
   includeCssBaseline?: boolean;
+  includeScrollBarStyle?: boolean;
   theme?: "dark" | "light" | ThemeOptions;
   font?: {
     googleFontName?: string; // Google font name to load
@@ -21,7 +22,48 @@ const defaultFont: ThemeProviderProps["font"] = {
   import: true,
 };
 
-const ThemeProvider = ({ children, includeCssBaseline = true, theme = "light", font = defaultFont }: ThemeProviderProps) => {
+const ScrollBarStyle = () => (
+  <GlobalStyles
+    styles={css`
+      * {
+        scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+        scrollbar-width: thin;
+      }
+
+      *::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+      }
+
+      *::-webkit-scrollbar-button {
+        height: 0;
+        width: 0;
+      }
+
+      *::-webkit-scrollbar-corner {
+        background: transparent;
+      }
+
+      *::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 0;
+        border-radius: 10px;
+      }
+
+      *::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    `}
+  />
+);
+
+const ThemeProvider = ({
+  children,
+  includeCssBaseline = true,
+  includeScrollBarStyle = true,
+  theme = "light",
+  font = defaultFont,
+}: ThemeProviderProps) => {
   const { getTheme } = useThemeProvider();
   const fontOptions = { ...defaultFont, ...font };
   const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
@@ -36,6 +78,8 @@ const ThemeProvider = ({ children, includeCssBaseline = true, theme = "light", f
           `}
         />
       )}
+
+      {includeScrollBarStyle && <ScrollBarStyle />}
       {includeCssBaseline && <CssBaseline />}
       {children}
     </ThemeProviderMUI>

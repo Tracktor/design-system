@@ -1,9 +1,10 @@
 import { createTheme } from "@mui/material";
+import { useCallback } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import type { ThemeProviderProps } from "@/context/Theme/ThemeProvider";
 
 const useThemeProvider = () => {
-  const getTheme = (theme: ThemeProviderProps["theme"]): NonNullable<ThemeProviderProps["theme"]> | {} => {
+  const getTheme = useCallback((theme: ThemeProviderProps["theme"]): NonNullable<ThemeProviderProps["theme"]> | {} => {
     if (theme === "dark") {
       return darkTheme;
     }
@@ -21,7 +22,7 @@ const useThemeProvider = () => {
     }
 
     return createTheme(commonTheme, theme || {});
-  };
+  }, []);
 
   return { getTheme };
 };
