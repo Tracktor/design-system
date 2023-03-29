@@ -4,3 +4,4 @@
 - **[feat]** : dark theme update
 - **[build]** : improve colors package
 - **[docs]** :  package
+- **[docs]** :  remove transition `Menu` storybook

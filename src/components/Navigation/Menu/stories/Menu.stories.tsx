@@ -54,6 +54,7 @@ const Template: ComponentStory<typeof Menu> = (args, { parameters }) => {
           id="lock-menu"
           anchorEl={anchorEl}
           open={open}
+          transitionDuration={0}
           onClose={handleClose}
           MenuListProps={{
             "aria-labelledby": "lock-button",
@@ -67,7 +68,7 @@ const Template: ComponentStory<typeof Menu> = (args, { parameters }) => {
               selected={index === selectedIndex}
               onClick={(event) => handleMenuItemClick(event, index)}
             >
-              {option}
+              {option} aa
             </MenuItem>
           ))}
         </Menu>
@@ -94,6 +95,7 @@ const Template: ComponentStory<typeof Menu> = (args, { parameters }) => {
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
+          transitionDuration={0}
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
@@ -169,6 +171,7 @@ const Template: ComponentStory<typeof Menu> = (args, { parameters }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        transitionDuration={0}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
