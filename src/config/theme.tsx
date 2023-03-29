@@ -1,4 +1,4 @@
-import { alpha, ComponentsPropsList, createTheme, Theme, ThemeOptions } from "@mui/material";
+import { alpha, ComponentsPropsList, createTheme, getOverlayAlpha, Theme, ThemeOptions } from "@mui/material";
 import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
@@ -22,8 +22,6 @@ declare module "@mui/material/FormControlLabel" {
     size?: "small" | "medium";
   }
 }
-
-const PaperDropdownElevation = 10;
 
 const actionStyleOverrides: Partial<
   OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<Theme, "components">>
@@ -268,21 +266,27 @@ const commonThemeOptions: ThemeOptions = {
       },
     },
     MuiMenu: {
-      defaultProps: {
-        elevation: PaperDropdownElevation,
-      },
       styleOverrides: {
-        root: ({ theme }) => ({
-          "& .MuiMenu-list": {
-            padding: theme.spacing(1),
-          },
-          "& .MuiMenu-list .MuiMenuItem-root": {
-            borderRadius: theme.shape.borderRadius / 2,
-            padding: theme.spacing(1, 2),
-            ...theme.typography.body2,
-            lineHeight: theme.typography.pxToRem(24),
-          },
-        }),
+        root: ({ theme }) => {
+          const { mode, common } = theme.palette;
+          const backgroundImageColor = alpha(common.white, +getOverlayAlpha(mode === "light" ? 10 : 5));
+
+          return {
+            "& .MuiMenu-list": {
+              padding: theme.spacing(1),
+            },
+            "& .MuiMenu-list .MuiMenuItem-root": {
+              ...theme.typography.body2,
+              borderRadius: theme.shape.borderRadius / 2,
+              lineHeight: theme.typography.pxToRem(24),
+              padding: theme.spacing(1, 2),
+            },
+            "& .MuiPaper-elevation": {
+              backgroundImage: `linear-gradient(${backgroundImageColor}, ${backgroundImageColor})`,
+              boxShadow: mode === "light" ? theme.shadows[10] : theme.shadows[5],
+            },
+          };
+        },
       },
     },
     MuiPaper: {
