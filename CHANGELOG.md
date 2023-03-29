@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.27.0
-- **[feat]** : Include scroll bar style top `ThemeProvider`
+## v1.28.0
+- **[feat]** : Include full height global style `ThemeProvider`

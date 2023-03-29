@@ -6,10 +6,29 @@ import { defaultFontWeight } from "@/constants/fonts";
 import useThemeProvider from "@/context/Theme/useThemeProvider";
 
 export interface ThemeProviderProps {
+  /**
+   * Children to render
+   */
   children: ReactNode;
+  /**
+   * Set html and body height to 100%
+   */
+  fullHeight?: boolean;
+  /**
+   * Include CssBaseline
+   */
   includeCssBaseline?: boolean;
+  /**
+   * Include scroll bar style
+   */
   includeScrollBarStyle?: boolean;
+  /**
+   * Theme to use
+   */
   theme?: "dark" | "light" | ThemeOptions;
+  /**
+   * Font options
+   */
   font?: {
     googleFontName?: string; // Google font name to load
     import?: boolean; // Inject font @import in css
@@ -57,10 +76,23 @@ const ScrollBarStyle = () => (
   />
 );
 
+const FullHeightStyle = () => (
+  <GlobalStyles
+    styles={css`
+      html,
+      body,
+      #root {
+        height: 100%;
+      }
+    `}
+  />
+);
+
 const ThemeProvider = ({
   children,
   includeCssBaseline = true,
   includeScrollBarStyle = true,
+  fullHeight = true,
   theme = "light",
   font = defaultFont,
 }: ThemeProviderProps) => {
@@ -79,6 +111,7 @@ const ThemeProvider = ({
         />
       )}
 
+      {fullHeight && <FullHeightStyle />}
       {includeScrollBarStyle && <ScrollBarStyle />}
       {includeCssBaseline && <CssBaseline />}
       {children}
