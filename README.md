@@ -10,6 +10,7 @@
 - [Installation](#Installation)
 - [Usage](#Usage)
     - [Provide the theme](#Provide-the-theme)
+- [Package](#Package)
 - [Docs](#Docs)
     - [Storybook](#Storybook)
 - [Local installation](#local-installation)
@@ -55,6 +56,15 @@ const App = () => (
 
 export default App;
 ```
+
+## Package
+
+Package are available in `@tracktor/design-system/{package}`
+
+| Package | Description                                   |
+|---------|-----------------------------------------------|
+| colors  | This package contains material design colors. |
+
 
 ## Docs
 
