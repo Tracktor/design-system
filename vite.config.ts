@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        colors: resolve(__dirname, "src/colors.ts"),
+        colors: resolve(__dirname, "colors/main.ts"),
         main: resolve(__dirname, "src/main.ts"),
       },
       fileName: "[name]",
@@ -27,7 +27,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    dts(),
+    dts({ insertTypesEntry: true }),
     react({
       jsxImportSource: "@emotion/react",
     }),
