@@ -4,23 +4,23 @@
   "version": "1.29.0",
   "license": "ISC",
   "type": "module",
-  "types": "dist/main.d.ts",
-  "main": "dist/main.cjs",
-  "module": "dist/main.js",
+  "types": "./dist/main.d.ts",
+  "main": "./dist/main.cjs",
+  "module": "./dist/main.js",
   "files": [
     "dist",
-    "colors"
+    "colors/index.d.ts"
   ],
   "exports": {
     ".": {
       "import": "./dist/main.js",
       "require": "./dist/main.cjs",
-      "types": "./dist/main.d.ts"
+      "types": "./dist/src/main.d.ts"
     },
     "./colors": {
       "import": "./dist/colors.js",
       "require": "./dist/colors.cjs",
-      "types": "./dist/colors.d.ts"
+      "types": "./dist/colors/colors.d.ts"
     }
   },
   "repository": {

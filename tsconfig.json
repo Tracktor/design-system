@@ -34,12 +34,13 @@
       ]
     }
   },
-  "include": [
-    "src"
-  ],
   "exclude": [
-    "dist",
+    ".circleci",
+    ".github",
+    ".husky",
     ".storybook",
+    "dist",
+    "node_modules",
   ],
   "references": [
     {
