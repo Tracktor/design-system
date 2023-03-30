@@ -130,9 +130,6 @@ const commonThemeOptions: ThemeOptions = {
       ],
     },
     MuiCard: {
-      defaultProps: {
-        elevation: 1,
-      },
       styleOverrides: {
         root: ({ theme }) => ({
           ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
@@ -147,6 +144,19 @@ const commonThemeOptions: ThemeOptions = {
           style: () => ({
             borderColor: "transparent",
           }),
+        },
+        {
+          props: {
+            variant: "outlined",
+          },
+          style: ({ theme }) => {
+            const { common } = theme.palette;
+            const backgroundImageColor = alpha(common.white, +getOverlayAlpha(1));
+
+            return {
+              backgroundImage: `linear-gradient(${backgroundImageColor}, ${backgroundImageColor})`,
+            };
+          },
         },
       ],
     },
