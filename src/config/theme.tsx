@@ -130,6 +130,9 @@ const commonThemeOptions: ThemeOptions = {
       ],
     },
     MuiCard: {
+      defaultProps: {
+        elevation: 1,
+      },
       styleOverrides: {
         root: ({ theme }) => ({
           ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
@@ -522,7 +525,7 @@ const commonThemeOptions: ThemeOptions = {
   },
   shadows: [
     "none",
-    "0px 2px 1px -1px rgba(0,0,0,0.17),0px 1px 1px 0px rgba(0,0,0,0.11),0px 1px 3px 0px rgba(0,0,0,0.09)",
+    "0px 2px 1px -1px rgba(0,0,0,0.10),0px 1px 1px 0px rgba(0,0,0,0.04),0px 1px 3px 0px rgba(0,0,0,0.03)",
     "0px 3px 1px -2px rgba(0,0,0,0.17),0px 2px 2px 0px rgba(0,0,0,0.11),0px 1px 5px 0px rgba(0,0,0,0.09)",
     "0px 3px 3px -2px rgba(0,0,0,0.17),0px 3px 4px 0px rgba(0,0,0,0.11),0px 1px 8px 0px rgba(0,0,0,0.09)",
     "0px 2px 4px -1px rgba(0,0,0,0.17),0px 4px 5px 0px rgba(0,0,0,0.11),0px 1px 10px 0px rgba(0,0,0,0.09)",
@@ -604,6 +607,7 @@ const lightThemeOptions: ThemeOptions = {
     },
     background: {
       default: lightColors.background,
+      paper: lightColors.paper,
     },
     divider: lightColors.divider,
     mode: "light",

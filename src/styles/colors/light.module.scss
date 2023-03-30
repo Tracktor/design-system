@@ -1,7 +1,8 @@
 @import "@/styles/colors/common.module.scss";
 
 // Background
-$background: #ffffff;
+$background: #F5F7F7;
+$paper: #ffffff;
 $backgroundDivider: rgba(0, 0, 0, 0.23);
 $backgroundOutlineBorder: rgba(0, 0, 0, 0.23);
 
@@ -29,6 +30,7 @@ $snackbarBackground: #323232;
 :export {
   // Background
   background: $background;
+  paper: $paper;
   backgroundDivider: $backgroundDivider;
   backgroundOutlineBorder: $backgroundOutlineBorder;
   // Text
