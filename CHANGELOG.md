@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.30.4
-- **[feat]** : update card color outlined
+## v1.31.0
+- **[feat]** : set default card to outlined
+- **[feat]** : update card border color

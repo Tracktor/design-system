@@ -130,16 +130,18 @@ const commonThemeOptions: ThemeOptions = {
       ],
     },
     MuiCard: {
+      defaultProps: {
+        variant: "outlined",
+      },
       styleOverrides: {
-        root: ({ theme }) => ({
-          ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
+        root: {
           borderRadius: 12,
-        }),
+        },
       },
       variants: [
         {
           props: {
-            variant: undefined,
+            variant: "elevation",
           },
           style: () => ({
             borderColor: "transparent",

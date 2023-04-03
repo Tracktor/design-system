@@ -235,9 +235,9 @@ const TemplateComplexInteraction: ComponentStory<typeof Card> = (args) => {
 export const Basic = Template.bind({});
 Basic.args = {};
 
-export const Outlined = Template.bind({});
-Outlined.args = {
-  variant: "outlined",
+export const Elevation = Template.bind({});
+Elevation.args = {
+  variant: "elevation",
 };
 
 export const Media = TemplateMedia.bind({});
