@@ -67,7 +67,6 @@ const styles = {
       width: "100%",
     },
     mt: 3,
-    px: 1,
   },
 };
 
@@ -100,8 +99,8 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
   } = useContext(NavigationMenuContext);
 
   return (
-    <>
-      {!disableSearch && <Box px={2}>{SearchField || <TextFieldSearch fullWidth />}</Box>}
+    <Box px={2}>
+      {!disableSearch && (SearchField || <TextFieldSearch fullWidth />)}
       <List sx={{ ...styles.list }}>
         {items?.map(({ count, url, label, icon, active }, index) => {
           const key = `${url}-${label}-${index}`;
@@ -117,7 +116,7 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
           );
         })}
       </List>
-    </>
+    </Box>
   );
 };
 export default SideBarMenu;

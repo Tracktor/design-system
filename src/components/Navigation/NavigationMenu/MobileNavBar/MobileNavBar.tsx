@@ -16,7 +16,7 @@ export interface MobileNavBarProps {
   useNavigate?(): (delta: number) => void;
 }
 
-const NAV_BAR_HEIGHT = 90;
+const NAV_BAR_HEIGHT = 88;
 
 const styles = {
   bottomNavigation: {
@@ -42,11 +42,6 @@ const styles = {
     left: 0,
     position: "fixed",
     right: 0,
-  },
-  searchContainer: {
-    height: NAV_BAR_HEIGHT,
-    px: 3,
-    py: 2,
   },
 };
 

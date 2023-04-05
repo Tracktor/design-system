@@ -21,8 +21,8 @@ const TextFieldSearch = ({ fullWidth, translate: t }: SearchFieldProps) => {
       }}
       InputProps={{
         autoComplete: "off",
-        endAdornment: (
-          <InputAdornment position="end">
+        startAdornment: (
+          <InputAdornment position="start">
             <SvgIcon>
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                 <path
