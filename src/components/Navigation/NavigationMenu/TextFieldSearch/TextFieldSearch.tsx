@@ -9,7 +9,7 @@ interface SearchFieldProps {
 }
 const TextFieldSearch = ({ fullWidth, translate: t }: SearchFieldProps) => {
   const { inputRef } = useTextFieldSearch();
-  const { backgroundCoefficient, translate = t } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, onSearchChange, translate = t } = useContext(NavigationMenuContext);
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const fillColor = palette.getContrastText(backgroundColor);
@@ -53,6 +53,7 @@ const TextFieldSearch = ({ fullWidth, translate: t }: SearchFieldProps) => {
       placeholder={translate?.("search") || "Search"}
       fullWidth={fullWidth}
       inputRef={inputRef}
+      onChange={onSearchChange}
     />
   );
 };

@@ -1,5 +1,5 @@
 import { Drawer, useMediaQuery } from "@mui/material";
-import { createContext, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import { ChangeEvent, createContext, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
@@ -36,6 +36,7 @@ export interface NavigationMenuProps {
   Footer?: ReactNode;
   Logo?: ReactNode;
   sideBarWidth?: number;
+  onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
@@ -83,7 +84,7 @@ const NavigationMenuFromDevice = () => {
     );
   }
 
-  if (isTablet && itemsMobile && !disableResponsive) {
+  if (isTablet && !disableResponsive) {
     return (
       <>
         <TabletNavBar SearchField={SearchField} />
@@ -116,6 +117,7 @@ const NavigationMenu = ({
   Link,
   disableResponsive,
   sideBarWidth,
+  onSearchChange,
 }: NavigationMenuProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(DEFAULT_CONTEXT_VALUE.isDrawerOpen);
   const isMobile = useMediaQuery("(max-width:480px)");
@@ -145,6 +147,7 @@ const NavigationMenu = ({
       Logo,
       logoLinkUrl,
       NavLink,
+      onSearchChange,
       openDrawerMenu,
       SearchField,
       sideBarWidth,
@@ -152,22 +155,23 @@ const NavigationMenu = ({
     }),
     [
       closeDrawerMenu,
-      openDrawerMenu,
-      isMobile,
-      isDrawerOpen,
-      isTablet,
-      translate,
+      disableResponsive,
       disableSearch,
+      Footer,
+      isDrawerOpen,
+      isMobile,
+      isTablet,
       items,
       itemsMobile,
+      Link,
+      Logo,
       logoLinkUrl,
       NavLink,
-      Footer,
-      Logo,
+      onSearchChange,
+      openDrawerMenu,
       SearchField,
-      Link,
-      disableResponsive,
       sideBarWidth,
+      translate,
     ]
   );
 
