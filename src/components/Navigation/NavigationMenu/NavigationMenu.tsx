@@ -35,14 +35,47 @@ export interface NavigationMenuProps {
   /**
    * Menu items for secondary menu
    */
-  itemsSecondary?: MenuItem[];
+  secondaryMenu?: {
+    /**
+     * Menu id
+     */
+    id?: string;
+    /**
+     * Menu label
+     */
+    label?: string;
+    /**
+     * Menu icon
+     */
+    iconOpenMenu?: ReactNode;
+    /**
+     * Avatar props
+     */
+    avatar?: {
+      name?: string;
+    };
+    /**
+     * Menu items secondary menu
+     */
+    items: MenuItem[];
+  };
   /**
    * Override the default translations
    */
   translations?: {
+    /**
+     * Menu label on mobile bottom navigation
+     */
     menu?: string;
+    /**
+     * Search label
+     */
     search?: string;
   };
+  /**
+   * Disable search field focus shortcut when pressing "ctrl + f" or "cmd + f"
+   */
+  disableSearchFocusShortcut?: boolean;
   /**
    * Disable search field
    */
@@ -136,8 +169,9 @@ const NavigationMenuFromDevice = () => {
 const NavigationMenu = ({
   items,
   itemsMobile,
-  itemsSecondary,
+  secondaryMenu,
   disableSearch,
+  disableSearchFocusShortcut,
   translations,
   disableResponsive,
   sideBarWidth,
@@ -165,18 +199,19 @@ const NavigationMenu = ({
       closeDrawerMenu,
       disableResponsive,
       disableSearch,
+      disableSearchFocusShortcut,
       Footer,
       isDrawerOpen,
       isMobile,
       isTablet,
       items,
       itemsMobile,
-      itemsSecondary,
       Logo,
       NavLink,
       onSearchChange,
       openDrawerMenu,
       SearchField,
+      secondaryMenu,
       sideBarWidth,
       translations,
     }),
@@ -189,7 +224,7 @@ const NavigationMenu = ({
       isTablet,
       items,
       itemsMobile,
-      itemsSecondary,
+      secondaryMenu,
       onSearchChange,
       openDrawerMenu,
       sideBarWidth,
@@ -198,6 +233,7 @@ const NavigationMenu = ({
       Logo,
       NavLink,
       SearchField,
+      disableSearchFocusShortcut,
     ]
   );
 

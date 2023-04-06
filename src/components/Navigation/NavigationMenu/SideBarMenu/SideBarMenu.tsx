@@ -81,20 +81,16 @@ const NavLinkItem = ({ url, end, children, active, NavLink }: NavLinkItemProps) 
 
   if (NavLink) {
     return (
-      <ListItem disablePadding disableGutters>
-        <NavLink to={url} className={getActiveClass} onClick={closeDrawerMenu} end={end}>
-          {children}
-        </NavLink>
-      </ListItem>
+      <NavLink to={url} className={getActiveClass} onClick={closeDrawerMenu} end={end}>
+        {children}
+      </NavLink>
     );
   }
 
   return (
-    <ListItem disablePadding disableGutters>
-      <a href={url} onClick={() => closeDrawerMenu()} className={active ? getActiveClass({ isActive: true }) : ""}>
-        {children}
-      </a>
-    </ListItem>
+    <a href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
+      {children}
+    </a>
   );
 };
 
@@ -121,13 +117,15 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
             const key = `${url}-${label}-${index}`;
 
             return (
-              <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
-                {icon}
-                <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
-                  {label}
-                  {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
-                </Stack>
-              </NavLinkItem>
+              <ListItem key={key} disablePadding disableGutters>
+                <NavLinkItem url={url} NavLink={NavLink} active={active}>
+                  {icon}
+                  <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
+                    {label}
+                    {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                  </Stack>
+                </NavLinkItem>
+              </ListItem>
             );
           }
 

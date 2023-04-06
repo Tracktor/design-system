@@ -1,6 +1,7 @@
 import { Box, darken, IconButton, Stack, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+import SecondaryMenuButton from "@/components/Navigation/NavigationMenu/SecondaryMenuButton";
 
 export interface SideBarProps {
   children?: ReactNode;
@@ -39,6 +40,7 @@ const styles = {
 
 const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
   const {
+    secondaryMenu,
     closeDrawerMenu,
     isMobile,
     isDrawerOpen,
@@ -71,9 +73,8 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
           {Logo}
         </Box>
       </Stack>
-
       <Box>{children}</Box>
-      {Footer && <Box sx={styles.footer}>{Footer}</Box>}
+      {(Footer || secondaryMenu) && <Box sx={styles.footer}>{secondaryMenu ? <SecondaryMenuButton /> : Footer}</Box>}
     </Box>
   );
 };

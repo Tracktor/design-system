@@ -124,6 +124,10 @@ const ITEMS_SECONDARY = [
     label: "Profile",
     url: "/profile",
   },
+  {
+    label: "Logout",
+    url: "/deconnexion",
+  },
 ];
 
 const Template: ComponentStory<typeof NavigationMenu> = (args, { parameters }) => (
@@ -132,7 +136,15 @@ const Template: ComponentStory<typeof NavigationMenu> = (args, { parameters }) =
     items={parameters.customNode ? ITEMS_WITH_CUSTOM_NODE : ITEMS}
     itemsMobile={parameters.icons || ITEMS_MOBILE}
     Logo={parameters.logo && <Logo color="white" />}
-    itemsSecondary={parameters.secondary && ITEMS_SECONDARY}
+    secondaryMenu={
+      parameters.secondary && {
+        avatar: {
+          name: "Mickaël",
+        },
+        items: ITEMS_SECONDARY,
+        label: "Menu label",
+      }
+    }
   />
 );
 
