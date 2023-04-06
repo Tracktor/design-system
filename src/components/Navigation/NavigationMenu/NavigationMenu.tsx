@@ -5,7 +5,7 @@ import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
 import TabletNavBar from "@/components/Navigation/NavigationMenu/TabletNavBar";
 
-interface NavLinkProps {
+interface NavLinkLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
   onClick?: () => void;
   to: string;
@@ -14,6 +14,9 @@ interface NavLinkProps {
 }
 
 export interface NavigationMenuProps {
+  /**
+   * Menu items
+   */
   items?: {
     url: string;
     label: string;
@@ -21,22 +24,59 @@ export interface NavigationMenuProps {
     icon?: ReactNode;
     active?: boolean;
   }[];
+  /**
+   * Menu items for mobile bottom navigation
+   */
   itemsMobile?: {
     url?: string;
     label?: string;
     icon?: ReactNode;
+    active?: boolean;
   }[];
+  /**
+   * Override the default translations
+   */
   translations?: {
     menu?: string;
     search?: string;
   };
+  /**
+   * Disable search field
+   */
   disableSearch?: boolean;
+  /**
+   * Disable responsive behavior
+   */
   disableResponsive?: boolean;
+  /**
+   * Width of the sidebar
+   */
   sideBarWidth?: number;
+  /**
+   * Callback for search field change
+   * Not triggered if disableSearch is true or if SearchField is provided
+   * @param e
+   */
   onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  NavLink?: (props: NavLinkProps) => ReactElement;
+  /**
+   * Component to router nav links.
+   * This component is used to render the links in the main menu
+   * It should be a react-router-dom NavLink or a compatible component
+   * @param props
+   * @constructor
+   */
+  NavLink?: (props: NavLinkLinkProps) => ReactElement;
+  /**
+   * Override the default search field
+   */
   SearchField?: ReactNode;
+  /**
+   * Override the default footer
+   */
   Footer?: ReactNode;
+  /**
+   * Override the default logo
+   */
   Logo?: ReactNode;
 }
 
@@ -95,13 +135,13 @@ const NavigationMenu = ({
   itemsMobile,
   disableSearch,
   translations,
-  NavLink,
-  Footer,
-  Logo,
-  SearchField,
   disableResponsive,
   sideBarWidth,
   onSearchChange,
+  SearchField,
+  NavLink,
+  Footer,
+  Logo,
 }: NavigationMenuProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(DEFAULT_CONTEXT_VALUE.isDrawerOpen);
   const isMobile = useMediaQuery("(max-width:480px)");
@@ -139,19 +179,19 @@ const NavigationMenu = ({
       closeDrawerMenu,
       disableResponsive,
       disableSearch,
-      Footer,
       isDrawerOpen,
       isMobile,
       isTablet,
       items,
       itemsMobile,
-      Logo,
-      NavLink,
       onSearchChange,
       openDrawerMenu,
-      SearchField,
       sideBarWidth,
       translations,
+      Footer,
+      Logo,
+      NavLink,
+      SearchField,
     ]
   );
 

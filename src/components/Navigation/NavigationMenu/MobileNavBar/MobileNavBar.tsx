@@ -1,21 +1,27 @@
 import { BottomNavigation, BottomNavigationAction, darken, Paper, SvgIcon, Theme, useTheme } from "@mui/material";
-import { ReactNode, useContext } from "react";
+import { ReactElement, ReactNode, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import useMobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar/useMobileNavBar";
 
+interface NavLinkLinkProps {
+  className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
+  onClick?: () => void;
+  to: string;
+  end?: boolean;
+  children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
+}
+
 export interface MobileNavBarProps {
-  translations?: {
-    menu?: string;
-  };
   items: {
     url?: string;
     label?: string;
     icon?: ReactNode;
   }[];
-  useLocation?(): { pathname: string };
-  useNavigate?(): (to: any, options?: any) => void;
-  useNavigate?(): (delta: number) => void;
+  translations?: {
+    menu?: string;
+  };
+  NavLink?: (props: NavLinkLinkProps) => ReactElement;
 }
 
 const NAV_BAR_HEIGHT = 88;
@@ -47,12 +53,14 @@ const styles = {
   },
 };
 
-const MobileNavBar = ({ items, useLocation, useNavigate, ...props }: MobileNavBarProps) => {
-  const { backgroundCoefficient, translations } = useContext(NavigationMenuContext);
-  const { active, handleChangeNavigation } = useMobileNavBar({ items, useLocation, useNavigate });
+const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
   const { palette } = useTheme();
+  const { backgroundCoefficient, translations, NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { active, handleChangeNavigation } = useMobileNavBar({ items });
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
+
+  console.log(active);
 
   return (
     <Paper sx={styles.paper} square>
@@ -68,9 +76,10 @@ const MobileNavBar = ({ items, useLocation, useNavigate, ...props }: MobileNavBa
       >
         {items?.map(({ url, label, icon }, index) => {
           const key = `${url}-${label}-${index}`;
-          return <BottomNavigationAction key={key} label={label} icon={icon} />;
+          return <BottomNavigationAction key={key} label={label} icon={icon} component={NavLink as any} to={url} />;
         })}
         <BottomNavigationAction
+          value="menu"
           label={menuLabel}
           icon={
             <SvgIcon>

@@ -40,15 +40,15 @@ const ITEMS = [
 const ITEMS_BOTTOM = [
   {
     label: "Lien 1",
-    url: "#",
+    url: "lien-1",
   },
   {
     label: "Lien 2",
-    url: "#",
+    url: "lien-2",
   },
   {
     label: "Lien 3",
-    url: "#",
+    url: "lien-3",
   },
 ];
 

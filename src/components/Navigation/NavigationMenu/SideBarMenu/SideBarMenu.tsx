@@ -3,7 +3,7 @@ import { ReactElement, ReactNode, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
-interface NavLinkProps {
+interface NavLinkLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
   onClick?: () => void;
   to: string;
@@ -20,7 +20,7 @@ interface NavLinkItemProps {
 }
 
 export interface SideBarMenuProps {
-  NavLink?: (props: NavLinkProps) => ReactElement;
+  NavLink?: (props: NavLinkLinkProps) => ReactElement;
   SearchField?: ReactNode;
   translate?: (str: string) => string;
   disableSearch?: boolean;
@@ -72,7 +72,7 @@ const styles = {
 
 const getActiveClass = ({ isActive }: { isActive: boolean }) => (isActive ? "active" : undefined);
 
-const NavLinkItem = ({ url, end, children, NavLink, active }: NavLinkItemProps) => {
+const NavLinkItem = ({ url, end, children, active, NavLink }: NavLinkItemProps) => {
   const { closeDrawerMenu } = useContext(NavigationMenuContext);
 
   if (NavLink) {

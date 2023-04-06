@@ -1,51 +1,41 @@
-import { SyntheticEvent, useCallback, useContext, useEffect, useState } from "react";
+import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import type { MobileNavBarProps } from "@/components/Navigation/NavigationMenu/MobileNavBar/MobileNavBar";
 
 interface useMobileNavBarParams {
   items: MobileNavBarProps["items"];
-  useLocation: MobileNavBarProps["useLocation"];
-  useNavigate: MobileNavBarProps["useNavigate"];
 }
 
-const useMobileNavBar = ({ items, useLocation, useNavigate }: useMobileNavBarParams) => {
-  const urls = items.filter((item) => item.url).map((item) => item.url);
-  const navigate = useNavigate?.();
-  const menuItemIndex = urls.length;
+const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
   const { openDrawerMenu } = useContext(NavigationMenuContext);
-  const { pathname } = useLocation?.() || window.location;
-  const [active, setActive] = useState(urls.findIndex((path) => path === pathname));
+  const [active, setActive] = useState<string | number>();
+  const urls = useMemo(() => items.filter((item) => item.url).map((item) => item.url), [items]);
 
   const handleChangeNavigation = useCallback(
-    (_: SyntheticEvent, newValue: number) => {
-      const isLastItemBottomMenu = newValue === menuItemIndex;
+    (_: SyntheticEvent, value: number | string) => {
+      const isMenuItem = value === "menu";
 
-      if (isLastItemBottomMenu) {
+      if (isMenuItem) {
         openDrawerMenu();
         return;
       }
 
-      if (navigate) {
-        navigate(urls[newValue]);
-        return;
-      }
-
-      window.location.href = String(urls[newValue]);
+      setActive(value);
     },
-    [urls, menuItemIndex, navigate, openDrawerMenu]
+    [openDrawerMenu]
   );
 
+  // Set initial active menu
   useEffect(() => {
-    const activeIndex = urls.findIndex((path) => path === pathname);
-    setActive(activeIndex === -1 ? menuItemIndex : activeIndex);
-  }, [setActive, pathname, menuItemIndex, urls]);
+    const activeIndex = urls.findIndex((path) => path === window.location.pathname);
+    setActive(activeIndex === -1 ? "menu" : activeIndex);
+  }, [setActive, urls]);
 
   return {
     active,
     handleChangeNavigation,
-    mapValuePath: urls,
-    navigate,
     openDrawerMenu,
+    urls,
   };
 };
 
