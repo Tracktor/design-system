@@ -60,8 +60,6 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
 
-  console.log(active);
-
   return (
     <Paper sx={styles.paper} square>
       <BottomNavigation
