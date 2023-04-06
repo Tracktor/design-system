@@ -5,7 +5,9 @@ import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import useMobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar/useMobileNavBar";
 
 export interface MobileNavBarProps {
-  translate?: (str: string) => string;
+  translations?: {
+    menu?: string;
+  };
   items: {
     url?: string;
     label?: string;
@@ -46,10 +48,11 @@ const styles = {
 };
 
 const MobileNavBar = ({ items, useLocation, useNavigate, ...props }: MobileNavBarProps) => {
-  const { backgroundCoefficient, translate = props.translate } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, translations } = useContext(NavigationMenuContext);
   const { active, handleChangeNavigation } = useMobileNavBar({ items, useLocation, useNavigate });
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
+  const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
 
   return (
     <Paper sx={styles.paper} square>
@@ -65,10 +68,10 @@ const MobileNavBar = ({ items, useLocation, useNavigate, ...props }: MobileNavBa
       >
         {items?.map(({ url, label, icon }, index) => {
           const key = `${url}-${label}-${index}`;
-          return <BottomNavigationAction key={key} label={label ? translate?.(label) || label : ""} icon={icon} />;
+          return <BottomNavigationAction key={key} label={label} icon={icon} />;
         })}
         <BottomNavigationAction
-          label={translate?.("menu") || "Menu"}
+          label={menuLabel}
           icon={
             <SvgIcon>
               <MenuIcon />

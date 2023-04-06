@@ -7,14 +7,14 @@ const viewports = {
   mobile: {
     name: "Mobile",
     styles: {
-      height: "963px",
+      height: "600px",
       width: "480px",
     },
   },
   tablet: {
     name: "Tablet",
     styles: {
-      height: "980px",
+      height: "600px",
       width: "768px",
     },
   },
@@ -156,6 +156,16 @@ Tablet.parameters = {
     defaultViewport: "tablet",
     viewports,
   },
+};
+
+export const WithTranslate = Template.bind({});
+WithTranslate.args = {
+  translations: {
+    search: "Rechercher",
+  },
+};
+WithTranslate.parameters = {
+  logo: true,
 };
 
 export default {

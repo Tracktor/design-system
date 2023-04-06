@@ -92,7 +92,6 @@ const NavLinkItem = ({ url, end, children, NavLink, active }: NavLinkItemProps) 
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
   const {
-    translate = props.translate,
     disableSearch = props.disableSearch,
     SearchField = props.SearchField,
     NavLink = props.NavLink,
@@ -109,7 +108,7 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
             <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
               {icon}
               <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
-                {translate?.(label) || label}
+                {label}
                 {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
               </Stack>
             </NavLinkItem>

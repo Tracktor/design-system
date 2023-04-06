@@ -1,20 +1,12 @@
 import { Box, darken, IconButton, Stack, useTheme } from "@mui/material";
-import { ReactElement, ReactNode, useContext } from "react";
+import { ReactNode, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 
 export interface SideBarProps {
   children?: ReactNode;
-  logoLinkUrl?: string;
-  Link?: (props: { to?: string; children?: ReactNode }) => ReactElement;
+  width?: number | string;
   Footer?: ReactNode;
   Logo?: ReactNode;
-  width?: number | string;
-}
-
-interface LogoRenderProps {
-  Link: SideBarProps["Link"];
-  Logo: SideBarProps["Logo"];
-  logoLinkUrl: SideBarProps["logoLinkUrl"];
 }
 
 const styles = {
@@ -45,22 +37,13 @@ const styles = {
   },
 };
 
-const RenderLogo = ({ Logo, logoLinkUrl, Link }: LogoRenderProps) => {
-  if (logoLinkUrl && Logo) {
-    return Link ? <Link to={logoLinkUrl}>{Logo}</Link> : <a href={logoLinkUrl}>{Logo}</a>;
-  }
-
-  return <> {Logo} </>;
-};
-
-const SideBar = ({ children, logoLinkUrl, width = 256, ...props }: SideBarProps) => {
+const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
   const {
     closeDrawerMenu,
     isMobile,
     isDrawerOpen,
     backgroundCoefficient,
     sideBarWidth = width,
-    Link = props.Link,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
@@ -85,7 +68,7 @@ const SideBar = ({ children, logoLinkUrl, width = 256, ...props }: SideBarProps)
           </Box>
         )}
         <Box sx={{ ...styles.logo, textAlign: isMobile ? "left" : "center" }} width="100%">
-          <RenderLogo Logo={Logo} logoLinkUrl={logoLinkUrl} Link={Link} />
+          {Logo}
         </Box>
       </Stack>
 

@@ -12,13 +12,14 @@ interface TabletNavBarProps {
 const TABLET_NAV_BAR_HEIGHT = 64;
 
 const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
-  const { palette } = useTheme();
   const {
     openDrawerMenu,
     backgroundCoefficient,
     SearchField = props.SearchField,
     disableSearch = props.disableSearch,
   } = useContext(NavigationMenuContext);
+
+  const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
 
   return (

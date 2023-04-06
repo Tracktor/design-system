@@ -1,5 +1,5 @@
 import { Drawer, useMediaQuery } from "@mui/material";
-import { ChangeEvent, createContext, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import { ChangeEvent, createContext, memo, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
@@ -26,17 +26,18 @@ export interface NavigationMenuProps {
     label?: string;
     icon?: ReactNode;
   }[];
+  translations?: {
+    menu?: string;
+    search?: string;
+  };
   disableSearch?: boolean;
   disableResponsive?: boolean;
-  translate?: (str: string) => string;
-  logoLinkUrl?: string;
-  Link?: (props: { to?: string; children?: ReactNode }) => ReactElement;
+  sideBarWidth?: number;
+  onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   NavLink?: (props: NavLinkProps) => ReactElement;
   SearchField?: ReactNode;
   Footer?: ReactNode;
   Logo?: ReactNode;
-  sideBarWidth?: number;
-  onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
@@ -53,31 +54,16 @@ const DEFAULT_CONTEXT_VALUE = {
 export const NavigationMenuContext = createContext<NavigationMenuContextValue>(DEFAULT_CONTEXT_VALUE);
 
 const NavigationMenuFromDevice = () => {
-  const {
-    translate,
-    items,
-    disableResponsive,
-    isMobile,
-    isTablet,
-    itemsMobile,
-    SearchField,
-    logoLinkUrl,
-    Footer,
-    Logo,
-    Link,
-    NavLink,
-    isDrawerOpen,
-    closeDrawerMenu,
-    sideBarWidth,
-  } = useContext(NavigationMenuContext);
+  const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth } =
+    useContext(NavigationMenuContext);
 
   if (isMobile && itemsMobile && !disableResponsive) {
     return (
       <>
         <MobileNavBar items={itemsMobile} />
         <Drawer anchor="left" open={isDrawerOpen} PaperProps={{ sx: { width: "100%" } }} onClose={closeDrawerMenu}>
-          <SideBar logoLinkUrl={logoLinkUrl} Footer={Footer} Logo={Logo} Link={Link} width="100%">
-            <SideBarMenu items={items} translate={translate} NavLink={NavLink} SearchField={SearchField} />
+          <SideBar width="100%">
+            <SideBarMenu items={items} />
           </SideBar>
         </Drawer>
       </>
@@ -87,10 +73,10 @@ const NavigationMenuFromDevice = () => {
   if (isTablet && !disableResponsive) {
     return (
       <>
-        <TabletNavBar SearchField={SearchField} />
+        <TabletNavBar />
         <Drawer anchor="left" open={isDrawerOpen} onClose={closeDrawerMenu}>
-          <SideBar logoLinkUrl={logoLinkUrl} Footer={Footer} Logo={Logo} Link={Link}>
-            <SideBarMenu items={items} translate={translate} NavLink={NavLink} SearchField={SearchField} />
+          <SideBar>
+            <SideBarMenu items={items} />
           </SideBar>
         </Drawer>
       </>
@@ -98,8 +84,8 @@ const NavigationMenuFromDevice = () => {
   }
 
   return (
-    <SideBar logoLinkUrl={logoLinkUrl} Footer={Footer} Logo={Logo} Link={Link} width={sideBarWidth}>
-      <SideBarMenu items={items} translate={translate} NavLink={NavLink} SearchField={SearchField} />
+    <SideBar width={sideBarWidth}>
+      <SideBarMenu items={items} />
     </SideBar>
   );
 };
@@ -108,13 +94,11 @@ const NavigationMenu = ({
   items,
   itemsMobile,
   disableSearch,
-  logoLinkUrl,
-  translate,
+  translations,
   NavLink,
   Footer,
   Logo,
   SearchField,
-  Link,
   disableResponsive,
   sideBarWidth,
   onSearchChange,
@@ -143,15 +127,13 @@ const NavigationMenu = ({
       isTablet,
       items,
       itemsMobile,
-      Link,
       Logo,
-      logoLinkUrl,
       NavLink,
       onSearchChange,
       openDrawerMenu,
       SearchField,
       sideBarWidth,
-      translate,
+      translations,
     }),
     [
       closeDrawerMenu,
@@ -163,15 +145,13 @@ const NavigationMenu = ({
       isTablet,
       items,
       itemsMobile,
-      Link,
       Logo,
-      logoLinkUrl,
       NavLink,
       onSearchChange,
       openDrawerMenu,
       SearchField,
       sideBarWidth,
-      translate,
+      translations,
     ]
   );
 
@@ -182,4 +162,4 @@ const NavigationMenu = ({
   );
 };
 
-export default NavigationMenu;
+export default memo(NavigationMenu);

@@ -5,14 +5,17 @@ import useTextFieldSearch from "@/components/Navigation/NavigationMenu/TextField
 
 interface SearchFieldProps {
   fullWidth?: boolean;
-  translate?: (str: string) => string;
+  translations?: {
+    search: string;
+  };
 }
-const TextFieldSearch = ({ fullWidth, translate: t }: SearchFieldProps) => {
+const TextFieldSearch = ({ fullWidth, ...props }: SearchFieldProps) => {
+  const { backgroundCoefficient, onSearchChange, translations } = useContext(NavigationMenuContext);
   const { inputRef } = useTextFieldSearch();
-  const { backgroundCoefficient, onSearchChange, translate = t } = useContext(NavigationMenuContext);
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const fillColor = palette.getContrastText(backgroundColor);
+  const placeholder = props?.translations?.search || translations?.search || "Search";
 
   return (
     <TextField
@@ -50,7 +53,7 @@ const TextFieldSearch = ({ fullWidth, translate: t }: SearchFieldProps) => {
         },
       }}
       size="small"
-      placeholder={translate?.("search") || "Search"}
+      placeholder={placeholder}
       fullWidth={fullWidth}
       inputRef={inputRef}
       onChange={onSearchChange}
