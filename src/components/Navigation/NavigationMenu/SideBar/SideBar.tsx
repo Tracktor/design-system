@@ -74,7 +74,10 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
         </Box>
       </Stack>
       <Box>{children}</Box>
-      {(Footer || secondaryMenu) && <Box sx={styles.footer}>{secondaryMenu ? <SecondaryMenuButton /> : Footer}</Box>}
+      <Box sx={styles.footer}>
+        {secondaryMenu && <SecondaryMenuButton />}
+        {Footer && Footer}
+      </Box>
     </Box>
   );
 };

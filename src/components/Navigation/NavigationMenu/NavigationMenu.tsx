@@ -107,11 +107,11 @@ export interface NavigationMenuProps {
    */
   SearchField?: ReactNode;
   /**
-   * Override the default footer
+   * Footer component only for desktop
    */
   Footer?: ReactNode;
   /**
-   * Override the default logo
+   * Logo component
    */
   Logo?: ReactNode;
 }
