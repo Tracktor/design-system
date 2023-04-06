@@ -13,26 +13,29 @@ interface NavLinkLinkProps {
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
 }
 
+type MenuItem =
+  | {
+      url: string;
+      label: string;
+      count?: number;
+      icon?: ReactNode;
+      active?: boolean;
+    }
+  | ReactNode;
+
 export interface NavigationMenuProps {
   /**
    * Menu items
    */
-  items?: {
-    url: string;
-    label: string;
-    count?: number;
-    icon?: ReactNode;
-    active?: boolean;
-  }[];
+  items?: MenuItem[];
   /**
    * Menu items for mobile bottom navigation
    */
-  itemsMobile?: {
-    url?: string;
-    label?: string;
-    icon?: ReactNode;
-    active?: boolean;
-  }[];
+  itemsMobile?: MenuItem[];
+  /**
+   * Menu items for secondary menu
+   */
+  itemsSecondary?: MenuItem[];
   /**
    * Override the default translations
    */
@@ -60,7 +63,7 @@ export interface NavigationMenuProps {
   onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   /**
    * Component to router nav links.
-   * This component is used to render the links in the main menu
+   * This component is used to render the links in the main menu &  mobile bottom navigation
    * It should be a react-router-dom NavLink or a compatible component
    * @param props
    * @constructor
@@ -133,6 +136,7 @@ const NavigationMenuFromDevice = () => {
 const NavigationMenu = ({
   items,
   itemsMobile,
+  itemsSecondary,
   disableSearch,
   translations,
   disableResponsive,
@@ -167,6 +171,7 @@ const NavigationMenu = ({
       isTablet,
       items,
       itemsMobile,
+      itemsSecondary,
       Logo,
       NavLink,
       onSearchChange,
@@ -184,6 +189,7 @@ const NavigationMenu = ({
       isTablet,
       items,
       itemsMobile,
+      itemsSecondary,
       onSearchChange,
       openDrawerMenu,
       sideBarWidth,

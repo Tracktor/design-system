@@ -1,5 +1,5 @@
-import { Box, Chip, List, Stack, Theme } from "@mui/material";
-import { ReactElement, ReactNode, useContext } from "react";
+import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
+import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
@@ -19,18 +19,22 @@ interface NavLinkItemProps {
   active?: boolean;
 }
 
+type ObjectArrayItem = {
+  url: string;
+  label: string;
+  count?: number;
+  icon?: ReactNode;
+  active?: boolean;
+};
+
+type MenuItem = ObjectArrayItem | ReactNode;
+
 export interface SideBarMenuProps {
   NavLink?: (props: NavLinkLinkProps) => ReactElement;
   SearchField?: ReactNode;
   translate?: (str: string) => string;
   disableSearch?: boolean;
-  items?: {
-    url: string;
-    label: string;
-    count?: number;
-    icon?: ReactNode;
-    active?: boolean;
-  }[];
+  items?: MenuItem[];
 }
 
 const styles = {
@@ -77,16 +81,20 @@ const NavLinkItem = ({ url, end, children, active, NavLink }: NavLinkItemProps) 
 
   if (NavLink) {
     return (
-      <NavLink to={url} className={getActiveClass} onClick={() => closeDrawerMenu()} end={end}>
-        {children}
-      </NavLink>
+      <ListItem disablePadding disableGutters>
+        <NavLink to={url} className={getActiveClass} onClick={closeDrawerMenu} end={end}>
+          {children}
+        </NavLink>
+      </ListItem>
     );
   }
 
   return (
-    <a href={url} onClick={() => closeDrawerMenu()} className={active ? getActiveClass({ isActive: true }) : ""}>
-      {children}
-    </a>
+    <ListItem disablePadding disableGutters>
+      <a href={url} onClick={() => closeDrawerMenu()} className={active ? getActiveClass({ isActive: true }) : ""}>
+        {children}
+      </a>
+    </ListItem>
   );
 };
 
@@ -101,18 +109,29 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
     <Box px={2}>
       {!disableSearch && (SearchField || <TextFieldSearch fullWidth />)}
       <List sx={{ ...styles.list }}>
-        {items?.map(({ count, url, label, icon, active }, index) => {
-          const key = `${url}-${label}-${index}`;
+        {items?.map((item, index) => {
+          // Is React Element then return it
+          if (isValidElement(item)) {
+            return item;
+          }
 
-          return (
-            <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
-              {icon}
-              <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
-                {label}
-                {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
-              </Stack>
-            </NavLinkItem>
-          );
+          // Is Object then return NavLinkItem
+          if (item && typeof item === "object" && "url" in item) {
+            const { count, url, label, icon, active } = item;
+            const key = `${url}-${label}-${index}`;
+
+            return (
+              <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
+                {icon}
+                <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
+                  {label}
+                  {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                </Stack>
+              </NavLinkItem>
+            );
+          }
+
+          return null;
         })}
       </List>
     </Box>

@@ -1,4 +1,4 @@
-import { SvgIcon } from "@mui/material";
+import { Alert, SvgIcon } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -37,7 +37,20 @@ const ITEMS = [
   },
 ];
 
-const ITEMS_BOTTOM = [
+const ITEMS_WITH_CUSTOM_NODE = [
+  {
+    active: true,
+    label: "Lien 1",
+    url: "#",
+  },
+  {
+    label: "Lien 2",
+    url: "#",
+  },
+  <Alert key={1}>Custom Node</Alert>,
+];
+
+const ITEMS_MOBILE = [
   {
     label: "Lien 1",
     url: "lien-1",
@@ -52,7 +65,7 @@ const ITEMS_BOTTOM = [
   },
 ];
 
-const ITEMS_BOTTOM_WITH_ICON = [
+const ITEMS_MOBILE_WITH_ICON = [
   {
     icon: (
       <SvgIcon>
@@ -106,8 +119,21 @@ const ITEMS_BOTTOM_WITH_ICON = [
   },
 ];
 
+const ITEMS_SECONDARY = [
+  {
+    label: "Profile",
+    url: "/profile",
+  },
+];
+
 const Template: ComponentStory<typeof NavigationMenu> = (args, { parameters }) => (
-  <NavigationMenu {...args} items={ITEMS} itemsMobile={parameters.icons || ITEMS_BOTTOM} Logo={parameters.logo && <Logo color="white" />} />
+  <NavigationMenu
+    {...args}
+    items={parameters.customNode ? ITEMS_WITH_CUSTOM_NODE : ITEMS}
+    itemsMobile={parameters.icons || ITEMS_MOBILE}
+    Logo={parameters.logo && <Logo color="white" />}
+    itemsSecondary={parameters.secondary && ITEMS_SECONDARY}
+  />
 );
 
 export const Basic = Template.bind({});
@@ -123,9 +149,6 @@ export const WithoutSearch = Template.bind({});
 WithoutSearch.args = {
   disableSearch: true,
 };
-WithoutSearch.parameters = {
-  logo: true,
-};
 
 export const Mobile = Template.bind({});
 Mobile.args = {};
@@ -140,7 +163,7 @@ Mobile.parameters = {
 export const MobileWithIcon = Template.bind({});
 MobileWithIcon.args = {};
 MobileWithIcon.parameters = {
-  icons: ITEMS_BOTTOM_WITH_ICON,
+  icons: ITEMS_MOBILE_WITH_ICON,
   logo: true,
   viewport: {
     defaultViewport: "mobile",
@@ -164,8 +187,21 @@ WithTranslate.args = {
     search: "Rechercher",
   },
 };
-WithTranslate.parameters = {
-  logo: true,
+
+export const CustomNode = Template.bind({});
+CustomNode.args = {};
+CustomNode.parameters = {
+  customNode: true,
+};
+
+export const WithSecondaryMenu = Template.bind({});
+WithSecondaryMenu.args = {
+  translations: {
+    search: "Rechercher",
+  },
+};
+WithSecondaryMenu.parameters = {
+  secondary: true,
 };
 
 export default {

@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationAction, darken, Paper, SvgIcon, Theme, useTheme } from "@mui/material";
-import { ReactElement, ReactNode, useContext } from "react";
+import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import useMobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar/useMobileNavBar";
@@ -12,12 +12,18 @@ interface NavLinkLinkProps {
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
 }
 
+export type ObjectArrayItem = {
+  url: string;
+  label: string;
+  count?: number;
+  icon?: ReactNode;
+  active?: boolean;
+};
+
+type MenuItem = ObjectArrayItem | ReactNode;
+
 export interface MobileNavBarProps {
-  items: {
-    url?: string;
-    label?: string;
-    icon?: ReactNode;
-  }[];
+  items: MenuItem[];
   translations?: {
     menu?: string;
   };
@@ -72,9 +78,20 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
         value={active}
         onChange={handleChangeNavigation}
       >
-        {items?.map(({ url, label, icon }, index) => {
-          const key = `${url}-${label}-${index}`;
-          return <BottomNavigationAction key={key} label={label} icon={icon} component={NavLink as any} to={url} />;
+        {items?.map((item, index) => {
+          // If the item is a React element, return it as is
+          if (isValidElement(item)) {
+            return item;
+          }
+
+          // If the item is an object, return a BottomNavigationAction
+          if (item && typeof item === "object" && "url" in item) {
+            const { url, label, icon } = item;
+            const key = `${url}-${label}-${index}`;
+            return <BottomNavigationAction key={key} label={label} icon={icon} component={NavLink as any} to={url} />;
+          }
+
+          return null;
         })}
         <BottomNavigationAction
           value="menu"
