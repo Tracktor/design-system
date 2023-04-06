@@ -126,7 +126,7 @@ const SecondaryMenuButton = ({ variant = "button" }: ProfileButtonProps) => {
             const key = `${url}-${label}-${index}`;
 
             return (
-              <MenuItem key={key} sx={styles.menuItem}>
+              <MenuItem key={key} sx={styles.menuItem} selected={active}>
                 <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
                   {icon && <ListItemIcon>{icon}</ListItemIcon>}
                   {label && <ListItemText>{label}</ListItemText>}
