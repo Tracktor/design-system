@@ -1,4 +1,4 @@
-import { Alert, Box, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon } from "@mui/material";
+import { Alert, Box, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon, Typography } from "@mui/material";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -151,63 +151,37 @@ const ITEMS_SECONDARY = [
   },
 ];
 
-const getItem = (item: string) => {
-  switch (item) {
-    case "customNode":
-      return ITEMS_WITH_CUSTOM_NODE;
-    case "icon":
-      return ITEMS_WITH_ICON;
-    default:
-      return ITEMS;
-  }
-};
-
-const Template: ComponentStory<typeof NavigationMenu> = (args, { parameters }) => {
-  const items = getItem(parameters.item);
-
-  return (
-    <NavigationMenu
-      {...args}
-      items={items}
-      itemsMobile={parameters.icons || ITEMS_MOBILE}
-      Logo={parameters.logo && <Logo color="white" />}
-      secondaryMenu={
-        parameters.secondary && {
-          avatar: {
-            name: "Mickaël",
-          },
-          items: ITEMS_SECONDARY,
-          label: "Menu label",
-        }
-      }
-    />
-  );
-};
+const Template: ComponentStory<typeof NavigationMenu> = (args) => <NavigationMenu {...args} />;
 
 export const Basic = Template.bind({});
-Basic.args = {};
+Basic.args = {
+  items: ITEMS,
+};
 
 export const WithIcon = Template.bind({});
-WithIcon.args = {};
-WithIcon.parameters = {
-  item: "icon",
+WithIcon.args = {
+  items: ITEMS_WITH_ICON,
 };
 
 export const WithLogo = Template.bind({});
-WithLogo.args = {};
-WithLogo.parameters = {
-  logo: true,
+WithLogo.args = {
+  items: ITEMS,
+  Logo: <Logo color="white" />,
 };
 
 export const WithoutSearch = Template.bind({});
 WithoutSearch.args = {
   disableSearch: true,
+  items: ITEMS,
 };
 
 export const Mobile = Template.bind({});
-Mobile.args = {};
+Mobile.args = {
+  items: ITEMS,
+  itemsMobile: ITEMS_MOBILE,
+  Logo: <Logo color="white" />,
+};
 Mobile.parameters = {
-  logo: true,
   viewport: {
     defaultViewport: "mobile",
     viewports: VIEWPORTS,
@@ -215,10 +189,12 @@ Mobile.parameters = {
 };
 
 export const MobileWithIcon = Template.bind({});
-MobileWithIcon.args = {};
+MobileWithIcon.args = {
+  items: ITEMS,
+  itemsMobile: ITEMS_MOBILE_WITH_ICON,
+  Logo: <Logo color="white" />,
+};
 MobileWithIcon.parameters = {
-  icons: ITEMS_MOBILE_WITH_ICON,
-  logo: true,
   viewport: {
     defaultViewport: "mobile",
     viewports: VIEWPORTS,
@@ -226,9 +202,11 @@ MobileWithIcon.parameters = {
 };
 
 export const Tablet = Template.bind({});
-Tablet.args = {};
+Tablet.args = {
+  items: ITEMS,
+  Logo: <Logo color="white" />,
+};
 Tablet.parameters = {
-  logo: true,
   viewport: {
     defaultViewport: "tablet",
     viewports: VIEWPORTS,
@@ -237,21 +215,39 @@ Tablet.parameters = {
 
 export const WithTranslation = Template.bind({});
 WithTranslation.args = {
+  items: ITEMS,
   translations: {
     search: "Rechercher",
   },
 };
 
-export const CustomNode = Template.bind({});
-CustomNode.args = {};
-CustomNode.parameters = {
-  item: "customNode",
+export const CustomMenuItem = Template.bind({});
+CustomMenuItem.args = {
+  items: ITEMS_WITH_CUSTOM_NODE,
 };
 
 export const WithSecondaryMenu = Template.bind({});
-WithSecondaryMenu.args = {};
-WithSecondaryMenu.parameters = {
-  secondary: true,
+WithSecondaryMenu.args = {
+  items: ITEMS,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Menu label",
+  },
+};
+
+export const WithCustomFooter = Template.bind({});
+WithCustomFooter.args = {
+  Footer: (
+    <Box textAlign="center" width="100%">
+      <Typography variant="caption" color="text.secondary">
+        Copyright © 2023 - Tracktor
+      </Typography>
+    </Box>
+  ),
+  items: ITEMS,
 };
 
 export default {
