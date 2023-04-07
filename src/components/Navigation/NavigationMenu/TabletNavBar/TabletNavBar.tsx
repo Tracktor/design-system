@@ -1,12 +1,14 @@
 import { AppBar, Box, darken, IconButton, Stack, SvgIcon, Toolbar, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
-import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+import { NavigationMenuContext, SecondaryMenu } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
+import SecondaryMenuButton from "@/components/Navigation/NavigationMenu/SecondaryMenuButton";
 import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
 interface TabletNavBarProps {
   SearchField?: ReactNode;
   disableSearch?: boolean;
+  secondaryMenu?: SecondaryMenu;
 }
 
 const TABLET_NAV_BAR_HEIGHT = 64;
@@ -17,6 +19,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
     backgroundCoefficient,
     SearchField = props.SearchField,
     disableSearch = props.disableSearch,
+    secondaryMenu = props.secondaryMenu,
   } = useContext(NavigationMenuContext);
 
   const { palette } = useTheme();
@@ -45,9 +48,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
             {SearchField || <TextFieldSearch />}
           </Box>
         )}
-        <Box>
-          <div>ProfileButton</div>
-        </Box>
+        {secondaryMenu && <SecondaryMenuButton variant="icon" />}
       </Toolbar>
     </AppBar>
   );

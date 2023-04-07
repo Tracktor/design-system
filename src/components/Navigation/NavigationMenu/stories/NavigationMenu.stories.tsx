@@ -213,6 +213,25 @@ Tablet.parameters = {
   },
 };
 
+export const TabletWithSecondaryMenu = Template.bind({});
+TabletWithSecondaryMenu.args = {
+  items: ITEMS,
+  Logo: <Logo color="white" />,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Menu label",
+  },
+};
+TabletWithSecondaryMenu.parameters = {
+  viewport: {
+    defaultViewport: "tablet",
+    viewports: VIEWPORTS,
+  },
+};
+
 export const WithTranslation = Template.bind({});
 WithTranslation.args = {
   items: ITEMS,

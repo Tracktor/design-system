@@ -82,7 +82,7 @@ const NavLinkItem = ({ url, children, active, NavLink }: any) => {
 const SecondaryMenuButton = ({ variant = "button" }: ProfileButtonProps) => {
   const { secondaryMenu, NavLink } = useContext(NavigationMenuContext);
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
-  const firstLetterOfName = secondaryMenu?.avatar?.name?.charAt(0);
+  const firstLetterOfName = secondaryMenu?.avatar?.name?.charAt(0).toUpperCase();
   const isButton = variant === "button";
   const isIconButton = variant === "icon";
 
