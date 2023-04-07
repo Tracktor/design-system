@@ -30,7 +30,7 @@ type ObjectArrayItem = {
 type MenuItem = ObjectArrayItem | ReactNode;
 
 export interface SideBarMenuProps {
-  NavLink?: (props: NavLinkLinkProps) => ReactElement;
+  NavLink?: (props: NavLinkLinkProps) => ReactElement | null;
   SearchField?: ReactNode;
   translate?: (str: string) => string;
   disableSearch?: boolean;

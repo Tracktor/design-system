@@ -5,7 +5,7 @@ import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
 import TabletNavBar from "@/components/Navigation/NavigationMenu/TabletNavBar";
 
-interface NavLinkLinkProps {
+export interface NavLinkLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
   onClick?: () => void;
   to: string;
@@ -13,7 +13,7 @@ interface NavLinkLinkProps {
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
 }
 
-type MenuItem =
+export type NavigationItem =
   | {
       url: string;
       label: string;
@@ -27,11 +27,11 @@ export interface NavigationMenuProps {
   /**
    * Menu items
    */
-  items?: MenuItem[];
+  items?: NavigationItem[];
   /**
    * Menu items for mobile bottom navigation
    */
-  itemsMobile?: MenuItem[];
+  itemsMobile?: NavigationItem[];
   /**
    * Menu items for secondary menu
    */
@@ -57,7 +57,7 @@ export interface NavigationMenuProps {
     /**
      * Menu items secondary menu
      */
-    items: MenuItem[];
+    items: NavigationItem[];
   };
   /**
    * Override the default translations
@@ -101,7 +101,7 @@ export interface NavigationMenuProps {
    * @param props
    * @constructor
    */
-  NavLink?: (props: NavLinkLinkProps) => ReactElement;
+  NavLink?: (props: NavLinkLinkProps) => ReactElement | null;
   /**
    * Override the default search field
    */
