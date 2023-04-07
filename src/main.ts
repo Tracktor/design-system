@@ -25,6 +25,9 @@ export { default as Button } from "@/components/Inputs/Button";
 export type { ButtonProps } from "@/components/Inputs/Button";
 export * from "@/components/Inputs/Button";
 
+export { default as NavigationMenu } from "@/components/Navigation/NavigationMenu";
+export * from "@/components/Navigation/NavigationMenu";
+
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
 export * from "@/context/Theme/ThemeProvider";
