@@ -185,7 +185,7 @@ const NavigationMenu = ({
 }: NavigationMenuProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(DEFAULT_CONTEXT_VALUE.isDrawerOpen);
   const isMobile = useMediaQuery("(max-width:480px)");
-  const isTablet = useMediaQuery("(max-width:1024px)");
+  const isTablet = useMediaQuery("(max-width:1024px) and (min-width:481px)");
 
   const closeDrawerMenu = useCallback(() => {
     setIsDrawerOpen(false);
