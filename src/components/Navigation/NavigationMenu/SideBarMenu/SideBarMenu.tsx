@@ -88,9 +88,9 @@ const NavLinkItem = ({ url, end, children, active, NavLink }: NavLinkItemProps) 
   }
 
   return (
-    <a href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
+    <Box component="a" href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
       {children}
-    </a>
+    </Box>
   );
 };
 

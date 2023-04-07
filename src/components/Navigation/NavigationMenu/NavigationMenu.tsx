@@ -23,6 +23,31 @@ export type NavigationItem =
     }
   | ReactNode;
 
+export interface SecondaryMenu {
+  /**
+   * Menu id
+   */
+  id?: string;
+  /**
+   * Menu label
+   */
+  label?: string;
+  /**
+   * Menu icon
+   */
+  iconOpenMenu?: ReactNode;
+  /**
+   * Avatar props
+   */
+  avatar?: {
+    name?: string;
+  };
+  /**
+   * Menu items secondary menu
+   */
+  items: NavigationItem[];
+}
+
 export interface NavigationMenuProps {
   /**
    * Menu items
@@ -35,30 +60,7 @@ export interface NavigationMenuProps {
   /**
    * Menu items for secondary menu
    */
-  secondaryMenu?: {
-    /**
-     * Menu id
-     */
-    id?: string;
-    /**
-     * Menu label
-     */
-    label?: string;
-    /**
-     * Menu icon
-     */
-    iconOpenMenu?: ReactNode;
-    /**
-     * Avatar props
-     */
-    avatar?: {
-      name?: string;
-    };
-    /**
-     * Menu items secondary menu
-     */
-    items: NavigationItem[];
-  };
+  secondaryMenu?: SecondaryMenu;
   /**
    * Override the default translations
    */

@@ -1,4 +1,18 @@
-import { Avatar, Button, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, SvgIcon, Theme, Typography } from "@mui/material";
+import {
+  alpha,
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Stack,
+  SvgIcon,
+  Theme,
+  Typography,
+} from "@mui/material";
 import { isValidElement, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import useMenu from "@/hooks/useMenu";
@@ -28,8 +42,20 @@ const styles = {
     "& > a": {
       color: "inherit",
       display: "flex",
+      paddingX: 2,
+      paddingY: 1,
       textDecoration: "none",
+      width: "100%",
     },
+    "& > a.active": {
+      backgroundColor: (theme: Theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+    },
+    "& > a.active:hover": {
+      backgroundColor: (theme: Theme) =>
+        alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+    },
+    overflow: "hidden",
+    padding: "0 !important",
   },
 };
 
@@ -47,9 +73,9 @@ const NavLinkItem = ({ url, children, active, NavLink }: any) => {
   }
 
   return (
-    <a href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
+    <Box component="a" href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
       {children}
-    </a>
+    </Box>
   );
 };
 
@@ -113,6 +139,7 @@ const SecondaryMenuButton = ({ variant = "button" }: ProfileButtonProps) => {
         onClose={closeMenu}
         anchorOrigin={{ horizontal: "right", vertical: isButton ? "top" : "bottom" }}
         PaperProps={{ sx: { width: 260 } }}
+        onChange={closeMenu}
       >
         {secondaryMenu?.items?.map((item, index) => {
           // Is React Element then return it
@@ -126,7 +153,7 @@ const SecondaryMenuButton = ({ variant = "button" }: ProfileButtonProps) => {
             const key = `${url}-${label}-${index}`;
 
             return (
-              <MenuItem key={key} sx={styles.menuItem} selected={active}>
+              <MenuItem key={key} sx={styles.menuItem} onClick={closeMenu}>
                 <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
                   {icon && <ListItemIcon>{icon}</ListItemIcon>}
                   {label && <ListItemText>{label}</ListItemText>}
