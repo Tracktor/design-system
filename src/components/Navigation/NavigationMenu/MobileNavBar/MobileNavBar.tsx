@@ -23,7 +23,7 @@ export type ObjectArrayItem = {
 type MenuItem = ObjectArrayItem | ReactNode;
 
 export interface MobileNavBarProps {
-  items: MenuItem[];
+  items?: MenuItem[];
   translations?: {
     menu?: string;
   };

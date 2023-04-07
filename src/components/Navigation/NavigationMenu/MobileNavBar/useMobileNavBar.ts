@@ -12,7 +12,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
   const urls = useMemo(
     () =>
       items
-        .filter((item) => {
+        ?.filter((item) => {
           if (isValidElement(items)) {
             return true;
           }
@@ -43,7 +43,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
 
   // Set initial active menu
   useEffect(() => {
-    const activeIndex = urls.findIndex((path) => path === "lien-2");
+    const activeIndex = urls?.findIndex((path) => path === window.location.pathname);
     setActive(activeIndex === -1 ? "menu" : activeIndex);
   }, [setActive, urls]);
 

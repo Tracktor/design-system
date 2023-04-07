@@ -135,7 +135,7 @@ const NavigationMenuFromDevice = () => {
   const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth } =
     useContext(NavigationMenuContext);
 
-  if (isMobile && itemsMobile && !disableResponsive) {
+  if (isMobile && !disableResponsive) {
     return (
       <>
         <MobileNavBar items={itemsMobile} />
