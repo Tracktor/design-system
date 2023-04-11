@@ -1,7 +1,7 @@
 import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
-import NavLinkItem from "src/components/Navigation/NavigationMenu/NavLinkItem";
 import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
+import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
 import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
 export interface SideBarMenuProps {
