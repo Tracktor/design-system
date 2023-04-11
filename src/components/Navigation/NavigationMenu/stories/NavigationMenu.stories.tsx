@@ -257,6 +257,32 @@ WithSecondaryMenu.args = {
   },
 };
 
+export const WithSecondaryMenuSubLabel = Template.bind({});
+WithSecondaryMenuSubLabel.args = {
+  items: ITEMS,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Menu label",
+    subLabel: "Sub label",
+  },
+};
+
+export const WithSecondaryMenuLoading = Template.bind({});
+WithSecondaryMenuLoading.args = {
+  items: ITEMS,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Menu label",
+    loading: true,
+  },
+};
+
 export const WithCustomFooter = Template.bind({});
 WithCustomFooter.args = {
   Footer: (
