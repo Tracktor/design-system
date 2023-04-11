@@ -1,4 +1,4 @@
-import { isValidElement, SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import type { MobileNavBarProps } from "@/components/Navigation/NavigationMenu/MobileNavBar/MobileNavBar";
 
@@ -7,23 +7,26 @@ interface useMobileNavBarParams {
 }
 
 const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
-  const { openDrawerMenu } = useContext(NavigationMenuContext);
+  const { openDrawerMenu, isDrawerOpen } = useContext(NavigationMenuContext);
   const [active, setActive] = useState<string | number>();
   const urls = useMemo(
     () =>
       items
         ?.filter((item) => {
-          if (isValidElement(items)) {
-            return true;
-          }
-
           if (item && typeof item === "object" && "url" in item) {
             return item.url;
           }
 
           return true;
         })
-        .map((item) => item && typeof item === "object" && "url" in item && item?.url),
+        .map((item) => {
+          if (item && typeof item === "object" && "url" in item) {
+            return item.url;
+          }
+
+          return false;
+        })
+        .filter(Boolean) as string[],
     [items]
   );
 
@@ -41,11 +44,17 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
     [openDrawerMenu]
   );
 
-  // Set initial active menu
+  /**
+   * Set active menu item based on the current path
+   */
   useEffect(() => {
-    const activeIndex = urls?.findIndex((path) => path === window.location.pathname);
+    const getFirstSlicePath = (path: string) => String(path).split("/")[1];
+
+    const pathname = getFirstSlicePath(window.location.pathname);
+    const activeIndex = urls?.findIndex((path) => getFirstSlicePath(path) === pathname);
+
     setActive(activeIndex === -1 ? "menu" : activeIndex);
-  }, [setActive, urls]);
+  }, [setActive, urls, isDrawerOpen]);
 
   return {
     active,
