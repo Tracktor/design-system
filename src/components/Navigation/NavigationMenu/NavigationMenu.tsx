@@ -36,6 +36,10 @@ export interface SecondaryMenu {
    */
   label?: string;
   /**
+   * Menu sub label
+   */
+  subLabel?: string;
+  /**
    * Menu icon
    */
   iconOpenMenu?: ReactNode;
@@ -49,6 +53,10 @@ export interface SecondaryMenu {
    * Menu items secondary menu
    */
   items: NavigationItem[];
+  /**
+   * Loading state
+   */
+  loading?: boolean;
 }
 
 export interface NavigationMenuProps {

@@ -2,11 +2,13 @@ import {
   alpha,
   Avatar,
   Button,
+  darken,
   IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
+  Skeleton,
   Stack,
   SvgIcon,
   Theme,
@@ -29,15 +31,16 @@ interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
 
 const styles = {
   avatar: {
-    background: (theme: Theme) => theme.palette.primary.main,
+    background: (theme: Theme) => theme.palette.common.white,
+    color: (theme: Theme) => theme.palette.getContrastText(theme.palette.common.white),
   },
   button: {
     "&:hover": {
       cursor: "pointer",
     },
     borderRadius: 0,
-    borderTop: (theme: Theme) => `solid 1px ${theme.palette.divider}`,
-    color: (theme: Theme) => theme.palette.primary.contrastText,
+    borderTop: (theme: Theme) =>
+      `solid 1px ${theme.palette.mode === "dark" ? theme.palette.divider : alpha(theme.palette.common.white, 0.12)}`,
     justifyContent: "space-between",
     paddingX: 3,
     paddingY: 2,
@@ -66,7 +69,7 @@ const styles = {
 };
 
 const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButtonProps) => {
-  const { secondaryMenu, NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, secondaryMenu, NavLink = props.NavLink } = useContext(NavigationMenuContext);
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
   const firstLetterOfName = secondaryMenu?.avatar?.name?.charAt(0).toUpperCase();
   const isButton = variant === "button";
@@ -75,7 +78,18 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
   return (
     <>
       {isButton && (
-        <Button onClick={openMenu} sx={styles.button}>
+        <Button
+          onClick={openMenu}
+          sx={{
+            ...styles.button,
+            color: ({ palette }: Theme) => {
+              const backgroundColor =
+                palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
+
+              return palette.getContrastText(backgroundColor);
+            },
+          }}
+        >
           <Stack spacing={2} alignItems="center" direction="row">
             {secondaryMenu?.avatar && (
               <Avatar
@@ -85,10 +99,19 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
                   referrerPolicy: "no-referrer",
                 }}
               >
-                {firstLetterOfName}
+                {secondaryMenu?.loading ? null : firstLetterOfName}
               </Avatar>
             )}
-            {isButton && <Typography>{secondaryMenu?.label}</Typography>}
+            {isButton && (
+              <Stack alignItems="flex-start">
+                <Typography>{secondaryMenu?.loading ? <Skeleton width={60} /> : secondaryMenu?.label}</Typography>
+                {secondaryMenu?.subLabel && (
+                  <Typography variant="caption" color="text.secondary">
+                    {secondaryMenu?.subLabel}
+                  </Typography>
+                )}
+              </Stack>
+            )}
           </Stack>
           {isButton &&
             (secondaryMenu?.iconOpenMenu || (
