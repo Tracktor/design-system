@@ -1,33 +1,20 @@
 import { BottomNavigation, BottomNavigationAction, darken, Paper, SvgIcon, Theme, useTheme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
-import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import useMobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar/useMobileNavBar";
 
-interface NavLinkLinkProps {
-  className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
-  onClick?: () => void;
-  to: string;
-  end?: boolean;
-  children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
+interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
+  children?: ReactNode;
+  NavLink: MobileNavBarProps["NavLink"];
 }
 
-export type ObjectArrayItem = {
-  url: string;
-  label: string;
-  count?: number;
-  icon?: ReactNode;
-  active?: boolean;
-};
-
-type MenuItem = ObjectArrayItem | ReactNode;
-
 export interface MobileNavBarProps {
-  items?: MenuItem[];
+  items?: NavigationItem[];
   translations?: {
     menu?: string;
   };
-  NavLink?: (props: NavLinkLinkProps) => ReactElement;
+  NavLink?: (props: NavLinkItemProps) => ReactElement;
 }
 
 const NAV_BAR_HEIGHT = 88;

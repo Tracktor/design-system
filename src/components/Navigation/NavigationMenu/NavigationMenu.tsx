@@ -5,23 +5,26 @@ import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
 import TabletNavBar from "@/components/Navigation/NavigationMenu/TabletNavBar";
 
-export interface NavLinkLinkProps {
+export type ObjectNavigationItem = {
+  url: string;
+  label: string;
+  count?: number;
+  icon?: ReactNode;
+  active?: boolean;
+  state?: any;
+  end?: boolean;
+};
+
+export interface NavLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
   onClick?: () => void;
   to: string;
   end?: boolean;
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
+  state?: any;
 }
 
-export type NavigationItem =
-  | {
-      url: string;
-      label: string;
-      count?: number;
-      icon?: ReactNode;
-      active?: boolean;
-    }
-  | ReactNode;
+export type NavigationItem = ObjectNavigationItem | ReactNode;
 
 export interface SecondaryMenu {
   /**
@@ -103,7 +106,7 @@ export interface NavigationMenuProps {
    * @param props
    * @constructor
    */
-  NavLink?: (props: NavLinkLinkProps) => ReactElement | null;
+  NavLink?: (props: NavLinkProps) => ReactElement | null;
   /**
    * Override the default search field
    */

@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.32.0
-- **[feat]** : navigation components
+## v1.32.1
+- **[fix]** : `NavLink` props : `end` and `state` 

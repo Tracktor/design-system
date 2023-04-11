@@ -1,7 +1,6 @@
 import {
   alpha,
   Avatar,
-  Box,
   Button,
   IconButton,
   ListItemIcon,
@@ -13,12 +12,19 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { isValidElement, useContext } from "react";
-import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+import { isValidElement, ReactElement, ReactNode, useContext } from "react";
+import { NavigationMenuContext, NavLinkProps, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
+import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
 import useMenu from "@/hooks/useMenu";
 
-interface ProfileButtonProps {
+interface SecondaryMenuButtonProps {
   variant?: "button" | "icon";
+  NavLink?: NavLinkItemProps["NavLink"];
+}
+
+interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
+  children?: ReactNode;
+  NavLink?: (props: NavLinkProps) => ReactElement | null;
 }
 
 const styles = {
@@ -59,28 +65,8 @@ const styles = {
   },
 };
 
-const getActiveClass = ({ isActive }: { isActive: boolean }) => (isActive ? "active" : undefined);
-
-const NavLinkItem = ({ url, children, active, NavLink }: any) => {
-  const { closeDrawerMenu } = useContext(NavigationMenuContext);
-
-  if (NavLink) {
-    return (
-      <NavLink to={url} className={getActiveClass} onClick={closeDrawerMenu}>
-        {children}
-      </NavLink>
-    );
-  }
-
-  return (
-    <Box component="a" href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
-      {children}
-    </Box>
-  );
-};
-
-const SecondaryMenuButton = ({ variant = "button" }: ProfileButtonProps) => {
-  const { secondaryMenu, NavLink } = useContext(NavigationMenuContext);
+const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButtonProps) => {
+  const { secondaryMenu, NavLink = props.NavLink } = useContext(NavigationMenuContext);
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
   const firstLetterOfName = secondaryMenu?.avatar?.name?.charAt(0).toUpperCase();
   const isButton = variant === "button";
@@ -149,12 +135,12 @@ const SecondaryMenuButton = ({ variant = "button" }: ProfileButtonProps) => {
 
           // Is Object then return NavLinkItem
           if (item && typeof item === "object" && "url" in item) {
-            const { url, label, icon, active } = item;
+            const { url, label, icon, active, end, state } = item;
             const key = `${url}-${label}-${index}`;
 
             return (
               <MenuItem key={key} sx={styles.menuItem} onClick={closeMenu}>
-                <NavLinkItem url={url} key={key} NavLink={NavLink} active={active}>
+                <NavLinkItem url={url} key={key} component={NavLink} active={active} end={end} state={state}>
                   {icon && <ListItemIcon>{icon}</ListItemIcon>}
                   {label && <ListItemText>{label}</ListItemText>}
                 </NavLinkItem>

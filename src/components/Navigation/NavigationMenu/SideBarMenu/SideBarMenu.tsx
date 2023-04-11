@@ -1,40 +1,15 @@
 import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
-import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+import NavLinkItem from "src/components/Navigation/NavigationMenu/NavLinkItem";
+import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
-interface NavLinkLinkProps {
-  className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
-  onClick?: () => void;
-  to: string;
-  end?: boolean;
-  children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
-}
-
-interface NavLinkItemProps {
-  url: string;
-  children?: ReactNode;
-  NavLink: SideBarMenuProps["NavLink"];
-  end?: boolean;
-  active?: boolean;
-}
-
-type ObjectArrayItem = {
-  url: string;
-  label: string;
-  count?: number;
-  icon?: ReactNode;
-  active?: boolean;
-};
-
-type MenuItem = ObjectArrayItem | ReactNode;
-
 export interface SideBarMenuProps {
-  NavLink?: (props: NavLinkLinkProps) => ReactElement | null;
+  NavLink?: (props: NavLinkProps) => ReactElement | null;
   SearchField?: ReactNode;
   translate?: (str: string) => string;
   disableSearch?: boolean;
-  items?: MenuItem[];
+  items?: NavigationItem[];
 }
 
 const styles = {
@@ -74,26 +49,6 @@ const styles = {
   },
 };
 
-const getActiveClass = ({ isActive }: { isActive: boolean }) => (isActive ? "active" : undefined);
-
-const NavLinkItem = ({ url, end, children, active, NavLink }: NavLinkItemProps) => {
-  const { closeDrawerMenu } = useContext(NavigationMenuContext);
-
-  if (NavLink) {
-    return (
-      <NavLink to={url} className={getActiveClass} onClick={closeDrawerMenu} end={end}>
-        {children}
-      </NavLink>
-    );
-  }
-
-  return (
-    <Box component="a" href={url} onClick={closeDrawerMenu} className={active ? getActiveClass({ isActive: true }) : ""}>
-      {children}
-    </Box>
-  );
-};
-
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
   const {
     disableSearch = props.disableSearch,
@@ -118,7 +73,7 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
 
             return (
               <ListItem key={key} disablePadding disableGutters>
-                <NavLinkItem url={url} NavLink={NavLink} active={active}>
+                <NavLinkItem url={url} component={NavLink} active={active}>
                   {icon}
                   <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
                     {label}
