@@ -49,6 +49,7 @@ const styles = {
   },
   menuItem: {
     "& > a": {
+      alignItems: "center",
       color: "inherit",
       display: "flex",
       paddingX: 2,
