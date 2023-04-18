@@ -1,0 +1,42 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Provider/FeatureEnableProvider"/>
+
+# `FeatureEnableProvider`
+
+Provider to enable/disable features.
+
+### Usage
+
+
+```typescript jsx
+import Home from "./Home";
+import { FeatureEnableProvider } from "@tracktor/design-system";
+
+const App = () => (
+    <FeatureEnableProvider features={["order", "checkout"]}>
+      <Home />
+    </FeatureEnableProvider>
+);
+
+export default App;
+```
+
+Then anywhere in your application like `home.tsx` you can use the hook without give features
+
+```typescript jsx
+import { useFeatureEnabled } from "@tracktor/design-system";
+
+const { getIsFeatureEnabled } = useFeatureEnabled();
+const hasCheckout = getIsFeatureEnabled("checkout");
+const hasBill = getIsFeatureEnabled("bill");
+
+console.log(hasCheckout) // true
+console.log(hasBill) // false
+```
+
+### Props
+
+| Name       | Type   | Required | Description  |
+|------------|--------|----------|--------------|
+| `features` | string | false    | Feature name |

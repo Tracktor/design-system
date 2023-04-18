@@ -1,0 +1,30 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Provider/SnackbarProvider"/>
+
+# `SnackbarProvider`
+
+Provider for the snackbar component.
+
+###  Usage
+
+```typescript jsx
+import { Button, SnackbarProvider, useSnackbar } from "@tracktor/design-system";
+
+const { openSnackbar } = useSnackbar();
+
+const App = () => (
+  <SnackbarProvider>
+    <Button onClick={()=> openSnackbar({message : "Hello", severity: "info"})}>Open Snackbar</Button>
+  </SnackbarProvider>
+);
+
+export default App;
+```
+
+### Props
+
+| Name               | Type           | Required | Description                       |
+|--------------------|----------------|----------|-----------------------------------|
+| `autoHideDuration` | number         | false    | The duration of the snack appears |
+| `anchorOrigin`     | SnackbarOrigin | false    | Position of the snackbar          |
