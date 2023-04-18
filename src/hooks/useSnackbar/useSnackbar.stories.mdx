@@ -1,0 +1,51 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Hooks/useSnackbar"/>
+
+# `useSnackbar`
+
+Utility hook for menu `Snackbar` component.
+
+###  Usage
+
+```typescript jsx
+import { Button, SnackbarProvider, useSnackbar } from "@tracktor/design-system";
+
+const { openSnackbar } = useSnackbar();
+
+const App = () => (
+  <SnackbarProvider>
+    <Button onClick={()=> openSnackbar({message : "Hello", severity: "info"})}>Open Snackbar</Button>
+  </SnackbarProvider>
+);
+
+export default App;
+```
+
+By default the snackbar is a Alert component. You can change it by passing a `component` props.
+
+```typescript jsx
+import { Button, SnackbarProvider, useSnackbar } from "@tracktor/design-system";
+
+const { openSnackbar } = useSnackbar();
+
+const CustomSnackbar = () => (
+  <div>Custom Snackbar</div>
+);
+
+const App = () => (
+  <SnackbarProvider>
+    <Button onClick={()=> openSnackbar({ component: CustomSnackbar})}>Open Snackbar</Button>
+  </SnackbarProvider>
+);
+
+export default App;
+```
+
+### Available state & function
+
+| Name            | Type     | Description               |
+|-----------------|----------|---------------------------|
+| `openSnackbar`  | Function | Open the snackbar         |
+| `closeSnackbar` | Function | Close the snackbar        |
+| `open`          | boolean  | State of current snackbar |

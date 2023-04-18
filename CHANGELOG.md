@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.34.1
-- 🐛 `NavigationMenu` - Fix secondary menu icon alignement
+## v1.35.0
+- 🐛 Add provider `SnackBarProvider` 
+- 🐛 Add hook `useSnackbar` 
