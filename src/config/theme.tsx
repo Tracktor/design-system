@@ -134,9 +134,9 @@ const commonThemeOptions: ThemeOptions = {
         variant: "outlined",
       },
       styleOverrides: {
-        root: {
-          borderRadius: 12,
-        },
+        root: ({ ownerState }) => ({
+          ...(!ownerState.square && { borderRadius: 12 }),
+        }),
       },
       variants: [
         {

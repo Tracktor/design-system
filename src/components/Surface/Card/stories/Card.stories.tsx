@@ -249,6 +249,11 @@ ActionArea.args = {};
 export const ComplexInteraction = TemplateComplexInteraction.bind({});
 ComplexInteraction.args = {};
 
+export const Square = Template.bind({});
+Square.args = {
+  square: true,
+};
+
 export default {
   component: Card,
   title: "Components/Surface/Card",
