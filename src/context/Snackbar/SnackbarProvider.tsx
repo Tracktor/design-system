@@ -1,6 +1,6 @@
 import { Alert, AlertColor, Snackbar } from "@mui/material";
 import type { SnackbarOrigin } from "@mui/material/Snackbar/Snackbar";
-import { createContext, ElementType, PropsWithChildren, useCallback, useMemo, useState } from "react";
+import { createContext, ElementType, PropsWithChildren, SyntheticEvent, useCallback, useMemo, useState } from "react";
 
 interface SnackBarState {
   message: string;
@@ -63,7 +63,11 @@ const SnackbarProvider = ({
     });
   }, []);
 
-  const closeSnackbar = useCallback(() => {
+  const closeSnackbar = useCallback((_?: SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
     setSnackbar((prevState) => ({ ...prevState, open: false }));
   }, []);
 
