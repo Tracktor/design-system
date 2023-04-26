@@ -49,7 +49,7 @@ export const SnackbarContext = createContext<SnackbarContextValue>({
 
 const SnackbarProvider = ({
   children,
-  autoHideDuration = 6000,
+  autoHideDuration = 5000,
   anchorOrigin = { horizontal: "center", vertical: "bottom" },
 }: SnackbarProviderProps) => {
   const [snackbar, setSnackbar] = useState<SnackBarState>(defaultSnackbarState);
@@ -64,7 +64,7 @@ const SnackbarProvider = ({
   }, []);
 
   const closeSnackbar = useCallback(() => {
-    setSnackbar(defaultSnackbarState);
+    setSnackbar((prevState) => ({ ...prevState, open: false }));
   }, []);
 
   const value = useMemo(() => ({ closeSnackbar, open: snackbar.open, openSnackbar }), [closeSnackbar, openSnackbar, snackbar.open]);
