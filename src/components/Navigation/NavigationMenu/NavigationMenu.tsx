@@ -108,6 +108,10 @@ export interface NavigationMenuProps {
    */
   onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   /**
+   * Value of the search field for controlled mode
+   */
+  searchValue?: string;
+  /**
    * Component to router nav links.
    * This component is used to render the links in the main menu &  mobile bottom navigation
    * It should be a react-router-dom NavLink or a compatible component
@@ -189,6 +193,7 @@ const NavigationMenu = ({
   disableResponsive,
   sideBarWidth,
   onSearchChange,
+  searchValue,
   SearchField,
   NavLink,
   Footer,
@@ -224,6 +229,7 @@ const NavigationMenu = ({
       onSearchChange,
       openDrawerMenu,
       SearchField,
+      searchValue,
       secondaryMenu,
       sideBarWidth,
       translations,
@@ -242,6 +248,7 @@ const NavigationMenu = ({
       openDrawerMenu,
       sideBarWidth,
       translations,
+      searchValue,
       Footer,
       Logo,
       NavLink,

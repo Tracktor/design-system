@@ -31,7 +31,7 @@ const styles = {
 };
 
 const TextFieldSearch = ({ fullWidth, ...props }: SearchFieldProps) => {
-  const { backgroundCoefficient, onSearchChange, translations } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, onSearchChange, translations, searchValue } = useContext(NavigationMenuContext);
   const { inputRef } = useTextFieldSearch();
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
@@ -40,6 +40,7 @@ const TextFieldSearch = ({ fullWidth, ...props }: SearchFieldProps) => {
 
   return (
     <TextField
+      value={searchValue}
       size="small"
       placeholder={placeholder}
       fullWidth={fullWidth}
