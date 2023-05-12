@@ -75,7 +75,13 @@ const SnackbarProvider = ({
 
   return (
     <SnackbarContext.Provider value={value}>
-      <Snackbar open={snackbar.open} onClose={closeSnackbar} autoHideDuration={autoHideDuration} anchorOrigin={anchorOrigin}>
+      <Snackbar
+        open={snackbar.open}
+        onClose={closeSnackbar}
+        autoHideDuration={autoHideDuration}
+        anchorOrigin={anchorOrigin}
+        key={snackbar.message}
+      >
         {snackbar.component ? <snackbar.component /> : <Alert severity={snackbar.severity}>{snackbar.message}</Alert>}
       </Snackbar>
       {children}
