@@ -346,6 +346,23 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiTab: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&:first-child": {
+            marginLeft: 0,
+          },
+          "&:last-child": {
+            marginRight: 0,
+          },
+          marginLeft: theme.spacing(1.5),
+          marginRight: theme.spacing(1.5),
+          minWidth: 0,
+          paddingLeft: 0,
+          paddingRight: 0,
+        }),
+      },
+    },
     MuiTableContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
