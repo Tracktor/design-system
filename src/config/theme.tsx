@@ -349,10 +349,10 @@ const commonThemeOptions: ThemeOptions = {
     MuiTab: {
       styleOverrides: {
         root: ({ theme }) => ({
-          "&:first-child": {
+          "&:first-of-type": {
             marginLeft: 0,
           },
-          "&:last-child": {
+          "&:last-of-type": {
             marginRight: 0,
           },
           marginLeft: theme.spacing(1.5),
