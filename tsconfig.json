@@ -22,7 +22,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "importsNotUsedAsValues": "error",
     "noUnusedParameters": true,
     "types": [
       "vitest/globals",

@@ -1,11 +1,15 @@
 import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
 import { ElementType, ForwardedRef, forwardRef, ReactNode } from "react";
 
-export type ButtonProps<C extends ElementType = "button"> = MuiButtonProps<C, { component?: C }> & {
-  loading?: boolean;
-  loadingIndicator?: ReactNode;
-  loadingPosition?: "start" | "end";
-};
+export type ButtonProps<C extends ElementType = "button", P = {}> = MuiButtonProps<
+  C,
+  P & {
+    component?: C;
+    loading?: boolean;
+    loadingIndicator?: ReactNode;
+    loadingPosition?: "start" | "end";
+  }
+>;
 
 interface LoaderProps {
   size: ButtonProps["size"];

@@ -1,11 +1,24 @@
-import type { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import ThemeProvider from "../src/context/Theme/ThemeProvider";
-import { themes } from '@storybook/theming';
-import { useDarkMode } from 'storybook-dark-mode';
+import { themes } from "@storybook/theming";
+import { DARK_MODE_EVENT_NAME, useDarkMode } from "storybook-dark-mode";
+import addons from '@storybook/addons';
+
+const channel = addons.getChannel();
 
 const ThemeWrapper = (props: any) => {
+  const isDarkMode = useDarkMode()
+  const [isDark, setDark] = useState(isDarkMode);
+
+  useEffect(() => {
+    channel.on(DARK_MODE_EVENT_NAME, setDark);
+    return () => {
+      channel.off(DARK_MODE_EVENT_NAME, setDark)
+    }
+  }, [channel, setDark]);
+
   return (
-    <ThemeProvider theme={useDarkMode() ? "dark" : "light"}>
+    <ThemeProvider theme={isDark ? "dark" : "light"}>
       {props.children}
     </ThemeProvider>
   );
@@ -24,7 +37,7 @@ export const parameters = {
     },
     darkClass: "dark-on",
     lightClass: "lights-on",
-    current: 'dark',
+    current: "dark",
     stylePreview: true,
   },
   docs: {
