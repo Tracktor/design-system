@@ -85,82 +85,82 @@ const IconWithLabelTemplate: ComponentStory<typeof Button> = () => (
 const TemplateLoading: ComponentStory<typeof Button> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <Stack spacing={2} alignItems="center">
-      <Button size="small" variant="outlined" {...args}>
+      <Button size="small" isLoading variant="outlined" {...args}>
         S outlined
       </Button>
-      <Button size="medium" variant="outlined" {...args}>
+      <Button size="medium" isLoading variant="outlined" {...args}>
         M outlined
       </Button>
-      <Button size="large" variant="outlined" {...args}>
+      <Button size="large" isLoading variant="outlined" {...args}>
         L outlined
       </Button>
-      <Button variant="outlined" loadingIndicator="Loading..." {...args}>
+      <Button variant="outlined" isLoading loadingIndicator="Loading..." {...args}>
         Loading indicator outlined
       </Button>
-      <Button variant="outlined" loading fullWidth {...args}>
+      <Button variant="outlined" isLoading fullWidth {...args}>
         Full Width outlined
       </Button>
-      <Button variant="outlined" loading loadingIndicator="Loading..." fullWidth {...args}>
+      <Button variant="outlined" isLoading loadingIndicator="Loading..." fullWidth {...args}>
         Full Width indicator outlined
       </Button>
-      <Button variant="outlined" loading loadingPosition="start" {...args}>
+      <Button variant="outlined" isLoading loadingPosition="start" {...args}>
         Loading start
       </Button>
-      <Button variant="outlined" loading loadingPosition="end" {...args}>
+      <Button variant="outlined" isLoading loadingPosition="end" {...args}>
         Loading end
       </Button>
     </Stack>
 
     <Stack spacing={2} alignItems="center">
-      <Button size="small" variant="text" {...args}>
+      <Button size="small" variant="text" isLoading {...args}>
         S text
       </Button>
-      <Button size="medium" variant="text" {...args}>
+      <Button size="medium" variant="text" isLoading {...args}>
         M text
       </Button>
-      <Button size="large" variant="text" {...args}>
+      <Button size="large" variant="text" isLoading {...args}>
         L text
       </Button>
-      <Button variant="text" loadingIndicator="Loading..." {...args}>
+      <Button variant="text" loadingIndicator="Loading..." isLoading {...args}>
         Loading indicator text
       </Button>
-      <Button variant="text" loading fullWidth {...args}>
+      <Button variant="text" isLoading fullWidth {...args}>
         Full Width text
       </Button>
-      <Button variant="text" loading loadingIndicator="Loading..." fullWidth {...args}>
+      <Button variant="text" isLoading loadingIndicator="Loading..." fullWidth {...args}>
         Full Width indicator text
       </Button>
-      <Button variant="text" loading loadingPosition="start" {...args}>
+      <Button variant="text" isLoading loadingPosition="start" {...args}>
         Loading start text
       </Button>
-      <Button variant="text" loading loadingPosition="end" {...args}>
+      <Button variant="text" isLoading loadingPosition="end" {...args}>
         Loading end text
       </Button>
     </Stack>
 
     <Stack spacing={2} alignItems="center">
-      <Button variant="contained" size="small" {...args}>
+      <Button variant="contained" size="small" isLoading {...args}>
         S contained
       </Button>
-      <Button size="medium" variant="contained" {...args}>
+      <Button size="medium" variant="contained" isLoading {...args}>
         M contained
       </Button>
-      <Button variant="contained" size="large" {...args}>
+      <Button variant="contained" size="large" isLoading {...args}>
         L contained
       </Button>
-      <Button variant="contained" loadingIndicator="Loading..." {...args}>
+      <Button variant="contained" loadingIndicator="Loading..." isLoading {...args}>
         Loading indicator contained
       </Button>
-      <Button variant="contained" loading fullWidth {...args}>
+      <Button variant="contained" isLoading fullWidth {...args}>
         Full Width contained
       </Button>
-      <Button variant="contained" loading loadingIndicator="Loading..." fullWidth {...args}>
+      <Button variant="contained" isLoading loadingIndicator="Loading..." fullWidth {...args}>
         Full Width indicator contained
       </Button>
-      <Button variant="text" loading loadingPosition="start" {...args}>
+      <Button variant="text" isLoading loadingPosition="start" {...args}>
         Loading start contained
       </Button>
-      <Button variant="text" loading loadingPosition="end" {...args}>
+      <Button variant="text" isLoading loadingPosition="end" {...args}>
         Loading end contained
       </Button>
     </Stack>
