@@ -20,6 +20,8 @@ export type { ButtonProps } from "@/components/Inputs/Button";
 export * from "@/components/Inputs/Button";
 export { default as NavigationMenu } from "@/components/Navigation/NavigationMenu";
 export * from "@/components/Navigation/NavigationMenu";
+export { default as ListItemCard } from "@/components/DataDisplay/ListItemCard";
+export * from "@/components/DataDisplay/ListItemCard";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";

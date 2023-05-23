@@ -13,6 +13,7 @@ import {
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useState } from "react";
 import List from "./List";
+import ListItemCard from "@/components/DataDisplay/ListItemCard";
 
 const Template: ComponentStory<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
@@ -144,6 +145,31 @@ const TemplateNested: ComponentStory<typeof List> = (args) => {
   );
 };
 
+const TemplateListItemCard: ComponentStory<typeof List> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
+      <ListItemCard isLoading size="small" />
+      <ListItemCard size="small">Small brunch this weekend ?</ListItemCard>
+      <ListItemCard size="small">Small summer BBQ</ListItemCard>
+      <ListItemCard size="small">Small Tracktor vibes</ListItemCard>
+    </List>
+    <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
+      <ListItemCard isLoading />
+      <ListItemCard>Medium brunch this weekend ?</ListItemCard>
+      <ListItemCard>Medium summer BBQ</ListItemCard>
+      <ListItemCard>Medium Tracktor vibes</ListItemCard>
+    </List>
+    <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
+      <ListItemCard size="large" isLoading>
+        Brunch this weekend ?
+      </ListItemCard>
+      <ListItemCard size="large">Large brunch this weekend ?</ListItemCard>
+      <ListItemCard size="large">Large summer BBQ</ListItemCard>
+      <ListItemCard size="large">Large Tracktor vibes</ListItemCard>
+    </List>
+  </Stack>
+);
+
 export const Basic = Template.bind({});
 Basic.args = {};
 
@@ -160,6 +186,9 @@ TemplateAlignItemsList.args = {};
 
 export const NestedList = TemplateNested.bind({});
 NestedList.args = {};
+
+export const ListOfCard = TemplateListItemCard.bind({});
+ListOfCard.args = {};
 
 export default {
   component: List,
