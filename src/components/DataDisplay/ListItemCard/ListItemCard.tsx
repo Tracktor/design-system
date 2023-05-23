@@ -1,5 +1,5 @@
 import { Alert, Box, Card, Skeleton, SxProps } from "@mui/material";
-import { memo, ReactNode } from "react";
+import { ForwardedRef, forwardRef, memo, ReactNode } from "react";
 
 const DEFAULT_EMPTY_MESSAGE = "No data";
 
@@ -40,14 +40,25 @@ export interface ListItemCardProps {
   size?: "small" | "medium" | "large";
 }
 
-const ListItemCard = ({ children, isEmpty, isLoading, emptyMessage, sx, height, size = "medium" }: ListItemCardProps) => {
+const ListItemCard = (
+  { children, isEmpty, isLoading, emptyMessage, sx, height, size = "medium" }: ListItemCardProps,
+  ref: ForwardedRef<HTMLLIElement | HTMLDivElement>
+) => {
   if (isLoading) {
-    return <Skeleton width="100%" variant="rounded" height={height || SIZES[size]} sx={{ marginBottom: 1 }} />;
+    return (
+      <Skeleton
+        width="100%"
+        variant="rounded"
+        height={height || SIZES[size]}
+        sx={{ marginBottom: 1 }}
+        ref={ref as ForwardedRef<HTMLDivElement>}
+      />
+    );
   }
 
   if (isEmpty) {
     return (
-      <Alert severity="info" sx={{ width: "100%" }}>
+      <Alert severity="info" sx={{ width: "100%" }} ref={ref as ForwardedRef<HTMLDivElement>}>
         {emptyMessage || DEFAULT_EMPTY_MESSAGE}
       </Alert>
     );
@@ -68,10 +79,11 @@ const ListItemCard = ({ children, isEmpty, isLoading, emptyMessage, sx, height, 
       }}
       variant="outlined"
       component="li"
+      ref={ref as ForwardedRef<HTMLDivElement>}
     >
       <Box flex="auto">{children}</Box>
     </Card>
   );
 };
 
-export default memo(ListItemCard);
+export default memo(forwardRef(ListItemCard));
