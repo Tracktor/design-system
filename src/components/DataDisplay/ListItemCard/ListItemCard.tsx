@@ -1,5 +1,6 @@
-import { Alert, Box, Card, Skeleton, SxProps } from "@mui/material";
-import { ForwardedRef, forwardRef, memo, ReactNode } from "react";
+import { Alert, Box, Card, ListItem, ListItemProps, Skeleton } from "@mui/material";
+import * as React from "react";
+import { ForwardedRef, forwardRef, memo, PropsWithChildren } from "react";
 
 const DEFAULT_EMPTY_MESSAGE = "No data";
 
@@ -9,7 +10,7 @@ const SIZES = {
   small: 40,
 };
 
-export interface ListItemCardProps {
+export interface ListItemCardProps extends ListItemProps {
   /**
    * If list is loading item render loading skeleton
    */
@@ -19,17 +20,9 @@ export interface ListItemCardProps {
    */
   isEmpty?: boolean;
   /**
-   * List item content
-   */
-  children?: ReactNode;
-  /**
    * Empty message if list is empty
    */
   emptyMessage?: string;
-  /**
-   * Custom styles
-   */
-  sx?: SxProps;
   /**
    * Set custom height
    */
@@ -40,20 +33,21 @@ export interface ListItemCardProps {
   size?: "small" | "medium" | "large";
 }
 
+interface RootComponentProps extends PropsWithChildren {
+  disabled?: boolean;
+  className?: string;
+}
+
+const Component = (props: RootComponentProps, ref: ForwardedRef<HTMLLIElement>) => (
+  <Card component="li" ref={ref as ForwardedRef<HTMLDivElement>} {...props} />
+);
+
 const ListItemCard = (
-  { children, isEmpty, isLoading, emptyMessage, sx, height, size = "medium" }: ListItemCardProps,
-  ref: ForwardedRef<HTMLLIElement | HTMLDivElement>
+  { children, isEmpty, isLoading, emptyMessage, sx, height, size = "medium", ...props }: ListItemCardProps,
+  ref: ForwardedRef<HTMLLIElement>
 ) => {
   if (isLoading) {
-    return (
-      <Skeleton
-        width="100%"
-        variant="rounded"
-        height={height || SIZES[size]}
-        sx={{ marginBottom: 1 }}
-        ref={ref as ForwardedRef<HTMLDivElement>}
-      />
-    );
+    return <Skeleton width="100%" variant="rounded" height={height || SIZES[size]} sx={{ marginBottom: 1 }} ref={ref} />;
   }
 
   if (isEmpty) {
@@ -65,7 +59,9 @@ const ListItemCard = (
   }
 
   return (
-    <Card
+    <ListItem
+      component={forwardRef(Component)}
+      ref={ref}
       sx={{
         ...{
           alignItems: "center",
@@ -77,12 +73,10 @@ const ListItemCard = (
         },
         ...sx,
       }}
-      variant="outlined"
-      component="li"
-      ref={ref as ForwardedRef<HTMLDivElement>}
+      {...props}
     >
       <Box flex="auto">{children}</Box>
-    </Card>
+    </ListItem>
   );
 };
 

@@ -1,5 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.36.1
-- **[feat]** - add ForwardedRef to ListItemCard
-- **[core]** - improve type for Logo
+## v1.36.2
+- **[feat]** - improve `ListItemCard` component@
