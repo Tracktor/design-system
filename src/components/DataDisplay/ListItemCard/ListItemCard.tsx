@@ -34,13 +34,16 @@ export interface ListItemCardProps extends ListItemProps {
 }
 
 interface RootComponentProps extends PropsWithChildren {
-  disabled?: boolean;
   className?: string;
 }
 
-const Component = (props: RootComponentProps, ref: ForwardedRef<HTMLLIElement>) => (
-  <Card component="li" ref={ref as ForwardedRef<HTMLDivElement>} {...props} />
+const RootComponent = ({ className, children }: RootComponentProps, ref: ForwardedRef<HTMLLIElement>) => (
+  <Card component="li" ref={ref as ForwardedRef<HTMLDivElement>} className={className}>
+    {children}
+  </Card>
 );
+
+const RootComponentWithForwardRef = forwardRef(RootComponent);
 
 const ListItemCard = (
   { children, isEmpty, isLoading, emptyMessage, sx, height, size = "medium", ...props }: ListItemCardProps,
@@ -60,7 +63,7 @@ const ListItemCard = (
 
   return (
     <ListItem
-      component={forwardRef(Component)}
+      component={RootComponentWithForwardRef}
       ref={ref}
       sx={{
         ...{
