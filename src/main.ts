@@ -22,6 +22,8 @@ export { default as NavigationMenu } from "@/components/Navigation/NavigationMen
 export * from "@/components/Navigation/NavigationMenu";
 export { default as ListItemCard } from "@/components/DataDisplay/ListItemCard";
 export * from "@/components/DataDisplay/ListItemCard";
+export { default as StatusIcon } from "@/components/DataDisplay/StatusIcon";
+export * from "@/components/DataDisplay/StatusIcon";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
