@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.37.1
-- **[build]** - simplify main export
+## v1.37.2
+- **[build]** - fix some type export
