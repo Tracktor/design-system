@@ -6,39 +6,34 @@ import hasFeature from "@/utils/hasFeature";
  * Hook to manage the state of a feature.
  */
 export const useFeatureEnabled = () => {
-  const { features: featureContext, setFeatures } = useContext(FeatureEnableContext);
+  const { features: featureFromContext, setFeatures, disabledFeatures } = useContext(FeatureEnableContext);
 
   const getIsFeatureEnabled = useCallback(
     (name: string | string[], features?: string[]): boolean => {
-      const userFeature = features || featureContext;
+      const allFeatures = [...(features || []), ...(featureFromContext || [])];
+      const userFeatureWithFilteredDisabled = allFeatures.filter((feature) => !disabledFeatures?.includes(feature));
 
-      if (!userFeature) {
+      if (!userFeatureWithFilteredDisabled) {
         return false;
       }
 
       if (Array.isArray(name)) {
-        return name.every((nameString) => hasFeature(nameString, userFeature));
+        return name.every((nameString) => hasFeature(nameString, userFeatureWithFilteredDisabled));
       }
 
-      return hasFeature(name, userFeature);
+      return hasFeature(name, userFeatureWithFilteredDisabled);
     },
-    [featureContext]
+    [disabledFeatures, featureFromContext]
   );
 
   const appendFeature = useCallback(
     (name: string): void => {
-      setFeatures((prevState) => {
-        if (prevState) {
-          return [...prevState, name];
-        }
-
-        return undefined;
-      });
+      setFeatures((prevState) => [...(prevState || []), name]);
     },
     [setFeatures]
   );
 
-  return { appendFeature, getIsFeatureEnabled };
+  return { appendFeature, features: featureFromContext, getIsFeatureEnabled };
 };
 
 export default useFeatureEnabled;

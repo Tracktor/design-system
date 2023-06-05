@@ -62,4 +62,23 @@ describe("Test useIsFeatureEnabled", () => {
 
     expect(isFeatureEnabled).toBe(expected);
   });
+
+  it.each([
+    ["should feature2 disabled", "feature2", false],
+    ["should feature1 enabled", "feature1", true],
+  ])("%s and features provided by context", (_, name, expected) => {
+    const features = ["feature1", "feature2", "feature3"];
+    const disabledFeatures = ["feature2"];
+
+    const wrapper = ({ children }: any) => (
+      <FeatureEnableProvider features={features} disabledFeatures={disabledFeatures}>
+        {children}
+      </FeatureEnableProvider>
+    );
+    const { result } = renderHook(() => useFeatureEnabled(), { wrapper });
+    const { getIsFeatureEnabled } = result.current;
+    const isFeatureEnabled = getIsFeatureEnabled(name);
+
+    expect(isFeatureEnabled).toBe(expected);
+  });
 });
