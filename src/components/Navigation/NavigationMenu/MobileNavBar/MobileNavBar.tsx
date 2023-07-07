@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, darken, Paper, SvgIcon, Theme, useTheme } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, darken, GlobalStyles, Paper, SvgIcon, Theme, useTheme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -43,6 +43,7 @@ const styles = {
     left: 0,
     position: "fixed",
     right: 0,
+    zIndex: 9999,
   },
 };
 
@@ -90,6 +91,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
           }
         />
       </BottomNavigation>
+      <GlobalStyles styles={{ body: { paddingBottom: NAV_BAR_HEIGHT } }} />
     </Paper>
   );
 };

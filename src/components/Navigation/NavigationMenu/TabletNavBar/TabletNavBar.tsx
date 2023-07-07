@@ -1,4 +1,4 @@
-import { AppBar, Box, darken, IconButton, Stack, SvgIcon, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, darken, GlobalStyles, IconButton, Stack, SvgIcon, Toolbar, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import { NavigationMenuContext, SecondaryMenu } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -28,14 +28,14 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
   return (
     <AppBar
       position="fixed"
+      elevation={0}
       sx={{
         background: backgroundColor,
         borderBottom: (theme) => `1px solid ${theme.palette.mode === "dark" ? theme.palette.divider : backgroundColor}`,
         height: TABLET_NAV_BAR_HEIGHT,
       }}
-      elevation={0}
     >
-      <Toolbar component={Stack} direction="row" spacing={3}>
+      <Toolbar component={Stack} direction="row" spacing={3} height="100%">
         <Box>
           <IconButton onClick={openDrawerMenu} edge="end" color="inherit" aria-label="menu">
             <SvgIcon>
@@ -50,6 +50,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
         )}
         {secondaryMenu && <SecondaryMenuButton variant="icon" />}
       </Toolbar>
+      <GlobalStyles styles={{ body: { paddingTop: TABLET_NAV_BAR_HEIGHT } }} />
     </AppBar>
   );
 };
