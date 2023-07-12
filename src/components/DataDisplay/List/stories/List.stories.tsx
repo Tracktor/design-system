@@ -170,6 +170,14 @@ const TemplateListItemCard: ComponentStory<typeof List> = (args) => (
   </Stack>
 );
 
+const TemplateListItemCardEmpty: ComponentStory<typeof List> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
+      <ListItemCard size="small" isEmpty />
+    </List>
+  </Stack>
+);
+
 export const Basic = Template.bind({});
 Basic.args = {};
 
@@ -189,6 +197,9 @@ NestedList.args = {};
 
 export const ListOfCard = TemplateListItemCard.bind({});
 ListOfCard.args = {};
+
+export const ListOfCardEmpty = TemplateListItemCardEmpty.bind({});
+ListOfCardEmpty.args = {};
 
 export default {
   component: List,

@@ -50,14 +50,16 @@ const ListItemCard = (
   ref: ForwardedRef<HTMLLIElement>
 ) => {
   if (isLoading) {
-    return <Skeleton width="100%" variant="rounded" height={height || SIZES[size]} sx={{ marginBottom: 1 }} ref={ref} />;
+    return <Skeleton width="100%" variant="rounded" height={height || SIZES[size]} sx={{ marginBottom: 1 }} ref={ref} component="li" />;
   }
 
   if (isEmpty) {
     return (
-      <Alert severity="info" sx={{ width: "100%" }} ref={ref as ForwardedRef<HTMLDivElement>}>
-        {emptyMessage || DEFAULT_EMPTY_MESSAGE}
-      </Alert>
+      <ListItem disablePadding>
+        <Alert severity="info" sx={{ width: "100%" }} ref={ref as ForwardedRef<HTMLDivElement>}>
+          {emptyMessage || DEFAULT_EMPTY_MESSAGE}
+        </Alert>
+      </ListItem>
     );
   }
 
