@@ -57,7 +57,7 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
   } = useContext(NavigationMenuContext);
 
   return (
-    <Box px={2}>
+    <Box px={2} component="nav">
       {!disableSearch && (SearchField || <TextFieldSearch fullWidth />)}
       <List sx={{ ...styles.list }}>
         {items?.map((item, index) => {

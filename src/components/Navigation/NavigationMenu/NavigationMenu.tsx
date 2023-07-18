@@ -146,7 +146,7 @@ const DEFAULT_CONTEXT_VALUE = {
 
 export const NavigationMenuContext = createContext<NavigationMenuContextValue>(DEFAULT_CONTEXT_VALUE);
 
-const NavigationMenuFromDevice = () => {
+const NavigationMenuFactory = () => {
   const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth } =
     useContext(NavigationMenuContext);
 
@@ -259,7 +259,7 @@ const NavigationMenu = ({
 
   return (
     <NavigationMenuContext.Provider value={value}>
-      <NavigationMenuFromDevice />
+      <NavigationMenuFactory />
     </NavigationMenuContext.Provider>
   );
 };

@@ -65,6 +65,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
         showLabels
         value={active}
         onChange={handleChangeNavigation}
+        component="nav"
       >
         {items?.map((item, index) => {
           // If the item is a React element, return it as is
