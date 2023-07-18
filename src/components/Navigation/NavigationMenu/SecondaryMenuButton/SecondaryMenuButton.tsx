@@ -143,13 +143,20 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
       )}
 
       <Menu
-        id={secondaryMenu?.id || "ProfileButtonMenu"}
+        id={secondaryMenu?.id || "SecondaryBottomMenu"}
         anchorEl={anchorMenu}
         open={isMenuOpen}
         onClose={closeMenu}
-        anchorOrigin={{ horizontal: "right", vertical: isButton ? "top" : "bottom" }}
-        PaperProps={{ sx: { width: 260 } }}
         onChange={closeMenu}
+        anchorOrigin={{
+          horizontal: "right",
+          vertical: isButton ? "top" : "bottom",
+        }}
+        PaperProps={{
+          sx: {
+            width: 260,
+          },
+        }}
       >
         {secondaryMenu?.items?.map((item, index) => {
           // Is React Element then return it
