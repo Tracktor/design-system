@@ -1,7 +1,8 @@
-const path = require("path");
-const {mergeConfig} = require("vite");
+import type { StorybookConfig } from "@storybook/react-vite";
+import { mergeConfig } from "vite";
+import path from "path";
 
-module.exports = {
+const config: StorybookConfig = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -12,15 +13,17 @@ module.exports = {
   core: {
     "builder": "@storybook/builder-vite"
   },
-  framework: "@storybook/react",
+  docs: {
+    autodocs: "tag",
+  },
   features: {
     "storyStoreV7": true
   },
-  stories: [
-    "../src/stories/Introduction/Introduction.stories.mdx",
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
+  },
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   typescript: {
     reactDocgen: "react-docgen-typescript"
   },
@@ -31,4 +34,5 @@ module.exports = {
       }
     });
   },
-}
+};
+export default config;

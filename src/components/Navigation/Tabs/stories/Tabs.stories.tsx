@@ -1,5 +1,5 @@
 import { Box, SvgIcon, Tab, Typography, useTheme } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { ReactNode, SyntheticEvent, useState } from "react";
 import Tabs from "./Tabs";
 import LinkTabComponent from "@/components/Navigation/Tabs/LinkTab/LinkTab";
@@ -24,7 +24,7 @@ const TabPanel = (props: TabPanelProps) => {
   );
 };
 
-const Template: ComponentStory<typeof Tabs> = (args, { name }) => {
+const Template: StoryFn<typeof Tabs> = (args, { name }) => {
   const [value, setValue] = useState(0);
   const isDisabledContext = name === "Disabled";
   const isScrollableContext = name === "Scrollable";
@@ -70,7 +70,7 @@ const Template: ComponentStory<typeof Tabs> = (args, { name }) => {
   );
 };
 
-const WrappedLabelsTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
+const WrappedLabelsTemplate: StoryFn<typeof Tabs> = (args, { name }) => {
   const [value, setValue] = useState("one");
 
   const handleChange = (_: SyntheticEvent, newValue: string) => {
@@ -90,7 +90,7 @@ const WrappedLabelsTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
   );
 };
 
-const VerticalTemplate: ComponentStory<typeof Tabs> = (args) => {
+const VerticalTemplate: StoryFn<typeof Tabs> = (args) => {
   const [value, setValue] = useState(0);
   const { palette } = useTheme();
 
@@ -144,7 +144,7 @@ const VerticalTemplate: ComponentStory<typeof Tabs> = (args) => {
   );
 };
 
-const IconTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
+const IconTemplate: StoryFn<typeof Tabs> = (args, { name }) => {
   const isIconWithLabelContext = name === "Icon With Label";
   const [value, setValue] = useState(0);
 
@@ -213,7 +213,7 @@ const IconTemplate: ComponentStory<typeof Tabs> = (args, { name }) => {
   );
 };
 
-const LinkTabsTemplate: ComponentStory<typeof Tabs> = (args) => {
+const LinkTabsTemplate: StoryFn<typeof Tabs> = (args) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (_: SyntheticEvent, newValue: number) => {
@@ -295,4 +295,4 @@ LinkTab.args = {};
 export default {
   component: Tabs,
   title: "Components/Navigation/Tabs",
-} as ComponentMeta<typeof Tabs>;
+} as Meta<typeof Tabs>;

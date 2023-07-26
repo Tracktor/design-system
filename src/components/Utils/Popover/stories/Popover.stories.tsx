@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { MouseEvent, useState } from "react";
 import Popover from "./Popover";
 
-const Template: ComponentStory<typeof Popover> = (args) => {
+const Template: StoryFn<typeof Popover> = (args) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -46,4 +46,4 @@ CustomPosition.args = {
 export default {
   component: Popover,
   title: "Components/Utils/Popover",
-} as ComponentMeta<typeof Popover>;
+} as Meta<typeof Popover>;

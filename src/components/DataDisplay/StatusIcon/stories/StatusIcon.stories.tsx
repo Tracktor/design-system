@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import StatusIcon from "./StatusIcon";
 
-const Template: ComponentStory<typeof StatusIcon> = (args) => (
+const Template: StoryFn<typeof StatusIcon> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <StatusIcon {...args} />
     <StatusIcon color="primary" {...args} />
@@ -36,4 +36,4 @@ CustomFontSize.args = {
 export default {
   component: StatusIcon,
   title: "Components/Data Display/StatusIcon",
-} as ComponentMeta<typeof StatusIcon>;
+} as Meta<typeof StatusIcon>;

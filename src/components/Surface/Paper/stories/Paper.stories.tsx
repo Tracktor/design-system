@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Paper from "./Paper";
 
-const Template: ComponentStory<typeof Paper> = (args) => (
+const Template: StoryFn<typeof Paper> = (args) => (
   <Stack
     sx={{
       "& > :not(style)": {
@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof Paper> = (args) => (
   </Stack>
 );
 
-const ElevationTemplate: ComponentStory<typeof Paper> = (args) => (
+const ElevationTemplate: StoryFn<typeof Paper> = (args) => (
   <Stack
     sx={{
       "& > :not(style)": {
@@ -61,4 +61,4 @@ Elevation.args = {};
 export default {
   component: Paper,
   title: "Components/Surface/Paper",
-} as ComponentMeta<typeof Paper>;
+} as Meta<typeof Paper>;

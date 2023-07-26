@@ -1,10 +1,10 @@
 import { FormControlLabel, FormGroup, Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Checkbox from "./Checkbox";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-const Template: ComponentStory<typeof Checkbox> = (args) => (
+const Template: StoryFn<typeof Checkbox> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Checkbox {...label} defaultChecked {...args} />
     <Checkbox {...label} {...args} />
@@ -13,7 +13,7 @@ const Template: ComponentStory<typeof Checkbox> = (args) => (
   </Stack>
 );
 
-const TemplateLabel: ComponentStory<typeof Checkbox> = (args) => (
+const TemplateLabel: StoryFn<typeof Checkbox> = (args) => (
   <Stack alignItems="center" justifyContent="center" height="100%">
     <FormGroup>
       <FormControlLabel control={<Checkbox defaultChecked {...args} />} label="Label" />
@@ -22,7 +22,7 @@ const TemplateLabel: ComponentStory<typeof Checkbox> = (args) => (
   </Stack>
 );
 
-const TemplateColor: ComponentStory<typeof Checkbox> = (args) => (
+const TemplateColor: StoryFn<typeof Checkbox> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Checkbox {...label} defaultChecked {...args} />
     <Checkbox {...label} defaultChecked color="secondary" {...args} />
@@ -46,4 +46,4 @@ Color.args = {};
 export default {
   component: Checkbox,
   title: "Components/Inputs/Checkbox",
-} as ComponentMeta<typeof Checkbox>;
+} as Meta<typeof Checkbox>;

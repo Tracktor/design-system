@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Chip from "./Chip";
 
-const Template: ComponentStory<typeof Chip> = (args) => (
+const Template: StoryFn<typeof Chip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Chip size="xSmall" label="xSmall" {...args} />
     <Chip size="small" label="small" {...args} />
@@ -10,7 +10,7 @@ const Template: ComponentStory<typeof Chip> = (args) => (
   </Stack>
 );
 
-const TemplateColor: ComponentStory<typeof Chip> = (args) => (
+const TemplateColor: StoryFn<typeof Chip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Stack spacing={1}>
       <Chip variant="outlined" label="outlined default" color="default" {...args} />
@@ -65,4 +65,4 @@ Colors.args = {
 export default {
   component: Chip,
   title: "Components/Data Display/Chip",
-} as ComponentMeta<typeof Chip>;
+} as Meta<typeof Chip>;

@@ -107,6 +107,8 @@ workflows:
       equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - publish-storybook-docker:
+          name: Publish Storybook
           context: *production_context
       - publish-npm:
+          name: Publish NPM
           context: *production_context

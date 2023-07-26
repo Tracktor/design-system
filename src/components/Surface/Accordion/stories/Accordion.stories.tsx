@@ -1,5 +1,5 @@
 import { AccordionDetails, AccordionSummary, Stack, Typography, useTheme } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Accordion from "./Accordion";
 
 const ArrowIcon = () => {
@@ -17,7 +17,7 @@ const ArrowIcon = () => {
   );
 };
 
-const Template: ComponentStory<typeof Accordion> = (args) => (
+const Template: StoryFn<typeof Accordion> = (args) => (
   <Stack spacing={0} alignItems="stretch" justifyContent="center" height="100%">
     <Accordion {...args}>
       <AccordionSummary expandIcon={<ArrowIcon />} aria-controls="panel1a-content" id="panel1a-header">
@@ -47,7 +47,7 @@ const Template: ComponentStory<typeof Accordion> = (args) => (
   </Stack>
 );
 
-const TemplateRight: ComponentStory<typeof Accordion> = (args) => (
+const TemplateRight: StoryFn<typeof Accordion> = (args) => (
   <Stack spacing={0} alignItems="stretch" justifyContent="center" height="100%">
     <Accordion {...args}>
       <AccordionSummary expandIcon={<ArrowIcon />} aria-controls="panel1a-content" id="panel1a-header" sx={{ textAlign: "right" }}>
@@ -125,4 +125,4 @@ AlignRight.args = {};
 export default {
   component: Accordion,
   title: "Components/Surface/Accordion",
-} as ComponentMeta<typeof Accordion>;
+} as Meta<typeof Accordion>;

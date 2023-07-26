@@ -1,5 +1,5 @@
 import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, SelectChangeEvent, Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Select from "./Select";
 
@@ -27,7 +27,7 @@ const names = [
   "Kelly Snyder",
 ];
 
-const Template: ComponentStory<typeof Select> = (args) => {
+const Template: StoryFn<typeof Select> = (args) => {
   const [age, setAge] = useState("");
   const { variant } = args;
 
@@ -61,7 +61,7 @@ const Template: ComponentStory<typeof Select> = (args) => {
   );
 };
 
-const TemplateText: ComponentStory<typeof Select> = (args) => {
+const TemplateText: StoryFn<typeof Select> = (args) => {
   const [age, setAge] = useState("20");
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -81,7 +81,7 @@ const TemplateText: ComponentStory<typeof Select> = (args) => {
   );
 };
 
-const TemplateCheckmarks: ComponentStory<typeof Select> = (args) => {
+const TemplateCheckmarks: StoryFn<typeof Select> = (args) => {
   const [personName, setPersonName] = useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
@@ -145,4 +145,4 @@ Checkmarks.args = {};
 export default {
   component: Select,
   title: "Components/Inputs/Select",
-} as ComponentMeta<typeof Select>;
+} as Meta<typeof Select>;

@@ -1,5 +1,5 @@
 import { Box, Paper } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Grid from "./Grid";
 
 const PaperStyle = {
@@ -7,7 +7,7 @@ const PaperStyle = {
   textAlign: "center",
 };
 
-const Template: ComponentStory<typeof Grid> = (args) => (
+const Template: StoryFn<typeof Grid> = (args) => (
   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
     <Grid container {...args}>
       <Grid item xs={8}>
@@ -34,7 +34,7 @@ const Template: ComponentStory<typeof Grid> = (args) => (
   </Box>
 );
 
-const MultipleBreakpointTemplate: ComponentStory<typeof Grid> = (args) => (
+const MultipleBreakpointTemplate: StoryFn<typeof Grid> = (args) => (
   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
     <Grid container {...args}>
       <Grid item xs={6} md={8}>
@@ -61,7 +61,7 @@ const MultipleBreakpointTemplate: ComponentStory<typeof Grid> = (args) => (
   </Box>
 );
 
-const RowAndColumnSpacingTemplate: ComponentStory<typeof Grid> = (args) => (
+const RowAndColumnSpacingTemplate: StoryFn<typeof Grid> = (args) => (
   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
     <Grid container {...args}>
       <Grid item xs={8}>
@@ -88,7 +88,7 @@ const RowAndColumnSpacingTemplate: ComponentStory<typeof Grid> = (args) => (
   </Box>
 );
 
-const AutoLayoutTemplate: ComponentStory<typeof Grid> = (args) => (
+const AutoLayoutTemplate: StoryFn<typeof Grid> = (args) => (
   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
     <Grid container {...args}>
       <Grid item xs>
@@ -110,7 +110,7 @@ const AutoLayoutTemplate: ComponentStory<typeof Grid> = (args) => (
   </Box>
 );
 
-const VariableWidthContentTemplate: ComponentStory<typeof Grid> = (args) => (
+const VariableWidthContentTemplate: StoryFn<typeof Grid> = (args) => (
   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
     <Grid container {...args}>
       <Grid item xs="auto">
@@ -132,7 +132,7 @@ const VariableWidthContentTemplate: ComponentStory<typeof Grid> = (args) => (
   </Box>
 );
 
-const CustomColumnsNumberTemplate: ComponentStory<typeof Grid> = (args) => (
+const CustomColumnsNumberTemplate: StoryFn<typeof Grid> = (args) => (
   <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
     <Grid container {...args}>
       <Grid item xs={8}>
@@ -195,4 +195,4 @@ CustomColumnsNumber.args = {
 export default {
   component: Grid,
   title: "Components/Layout/Grid",
-} as ComponentMeta<typeof Grid>;
+} as Meta<typeof Grid>;

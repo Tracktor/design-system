@@ -1,8 +1,8 @@
 import { Box, Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import IfFeatureEnable from "../IfFeatureEnable";
 
-const Template: ComponentStory<typeof IfFeatureEnable> = (args) => (
+const Template: StoryFn<typeof IfFeatureEnable> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
     <IfFeatureEnable {...args}>
       <code>
@@ -24,4 +24,4 @@ IfNotFeature.args = {};
 export default {
   component: IfFeatureEnable,
   title: "Components/Layout/IfFeatureEnable",
-} as ComponentMeta<typeof IfFeatureEnable>;
+} as Meta<typeof IfFeatureEnable>;

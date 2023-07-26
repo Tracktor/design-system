@@ -1,5 +1,5 @@
 import { Box, Button, Fade, Stack, styled, tooltipClasses, TooltipProps, Typography, Zoom } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Tooltip from "./Tooltip";
 
 const CustomWidthTooltip = styled(({ children, className, ...props }: TooltipProps) => (
@@ -28,7 +28,7 @@ Praesent non nunc mollis, fermentum neque at, semper arcu.
 Nullam eget est sed sem iaculis gravida eget vitae justo.
 `;
 
-const Template: ComponentStory<typeof Tooltip> = (args) => (
+const Template: StoryFn<typeof Tooltip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Tooltip {...args} title="Hello Bro !">
       <Box
@@ -43,7 +43,7 @@ const Template: ComponentStory<typeof Tooltip> = (args) => (
   </Stack>
 );
 
-const TemplateVariableWidth: ComponentStory<typeof Tooltip> = (args) => (
+const TemplateVariableWidth: StoryFn<typeof Tooltip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Tooltip {...args} title={longText}>
       <Button sx={{ m: 1 }}>Default Width [300px]</Button>
@@ -57,7 +57,7 @@ const TemplateVariableWidth: ComponentStory<typeof Tooltip> = (args) => (
   </Stack>
 );
 
-const TemplateTransition: ComponentStory<typeof Tooltip> = (args) => (
+const TemplateTransition: StoryFn<typeof Tooltip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Tooltip {...args} title="Add">
       <Button>Grow</Button>
@@ -119,4 +119,4 @@ export default {
   },
   component: Tooltip,
   title: "Components/Data Display/Tooltip",
-} as ComponentMeta<typeof Tooltip>;
+} as Meta<typeof Tooltip>;

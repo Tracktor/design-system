@@ -1,11 +1,11 @@
 import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, SvgIcon } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { Fragment, KeyboardEvent, MouseEvent, useState } from "react";
 import Drawer from "./Drawer";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
-const Template: ComponentStory<typeof Drawer> = (args) => {
+const Template: StoryFn<typeof Drawer> = (args) => {
   const [state, setState] = useState({
     bottom: false,
     left: false,
@@ -87,4 +87,4 @@ Basic.args = {};
 export default {
   component: Drawer,
   title: "Components/Navigation/Drawer",
-} as ComponentMeta<typeof Drawer>;
+} as Meta<typeof Drawer>;

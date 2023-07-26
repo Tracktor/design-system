@@ -1,9 +1,9 @@
 import { Box, Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Slider from "./Slider";
 
-const Template: ComponentStory<typeof Slider> = (args) => (
+const Template: StoryFn<typeof Slider> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Box width={250}>
       <Slider defaultValue={30} aria-label="Disabled slider" {...args} />
@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof Slider> = (args) => (
   </Stack>
 );
 
-const TemplateRange: ComponentStory<typeof Slider> = (args) => {
+const TemplateRange: StoryFn<typeof Slider> = (args) => {
   const [value, setValue] = useState<number[]>([20, 40]);
 
   const handleChange = (_: Event, newValue: number | number[]) => {
@@ -55,4 +55,4 @@ RangeSliders.args = {};
 export default {
   component: Slider,
   title: "Components/Inputs/Slider",
-} as ComponentMeta<typeof Slider>;
+} as Meta<typeof Slider>;

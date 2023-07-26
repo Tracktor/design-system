@@ -1,5 +1,5 @@
 import { Button, List, ListItem, ListItemIcon, ListItemText, MenuItem, Stack, SvgIcon, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
 
@@ -10,7 +10,7 @@ const OPTIONS = [
   "Hide all notification content",
 ];
 
-const Template: ComponentStory<typeof Menu> = (args, { parameters }) => {
+const Template: StoryFn<typeof Menu> = (args, { parameters }) => {
   const buttonRef = useRef(null);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -210,4 +210,4 @@ Selected.parameters = {
 export default {
   component: Menu,
   title: "Components/Navigation/Menu",
-} as ComponentMeta<typeof Menu>;
+} as Meta<typeof Menu>;

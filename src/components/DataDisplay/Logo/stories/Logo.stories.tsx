@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Logo from "./Logo";
 
-const Template: ComponentStory<typeof Logo> = (args) => (
+const Template: StoryFn<typeof Logo> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Logo {...args} />
   </Stack>
@@ -44,4 +44,4 @@ CustomSize.args = {
 export default {
   component: Logo,
   title: "Components/Data Display/Logo",
-} as ComponentMeta<typeof Logo>;
+} as Meta<typeof Logo>;

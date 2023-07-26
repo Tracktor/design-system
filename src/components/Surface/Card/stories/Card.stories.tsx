@@ -17,13 +17,13 @@ import {
   useTheme,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Card from "./Card";
 
 const image = "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e";
 
-const Template: ComponentStory<typeof Card> = (args) => (
+const Template: StoryFn<typeof Card> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Card sx={{ minWidth: 275 }} {...args}>
       <CardContent>
@@ -69,7 +69,7 @@ const Template: ComponentStory<typeof Card> = (args) => (
   </Stack>
 );
 
-const TemplateMedia: ComponentStory<typeof Card> = (args) => (
+const TemplateMedia: StoryFn<typeof Card> = (args) => (
   <Stack spacing={0} alignItems="center" justifyContent="center" height="100%">
     <Card sx={{ maxWidth: 345 }} {...args}>
       <CardMedia component="img" height="140" image={image} alt="PME" />
@@ -89,7 +89,7 @@ const TemplateMedia: ComponentStory<typeof Card> = (args) => (
   </Stack>
 );
 
-const TemplateAction: ComponentStory<typeof Card> = (args) => (
+const TemplateAction: StoryFn<typeof Card> = (args) => (
   <Stack spacing={0} alignItems="center" justifyContent="center" height="100%">
     <Card sx={{ maxWidth: 345 }} {...args}>
       <CardActionArea>
@@ -137,7 +137,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-const TemplateComplexInteraction: ComponentStory<typeof Card> = (args) => {
+const TemplateComplexInteraction: StoryFn<typeof Card> = (args) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -257,4 +257,4 @@ Square.args = {
 export default {
   component: Card,
   title: "Components/Surface/Card",
-} as ComponentMeta<typeof Card>;
+} as Meta<typeof Card>;

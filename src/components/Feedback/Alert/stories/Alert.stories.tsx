@@ -1,8 +1,8 @@
 import { AlertTitle, Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Alert from "./Alert";
 
-const Template: ComponentStory<typeof Alert> = (args) => (
+const Template: StoryFn<typeof Alert> = (args) => (
   <Stack spacing={2} alignItems="stretch" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
     <Alert {...args}>
       This is an <strong>default</strong> severity alert — check it out!
@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof Alert> = (args) => (
   </Stack>
 );
 
-const TemplateWithTitle: ComponentStory<typeof Alert> = (args) => (
+const TemplateWithTitle: StoryFn<typeof Alert> = (args) => (
   <Stack spacing={2} alignItems="stretch" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
     <Alert {...args}>
       <AlertTitle>Default</AlertTitle>
@@ -73,4 +73,4 @@ WithTitle.args = {};
 export default {
   component: Alert,
   title: "Components/Feedback/Alert",
-} as ComponentMeta<typeof Alert>;
+} as Meta<typeof Alert>;

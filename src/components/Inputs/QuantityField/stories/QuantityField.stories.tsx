@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import QuantityField from "../QuantityField";
 
-const Template: ComponentStory<typeof QuantityField> = (args) => {
+const Template: StoryFn<typeof QuantityField> = (args) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   return (
@@ -25,4 +25,4 @@ FullWidth.args = {
 export default {
   component: QuantityField,
   title: "Components/Inputs/QuantityField",
-} as ComponentMeta<typeof QuantityField>;
+} as Meta<typeof QuantityField>;

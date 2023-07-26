@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Link from "./Link";
 
-const Template: ComponentStory<typeof Link> = () => (
+const Template: StoryFn<typeof Link> = () => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Link>Basic</Link>
     <Link color="inherit">color=&quot;inherit&quot;</Link>
@@ -10,7 +10,7 @@ const Template: ComponentStory<typeof Link> = () => (
   </Stack>
 );
 
-const UnderlineTemplate: ComponentStory<typeof Link> = () => (
+const UnderlineTemplate: StoryFn<typeof Link> = () => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Link underline="none">underline=&quot;none&quot;</Link>
     <Link underline="hover">underline=&quot;hover&quot;</Link>
@@ -18,7 +18,7 @@ const UnderlineTemplate: ComponentStory<typeof Link> = () => (
   </Stack>
 );
 
-const VariantTemplate: ComponentStory<typeof Link> = () => (
+const VariantTemplate: StoryFn<typeof Link> = () => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Link variant="h1">h1</Link>
     <Link variant="h2">h2</Link>
@@ -48,4 +48,4 @@ Underline.args = {};
 export default {
   component: Link,
   title: "Components/Navigation/Link",
-} as ComponentMeta<typeof Link>;
+} as Meta<typeof Link>;

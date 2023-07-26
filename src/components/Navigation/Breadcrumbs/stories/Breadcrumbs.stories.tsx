@@ -1,5 +1,5 @@
 import { Box, Chip, emphasize, Link, styled, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import Breadcrumbs from "./Breadcrumbs";
 
@@ -8,7 +8,7 @@ const handleClick = (event: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {
   console.info("You clicked a breadcrumb.");
 };
 
-const Template: ComponentStory<typeof Breadcrumbs> = (args) => (
+const Template: StoryFn<typeof Breadcrumbs> = (args) => (
   <Box onClick={handleClick} display="flex" alignItems="center" justifyContent="center" height="100%">
     <Breadcrumbs aria-label="breadcrumb" {...args}>
       <Link underline="hover" color="inherit" href="/">
@@ -39,7 +39,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   };
 }) as typeof Chip;
 
-const CustomTemplate: ComponentStory<typeof Breadcrumbs> = (args) => (
+const CustomTemplate: StoryFn<typeof Breadcrumbs> = (args) => (
   <Box onClick={handleClick} display="flex" alignItems="center" justifyContent="center" height="100%">
     <Breadcrumbs aria-label="breadcrumb" {...args}>
       <StyledBreadcrumb component="a" href="#" label="Home" />
@@ -68,4 +68,4 @@ Custom.args = {};
 export default {
   component: Breadcrumbs,
   title: "Components/Navigation/Breadcrumbs",
-} as ComponentMeta<typeof Breadcrumbs>;
+} as Meta<typeof Breadcrumbs>;

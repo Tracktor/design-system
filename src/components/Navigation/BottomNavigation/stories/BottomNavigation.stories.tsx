@@ -1,9 +1,9 @@
 import { BottomNavigationAction, Box, SvgIcon } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import BottomNavigation from "./BottomNavigation";
 
-const Template: ComponentStory<typeof BottomNavigation> = (args) => {
+const Template: StoryFn<typeof BottomNavigation> = (args) => {
   const [value, setValue] = useState(0);
 
   return (
@@ -70,4 +70,4 @@ Basic.args = {};
 export default {
   component: BottomNavigation,
   title: "Components/Navigation/BottomNavigation",
-} as ComponentMeta<typeof BottomNavigation>;
+} as Meta<typeof BottomNavigation>;
