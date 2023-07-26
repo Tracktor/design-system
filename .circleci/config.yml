@@ -94,14 +94,16 @@ workflows:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
-      - run-tests
+      - run-tests:
+          name: Run Tests
   Visual Test:
     when:
       and:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
-      - chromatic-deployment
+      - chromatic-deployment:
+          name: Chromatic Deployment
   Release:
     when:
       equal: [ master, << pipeline.git.branch >> ]
