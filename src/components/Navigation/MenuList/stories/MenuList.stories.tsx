@@ -1,8 +1,8 @@
 import { Divider, ListItemIcon, ListItemText, MenuItem, Paper, Stack, SvgIcon, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import MenuList from "./MenuList";
 
-const BasicTemplate: ComponentStory<typeof MenuList> = (args) => (
+const BasicTemplate: StoryFn<typeof MenuList> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Paper sx={{ maxWidth: "100%", width: 320 }}>
       <MenuList {...args}>
@@ -33,7 +33,7 @@ const BasicTemplate: ComponentStory<typeof MenuList> = (args) => (
   </Stack>
 );
 
-const IconTemplate: ComponentStory<typeof MenuList> = (args) => (
+const IconTemplate: StoryFn<typeof MenuList> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Paper sx={{ maxWidth: "100%", width: 320 }}>
       <MenuList {...args}>
@@ -130,4 +130,4 @@ Dense.args = {
 export default {
   component: MenuList,
   title: "Components/Navigation/MenuList",
-} as ComponentMeta<typeof MenuList>;
+} as Meta<typeof MenuList>;

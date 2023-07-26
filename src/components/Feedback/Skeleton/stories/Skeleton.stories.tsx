@@ -1,5 +1,5 @@
 import { Box, Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { ComponentStory, Meta } from "@storybook/react";
 import Skeleton from "./Skeleton";
 
 const Template: ComponentStory<typeof Skeleton> = (args) => (
@@ -73,4 +73,4 @@ Pulsate.args = {};
 export default {
   component: Skeleton,
   title: "Components/Feedback/Skeleton",
-} as ComponentMeta<typeof Skeleton>;
+} as Meta<typeof Skeleton>;

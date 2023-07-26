@@ -1,9 +1,9 @@
 import { Stack, ToggleButtonGroup } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import { useState, MouseEvent } from "react";
+import type { Meta, StoryFn } from "@storybook/react";
+import { MouseEvent, useState } from "react";
 import ToggleButton from "./ToggleButton";
 
-const TemplateExclusive: ComponentStory<typeof ToggleButton> = (args) => {
+const TemplateExclusive: StoryFn<typeof ToggleButton> = (args) => {
   const [value, setValue] = useState<string | null>("b");
 
   const handleAlignment = (_: MouseEvent<HTMLElement>, newValue: string | null) => {
@@ -27,7 +27,7 @@ const TemplateExclusive: ComponentStory<typeof ToggleButton> = (args) => {
   );
 };
 
-const TemplateMultiple: ComponentStory<typeof ToggleButton> = (args) => {
+const TemplateMultiple: StoryFn<typeof ToggleButton> = (args) => {
   const [value, setValue] = useState<string[] | null>(() => ["a", "c"]);
 
   const handleAlignment = (_: MouseEvent<HTMLElement>, newValue: string[] | null) => {
@@ -60,4 +60,4 @@ MultipleSelection.args = {};
 export default {
   component: ToggleButton,
   title: "Components/Inputs/ToggleButton",
-} as ComponentMeta<typeof ToggleButton>;
+} as Meta<typeof ToggleButton>;

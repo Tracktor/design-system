@@ -1,5 +1,5 @@
 import { Box, Button, Collapse, Paper, Stack, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Table from "./Table";
 
@@ -89,7 +89,7 @@ const Row = (props: { row: ReturnType<typeof createData> }) => {
   );
 };
 
-const Template: ComponentStory<typeof Table> = (args) => {
+const Template: StoryFn<typeof Table> = (args) => {
   const { stickyHeader } = args;
 
   return (
@@ -124,7 +124,7 @@ const Template: ComponentStory<typeof Table> = (args) => {
   );
 };
 
-const TemplateColumnGrouping: ComponentStory<typeof Table> = (args) => {
+const TemplateColumnGrouping: StoryFn<typeof Table> = (args) => {
   const { stickyHeader } = args;
 
   return (
@@ -167,7 +167,7 @@ const TemplateColumnGrouping: ComponentStory<typeof Table> = (args) => {
   );
 };
 
-const TemplateCollapsible: ComponentStory<typeof Table> = (args) => (
+const TemplateCollapsible: StoryFn<typeof Table> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table" {...args}>
@@ -213,4 +213,4 @@ CollapsibleTable.args = {};
 export default {
   component: Table,
   title: "Components/Data Display/Table",
-} as ComponentMeta<typeof Table>;
+} as Meta<typeof Table>;

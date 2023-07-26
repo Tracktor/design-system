@@ -1,5 +1,5 @@
 import { Box, Chip, Grid, Stack, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Divider from "./Divider";
 
 const content = (
@@ -9,7 +9,7 @@ const content = (
   </Typography>
 );
 
-const Template: ComponentStory<typeof Divider> = (args) => (
+const Template: StoryFn<typeof Divider> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Box width="100%">
       <Divider {...args} />
@@ -17,7 +17,7 @@ const Template: ComponentStory<typeof Divider> = (args) => (
   </Stack>
 );
 
-const TemplateWithText: ComponentStory<typeof Divider> = (args) => (
+const TemplateWithText: StoryFn<typeof Divider> = (args) => (
   <Box display="flex" justifyContent="center">
     <Box maxWidth={500} sx={{ border: "solid 1px", borderColor: "divider", borderRadius: 2, p: 2 }}>
       {content}
@@ -39,7 +39,7 @@ const TemplateWithText: ComponentStory<typeof Divider> = (args) => (
   </Box>
 );
 
-const TemplateVertical: ComponentStory<typeof Divider> = (args) => (
+const TemplateVertical: StoryFn<typeof Divider> = (args) => (
   <Box display="flex" justifyContent="center" alignItems="center" height="100%">
     <Box maxWidth={500} sx={{ border: "solid 1px", borderColor: "divider", borderRadius: 2, p: 2 }}>
       <Grid container>
@@ -69,4 +69,4 @@ Vertical.args = {};
 export default {
   component: Divider,
   title: "Components/Data Display/Divider",
-} as ComponentMeta<typeof Divider>;
+} as Meta<typeof Divider>;

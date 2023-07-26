@@ -1,9 +1,9 @@
 import { Button, CircularProgress, Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Backdrop from "./Backdrop";
 
-const Template: ComponentStory<typeof Backdrop> = (args) => {
+const Template: StoryFn<typeof Backdrop> = (args) => {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -30,4 +30,4 @@ Basic.args = {};
 export default {
   component: Backdrop,
   title: "Components/Feedback/Backdrop",
-} as ComponentMeta<typeof Backdrop>;
+} as Meta<typeof Backdrop>;

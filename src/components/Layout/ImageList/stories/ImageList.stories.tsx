@@ -1,5 +1,5 @@
 import { Box, IconButton, ImageListItem, ImageListItemBar, ListSubheader, SvgIcon } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import ImageList from "./ImageList";
 
 const itemData = [
@@ -114,7 +114,7 @@ const MasonryitemData = [
   },
 ];
 
-const Template: ComponentStory<typeof ImageList> = (args) => (
+const Template: StoryFn<typeof ImageList> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <ImageList {...args}>
       {itemData.map((item) => (
@@ -136,7 +136,7 @@ const srcset = (image: string, size: number, rows = 1, cols = 1) => ({
   srcSet: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format&dpr=2 2x`,
 });
 
-const TemplateQuilted: ComponentStory<typeof ImageList> = (args) => (
+const TemplateQuilted: StoryFn<typeof ImageList> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <ImageList sx={{ height: 450, width: 500 }} rowHeight={121} {...args}>
       {itemData.map((item) => (
@@ -148,7 +148,7 @@ const TemplateQuilted: ComponentStory<typeof ImageList> = (args) => (
   </Box>
 );
 
-const MasonryTemplate: ComponentStory<typeof ImageList> = (args) => (
+const MasonryTemplate: StoryFn<typeof ImageList> = (args) => (
   <Box justifyContent="center" height="100%" display="flex">
     <ImageList {...args}>
       {MasonryitemData.map((item) => (
@@ -165,7 +165,7 @@ const MasonryTemplate: ComponentStory<typeof ImageList> = (args) => (
   </Box>
 );
 
-const TitleBarTemplate: ComponentStory<typeof ImageList> = (args) => (
+const TitleBarTemplate: StoryFn<typeof ImageList> = (args) => (
   <Box justifyContent="center" height="100%" display="flex">
     <ImageList sx={{ height: 450, width: 500 }} {...args}>
       <ImageListItem key="Subheader" cols={2}>
@@ -231,4 +231,4 @@ WithTitleBar.args = {
 export default {
   component: ImageList,
   title: "Components/Layout/ImageList",
-} as ComponentMeta<typeof ImageList>;
+} as Meta<typeof ImageList>;

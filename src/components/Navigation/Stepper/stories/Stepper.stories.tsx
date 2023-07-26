@@ -13,7 +13,7 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { ReactElement, ReactNode, useState } from "react";
 import Stepper from "./Stepper";
 
@@ -202,7 +202,7 @@ const ColorLibStepIcon = (props: StepIconProps) => {
   );
 };
 
-const Template: ComponentStory<typeof Stepper> = (args) => {
+const Template: StoryFn<typeof Stepper> = (args) => {
   const [activeStep, setActiveStep] = useState(0);
   const [skipped, setSkipped] = useState(new Set<number>());
 
@@ -300,7 +300,7 @@ const Template: ComponentStory<typeof Stepper> = (args) => {
   );
 };
 
-const AlternativeLabelTemplate: ComponentStory<typeof Stepper> = (args) => (
+const AlternativeLabelTemplate: StoryFn<typeof Stepper> = (args) => (
   <Box display="flex" justifyContent="center" alignItems="center" height="100%">
     <Box sx={{ width: "100%" }}>
       <Stepper activeStep={1} {...args}>
@@ -314,7 +314,7 @@ const AlternativeLabelTemplate: ComponentStory<typeof Stepper> = (args) => (
   </Box>
 );
 
-const ErrorStepTemplate: ComponentStory<typeof Stepper> = (args) => {
+const ErrorStepTemplate: StoryFn<typeof Stepper> = (args) => {
   const isStepFailed = (step: number) => step === 1;
 
   return (
@@ -347,7 +347,7 @@ const ErrorStepTemplate: ComponentStory<typeof Stepper> = (args) => {
   );
 };
 
-const CustomizedHorizontalTemplate: ComponentStory<typeof Stepper> = (args) => (
+const CustomizedHorizontalTemplate: StoryFn<typeof Stepper> = (args) => (
   <Box display="flex" justifyContent="center" alignItems="center" height="100%">
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />} {...args}>
@@ -368,7 +368,7 @@ const CustomizedHorizontalTemplate: ComponentStory<typeof Stepper> = (args) => (
   </Box>
 );
 
-const VerticalTemplate: ComponentStory<typeof Stepper> = (args) => {
+const VerticalTemplate: StoryFn<typeof Stepper> = (args) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -446,4 +446,4 @@ Vertical.args = {
 export default {
   component: Stepper,
   title: "Components/Navigation/Stepper",
-} as ComponentMeta<typeof Stepper>;
+} as Meta<typeof Stepper>;

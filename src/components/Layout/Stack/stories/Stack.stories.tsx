@@ -1,5 +1,5 @@
 import { Box, Divider, Paper } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Stack from "./Stack";
 
 const PaperStyle = {
@@ -7,7 +7,7 @@ const PaperStyle = {
   textAlign: "center",
 };
 
-const Template: ComponentStory<typeof Stack> = (args) => (
+const Template: StoryFn<typeof Stack> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <Stack spacing={2} {...args}>
       <Paper variant="outlined" sx={PaperStyle}>
@@ -52,4 +52,4 @@ ResponsiveValue.args = {
 export default {
   component: Stack,
   title: "Components/Layout/Stack",
-} as ComponentMeta<typeof Stack>;
+} as Meta<typeof Stack>;

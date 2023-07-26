@@ -1,5 +1,5 @@
 import { IconButton, Stack, SvgIcon } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Button from "./Button";
 
 const AddShoppingCartIcon = () => (
@@ -26,7 +26,7 @@ const AlarmIcon = () => (
   </SvgIcon>
 );
 
-const Template: ComponentStory<typeof Button> = (args) => (
+const Template: StoryFn<typeof Button> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <Button size="small" color="inherit" {...args}>
       Small inherit
@@ -58,7 +58,7 @@ const Template: ComponentStory<typeof Button> = (args) => (
   </Stack>
 );
 
-const IconTemplate: ComponentStory<typeof Button> = () => (
+const IconTemplate: StoryFn<typeof Button> = () => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <IconButton color="primary" aria-label="upload picture" component="label">
       <input hidden accept="image/*" type="file" />
@@ -71,7 +71,7 @@ const IconTemplate: ComponentStory<typeof Button> = () => (
   </Stack>
 );
 
-const IconWithLabelTemplate: ComponentStory<typeof Button> = () => (
+const IconWithLabelTemplate: StoryFn<typeof Button> = () => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <Button variant="outlined" startIcon={<AddShoppingCartIcon />}>
       Add to cart
@@ -82,7 +82,7 @@ const IconWithLabelTemplate: ComponentStory<typeof Button> = () => (
   </Stack>
 );
 
-const TemplateLoading: ComponentStory<typeof Button> = (args) => (
+const TemplateLoading: StoryFn<typeof Button> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <Stack spacing={2} alignItems="center">
       <Button size="small" isLoading variant="outlined" {...args}>
@@ -167,7 +167,7 @@ const TemplateLoading: ComponentStory<typeof Button> = (args) => (
   </Stack>
 );
 
-const ButtonAsLinkTemplate: ComponentStory<typeof Button> = () => (
+const ButtonAsLinkTemplate: StoryFn<typeof Button> = () => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <Button component="a">Button as link</Button>
   </Stack>
@@ -205,4 +205,4 @@ ButtonAsLink.args = {};
 export default {
   component: Button,
   title: "Components/Inputs/Button",
-} as ComponentMeta<typeof Button>;
+} as Meta<typeof Button>;

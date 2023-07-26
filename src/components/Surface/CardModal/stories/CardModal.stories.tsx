@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import CardModal from "../CardModal";
 
-const Template: ComponentStory<typeof CardModal> = (args) => (
+const Template: StoryFn<typeof CardModal> = (args) => (
   <Stack spacing={0} alignItems="center" justifyContent="center" height="100%">
     <CardModal {...args}>
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -33,4 +33,4 @@ Outlined.args = {
 export default {
   component: CardModal,
   title: "Components/Surface/CardModal",
-} as ComponentMeta<typeof CardModal>;
+} as Meta<typeof CardModal>;

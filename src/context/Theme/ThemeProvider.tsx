@@ -1,7 +1,7 @@
 import { css, CssBaseline, GlobalStyles, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import type { ThemeOptions } from "@mui/material/styles/createTheme";
 import type { ReactNode } from "react";
-import { commonTheme } from "@/config/theme";
+import { commonTheme } from "@/config/theme.config";
 import { defaultFontWeight } from "@/constants/fonts";
 import useThemeProvider from "@/context/Theme/useThemeProvider";
 

@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Fab from "./Fab";
 
-const Template: ComponentStory<typeof Fab> = (args) => (
+const Template: StoryFn<typeof Fab> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Fab color="primary" aria-label="add" {...args}>
       X
@@ -25,4 +25,4 @@ Basic.args = {};
 export default {
   component: Fab,
   title: "Components/Inputs/Floating action button",
-} as ComponentMeta<typeof Fab>;
+} as Meta<typeof Fab>;

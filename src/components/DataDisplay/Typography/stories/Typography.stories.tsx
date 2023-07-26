@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Typography from "./Typography";
 
-const Template: ComponentStory<typeof Typography> = () => (
+const Template: StoryFn<typeof Typography> = () => (
   <Stack spacing={2} textAlign="left">
     <Typography variant="h1" gutterBottom>
       h1. Heading
@@ -54,4 +54,4 @@ AllVariant.args = {};
 export default {
   component: Typography,
   title: "Components/Data Display/Typography",
-} as ComponentMeta<typeof Typography>;
+} as Meta<typeof Typography>;

@@ -1,8 +1,8 @@
 import { Button, Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import ButtonGroup from "./ButtonGroup";
 
-const Template: ComponentStory<typeof ButtonGroup> = (args) => (
+const Template: StoryFn<typeof ButtonGroup> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <ButtonGroup color="error" size="small" aria-label="Button group" {...args}>
       <Button>One</Button>
@@ -47,4 +47,4 @@ Vertical.args = {
 export default {
   component: ButtonGroup,
   title: "Components/Inputs/ButtonGroup",
-} as ComponentMeta<typeof ButtonGroup>;
+} as Meta<typeof ButtonGroup>;

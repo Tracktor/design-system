@@ -1,10 +1,10 @@
-import { Stack, AvatarGroup, Badge } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import { AvatarGroup, Badge, Stack } from "@mui/material";
+import type { Meta, StoryFn } from "@storybook/react";
 import Avatar from "./Avatar";
 
 const avatarSrc = "https://avatars.githubusercontent.com/u/16801167?s=200&v=4";
 
-const TemplateImage: ComponentStory<typeof Avatar> = (args) => (
+const TemplateImage: StoryFn<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Avatar src={avatarSrc} sx={{ height: 24, width: 24 }} {...args} />
     <Avatar src={avatarSrc} {...args} />
@@ -12,7 +12,7 @@ const TemplateImage: ComponentStory<typeof Avatar> = (args) => (
   </Stack>
 );
 
-const TemplateLetter: ComponentStory<typeof Avatar> = (args) => (
+const TemplateLetter: StoryFn<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Avatar sx={{ height: 24, width: 24 }} {...args}>
       T
@@ -24,7 +24,7 @@ const TemplateLetter: ComponentStory<typeof Avatar> = (args) => (
   </Stack>
 );
 
-const TemplateGrouped: ComponentStory<typeof Avatar> = (args) => (
+const TemplateGrouped: StoryFn<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <AvatarGroup max={4}>
       <Avatar alt="Tracktor" src={avatarSrc} {...args} />
@@ -36,7 +36,7 @@ const TemplateGrouped: ComponentStory<typeof Avatar> = (args) => (
   </Stack>
 );
 
-const TemplateBadge: ComponentStory<typeof Avatar> = (args) => (
+const TemplateBadge: StoryFn<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Badge
       overlap="circular"
@@ -83,4 +83,4 @@ WithBadge.args = {};
 export default {
   component: Avatar,
   title: "Components/Data Display/Avatar",
-} as ComponentMeta<typeof Avatar>;
+} as Meta<typeof Avatar>;

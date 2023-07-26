@@ -1,15 +1,15 @@
 import { Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import TextField from "./TextField";
 
-const Template: ComponentStory<typeof TextField> = (args) => (
+const Template: StoryFn<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <TextField id="small" label="Small" size="small" {...args} />
     <TextField id="medium" label="Medium" size="medium" {...args} />
   </Stack>
 );
 
-const TemplateFile: ComponentStory<typeof TextField> = (args) => (
+const TemplateFile: StoryFn<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <TextField size="small" {...args} />
     <TextField size="medium" {...args} />
@@ -85,4 +85,4 @@ MultilineFilled.args = {
 export default {
   component: TextField,
   title: "Components/Inputs/TextField",
-} as ComponentMeta<typeof TextField>;
+} as Meta<typeof TextField>;

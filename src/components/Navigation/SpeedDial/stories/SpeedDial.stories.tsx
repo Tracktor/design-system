@@ -1,5 +1,5 @@
 import { Box, SpeedDialAction, SpeedDialIcon, SvgIcon } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import SpeedDial from "./SpeedDial";
 
 const actions = [
@@ -37,7 +37,7 @@ const actions = [
   },
 ];
 
-const Template: ComponentStory<typeof SpeedDial> = (args) => {
+const Template: StoryFn<typeof SpeedDial> = (args) => {
   const { openIcon } = args;
 
   return (
@@ -84,4 +84,4 @@ CustomOpenIcon.args = {
 export default {
   component: SpeedDial,
   title: "Components/Navigation/SpeedDial",
-} as ComponentMeta<typeof SpeedDial>;
+} as Meta<typeof SpeedDial>;

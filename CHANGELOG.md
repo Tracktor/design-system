@@ -1,4 +1,7 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
 ## v1.38.4
-- **[fix]** - Change id bottom menu for `NavigationMenu`
+- **[chore]** - Update storybook v6 to v7
+- **[chore]** - Update dependencies
+- **[chore]** - Improve peer dependencies
+- **[chore]** - Add job name to CI

@@ -1,9 +1,9 @@
 import { Stack, Typography } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Rating from "./Rating";
 
-const Template: ComponentStory<typeof Rating> = (args) => {
+const Template: StoryFn<typeof Rating> = (args) => {
   const [value, setValue] = useState<null | number>(2);
 
   return (
@@ -27,14 +27,14 @@ const Template: ComponentStory<typeof Rating> = (args) => {
   );
 };
 
-const TemplatePrecision: ComponentStory<typeof Rating> = (args) => (
+const TemplatePrecision: StoryFn<typeof Rating> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Rating name="half-rating" defaultValue={2.5} precision={0.5} {...args} />
     <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly {...args} />
   </Stack>
 );
 
-const TemplateSizes: ComponentStory<typeof Rating> = (args) => (
+const TemplateSizes: StoryFn<typeof Rating> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Rating name="size-small" defaultValue={2} size="small" {...args} />
     <Rating name="size-medium" defaultValue={2} {...args} />
@@ -54,4 +54,4 @@ Sizes.args = {};
 export default {
   component: Rating,
   title: "Components/Inputs/Rating",
-} as ComponentMeta<typeof Rating>;
+} as Meta<typeof Rating>;

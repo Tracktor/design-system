@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Pagination from "./Pagination";
 
-const Template: ComponentStory<typeof Pagination> = (args) => (
+const Template: StoryFn<typeof Pagination> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Typography variant="overline">Small</Typography>
     <Pagination count={3} size="small" {...args} />
@@ -59,4 +59,4 @@ export default {
   },
   component: Pagination,
   title: "Components/Navigation/Pagination",
-} as ComponentMeta<typeof Pagination>;
+} as Meta<typeof Pagination>;

@@ -1,9 +1,9 @@
 import { Box, Button, Fade } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { MouseEvent, useState } from "react";
 import Popper from "./Popper";
 
-const Template: ComponentStory<typeof Popper> = (args) => {
+const Template: StoryFn<typeof Popper> = (args) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
@@ -24,7 +24,7 @@ const Template: ComponentStory<typeof Popper> = (args) => {
   );
 };
 
-const TransitionTemplate: ComponentStory<typeof Popper> = (args) => {
+const TransitionTemplate: StoryFn<typeof Popper> = (args) => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const canBeOpen = open && Boolean(anchorEl);
@@ -60,4 +60,4 @@ Transition.args = {};
 export default {
   component: Popper,
   title: "Components/Utils/Popper",
-} as ComponentMeta<typeof Popper>;
+} as Meta<typeof Popper>;

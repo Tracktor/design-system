@@ -1,5 +1,5 @@
 import { Stack, TextField } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Autocomplete from "./Autocomplete";
 
 const topFilms = [
@@ -12,7 +12,7 @@ const topFilms = [
   { label: "Pulp Fiction", year: 1994 },
 ];
 
-const Template: ComponentStory<typeof Autocomplete> = (args) => {
+const Template: StoryFn<typeof Autocomplete> = (args) => {
   const defaultValuesWithContext = args?.multiple ? topFilms.slice(0, 2) : topFilms[0];
 
   return (
@@ -52,4 +52,4 @@ ComboBoxMultiple.args = {
 export default {
   component: Autocomplete,
   title: "Components/Inputs/Autocomplete",
-} as ComponentMeta<typeof Autocomplete>;
+} as Meta<typeof Autocomplete>;

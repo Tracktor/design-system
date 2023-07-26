@@ -1,9 +1,9 @@
 import { Box, Button } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useRef, useState } from "react";
 import Portal from "./Portal";
 
-const Template: ComponentStory<typeof Portal> = (args) => {
+const Template: StoryFn<typeof Portal> = (args) => {
   const [show, setShow] = useState(false);
   const container = useRef(null);
 
@@ -35,4 +35,4 @@ Basic.args = {};
 export default {
   component: Portal,
   title: "Components/Utils/Portal",
-} as ComponentMeta<typeof Portal>;
+} as Meta<typeof Portal>;

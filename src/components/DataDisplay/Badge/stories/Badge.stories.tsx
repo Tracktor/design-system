@@ -1,8 +1,8 @@
 import { Box, Stack, Typography } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Badge from "./Badge";
 
-const Template: ComponentStory<typeof Badge> = (args) => (
+const Template: StoryFn<typeof Badge> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Badge badgeContent={4} {...args}>
       <Typography variant="h4">✉️</Typography>
@@ -10,7 +10,7 @@ const Template: ComponentStory<typeof Badge> = (args) => (
   </Stack>
 );
 
-const TemplateCircle: ComponentStory<typeof Badge> = (args) => (
+const TemplateCircle: StoryFn<typeof Badge> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Badge {...args}>
       <Box component="span" sx={{ backgroundColor: "secondary.main", borderRadius: "50%", height: 40, width: 40 }} />
@@ -88,4 +88,4 @@ export default {
   },
   component: Badge,
   title: "Components/Data Display/Badge",
-} as ComponentMeta<typeof Badge>;
+} as Meta<typeof Badge>;

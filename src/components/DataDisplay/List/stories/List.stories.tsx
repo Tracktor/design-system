@@ -10,12 +10,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import List from "./List";
 import ListItemCard from "@/components/DataDisplay/ListItemCard";
 
-const Template: ComponentStory<typeof List> = (args) => (
+const Template: StoryFn<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <List sx={{ backgroundColor: "info.main", maxWidth: 360, width: "100%" }} {...args}>
       <ListItem>
@@ -31,7 +31,7 @@ const Template: ComponentStory<typeof List> = (args) => (
   </Stack>
 );
 
-const TemplateSecondary: ComponentStory<typeof List> = (args) => (
+const TemplateSecondary: StoryFn<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <List sx={{ backgroundColor: "secondary.main", maxWidth: 360, width: "100%" }} {...args}>
       <ListItem>
@@ -47,7 +47,7 @@ const TemplateSecondary: ComponentStory<typeof List> = (args) => (
   </Stack>
 );
 
-const TemplateAlignItemsList: ComponentStory<typeof List> = (args) => (
+const TemplateAlignItemsList: StoryFn<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
       <ListItem alignItems="flex-start">
@@ -104,7 +104,7 @@ const TemplateAlignItemsList: ComponentStory<typeof List> = (args) => (
   </Stack>
 );
 
-const TemplateNested: ComponentStory<typeof List> = (args) => {
+const TemplateNested: StoryFn<typeof List> = (args) => {
   const [open, setOpen] = useState(true);
 
   const handleClick = () => {
@@ -145,7 +145,7 @@ const TemplateNested: ComponentStory<typeof List> = (args) => {
   );
 };
 
-const TemplateListItemCard: ComponentStory<typeof List> = (args) => (
+const TemplateListItemCard: StoryFn<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
       <ListItemCard isLoading size="small" />
@@ -170,7 +170,7 @@ const TemplateListItemCard: ComponentStory<typeof List> = (args) => (
   </Stack>
 );
 
-const TemplateListItemCardEmpty: ComponentStory<typeof List> = (args) => (
+const TemplateListItemCardEmpty: StoryFn<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <List sx={{ maxWidth: 360, width: "100%" }} {...args}>
       <ListItemCard size="small" isEmpty />
@@ -204,4 +204,4 @@ ListOfCardEmpty.args = {};
 export default {
   component: List,
   title: "Components/Data Display/List",
-} as ComponentMeta<typeof List>;
+} as Meta<typeof List>;

@@ -1,5 +1,5 @@
 import { Alert, Button, IconButton, SnackbarOrigin, Stack } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { SyntheticEvent, useState } from "react";
 import Snackbar from "./Snackbar";
 
@@ -7,7 +7,7 @@ export interface State extends SnackbarOrigin {
   open: boolean;
 }
 
-const Template: ComponentStory<typeof Snackbar> = (args) => {
+const Template: StoryFn<typeof Snackbar> = (args) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -43,7 +43,7 @@ const Template: ComponentStory<typeof Snackbar> = (args) => {
   );
 };
 
-const CustomTemplate: ComponentStory<typeof Snackbar> = (args) => {
+const CustomTemplate: StoryFn<typeof Snackbar> = (args) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -72,7 +72,7 @@ const CustomTemplate: ComponentStory<typeof Snackbar> = (args) => {
   );
 };
 
-const PositionTemplate: ComponentStory<typeof Snackbar> = () => {
+const PositionTemplate: StoryFn<typeof Snackbar> = () => {
   const [state, setState] = useState<State>({
     horizontal: "center",
     open: false,
@@ -167,4 +167,4 @@ Position.args = {};
 export default {
   component: Snackbar,
   title: "Components/Feedback/Snackbar",
-} as ComponentMeta<typeof Snackbar>;
+} as Meta<typeof Snackbar>;

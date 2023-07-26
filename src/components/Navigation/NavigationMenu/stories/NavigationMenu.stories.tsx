@@ -1,5 +1,5 @@
 import { Alert, Box, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
 
@@ -151,7 +151,7 @@ const ITEMS_SECONDARY = [
   },
 ];
 
-const Template: ComponentStory<typeof NavigationMenu> = (args) => <NavigationMenu {...args} />;
+const Template: StoryFn<typeof NavigationMenu> = (args) => <NavigationMenu {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -298,4 +298,4 @@ WithCustomFooter.args = {
 export default {
   component: NavigationMenu,
   title: "Components/Navigation/NavigationMenu",
-} as ComponentMeta<typeof NavigationMenu>;
+} as Meta<typeof NavigationMenu>;

@@ -1,8 +1,8 @@
 import { Box, FormControl, FormControlLabel, FormLabel, RadioGroup, Stack, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Radio from "./Radio";
 
-const TemplateVertical: ComponentStory<typeof Radio> = (args) => (
+const TemplateVertical: StoryFn<typeof Radio> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -16,7 +16,7 @@ const TemplateVertical: ComponentStory<typeof Radio> = (args) => (
   </Box>
 );
 
-const TemplateHorizontal: ComponentStory<typeof Radio> = (args) => (
+const TemplateHorizontal: StoryFn<typeof Radio> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -30,7 +30,7 @@ const TemplateHorizontal: ComponentStory<typeof Radio> = (args) => (
   </Box>
 );
 
-const TemplateColor: ComponentStory<typeof Radio> = (args) => (
+const TemplateColor: StoryFn<typeof Radio> = (args) => (
   <Box alignItems="center" justifyContent="center" height="100%" display="flex">
     <Radio defaultChecked color="default" {...args} />
     <Radio defaultChecked color="primary" {...args} />
@@ -42,7 +42,7 @@ const TemplateColor: ComponentStory<typeof Radio> = (args) => (
   </Box>
 );
 
-const TemplateCard: ComponentStory<any> = (args) => {
+const TemplateCard: StoryFn<any> = (args) => {
   const { direction, size } = args;
 
   return (
@@ -105,4 +105,4 @@ CardVariantSmall.args = {
 export default {
   component: Radio,
   title: "Components/Inputs/Radio",
-} as ComponentMeta<typeof Radio>;
+} as Meta<typeof Radio>;

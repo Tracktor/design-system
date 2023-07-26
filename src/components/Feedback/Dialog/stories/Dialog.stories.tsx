@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import type { TransitionProps } from "@mui/material/transitions";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { forwardRef, ReactElement, Ref, useState } from "react";
 import Dialog from "./Dialog";
 
@@ -81,7 +81,7 @@ const SimpleDialog = (props: SimpleDialogProps) => {
 };
 
 // eslint-disable-next-line react/prop-types
-const BasicTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...args }, { parameters }) => {
+const BasicTemplate: StoryFn<typeof Dialog> = ({ TransitionComponent, ...args }, { parameters }) => {
   const [open, setOpen] = useState(true);
 
   const handleClickOpen = () => {
@@ -124,7 +124,7 @@ const BasicTemplate: ComponentStory<typeof Dialog> = ({ TransitionComponent, ...
   );
 };
 
-const WithListTemplate: ComponentStory<typeof Dialog> = () => {
+const WithListTemplate: StoryFn<typeof Dialog> = () => {
   const [open, setOpen] = useState(true);
   const [selectedValue, setSelectedValue] = useState(emails[1]);
 
@@ -151,7 +151,7 @@ const WithListTemplate: ComponentStory<typeof Dialog> = () => {
   );
 };
 
-const FullScreenTemplate: ComponentStory<typeof Dialog> = (args) => {
+const FullScreenTemplate: StoryFn<typeof Dialog> = (args) => {
   const [open, setOpen] = useState(true);
 
   const handleClickOpen = () => {
@@ -229,4 +229,4 @@ smallActionsButton.parameters = {
 export default {
   component: Dialog,
   title: "Components/Feedback/Dialog",
-} as ComponentMeta<typeof Dialog>;
+} as Meta<typeof Dialog>;

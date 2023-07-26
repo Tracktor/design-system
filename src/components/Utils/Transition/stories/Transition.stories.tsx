@@ -10,7 +10,7 @@ import {
   Theme,
   Zoom as ZoomComponent,
 } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { ElementType, useState } from "react";
 
 const icon = (
@@ -46,7 +46,7 @@ const getTransitionComponent = (name: string): ElementType => {
   }
 };
 
-const Template: ComponentStory<any> = (args, { name }) => {
+const Template: StoryFn<any> = (args, { name }) => {
   const Transition = getTransitionComponent(name);
   const [checked, setChecked] = useState(false);
 
@@ -114,4 +114,4 @@ Zoom.args = {};
 export default {
   component: Template,
   title: "Components/Utils/Transition",
-} as ComponentMeta<any>;
+} as Meta<any>;

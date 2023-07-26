@@ -4,12 +4,12 @@ import { Meta } from "@storybook/addon-docs";
 
 # `ThemeProvider`
 
-Provides the theme.
+Provider for the snackbar component.
 
 ###  Usage
 
 ```typescript jsx
-import { ThemeProvider} from "@tracktor/design-system";
+import { ThemeProvider } from "@tracktor/design-system";
 
 const App = () => (
   <ThemeProvider theme="dark">
@@ -22,10 +22,10 @@ export default App;
 
 ### Props
 
-| Name                    | Type                              | Required | default        | Description                      |
-|-------------------------|-----------------------------------|----------|----------------|----------------------------------|
-| `fullHeight`            | boolean                           | false    | true           | Set html and body height to 100% |
-| `includeCssBaseline`    | boolean                           | false    | true           | Include CssBaseline              |
-| `includeScrollBarStyle` | boolean                           | false    | true           | Include scroll bar style         |
-| `theme`                 | "dark" or "light" or ThemeOptions | false    | light          | Theme to use                     |
-| `font`                  | object                            | false    | {import: true} | Font options                     |
+| Name                    | Type                              | Required | default            | Description                      |
+|-------------------------|-----------------------------------|----------|--------------------|----------------------------------|
+| `fullHeight`            | boolean                           | false    | true               | Set html and body height to 100% |
+| `includeCssBaseline`    | boolean                           | false    | true               | Include CssBaseline              |
+| `includeScrollBarStyle` | boolean                           | false    | true               | Include scroll bar style         |
+| `theme`                 | "dark" or "light" or ThemeOptions | false    | light              | Theme to use                     |
+| `font`                  | object                            | false    | `{ import: true }` | Font options                     |

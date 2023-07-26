@@ -1,8 +1,8 @@
 import { FormControlLabel, FormGroup, Stack } from "@mui/material";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Switch from "./Switch";
 
-const Template: ComponentStory<typeof Switch> = (args) => (
+const Template: StoryFn<typeof Switch> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Switch defaultChecked {...args} />
     <Switch {...args} />
@@ -11,7 +11,7 @@ const Template: ComponentStory<typeof Switch> = (args) => (
   </Stack>
 );
 
-const TemplateLabel: ComponentStory<typeof Switch> = () => (
+const TemplateLabel: StoryFn<typeof Switch> = () => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <FormGroup>
       <FormControlLabel control={<Switch defaultChecked />} label="Label" />
@@ -20,7 +20,7 @@ const TemplateLabel: ComponentStory<typeof Switch> = () => (
   </Stack>
 );
 
-const TemplateColor: ComponentStory<typeof Switch> = (args) => (
+const TemplateColor: StoryFn<typeof Switch> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Switch defaultChecked {...args} />
     <Switch defaultChecked color="secondary" {...args} />
@@ -44,4 +44,4 @@ Color.args = {};
 export default {
   component: Switch,
   title: "Components/Inputs/Switch",
-} as ComponentMeta<typeof Switch>;
+} as Meta<typeof Switch>;

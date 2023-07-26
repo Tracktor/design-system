@@ -1,9 +1,9 @@
 import { Box, Button, Stack, SxProps } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import ClickAwayListener from "./ClickAwayListener";
 
-const Template: ComponentStory<typeof ClickAwayListener> = (args) => {
+const Template: StoryFn<typeof ClickAwayListener> = (args) => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -62,4 +62,4 @@ export default {
   },
   component: ClickAwayListener,
   title: "Components/Utils/ClickAwayListener",
-} as ComponentMeta<typeof ClickAwayListener>;
+} as Meta<typeof ClickAwayListener>;

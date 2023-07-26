@@ -1,5 +1,5 @@
 import { Box, Button, Fade, Typography } from "@mui/material";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Modal from "./Modal";
 
@@ -16,7 +16,7 @@ const ModalStyle = {
   width: 400,
 };
 
-const Template: ComponentStory<typeof Modal> = (args) => {
+const Template: StoryFn<typeof Modal> = (args) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -40,7 +40,7 @@ const Template: ComponentStory<typeof Modal> = (args) => {
   );
 };
 
-const TransitionTemplate: ComponentStory<typeof Modal> = (args) => {
+const TransitionTemplate: StoryFn<typeof Modal> = (args) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -87,4 +87,4 @@ Transition.args = {};
 export default {
   component: Modal,
   title: "Components/Utils/Modal",
-} as ComponentMeta<typeof Modal>;
+} as Meta<typeof Modal>;
