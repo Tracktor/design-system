@@ -47,7 +47,7 @@ jobs:
           keys:
             - dependencies-{{ checksum "package.json" }}
       - run: yarn install
-      - run: yarn test:visual
+      - run: yarn test-visual
 
   # Docker Build + Publish
   publish-storybook-docker:

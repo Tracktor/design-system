@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     "@storybook/addon-storysource",
     "storybook-dark-mode",
     {
-      name: '@storybook/addon-docs',
+      name: "@storybook/addon-docs",
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {

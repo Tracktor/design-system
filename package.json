@@ -36,16 +36,16 @@
   "homepage": "https://github.com/Tracktor/design-system#readme",
   "scripts": {
     "build": "tsc && vite build",
+    "build-storybook": "storybook build",
+    "build-storybook-docs": "storybook build --docs",
     "lint": "eslint . --max-warnings=0 && tsc --noEmit",
     "prepare": "yarn run build && husky install",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "build-storybook",
-    "storybook:build:docs": "build-storybook --docs",
     "test": "yarn lint && vitest",
-    "test:ui": "vitest --ui",
-    "test:visual": "chromatic --project-token=c9bbc986d0d6 --exit-zero-on-changes",
-    "build-storybook": "storybook build"
+    "test-ui": "vitest --ui",
+    "test-visual": "chromatic --project-token=c9bbc986d0d6 --exit-zero-on-changes"
+
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
@@ -102,5 +102,8 @@
     "react-dom": ">=18.0.0"
   },
   "readme": "ERROR: No README data found!",
+  "resolutions": {
+    "jackspeak": "2.1.1"
+  },
   "_id": "design-system-tracktor@1.8.4"
 }
