@@ -25,7 +25,7 @@ const config: StorybookConfig = {
     "builder": "@storybook/builder-vite"
   },
   docs: {
-    autodocs: "tag",
+    autodocs: true,
   },
   features: {
     "storyStoreV7": true
