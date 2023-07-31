@@ -6,13 +6,13 @@ import { SnackbarContext } from "@/context/Snackbar/SnackbarProvider";
  */
 const useSnackBar = () => {
   const context = useContext(SnackbarContext);
-  const { open, closeSnackbar, openSnackbar } = context;
+  const { isOpen, closeSnackbar, openSnackbar } = context;
 
   if (context === undefined) {
     throw new Error("SnackbarProvider must be used within a useSnackBar hook");
   }
 
-  return { closeSnackbar, open, openSnackbar };
+  return { closeSnackbar, isOpen, openSnackbar };
 };
 
 export default useSnackBar;

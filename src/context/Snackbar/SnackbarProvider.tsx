@@ -4,7 +4,7 @@ import { createContext, ElementType, PropsWithChildren, SyntheticEvent, useCallb
 
 interface SnackBarState {
   message: string;
-  open: boolean;
+  isOpen: boolean;
   severity: AlertColor;
   component?: ElementType;
 }
@@ -12,7 +12,7 @@ interface SnackBarState {
 interface SnackbarContextValue {
   closeSnackbar(): void;
   openSnackbar(params?: openSnackbarParams): void;
-  open: boolean;
+  isOpen: boolean;
 }
 
 interface openSnackbarParamsWithComponent {
@@ -36,14 +36,14 @@ export interface SnackbarProviderProps extends PropsWithChildren {
 
 const defaultSnackbarState: SnackBarState = {
   component: undefined,
+  isOpen: false,
   message: "",
-  open: false,
   severity: "success",
 };
 
 export const SnackbarContext = createContext<SnackbarContextValue>({
   closeSnackbar: () => {},
-  open: false,
+  isOpen: false,
   openSnackbar: () => {},
 });
 
@@ -57,8 +57,8 @@ const SnackbarProvider = ({
   const openSnackbar = useCallback((params: openSnackbarParams) => {
     setSnackbar({
       component: params?.component,
+      isOpen: true,
       message: params?.message || "",
-      open: true,
       severity: params?.severity || "success",
     });
   }, []);
@@ -68,15 +68,15 @@ const SnackbarProvider = ({
       return;
     }
 
-    setSnackbar((prevState) => ({ ...prevState, open: false }));
+    setSnackbar((prevState) => ({ ...prevState, isOpen: false }));
   }, []);
 
-  const value = useMemo(() => ({ closeSnackbar, open: snackbar.open, openSnackbar }), [closeSnackbar, openSnackbar, snackbar.open]);
+  const value = useMemo(() => ({ closeSnackbar, isOpen: snackbar.isOpen, openSnackbar }), [closeSnackbar, openSnackbar, snackbar.isOpen]);
 
   return (
     <SnackbarContext.Provider value={value}>
       <Snackbar
-        open={snackbar.open}
+        open={snackbar.isOpen}
         onClose={closeSnackbar}
         autoHideDuration={autoHideDuration}
         anchorOrigin={anchorOrigin}
