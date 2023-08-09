@@ -27,7 +27,9 @@ export default defineConfig({
     },
   },
   plugins: [
-    dts({ insertTypesEntry: true }),
+    dts({
+      insertTypesEntry: true,
+    }),
     react({
       jsxImportSource: "@emotion/react",
     }),

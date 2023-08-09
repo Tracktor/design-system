@@ -257,6 +257,26 @@ WithSecondaryMenu.args = {
   },
 };
 
+export const WithSecondaryMenuMobile = Template.bind({});
+WithSecondaryMenuMobile.args = {
+  items: ITEMS.slice(0, -1),
+  itemsMobile: ITEMS_MOBILE,
+  Logo: <Logo color="white" />,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Menu label",
+  },
+};
+WithSecondaryMenuMobile.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
+
 export const WithSecondaryMenuSubLabel = Template.bind({});
 WithSecondaryMenuSubLabel.args = {
   items: ITEMS,

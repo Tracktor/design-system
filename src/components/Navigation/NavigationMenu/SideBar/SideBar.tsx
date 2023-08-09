@@ -45,6 +45,7 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
     isMobile,
     isDrawerOpen,
     backgroundCoefficient,
+    mobileNavBarHeight,
     sideBarWidth = width,
     Logo = props.Logo,
     Footer = props.Footer,
@@ -58,24 +59,34 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
     <Box sx={{ ...styles.container, backgroundColor, borderRight, width: sideBarWidth }} component="aside">
       <Stack sx={styles.logoContainer} direction="row" alignItems="center" spacing={3}>
         {isMobile && (
-          <Box>
-            <IconButton onClick={closeDrawerMenu}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M15.705 7.41L14.295 6L8.29498 12L14.295 18L15.705 16.59L11.125 12L15.705 7.41Z"
-                  fill={palette.getContrastText(backgroundColor)}
-                />
-              </svg>
-            </IconButton>
-          </Box>
+          <IconButton onClick={closeDrawerMenu}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.705 7.41L14.295 6L8.29498 12L14.295 18L15.705 16.59L11.125 12L15.705 7.41Z"
+                fill={palette.getContrastText(backgroundColor)}
+              />
+            </svg>
+          </IconButton>
         )}
-        <Box sx={{ ...styles.logo, textAlign: isMobile ? "left" : "center" }} width="100%">
+        <Box
+          sx={{
+            ...styles.logo,
+            textAlign: isMobile ? "left" : "center",
+          }}
+          width="100%"
+        >
           {Logo}
         </Box>
+        {isMobile && secondaryMenu && <SecondaryMenuButton variant="icon" />}
       </Stack>
       <Box>{children}</Box>
-      <Box sx={styles.footer}>
-        {secondaryMenu && <SecondaryMenuButton />}
+      <Box
+        sx={{
+          ...styles.footer,
+          ...(isMobile && { paddingBottom: `${mobileNavBarHeight}px` }),
+        }}
+      >
+        {secondaryMenu && !isMobile && <SecondaryMenuButton />}
         {Footer && Footer}
       </Box>
     </Box>

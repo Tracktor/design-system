@@ -70,7 +70,7 @@ const styles = {
 };
 
 const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButtonProps) => {
-  const { backgroundCoefficient, secondaryMenu, NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, secondaryMenu, isMobile, NavLink = props.NavLink } = useContext(NavigationMenuContext);
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
   const firstLetterOfName = secondaryMenu?.avatar?.name?.charAt(0).toUpperCase();
   const isButton = variant === "button";
@@ -83,6 +83,11 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
           onClick={openMenu}
           sx={{
             ...styles.button,
+            ...(isMobile && {
+              borderTop: "none",
+              padding: 0,
+              width: "auto",
+            }),
             color: ({ palette }: Theme) => {
               const backgroundColor =
                 palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
@@ -103,7 +108,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
                 {secondaryMenu?.loading ? null : firstLetterOfName}
               </Avatar>
             )}
-            {isButton && (
+            {isButton && !isMobile && (
               <Stack alignItems="flex-start">
                 <Typography>{secondaryMenu?.loading ? <Skeleton width={60} /> : secondaryMenu?.label}</Typography>
                 {secondaryMenu?.subLabel && (
@@ -115,6 +120,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
             )}
           </Stack>
           {isButton &&
+            !isMobile &&
             (secondaryMenu?.iconOpenMenu || (
               <SvgIcon>
                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
