@@ -17,8 +17,6 @@ export interface MobileNavBarProps {
   NavLink?: (props: NavLinkItemProps) => ReactElement;
 }
 
-const NAV_BAR_HEIGHT = 88;
-
 const styles = {
   bottomNavigation: {
     ".Mui-selected": {
@@ -33,7 +31,6 @@ const styles = {
     ".MuiBottomNavigationAction-label": {
       color: ({ palette }: Theme) => palette.grey["200"],
     },
-    height: NAV_BAR_HEIGHT,
     svg: {
       color: ({ palette }: Theme) => palette.grey["200"],
     },
@@ -49,7 +46,7 @@ const styles = {
 
 const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
   const { palette } = useTheme();
-  const { backgroundCoefficient, translations, NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, translations, mobileNavBarHeight, NavLink = props.NavLink } = useContext(NavigationMenuContext);
   const { active, handleChangeNavigation } = useMobileNavBar({ items });
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
@@ -61,6 +58,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
           ...styles.bottomNavigation,
           backgroundColor,
           borderTop: (theme) => `1px solid ${theme.palette.mode === "dark" ? theme.palette.divider : backgroundColor}`,
+          height: mobileNavBarHeight,
         }}
         showLabels
         value={active}
@@ -92,7 +90,13 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
           }
         />
       </BottomNavigation>
-      <GlobalStyles styles={{ body: { paddingBottom: NAV_BAR_HEIGHT } }} />
+      <GlobalStyles
+        styles={{
+          body: {
+            paddingBottom: mobileNavBarHeight,
+          },
+        }}
+      />
     </Paper>
   );
 };

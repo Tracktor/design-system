@@ -11,12 +11,11 @@ interface TabletNavBarProps {
   secondaryMenu?: SecondaryMenu;
 }
 
-const TABLET_NAV_BAR_HEIGHT = 64;
-
 const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
   const {
     openDrawerMenu,
     backgroundCoefficient,
+    tabletNavBarHeight,
     SearchField = props.SearchField,
     disableSearch = props.disableSearch,
     secondaryMenu = props.secondaryMenu,
@@ -32,7 +31,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
       sx={{
         background: backgroundColor,
         borderBottom: (theme) => `1px solid ${theme.palette.mode === "dark" ? theme.palette.divider : backgroundColor}`,
-        height: TABLET_NAV_BAR_HEIGHT,
+        height: tabletNavBarHeight,
       }}
     >
       <Toolbar component={Stack} direction="row" spacing={3} height="100%">
@@ -50,7 +49,13 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
         )}
         {secondaryMenu && <SecondaryMenuButton variant="icon" />}
       </Toolbar>
-      <GlobalStyles styles={{ body: { paddingTop: TABLET_NAV_BAR_HEIGHT } }} />
+      <GlobalStyles
+        styles={{
+          body: {
+            paddingTop: tabletNavBarHeight,
+          },
+        }}
+      />
     </AppBar>
   );
 };

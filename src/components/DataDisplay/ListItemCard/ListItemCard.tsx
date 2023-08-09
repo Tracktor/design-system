@@ -38,7 +38,7 @@ interface RootComponentProps extends PropsWithChildren {
 }
 
 const RootComponent = ({ className, children }: RootComponentProps, ref: ForwardedRef<HTMLLIElement>) => (
-  <Card component="li" ref={ref as ForwardedRef<HTMLDivElement>} className={className}>
+  <Card component="li" ref={ref} className={className}>
     {children}
   </Card>
 );
