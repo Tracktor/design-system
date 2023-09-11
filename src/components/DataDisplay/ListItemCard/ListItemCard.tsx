@@ -33,12 +33,8 @@ export interface ListItemCardProps extends ListItemProps {
   size?: "small" | "medium" | "large";
 }
 
-interface RootComponentProps extends PropsWithChildren {
-  className?: string;
-}
-
-const RootComponent = ({ className, children }: RootComponentProps, ref: ForwardedRef<HTMLLIElement>) => (
-  <Card component="li" ref={ref} className={className}>
+const RootComponent = ({ children, ...props }: PropsWithChildren, ref: ForwardedRef<HTMLLIElement>) => (
+  <Card component="li" ref={ref} {...props}>
     {children}
   </Card>
 );
@@ -46,7 +42,7 @@ const RootComponent = ({ className, children }: RootComponentProps, ref: Forward
 const RootComponentWithForwardRef = forwardRef(RootComponent);
 
 const ListItemCard = (
-  { children, isEmpty, isLoading, emptyMessage, sx, height, size = "medium", ...props }: ListItemCardProps,
+  { children, isEmpty, isLoading, emptyMessage, sx, height, onClick, size = "medium", ...props }: ListItemCardProps,
   ref: ForwardedRef<HTMLLIElement>
 ) => {
   if (isLoading) {
@@ -67,6 +63,7 @@ const ListItemCard = (
     <ListItem
       component={RootComponentWithForwardRef}
       ref={ref}
+      onClick={onClick}
       sx={{
         ...{
           alignItems: "center",
@@ -75,6 +72,12 @@ const ListItemCard = (
           marginBottom: 1,
           px: 2,
           width: "100%",
+          ...(onClick && {
+            "&:hover": {
+              backgroundColor: "action.hover",
+            },
+            cursor: "pointer",
+          }),
         },
         ...sx,
       }}
