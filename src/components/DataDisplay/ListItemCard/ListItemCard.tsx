@@ -83,7 +83,9 @@ const ListItemCard = (
       }}
       {...props}
     >
-      <Box flex="auto">{children}</Box>
+      <Box flex="auto" minWidth={0}>
+        {children}
+      </Box>
     </ListItem>
   );
 };
