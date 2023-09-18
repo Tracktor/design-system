@@ -388,6 +388,22 @@ const commonThemeOptions: ThemeOptions = {
           });
         },
       },
+      styleOverrides: {
+        root: {
+          // Remove the default spin button on number inputs
+          "& .MuiOutlinedInput-root": {
+            /* Chrome, Safari, Edge, Opera */
+            "input::-webkit-outer-spin-button,input::-webkit-inner-spin-button": {
+              margin: 0,
+              WebkitAppearance: "none",
+            },
+            /* Firefox */
+            "input[type=number]": {
+              MozAppearance: "textfield",
+            },
+          },
+        },
+      },
       variants: [
         {
           props: { variant: "outlined" },
