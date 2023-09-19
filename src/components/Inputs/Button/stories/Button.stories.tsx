@@ -196,7 +196,7 @@ IconWithLabel.args = {};
 
 export const Loading = TemplateLoading.bind({});
 Loading.args = {
-  loading: true,
+  isLoading: true,
 };
 
 export const ButtonAsLink = ButtonAsLinkTemplate.bind({});

@@ -258,7 +258,7 @@ const NavigationMenu = ({
       NavLink,
       SearchField,
       disableSearchFocusShortcut,
-    ]
+    ],
   );
 
   return (

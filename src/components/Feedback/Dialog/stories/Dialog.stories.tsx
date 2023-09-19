@@ -38,12 +38,12 @@ const TransitionSample = forwardRef(
     props: TransitionProps & {
       children: ReactElement<any, any>;
     },
-    ref: Ref<unknown>
+    ref: Ref<unknown>,
   ) => (
     <Slide direction="up" ref={ref} {...props}>
       {props.children}
     </Slide>
-  )
+  ),
 );
 
 const SimpleDialog = (props: SimpleDialogProps) => {

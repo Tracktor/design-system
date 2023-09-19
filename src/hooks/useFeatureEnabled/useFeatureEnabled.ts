@@ -23,14 +23,14 @@ export const useFeatureEnabled = () => {
 
       return hasFeature(name, userFeatureWithFilteredDisabled);
     },
-    [disabledFeatures, featureFromContext]
+    [disabledFeatures, featureFromContext],
   );
 
   const appendFeature = useCallback(
     (name: string): void => {
       setFeatures((prevState) => [...(prevState || []), name]);
     },
-    [setFeatures]
+    [setFeatures],
   );
 
   return { appendFeature, features: featureFromContext, getIsFeatureEnabled };

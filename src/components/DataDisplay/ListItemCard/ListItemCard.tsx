@@ -43,7 +43,7 @@ const RootComponentWithForwardRef = forwardRef(RootComponent);
 
 const ListItemCard = (
   { children, isEmpty, isLoading, emptyMessage, sx, height, onClick, size = "medium", ...props }: ListItemCardProps,
-  ref: ForwardedRef<HTMLLIElement>
+  ref: ForwardedRef<HTMLLIElement>,
 ) => {
   if (isLoading) {
     return <Skeleton width="100%" variant="rounded" height={height || SIZES[size]} sx={{ marginBottom: 1 }} ref={ref} component="li" />;

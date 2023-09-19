@@ -27,7 +27,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
           return false;
         })
         .filter(Boolean) as string[],
-    [items]
+    [items],
   );
 
   const handleChangeNavigation = useCallback(
@@ -41,7 +41,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
 
       setActive(value);
     },
-    [openDrawerMenu]
+    [openDrawerMenu],
   );
 
   /**

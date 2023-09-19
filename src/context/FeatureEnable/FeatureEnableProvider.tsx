@@ -17,7 +17,7 @@ export const FeatureEnableProvider = ({ children, features, disabledFeatures }: 
       features: featuresState,
       setFeatures,
     }),
-    [disabledFeatures, featuresState]
+    [disabledFeatures, featuresState],
   );
 
   return <FeatureEnableContext.Provider value={value}>{children}</FeatureEnableContext.Provider>;

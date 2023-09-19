@@ -41,4 +41,4 @@ export { default as useSnackbar } from "@/hooks/useSnackbar";
 export * from "@/hooks/useSnackbar";
 
 // Config
-export { default as theme } from "@/config/theme.config";
+export { default as theme } from "@/theme.config";
