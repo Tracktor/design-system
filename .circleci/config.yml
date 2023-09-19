@@ -36,7 +36,7 @@ jobs:
           name: Install dependencies
           command: bun install
       - run:
-          command: bun test
+          command: bun run test
       - save_cache:
           key: dependencies-{{ checksum "package.json" }}
           paths:
@@ -51,7 +51,7 @@ jobs:
             - dependencies-{{ checksum "package.json" }}
       - run: sudo npm install -g bun
       - run: bun install
-      - run: bun test-visual
+      - run: bun run test-visual
 
   # Docker Build + Publish
   publish-storybook-docker:
