@@ -26,34 +26,10 @@ const AlarmIcon = () => (
   </SvgIcon>
 );
 
-const Template: StoryFn<typeof Button> = (args) => (
+const Template: StoryFn<typeof Button> = (args: any) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
     <Button size="small" color="inherit" {...args}>
       Small inherit
-    </Button>
-    <Button color="primary" {...args}>
-      Medium primary
-    </Button>
-    <Button size="medium" color="secondary" {...args}>
-      Medium secondary
-    </Button>
-    <Button size="medium" color="success" {...args}>
-      Medium success
-    </Button>
-    <Button size="medium" color="error" {...args}>
-      Medium error
-    </Button>
-    <Button size="medium" color="info" {...args}>
-      Medium info
-    </Button>
-    <Button size="medium" color="warning" {...args}>
-      Medium warning
-    </Button>
-    <Button size="large" {...args}>
-      Large
-    </Button>
-    <Button size="large" disabled {...args}>
-      Large Disabled
     </Button>
   </Stack>
 );
@@ -196,7 +172,7 @@ IconWithLabel.args = {};
 
 export const Loading = TemplateLoading.bind({});
 Loading.args = {
-  loading: true,
+  isLoading: true,
 };
 
 export const ButtonAsLink = ButtonAsLinkTemplate.bind({});
