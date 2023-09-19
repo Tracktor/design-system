@@ -31,7 +31,7 @@ jobs:
             - dependencies-{{ checksum "package.json" }}
       - run:
           name: Install Bun
-          command: npm install -g bun
+          command: sudo npm install -g bun
       - run:
           name: Install dependencies
           command: bun install
@@ -49,7 +49,7 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "package.json" }}
-      - run: npm install -g bun
+      - run: sudo npm install -g bun
       - run: bun install
       - run: bun test-visual
 
@@ -81,7 +81,7 @@ jobs:
             - dependencies-{{ checksum "package.json" }}
       - run:
           name: Install bun
-          command: npm install -g bun
+          command: sudo npm install -g bun
       - run:
           name: Install dependencies
           command: bun install
