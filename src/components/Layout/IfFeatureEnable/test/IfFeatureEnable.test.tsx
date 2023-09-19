@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import IfFeatureEnable from "../IfFeatureEnable";
 
 describe("Test <IfFeatureEnable/>", () => {
@@ -7,7 +7,7 @@ describe("Test <IfFeatureEnable/>", () => {
     const { getByText } = render(
       <IfFeatureEnable name="featureName" features={["featureName"]}>
         Test Child
-      </IfFeatureEnable>
+      </IfFeatureEnable>,
     );
 
     expect(getByText("Test Child")).toBeInTheDocument();
@@ -17,7 +17,7 @@ describe("Test <IfFeatureEnable/>", () => {
     const { queryByText } = render(
       <IfFeatureEnable name="featureName1" features={["featureName2"]}>
         Test Child
-      </IfFeatureEnable>
+      </IfFeatureEnable>,
     );
 
     expect(queryByText("Test Child")).not.toBeInTheDocument();

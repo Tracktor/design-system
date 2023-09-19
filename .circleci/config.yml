@@ -30,10 +30,13 @@ jobs:
           keys:
             - dependencies-{{ checksum "package.json" }}
       - run:
-          name: Yarn install
-          command: yarn
+          name: Install Bun
+          command: npm install -g bun
       - run:
-          command: yarn test
+          name: Install dependencies
+          command: bun install
+      - run:
+          command: bun test
       - save_cache:
           key: dependencies-{{ checksum "package.json" }}
           paths:
@@ -46,8 +49,9 @@ jobs:
       - restore_cache:
           keys:
             - dependencies-{{ checksum "package.json" }}
-      - run: yarn install
-      - run: yarn test-visual
+      - run: npm install -g bun
+      - run: bun install
+      - run: bun test-visual
 
   # Docker Build + Publish
   publish-storybook-docker:
@@ -76,8 +80,11 @@ jobs:
           keys:
             - dependencies-{{ checksum "package.json" }}
       - run:
-          name: Yarn install
-          command: yarn
+          name: Install bun
+          command: npm install -g bun
+      - run:
+          name: Install dependencies
+          command: bun install
       - run:
           name: Create Github release
           command: |
@@ -85,7 +92,7 @@ jobs:
             gh release create -F CHANGELOG.md $TAG
       - run:
           name: publish on npm
-          command: yarn publish --access public
+          command: bun publish --access public
 
 workflows:
   Unit Test:
