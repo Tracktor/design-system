@@ -1,6 +1,7 @@
 import { IconButton, Stack, SvgIcon } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import Button from "./Button";
+import Button from "../Button";
+import ButtonStory from "./Button";
 
 const AddShoppingCartIcon = () => (
   <SvgIcon
@@ -169,7 +170,9 @@ const TemplateLoading: StoryFn<typeof Button> = (args) => (
 
 const ButtonAsLinkTemplate: StoryFn<typeof Button> = () => (
   <Stack spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
-    <Button component="a">Button as link</Button>
+    <Button component="a" target="_blank">
+      Button as link
+    </Button>
   </Stack>
 );
 
@@ -203,6 +206,6 @@ export const ButtonAsLink = ButtonAsLinkTemplate.bind({});
 ButtonAsLink.args = {};
 
 export default {
-  component: Button,
+  component: ButtonStory,
   title: "Components/Inputs/Button",
-} as Meta<typeof Button>;
+} as Meta<typeof ButtonStory>;
