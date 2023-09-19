@@ -1,15 +1,18 @@
 # Install Deps
-FROM node:16-alpine AS builder
+FROM oven/bun:latest AS builder
+
+# Set the NODE_OPTIONS environment variable
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-
-RUN apk add --no-cache libc6-compat git
+# RUN apk add --no-cache libc6-compat git && npm install -g bun
 
 WORKDIR /app
 
 COPY . .
 
-RUN --mount=type=cache,target=/app/.yarn YARN_CACHE_FOLDER=/app/.yarn yarn --frozen-lockfile && yarn build-storybook
+RUN bun install
+RUN bun run storybook build
 
 # Server
 
