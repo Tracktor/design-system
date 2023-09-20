@@ -1,4 +1,4 @@
-import { AppBar, Box, darken, GlobalStyles, IconButton, Stack, SvgIcon, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, darken, GlobalStyles, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import { NavigationMenuContext, SecondaryMenu } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -37,9 +37,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
       <Toolbar component={Stack} direction="row" spacing={3} height="100%">
         <Box>
           <IconButton onClick={openDrawerMenu} edge="end" color="inherit" aria-label="menu">
-            <SvgIcon>
-              <MenuIcon />
-            </SvgIcon>
+            <MenuIcon />
           </IconButton>
         </Box>
         {!disableSearch && (
