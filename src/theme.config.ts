@@ -3,9 +3,6 @@ import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
 import { defaultFontFamily } from "@/constants/fonts";
-import commonColors from "@/styles/colors/common.module.scss";
-import darkColors from "@/styles/colors/dark.module.scss";
-import lightColors from "@/styles/colors/light.module.scss";
 
 declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
@@ -20,6 +17,19 @@ declare module "@mui/material/FormControlLabel" {
   interface FormControlLabelProps {
     variant?: "card";
     size?: "small" | "medium";
+  }
+}
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    border: {
+      outline: string;
+    };
+  }
+  interface PaletteOptions {
+    border?: {
+      outline?: string;
+    };
   }
 }
 
@@ -213,7 +223,7 @@ const commonThemeOptions: ThemeOptions = {
           props: { variant: "card" },
           style: ({ theme }) => ({
             "& .MuiRadio-root": {
-              border: `solid 1px ${theme.palette.mode === "light" ? commonColors.grey200 : darkColors.outlineBorder}`,
+              border: `solid 1px ${theme.palette.mode === "light" ? theme.palette.grey[200] : theme.palette.border.outline}`,
               borderRadius: theme.shape.borderRadius,
               height: "100%",
               left: 0,
@@ -323,7 +333,9 @@ const commonThemeOptions: ThemeOptions = {
           props: { variant: "outlined" },
           style: ({ theme }) => ({
             "& .MuiOutlinedInput-notchedOutline": {
-              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
+              ...(theme.palette.mode === "light" && {
+                borderColor: theme.palette.grey[200],
+              }),
             },
             borderRadius: theme.shape.borderRadius,
           }),
@@ -412,7 +424,9 @@ const commonThemeOptions: ThemeOptions = {
               borderRadius: theme.shape.borderRadius,
             },
             "& .MuiOutlinedInput-notchedOutline": {
-              ...(theme.palette.mode === "light" && { borderColor: commonColors.grey200 }),
+              ...(theme.palette.mode === "light" && {
+                borderColor: theme.palette.grey[200],
+              }),
             },
           }),
         },
@@ -527,45 +541,45 @@ const commonThemeOptions: ThemeOptions = {
   },
   palette: {
     error: {
-      dark: commonColors.errorDark,
-      light: commonColors.errorLight,
-      main: commonColors.errorMain,
+      dark: "#C73443",
+      light: "#FF9A9C",
+      main: "#FF686E",
     },
     grey: {
-      100: commonColors.grey100,
-      200: commonColors.grey200,
-      300: commonColors.grey300,
-      400: commonColors.grey400,
-      50: commonColors.grey50,
-      500: commonColors.grey500,
-      600: commonColors.grey600,
-      700: commonColors.grey700,
-      800: commonColors.grey800,
+      100: "#E3E8E8",
+      200: "#D2D8D8",
+      300: "#9DAAAB",
+      400: "#7B8B8C",
+      50: "#F5F7F7",
+      500: "#586C6D",
+      600: "#354D4F",
+      700: "#233E40",
+      800: "#001F21",
     },
     info: {
-      dark: commonColors.infoDark,
-      light: commonColors.infoLight,
-      main: commonColors.infoMain,
+      dark: "#0059AE",
+      light: "#85B4FF",
+      main: "#4D85E0",
     },
     primary: {
-      dark: commonColors.primaryDark,
-      light: commonColors.primaryLight,
-      main: commonColors.primaryMain,
+      dark: "#006C74",
+      light: "#33AFB7",
+      main: "#009BA6",
     },
     secondary: {
-      dark: commonColors.secondaryDark,
-      light: commonColors.secondaryLight,
-      main: commonColors.secondaryMain,
+      dark: "#B18E00",
+      light: "#FED533",
+      main: "#FECB00",
     },
     success: {
-      dark: commonColors.successDark,
-      light: commonColors.successLight,
-      main: commonColors.successMain,
+      dark: "#41936E",
+      light: "#7DDBB1",
+      main: "#5DD39E",
     },
     warning: {
-      dark: commonColors.warningDark,
-      light: commonColors.warningLight,
-      main: commonColors.warningMain,
+      dark: "#C77800",
+      light: "#FFD95B",
+      main: "#FFA726",
     },
   },
   shadows: [
@@ -643,23 +657,23 @@ const commonThemeOptions: ThemeOptions = {
 const lightThemeOptions: ThemeOptions = {
   palette: {
     action: {
-      active: lightColors.actionActive,
-      disabled: lightColors.actionDisabled,
-      disabledBackground: lightColors.actionDisabledBackground,
-      focus: lightColors.actionFocus,
-      hover: lightColors.actionHover,
-      selected: lightColors.actionSelected,
+      active: "rgba(0, 0, 0, 0.54)",
+      disabled: "rgba(0, 0, 0, 0.26)",
+      disabledBackground: "rgba(0, 0, 0, 0.12)",
+      focus: "rgba(0, 0, 0, 0.12)",
+      hover: "rgba(0, 0, 0, 0.04)",
+      selected: "rgba(0, 0, 0, 0.08)",
     },
     background: {
-      default: lightColors.background,
-      paper: lightColors.paper,
+      default: "#F5F7F7",
+      paper: "#ffffff",
     },
-    divider: lightColors.divider,
+    divider: "rgba(0, 0, 0, 0.12)",
     mode: "light",
     text: {
-      disabled: lightColors.textDisabled,
-      primary: lightColors.textPrimary,
-      secondary: lightColors.textSecondary,
+      disabled: "#ADAFAF",
+      primary: "#000000",
+      secondary: "#616365",
     },
   },
 };
@@ -667,23 +681,26 @@ const lightThemeOptions: ThemeOptions = {
 const darkThemeOptions: ThemeOptions = {
   palette: {
     action: {
-      active: darkColors.actionActive,
-      disabled: darkColors.actionDisabled,
-      disabledBackground: darkColors.actionDisabledBackground,
-      focus: darkColors.actionFocus,
-      hover: darkColors.actionHover,
-      selected: darkColors.actionSelected,
+      active: "rgba(255, 255, 255, 0.54)",
+      disabled: "rgba(255, 255, 255, 0.26)",
+      disabledBackground: "rgba(255, 255, 255, 0.12)",
+      focus: "rgba(255, 255, 255, 0.12)",
+      hover: "rgba(255, 255, 255, 0.04)",
+      selected: "rgba(255, 255, 255, 0.08)",
     },
     background: {
-      default: darkColors.background,
-      paper: darkColors.paper,
+      default: "#121212",
+      paper: "#121212",
     },
-    divider: darkColors.divider,
+    border: {
+      outline: "rgba(255, 255, 255, 0.23)",
+    },
+    divider: "rgba(255, 255, 255, 0.12)",
     mode: "dark",
     text: {
-      disabled: darkColors.textDisabled,
-      primary: darkColors.textPrimary,
-      secondary: darkColors.textSecondary,
+      disabled: "#636262",
+      primary: "#ffffff",
+      secondary: "#999999",
     },
   },
 };
