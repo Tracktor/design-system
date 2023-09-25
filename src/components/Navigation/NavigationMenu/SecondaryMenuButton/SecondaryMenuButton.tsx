@@ -158,9 +158,11 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
           horizontal: "right",
           vertical: isButton ? "top" : "bottom",
         }}
-        PaperProps={{
-          sx: {
-            width: 260,
+        slotProps={{
+          paper: {
+            sx: {
+              minWidth: 260,
+            },
           },
         }}
       >

@@ -7,8 +7,6 @@ interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   component?: (props: NavLinkProps) => ReactNode;
 }
 
-const getActiveClass = ({ isActive }: { isActive: boolean }) => (isActive ? "active" : undefined);
-
 const NavLinkItem = ({ url, end, children, active, state, component }: NavLinkItemProps) => {
   const { closeDrawerMenu } = useContext(NavigationMenuContext);
 
@@ -16,21 +14,14 @@ const NavLinkItem = ({ url, end, children, active, state, component }: NavLinkIt
     const Component = component;
 
     return (
-      <Component to={url} className={getActiveClass} onClick={closeDrawerMenu} end={end} state={state}>
+      <Component onClick={closeDrawerMenu} to={url} end={end} state={state}>
         {children}
       </Component>
     );
   }
 
   return (
-    <Box
-      component="a"
-      href={url}
-      onClick={closeDrawerMenu}
-      className={active ? getActiveClass({ isActive: true }) : ""}
-      data-end={end}
-      data-state={state}
-    >
+    <Box component="a" href={url} onClick={closeDrawerMenu} className={active ? "active" : undefined} data-end={end} data-state={state}>
       {children}
     </Box>
   );
