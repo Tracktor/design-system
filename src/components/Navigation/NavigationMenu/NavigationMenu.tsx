@@ -1,4 +1,4 @@
-import { Drawer, useMediaQuery } from "@mui/material";
+import { SwipeableDrawer, useMediaQuery } from "@mui/material";
 import { ChangeEvent, createContext, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
@@ -149,18 +149,26 @@ const DEFAULT_CONTEXT_VALUE = {
 export const NavigationMenuContext = createContext<NavigationMenuContextValue>(DEFAULT_CONTEXT_VALUE);
 
 const NavigationMenuFactory = () => {
-  const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth } =
+  const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth, openDrawerMenu } =
     useContext(NavigationMenuContext);
 
   if (isMobile && !disableResponsive) {
     return (
       <>
         <MobileNavBar items={itemsMobile} />
-        <Drawer anchor="left" open={isDrawerOpen} PaperProps={{ sx: { width: "100%" } }} onClose={closeDrawerMenu}>
+        <SwipeableDrawer
+          anchor="left"
+          open={isDrawerOpen}
+          onClose={closeDrawerMenu}
+          onOpen={openDrawerMenu}
+          PaperProps={{
+            sx: { width: "100%" },
+          }}
+        >
           <SideBar width="100%">
             <SideBarMenu items={items} />
           </SideBar>
-        </Drawer>
+        </SwipeableDrawer>
       </>
     );
   }
@@ -169,11 +177,11 @@ const NavigationMenuFactory = () => {
     return (
       <>
         <TabletNavBar />
-        <Drawer anchor="left" open={isDrawerOpen} onClose={closeDrawerMenu}>
+        <SwipeableDrawer anchor="left" open={isDrawerOpen} onClose={closeDrawerMenu} onOpen={openDrawerMenu}>
           <SideBar>
             <SideBarMenu items={items} />
           </SideBar>
-        </Drawer>
+        </SwipeableDrawer>
       </>
     );
   }
