@@ -2,3 +2,4 @@
 
 ## v1.40.1
 - **[refactor]** - `NavLinkItem` : improve active class
+- **[refactor]** - `SecondaryMenuButton` : replace deprecated props `PaperProps` by `slotProps`
