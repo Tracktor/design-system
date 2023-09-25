@@ -60,11 +60,16 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
       <Stack sx={styles.logoContainer} direction="row" alignItems="center" spacing={3}>
         {isMobile && (
           <IconButton onClick={closeDrawerMenu}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M15.705 7.41L14.295 6L8.29498 12L14.295 18L15.705 16.59L11.125 12L15.705 7.41Z"
-                fill={palette.getContrastText(backgroundColor)}
-              />
+            <svg
+              fill={palette.getContrastText(backgroundColor)}
+              height={24}
+              width={24}
+              focusable="false"
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              tabIndex={-1}
+            >
+              <path d="M18.3 5.71a.9959.9959 0 0 0-1.41 0L12 10.59 7.11 5.7a.9959.9959 0 0 0-1.41 0c-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.89c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z" />
             </svg>
           </IconButton>
         )}

@@ -57,7 +57,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
         sx={{
           ...styles.bottomNavigation,
           backgroundColor,
-          borderTop: (theme) => `1px solid ${theme.palette.mode === "dark" ? theme.palette.divider : backgroundColor}`,
+          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
           height: mobileNavBarHeight,
         }}
         showLabels
