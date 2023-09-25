@@ -1,10 +1,4 @@
-# Tracktor design system
-
-[![npm version](https://badge.fury.io/js/@tracktor%2Fdesign-system.svg)](https://badge.fury.io/js/@tracktor%2Fdesign-system)
-
-**A design system React library**
-
-> The library is based on [MUI Core](https://mui.com/material-ui/getting-started/overview/)
+# Contributing
 
 - [Features](#Features)
 - [Local installation](#local-installation)
@@ -12,9 +6,9 @@
 - [Storybook](#Storybook)
 - [Sending a Pull Request](#Sending-a-Pull-Request)
 - [Available Scripts](#Available-Scripts)
-    - [yarn dev](#yarn-dev)
-    - [yarn build](#yarn-build)
-    - [yarn preview](#yarn-preview)
+    - [yarn run dev](#yarn-run-dev)
+    - [yarn run build](#yarn-run-build)
+    - [yarn run preview](#yarn-run-preview)
 - [Convention](#Convention)
 
 ## Features
@@ -91,7 +85,7 @@ git push -u origin HEAD
 
 In the project directory, you can run:
 
-### `yarn dev`
+### `yarn run dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
@@ -99,7 +93,7 @@ Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn build`
+### `yarn run build`
 
 Builds the library for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -108,7 +102,7 @@ The build is minified and the filenames include the hashes.
 
 See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
 
-### `yarn preview`
+### `yarn run preview`
 
 Locally preview production build
 
