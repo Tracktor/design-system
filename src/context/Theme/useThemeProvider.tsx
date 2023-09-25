@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material";
 import { useCallback } from "react";
-import { commonTheme, darkTheme, lightTheme } from "@/config/theme.config";
 import type { ThemeProviderProps } from "@/context/Theme/ThemeProvider";
+import { commonTheme, darkTheme, lightTheme } from "@/theme.config";
 
 const useThemeProvider = () => {
   const getTheme = useCallback((theme: ThemeProviderProps["theme"]): NonNullable<ThemeProviderProps["theme"]> | {} => {

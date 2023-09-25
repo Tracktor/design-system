@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import { ReactElement, ReactNode, useContext } from "react";
+import { ReactNode, useContext } from "react";
 import { NavigationMenuContext, NavLinkProps, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 
 interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
-  component?: (props: NavLinkProps) => ReactElement | null;
+  component?: (props: NavLinkProps) => ReactNode;
 }
 
 const getActiveClass = ({ isActive }: { isActive: boolean }) => (isActive ? "active" : undefined);

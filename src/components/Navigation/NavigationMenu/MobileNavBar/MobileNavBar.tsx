@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, darken, GlobalStyles, Paper, SvgIcon, Theme, useTheme } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, darken, GlobalStyles, Paper, Theme, useTheme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -80,15 +80,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
 
           return null;
         })}
-        <BottomNavigationAction
-          value="menu"
-          label={menuLabel}
-          icon={
-            <SvgIcon>
-              <MenuIcon />
-            </SvgIcon>
-          }
-        />
+        <BottomNavigationAction value="menu" label={menuLabel} icon={<MenuIcon />} />
       </BottomNavigation>
       <GlobalStyles
         styles={{

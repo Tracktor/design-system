@@ -1,5 +1,5 @@
 import { Drawer, useMediaQuery } from "@mui/material";
-import { ChangeEvent, createContext, memo, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import { ChangeEvent, createContext, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
@@ -118,7 +118,7 @@ export interface NavigationMenuProps {
    * @param props
    * @constructor
    */
-  NavLink?: (props: NavLinkProps) => ReactElement | null;
+  NavLink?: (props: NavLinkProps) => ReactNode;
   /**
    * Override the default search field
    */

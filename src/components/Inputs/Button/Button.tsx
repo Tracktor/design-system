@@ -1,11 +1,16 @@
-import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, CircularProgress, Stack } from "@mui/material";
-import { ForwardedRef, forwardRef, ReactNode } from "react";
+import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, ButtonTypeMap, CircularProgress, Stack } from "@mui/material";
+import * as React from "react";
+import { ElementType, ForwardedRef, forwardRef, ReactNode } from "react";
 
-export interface ButtonProps extends Omit<MuiButtonProps, "loadingPosition"> {
-  isLoading?: boolean;
-  loadingIndicator?: ReactNode;
-  loadingPosition?: "start" | "end";
-}
+export type ButtonProps<RootComponent extends ElementType = ButtonTypeMap["defaultComponent"], AdditionalProps = {}> = MuiButtonProps<
+  RootComponent,
+  AdditionalProps & {
+    component?: RootComponent;
+    isLoading?: boolean;
+    loadingIndicator?: ReactNode;
+    loadingPosition?: "start" | "end";
+  }
+>;
 
 interface LoaderProps {
   size: ButtonProps["size"];
@@ -68,7 +73,7 @@ const WrapChildren = ({ children, isLoading, loadingIndicator, loadingPosition, 
   return <> {children} </>;
 };
 
-const Button = (props: ButtonProps, ref: ForwardedRef<any>) => {
+const Button = <RootComponent extends ElementType>(props: ButtonProps<RootComponent>, ref: ForwardedRef<any>) => {
   const { children, disabled, isLoading, loadingIndicator, loadingPosition, size, ...restProps } = props;
 
   return (

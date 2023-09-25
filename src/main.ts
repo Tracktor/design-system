@@ -23,6 +23,8 @@ export { default as StatusIcon } from "@/components/DataDisplay/StatusIcon";
 export * from "@/components/DataDisplay/StatusIcon";
 export { default as Button } from "@/components/Inputs/Button";
 export type { ButtonProps } from "@/components/Inputs/Button";
+export { default as Lightbox } from "@/components/Feedback/Lightbox";
+export * from "@/components/Feedback/Lightbox";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
@@ -41,4 +43,4 @@ export { default as useSnackbar } from "@/hooks/useSnackbar";
 export * from "@/hooks/useSnackbar";
 
 // Config
-export { default as theme } from "@/config/theme.config";
+export { default as theme } from "@/theme.config";

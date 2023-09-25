@@ -24,6 +24,9 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
+  core: {
+    disableTelemetry: true,
+  },
   features: {
     "storyStoreV7": true
   },

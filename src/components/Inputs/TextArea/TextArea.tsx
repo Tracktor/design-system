@@ -1,6 +1,5 @@
 import { GlobalStyles, TextareaAutosize, TextareaAutosizeProps, useTheme } from "@mui/material";
 import { forwardRef, Ref } from "react";
-import darkColors from "@/styles/colors/dark.module.scss";
 
 const TextArea = ({ className, style, minRows = 4, ...props }: TextareaAutosizeProps, ref: Ref<HTMLTextAreaElement>) => {
   const { palette, shape, spacing } = useTheme();
@@ -23,7 +22,7 @@ const TextArea = ({ className, style, minRows = 4, ...props }: TextareaAutosizeP
         minRows={minRows}
         style={{
           backgroundColor: "transparent",
-          borderColor: palette.mode === "dark" ? darkColors.outlineBorder : palette.grey[200],
+          borderColor: palette.mode === "dark" ? palette.border.outline : palette.grey[200],
           borderRadius: shape.borderRadius,
           color: palette.text.primary,
           marginTop: spacing(1),

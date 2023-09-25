@@ -12,16 +12,16 @@
 - [Storybook](#Storybook)
 - [Sending a Pull Request](#Sending-a-Pull-Request)
 - [Available Scripts](#Available-Scripts)
-    - [bun dev](#bun-dev)
-    - [bun build](#bun-build)
-    - [bun preview](#bun-preview)
+    - [yarn dev](#yarn-dev)
+    - [yarn build](#yarn-build)
+    - [yarn preview](#yarn-preview)
 - [Convention](#Convention)
 
 ## Features
 
 - 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
 - ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
-- 💨️ **[Bun](https://bun.sh/)** - Bun is a fast JavaScript runtime
+- 💨️ **[Yarn](https://yarnpkg.com/)** - Yarn is package manager
 - 📐 **[ESLint](https://eslint.org)** - Code analyzer
 - 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
 - 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
@@ -32,10 +32,10 @@
 
 ## Local installation
 
-Clone the repository and install dependencies with [bun](https://bun.sh/)
+Clone the repository and install dependencies with [yarn](https://yarnpkg.com/)
 
 ```bash 
-bun install
+yarn install
 ```
 
 ## Docs
@@ -49,7 +49,7 @@ bun install
 You can run local storybook.
 
 ```bash
-bun storybook
+yarn storybook
 ```
 
 Or you can start storybook with docker
@@ -73,9 +73,9 @@ git checkout master
 git pull upstream master
 ```
 
-3. Install the dependencies with [bun](https://bun.sh/) :
+3. Install the dependencies with [yarn](https://yarnpkg.com/) :
 ```bash
-bun install
+yarn install
 ```
 4. Create a new branch:
 ```bash
@@ -91,7 +91,7 @@ git push -u origin HEAD
 
 In the project directory, you can run:
 
-### `bun dev`
+### `yarn dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
@@ -99,7 +99,7 @@ Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `bun build`
+### `yarn build`
 
 Builds the library for production to the `dist` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -108,7 +108,7 @@ The build is minified and the filenames include the hashes.
 
 See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
 
-### `bun preview`
+### `yarn preview`
 
 Locally preview production build
 
