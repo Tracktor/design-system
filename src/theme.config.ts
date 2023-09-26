@@ -217,6 +217,11 @@ const commonThemeOptions: ThemeOptions = {
     MuiDialogActions: {
       styleOverrides: actionStyleOverrides,
     },
+    MuiDialogTitle: {
+      defaultProps: {
+        variant: "h3",
+      },
+    },
     MuiFormControlLabel: {
       variants: [
         {
