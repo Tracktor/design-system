@@ -23,6 +23,7 @@ import type { TransitionProps } from "@mui/material/transitions";
 import type { Meta, StoryFn } from "@storybook/react";
 import { forwardRef, ReactElement, Ref, useState } from "react";
 import Dialog from "./Dialog";
+import DialogCloseIcon from "@/components/Feedback/Dialog/DialogCloseIcon";
 
 export interface SimpleDialogProps {
   open: boolean;
@@ -195,6 +196,43 @@ const FullScreenTemplate: StoryFn<typeof Dialog> = (args) => {
   );
 };
 
+const WithCloseIconTemplate: StoryFn<typeof Dialog> = ({ ...args }, { parameters }) => {
+  const [open, setOpen] = useState(true);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Stack spacing={2} justifyContent="center" alignItems="center" sx={{ height: "100%" }}>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Open alert dialog
+      </Button>
+      <Dialog {...args} open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogCloseIcon onClick={handleClose} />
+        <DialogTitle id="alert-dialog-title">Use Google location service?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant={parameters?.variantButton} size={parameters?.sizeButton}>
+            Disagree
+          </Button>
+          <Button onClick={handleClose} variant={parameters?.variantButton} size={parameters?.sizeButton}>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Stack>
+  );
+};
+
 export const Basic = BasicTemplate.bind({});
 Basic.args = {};
 
@@ -221,10 +259,13 @@ FullScreen.args = {
   fullScreen: true,
 };
 
-export const smallActionsButton = BasicTemplate.bind({});
-smallActionsButton.parameters = {
+export const SmallActionsButton = BasicTemplate.bind({});
+SmallActionsButton.parameters = {
   sizeButton: "small",
 };
+
+export const WithDialogCloseIcon = WithCloseIconTemplate.bind({});
+WithDialogCloseIcon.args = {};
 
 export default {
   component: Dialog,
