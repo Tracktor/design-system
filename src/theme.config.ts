@@ -1,4 +1,4 @@
-import { alpha, ComponentsPropsList, createTheme, getOverlayAlpha, Theme, ThemeOptions } from "@mui/material";
+import { alpha, ComponentsPropsList, createTheme, getOverlayAlpha, responsiveFontSizes, Theme, ThemeOptions } from "@mui/material";
 import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
@@ -628,32 +628,26 @@ const commonThemeOptions: ThemeOptions = {
       h1: {
         fontSize: pxToRem(40),
         fontWeight: 700,
-        lineHeight: "60px",
       },
       h2: {
         fontSize: pxToRem(32),
         fontWeight: 600,
-        lineHeight: "48px",
       },
       h3: {
         fontSize: pxToRem(24),
         fontWeight: 600,
-        lineHeight: "36px",
       },
       h4: {
         fontSize: pxToRem(20),
         fontWeight: 500,
-        lineHeight: "30px",
       },
       h5: {
         fontSize: pxToRem(16),
         fontWeight: 500,
-        lineHeight: "24px",
       },
       h6: {
         fontSize: pxToRem(14),
         fontWeight: 500,
-        lineHeight: "21px",
       },
     };
   },
@@ -710,8 +704,8 @@ const darkThemeOptions: ThemeOptions = {
   },
 };
 
-export const commonTheme = createTheme(commonThemeOptions);
-export const lightTheme = createTheme(commonThemeOptions, lightThemeOptions);
-export const darkTheme = createTheme(commonThemeOptions, darkThemeOptions);
+export const commonTheme = responsiveFontSizes(createTheme(commonThemeOptions));
+export const lightTheme = responsiveFontSizes(createTheme(commonThemeOptions, lightThemeOptions));
+export const darkTheme = responsiveFontSizes(createTheme(commonThemeOptions, darkThemeOptions));
 
 export default lightTheme;
