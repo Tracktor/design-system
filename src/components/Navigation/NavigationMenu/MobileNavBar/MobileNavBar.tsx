@@ -40,7 +40,7 @@ const styles = {
     left: 0,
     position: "fixed",
     right: 0,
-    zIndex: 9999,
+    zIndex: 1200,
   },
 };
 
