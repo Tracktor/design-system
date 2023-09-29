@@ -479,8 +479,9 @@ const commonThemeOptions: ThemeOptions = {
             dir,
           }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
             const isSmallSize = ownerState?.size === "small";
-            const smallHeight = dir === "column" ? 130 : 60;
-            const mediumHeight = dir === "column" ? 150 : 80;
+            const isColumnDirection = dir === "column";
+            const smallHeight = isColumnDirection ? 130 : 60;
+            const mediumHeight = isColumnDirection ? 150 : 80;
 
             return {
               ...(ownerState?.label && {
@@ -489,6 +490,7 @@ const commonThemeOptions: ThemeOptions = {
                   top: "100%",
                 },
                 "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
+                  display: "none",
                   height: 0,
                   opacity: 0,
                   width: 0,
@@ -500,11 +502,12 @@ const commonThemeOptions: ThemeOptions = {
                   alignItems: "center",
                   cursor: "pointer",
                   display: "flex",
-                  flexDirection: dir === "column" ? "column" : "row",
+                  flexDirection: isColumnDirection ? "column" : "row",
                   fontSize: theme.typography.pxToRem(14),
                   height: "100%",
-                  justifyContent: dir === "column" ? "center" : "left",
+                  justifyContent: isColumnDirection ? "center" : "left",
                   maxWidth: "100%",
+                  ...(!isColumnDirection && { paddingRight: theme.spacing(2) }),
                   pointerEvents: "auto",
                   transform: "none !important",
                   whiteSpace: "initial",
@@ -516,7 +519,7 @@ const commonThemeOptions: ThemeOptions = {
                   marginLeft: theme.spacing(2),
                   marginRight: theme.spacing(2),
                   width: 33,
-                  ...(dir === "column" && { marginBottom: theme.spacing(1) }),
+                  ...(isColumnDirection && { marginBottom: theme.spacing(1) }),
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
                   borderStyle: "dashed",
