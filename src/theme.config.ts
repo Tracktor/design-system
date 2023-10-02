@@ -221,6 +221,11 @@ const commonThemeOptions: ThemeOptions = {
       defaultProps: {
         variant: "h3",
       },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          paddingRight: theme.spacing(7),
+        }),
+      },
     },
     MuiFormControlLabel: {
       variants: [
