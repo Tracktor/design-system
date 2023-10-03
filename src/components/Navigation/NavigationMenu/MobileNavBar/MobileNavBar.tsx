@@ -1,8 +1,9 @@
-import { BottomNavigation, BottomNavigationAction, darken, GlobalStyles, Paper, Theme, useTheme } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, darken, GlobalStyles, Slide, Theme, useTheme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import useMobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar/useMobileNavBar";
+import { sanitizePathname } from "@/components/Navigation/NavigationMenu/utils/utils";
 
 interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
@@ -31,28 +32,36 @@ const styles = {
     ".MuiBottomNavigationAction-label": {
       color: ({ palette }: Theme) => palette.grey["200"],
     },
-    svg: {
-      color: ({ palette }: Theme) => palette.grey["200"],
-    },
-  },
-  paper: {
     bottom: 0,
     left: 0,
     position: "fixed",
     right: 0,
+    svg: {
+      color: ({ palette }: Theme) => palette.grey["200"],
+    },
     zIndex: 1200,
   },
 };
 
 const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
   const { palette } = useTheme();
-  const { backgroundCoefficient, translations, mobileNavBarHeight, NavLink = props.NavLink } = useContext(NavigationMenuContext);
-  const { active, handleChangeNavigation } = useMobileNavBar({ items });
+  const {
+    backgroundCoefficient,
+    translations,
+    mobileNavBarHeight,
+    mobileOptions,
+    NavLink = props.NavLink,
+  } = useContext(NavigationMenuContext);
+  const { active, handleChangeNavigation, visible } = useMobileNavBar({ items });
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
 
+  if (mobileOptions?.disableNavBar || mobileOptions?.disableNavBarOnRoutes?.includes(sanitizePathname(window.location.pathname))) {
+    return null;
+  }
+
   return (
-    <Paper sx={styles.paper} square>
+    <Slide direction="up" in={visible}>
       <BottomNavigation
         sx={{
           ...styles.bottomNavigation,
@@ -65,6 +74,13 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
         onChange={handleChangeNavigation}
         component="nav"
       >
+        <GlobalStyles
+          styles={{
+            body: {
+              paddingBottom: mobileNavBarHeight,
+            },
+          }}
+        />
         {items?.map((item, index) => {
           // If the item is a React element, return it as is
           if (isValidElement(item)) {
@@ -82,14 +98,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
         })}
         <BottomNavigationAction value="menu" label={menuLabel} icon={<MenuIcon />} />
       </BottomNavigation>
-      <GlobalStyles
-        styles={{
-          body: {
-            paddingBottom: mobileNavBarHeight,
-          },
-        }}
-      />
-    </Paper>
+    </Slide>
   );
 };
 

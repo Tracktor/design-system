@@ -1,14 +1,19 @@
 import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import type { MobileNavBarProps } from "@/components/Navigation/NavigationMenu/MobileNavBar/MobileNavBar";
+import { sanitizePathname } from "@/components/Navigation/NavigationMenu/utils/utils";
 
 interface useMobileNavBarParams {
   items: MobileNavBarProps["items"];
 }
 
 const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
-  const { openDrawerMenu, isDrawerOpen } = useContext(NavigationMenuContext);
+  const { openDrawerMenu, isDrawerOpen, closeDrawerMenu, mobileOptions } = useContext(NavigationMenuContext);
+  const { hideNavBarOnScroll = false, scrollThreshold = 150, hideNavBarOnScrollOnRoutes } = mobileOptions || {};
   const [active, setActive] = useState<string | number>();
+  const [visible, setVisible] = useState<boolean>(window.scrollY <= scrollThreshold);
+  const isHideNavBarOnScroll = hideNavBarOnScroll || hideNavBarOnScrollOnRoutes?.includes(sanitizePathname(window.location.pathname));
+
   const urls = useMemo(
     () =>
       items
@@ -35,32 +40,67 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
       const isMenuItem = value === "menu";
 
       if (isMenuItem) {
-        openDrawerMenu();
+        isDrawerOpen ? closeDrawerMenu() : openDrawerMenu();
         return;
       }
 
       setActive(value);
     },
-    [openDrawerMenu],
+    [closeDrawerMenu, isDrawerOpen, openDrawerMenu],
   );
+
+  const handleScroll = useCallback(() => {
+    const container = document.getElementsByTagName("html")[0];
+
+    if (!container) {
+      return;
+    }
+
+    const scrollPosition = container.scrollTop;
+
+    if (scrollPosition >= scrollThreshold) {
+      setVisible(false);
+      return;
+    }
+
+    if (!visible && scrollPosition <= scrollThreshold) {
+      setVisible(true);
+    }
+  }, [scrollThreshold, visible]);
 
   /**
    * Set active menu item based on the current path
    */
   useEffect(() => {
-    const getFirstSlicePath = (path: string) => String(path).split("/")[1];
-
-    const pathname = getFirstSlicePath(window.location.pathname);
-    const activeIndex = urls?.findIndex((path) => getFirstSlicePath(path) === pathname);
+    const activeIndex = urls?.findIndex((path) => sanitizePathname(path) === sanitizePathname(window.location.pathname));
 
     setActive(activeIndex === -1 ? "menu" : activeIndex);
   }, [setActive, urls, isDrawerOpen]);
 
+  /**
+   * Add event listener to window scroll
+   */
+  useEffect(() => {
+    if (!isHideNavBarOnScroll) {
+      return undefined;
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll, hideNavBarOnScroll, isHideNavBarOnScroll]);
+
   return {
     active,
     handleChangeNavigation,
+    handleScroll,
     openDrawerMenu,
+    sanitizePathname,
+    setVisible,
     urls,
+    visible,
   };
 };
 
