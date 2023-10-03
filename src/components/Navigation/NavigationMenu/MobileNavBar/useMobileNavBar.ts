@@ -1,7 +1,7 @@
 import { SyntheticEvent, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import type { MobileNavBarProps } from "@/components/Navigation/NavigationMenu/MobileNavBar/MobileNavBar";
-import { sanitizePathname } from "@/components/Navigation/NavigationMenu/utils/utils";
+import { getFirstSliceOfURL } from "@/components/Navigation/NavigationMenu/utils/utils";
 
 interface useMobileNavBarParams {
   items: MobileNavBarProps["items"];
@@ -12,7 +12,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
   const { hideNavBarOnScroll = false, scrollThreshold = 150, hideNavBarOnScrollOnRoutes } = mobileOptions || {};
   const [active, setActive] = useState<string | number>();
   const [visible, setVisible] = useState<boolean>(window.scrollY <= scrollThreshold);
-  const isHideNavBarOnScroll = hideNavBarOnScroll || hideNavBarOnScrollOnRoutes?.includes(sanitizePathname(window.location.pathname));
+  const isHideNavBarOnScroll = hideNavBarOnScroll || hideNavBarOnScrollOnRoutes?.includes(getFirstSliceOfURL(window.location.pathname));
 
   const urls = useMemo(
     () =>
@@ -72,7 +72,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
    * Set active menu item based on the current path
    */
   useEffect(() => {
-    const activeIndex = urls?.findIndex((path) => sanitizePathname(path) === sanitizePathname(window.location.pathname));
+    const activeIndex = urls?.findIndex((path) => getFirstSliceOfURL(path) === getFirstSliceOfURL(window.location.pathname));
 
     setActive(activeIndex === -1 ? "menu" : activeIndex);
   }, [setActive, urls, isDrawerOpen]);
@@ -97,7 +97,7 @@ const useMobileNavBar = ({ items }: useMobileNavBarParams) => {
     handleChangeNavigation,
     handleScroll,
     openDrawerMenu,
-    sanitizePathname,
+    sanitizePathname: getFirstSliceOfURL,
     setVisible,
     urls,
     visible,

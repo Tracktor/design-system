@@ -3,7 +3,7 @@ import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import useMobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar/useMobileNavBar";
-import { sanitizePathname } from "@/components/Navigation/NavigationMenu/utils/utils";
+import { removeSlashFromStartOfString } from "@/components/Navigation/NavigationMenu/utils/utils";
 
 interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
@@ -59,7 +59,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
 
   const isHidden =
     mobileOptions?.hideNavBar ||
-    mobileOptions?.hideNavBarOnRoutes?.map(sanitizePathname).includes(sanitizePathname(window.location.pathname));
+    mobileOptions?.hideNavBarOnRoutes?.map(removeSlashFromStartOfString).includes(removeSlashFromStartOfString(window.location.pathname));
 
   if (isHidden) {
     return null;

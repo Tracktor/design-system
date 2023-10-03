@@ -127,6 +127,7 @@ export interface NavigationMenuProps {
     hideNavBarOnScroll?: boolean;
     /**
      * Hide mobile bottom navigation on scroll on specific routes
+     * @default undefined
      */
     hideNavBarOnScrollOnRoutes?: string[];
     /**
@@ -135,7 +136,8 @@ export interface NavigationMenuProps {
      */
     hideNavBar?: boolean;
     /**
-     * Disable mobile bottom navigation on specific routes
+     * Hide mobile bottom navigation on specific routes
+     * @default undefined
      */
     hideNavBarOnRoutes?: string[];
   };
