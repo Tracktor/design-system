@@ -116,6 +116,11 @@ export interface NavigationMenuProps {
    */
   mobileOptions?: {
     /**
+     * Scroll threshold to hide mobile bottom navigation
+     * @default 150
+     */
+    scrollThreshold?: number;
+    /**
      * Hide mobile bottom navigation on scroll
      * @default false
      */
@@ -125,19 +130,14 @@ export interface NavigationMenuProps {
      */
     hideNavBarOnScrollOnRoutes?: string[];
     /**
-     * Scroll threshold to hide mobile bottom navigation
-     * @default 150
-     */
-    scrollThreshold?: number;
-    /**
-     * Disable mobile bottom navigation
+     * Hide mobile bottom navigation
      * @default false
      */
-    disableNavBar?: boolean;
+    hideNavBar?: boolean;
     /**
      * Disable mobile bottom navigation on specific routes
      */
-    disableNavBarOnRoutes?: string[];
+    hideNavBarOnRoutes?: string[];
   };
   /**
    * Component to router nav links.
