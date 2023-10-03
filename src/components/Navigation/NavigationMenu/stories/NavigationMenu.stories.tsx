@@ -153,6 +153,42 @@ const ITEMS_SECONDARY = [
 
 const Template: StoryFn<typeof NavigationMenu> = (args) => <NavigationMenu {...args} />;
 
+const TemplateWithContent: StoryFn<typeof NavigationMenu> = (args) => (
+  <Box>
+    <NavigationMenu {...args} />
+    <Box p={2} paddingBottom={10}>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
+        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
+      </p>
+    </Box>
+  </Box>
+);
+
 export const Basic = Template.bind({});
 Basic.args = {
   items: ITEMS,
@@ -195,6 +231,22 @@ MobileWithIcon.args = {
   Logo: <Logo color="white" />,
 };
 MobileWithIcon.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
+
+export const MobileHideOnScroll = TemplateWithContent.bind({});
+MobileHideOnScroll.args = {
+  items: ITEMS,
+  itemsMobile: ITEMS_MOBILE,
+  Logo: <Logo color="white" />,
+  mobileOptions: {
+    hideNavBarOnScroll: true,
+  },
+};
+MobileHideOnScroll.parameters = {
   viewport: {
     defaultViewport: "mobile",
     viewports: VIEWPORTS,

@@ -112,6 +112,34 @@ export interface NavigationMenuProps {
    */
   searchValue?: string;
   /**
+   * Mobile options
+   */
+  mobileOptions?: {
+    /**
+     * Hide mobile bottom navigation on scroll
+     * @default false
+     */
+    hideNavBarOnScroll?: boolean;
+    /**
+     * Hide mobile bottom navigation on scroll on specific routes
+     */
+    hideNavBarOnScrollOnRoutes?: string[];
+    /**
+     * Scroll threshold to hide mobile bottom navigation
+     * @default 150
+     */
+    scrollThreshold?: number;
+    /**
+     * Disable mobile bottom navigation
+     * @default false
+     */
+    disableNavBar?: boolean;
+    /**
+     * Disable mobile bottom navigation on specific routes
+     */
+    disableNavBarOnRoutes?: string[];
+  };
+  /**
    * Component to router nav links.
    * This component is used to render the links in the main menu &  mobile bottom navigation
    * It should be a react-router-dom NavLink or a compatible component
@@ -204,6 +232,7 @@ const NavigationMenu = ({
   sideBarWidth,
   onSearchChange,
   searchValue,
+  mobileOptions,
   SearchField,
   NavLink,
   Footer,
@@ -236,6 +265,7 @@ const NavigationMenu = ({
       itemsMobile,
       Logo,
       mobileNavBarHeight: DEFAULT_CONTEXT_VALUE.mobileNavBarHeight,
+      mobileOptions,
       NavLink,
       onSearchChange,
       openDrawerMenu,
@@ -266,6 +296,7 @@ const NavigationMenu = ({
       NavLink,
       SearchField,
       disableSearchFocusShortcut,
+      mobileOptions,
     ],
   );
 
