@@ -31,6 +31,22 @@ declare module "@mui/material/styles" {
       outline?: string;
     };
   }
+
+  // eslint-disable-next-line no-shadow
+  interface Theme {
+    size: {
+      mobileNavBarHeight: number;
+      tabletNavBarHeight: number;
+    };
+  }
+
+  // eslint-disable-next-line no-shadow
+  interface ThemeOptions {
+    size?: {
+      mobileNavBarHeight?: number;
+      tabletNavBarHeight?: number;
+    };
+  }
 }
 
 const actionStyleOverrides: Partial<
@@ -624,6 +640,10 @@ const commonThemeOptions: ThemeOptions = {
   ],
   shape: {
     borderRadius: 8,
+  },
+  size: {
+    mobileNavBarHeight: 88,
+    tabletNavBarHeight: 64,
   },
   typography: () => {
     const fontSize = 14;

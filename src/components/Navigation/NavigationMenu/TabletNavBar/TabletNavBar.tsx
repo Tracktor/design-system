@@ -15,13 +15,12 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
   const {
     openDrawerMenu,
     backgroundCoefficient,
-    tabletNavBarHeight,
     SearchField = props.SearchField,
     disableSearch = props.disableSearch,
     secondaryMenu = props.secondaryMenu,
   } = useContext(NavigationMenuContext);
 
-  const { palette } = useTheme();
+  const { palette, size } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
 
   return (
@@ -31,7 +30,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
       sx={{
         background: backgroundColor,
         borderBottom: (theme) => `1px solid ${theme.palette.mode === "dark" ? theme.palette.divider : backgroundColor}`,
-        height: tabletNavBarHeight,
+        height: size.tabletNavBarHeight,
       }}
     >
       <Toolbar component={Stack} direction="row" spacing={3} height="100%">
@@ -50,7 +49,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
       <GlobalStyles
         styles={{
           body: {
-            paddingTop: tabletNavBarHeight,
+            paddingTop: size.tabletNavBarHeight,
           },
         }}
       />

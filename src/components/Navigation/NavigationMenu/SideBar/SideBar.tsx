@@ -46,13 +46,12 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
     isMobile,
     isDrawerOpen,
     backgroundCoefficient,
-    mobileNavBarHeight,
     sideBarWidth = width,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
 
-  const { palette } = useTheme();
+  const { palette, size } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.mode === "dark" ? palette.divider : backgroundColor}`;
 
@@ -79,7 +78,7 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
       <Box
         sx={{
           ...styles.footer,
-          ...(isMobile && { paddingBottom: `${mobileNavBarHeight}px` }),
+          ...(isMobile && { paddingBottom: `${size.mobileNavBarHeight}px` }),
         }}
       >
         {secondaryMenu && !isMobile && <SecondaryMenuButton />}

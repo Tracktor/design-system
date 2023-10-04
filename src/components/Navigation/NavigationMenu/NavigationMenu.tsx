@@ -171,9 +171,7 @@ const DEFAULT_CONTEXT_VALUE = {
   isDrawerOpen: false,
   isMobile: false,
   isTablet: false,
-  mobileNavBarHeight: 88,
   openDrawerMenu: () => {},
-  tabletNavBarHeight: 64,
 };
 
 export const NavigationMenuContext = createContext<NavigationMenuContextValue>(DEFAULT_CONTEXT_VALUE);
@@ -267,7 +265,6 @@ const NavigationMenu = ({
       items,
       itemsMobile,
       Logo,
-      mobileNavBarHeight: DEFAULT_CONTEXT_VALUE.mobileNavBarHeight,
       mobileOptions,
       NavLink,
       onSearchChange,
@@ -276,7 +273,6 @@ const NavigationMenu = ({
       searchValue,
       secondaryMenu,
       sideBarWidth,
-      tabletNavBarHeight: DEFAULT_CONTEXT_VALUE.tabletNavBarHeight,
       translations,
     }),
     [

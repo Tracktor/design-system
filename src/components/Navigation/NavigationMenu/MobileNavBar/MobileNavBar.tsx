@@ -44,15 +44,9 @@ const styles = {
 };
 
 const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
-  const {
-    backgroundCoefficient,
-    translations,
-    mobileNavBarHeight,
-    mobileOptions,
-    NavLink = props.NavLink,
-  } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, translations, mobileOptions, NavLink = props.NavLink } = useContext(NavigationMenuContext);
 
-  const { palette } = useTheme();
+  const { palette, size } = useTheme();
   const { active, handleChangeNavigation, visible } = useMobileNavBar({ items });
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
@@ -73,7 +67,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
             ...styles.bottomNavigation,
             backgroundColor,
             borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-            height: mobileNavBarHeight,
+            height: size.mobileNavBarHeight,
           }}
           showLabels
           value={active}
@@ -101,7 +95,7 @@ const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
       <GlobalStyles
         styles={{
           body: {
-            paddingBottom: mobileNavBarHeight,
+            paddingBottom: size.mobileNavBarHeight,
           },
         }}
       />
