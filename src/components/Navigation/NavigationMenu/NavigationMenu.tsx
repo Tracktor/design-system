@@ -1,4 +1,4 @@
-import { SwipeableDrawer, useMediaQuery } from "@mui/material";
+import { SwipeableDrawer, useMediaQuery, useTheme } from "@mui/material";
 import { ChangeEvent, createContext, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
@@ -240,9 +240,10 @@ const NavigationMenu = ({
   Footer,
   Logo,
 }: NavigationMenuProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const [isDrawerOpen, setIsDrawerOpen] = useState(DEFAULT_CONTEXT_VALUE.isDrawerOpen);
-  const isMobile = useMediaQuery("(max-width:480px)");
-  const isTablet = useMediaQuery("(max-width:1024px) and (min-width:481px)");
 
   const closeDrawerMenu = useCallback(() => {
     setIsDrawerOpen(false);
