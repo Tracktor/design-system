@@ -7,7 +7,7 @@ import { removeSlashFromStartOfString } from "@/components/Navigation/Navigation
 
 interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
-  NavLink: MobileNavBarProps["NavLink"];
+  NavLink?: (props: NavLinkItemProps) => ReactElement;
 }
 
 export interface MobileNavBarProps {

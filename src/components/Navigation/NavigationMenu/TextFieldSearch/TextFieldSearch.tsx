@@ -1,5 +1,5 @@
 import { alpha, darken, InputAdornment, SvgIcon, TextField, Theme, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { cloneElement, isValidElement, ReactElement, useContext } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import useTextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch/useTextFieldSearch";
 
@@ -31,19 +31,23 @@ const styles = {
 };
 
 const TextFieldSearch = ({ fullWidth, ...props }: SearchFieldProps) => {
-  const { backgroundCoefficient, onSearchChange, translations, searchValue } = useContext(NavigationMenuContext);
+  const { backgroundCoefficient, onSearchChange, translations, searchValue, isTablet, SearchField } = useContext(NavigationMenuContext);
   const { inputRef } = useTextFieldSearch();
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const color = palette.getContrastText(backgroundColor);
   const placeholder = props?.translations?.search || translations?.search || "Search";
 
+  if (SearchField) {
+    return isValidElement(SearchField) ? cloneElement(SearchField as ReactElement, { inputRef, ref: inputRef }) : null;
+  }
+
   return (
     <TextField
       value={searchValue}
       size="small"
       placeholder={placeholder}
-      fullWidth={fullWidth}
+      fullWidth={!isTablet}
       inputRef={inputRef}
       onChange={onSearchChange}
       sx={{

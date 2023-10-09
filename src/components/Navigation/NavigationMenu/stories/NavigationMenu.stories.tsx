@@ -1,4 +1,16 @@
-import { Alert, Box, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  SvgIcon,
+  TextField,
+  Typography,
+} from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -365,6 +377,12 @@ WithCustomFooter.args = {
     </Box>
   ),
   items: ITEMS,
+};
+
+export const WithCustomSearchField = Template.bind({});
+WithCustomSearchField.args = {
+  items: ITEMS,
+  SearchField: <TextField fullWidth label="Hello" />,
 };
 
 export default {

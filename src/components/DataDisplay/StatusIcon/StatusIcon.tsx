@@ -2,10 +2,10 @@ import { alpha, SvgIcon, SvgIconProps, useTheme } from "@mui/material";
 import { ForwardedRef, forwardRef } from "react";
 
 const SIZE_DEFAULT = 16;
+const statusIconColor = ["warning", "info", "success", "error", "primary", "secondary"] as const;
 
 type StatusIconColor = (typeof statusIconColor)[number];
 
-const statusIconColor = ["warning", "info", "success", "error", "primary", "secondary"] as const;
 const isTypeColor = (x: any): x is StatusIconColor => statusIconColor.includes(x);
 
 export interface StatusIconProps extends Omit<SvgIconProps, "color" | "fontSize"> {

@@ -19,14 +19,14 @@ import { NavigationMenuContext, NavLinkProps, ObjectNavigationItem } from "@/com
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
 import useMenu from "@/hooks/useMenu";
 
-interface SecondaryMenuButtonProps {
-  variant?: "button" | "icon";
-  NavLink?: NavLinkItemProps["NavLink"];
-}
-
 interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
   NavLink?: (props: NavLinkProps) => ReactElement | null;
+}
+
+interface SecondaryMenuButtonProps {
+  variant?: "button" | "icon";
+  NavLink?: NavLinkItemProps["NavLink"];
 }
 
 const styles = {

@@ -15,7 +15,6 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
   const {
     openDrawerMenu,
     backgroundCoefficient,
-    SearchField = props.SearchField,
     disableSearch = props.disableSearch,
     secondaryMenu = props.secondaryMenu,
   } = useContext(NavigationMenuContext);
@@ -41,7 +40,7 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
         </Box>
         {!disableSearch && (
           <Box flex={1} sx={{ textAlign: "right" }}>
-            {SearchField || <TextFieldSearch />}
+            <TextFieldSearch />
           </Box>
         )}
         {secondaryMenu && <SecondaryMenuButton variant="icon" />}

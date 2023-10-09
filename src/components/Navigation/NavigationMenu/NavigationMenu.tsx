@@ -163,8 +163,6 @@ export interface NavigationMenuProps {
   Logo?: ReactNode;
 }
 
-type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
-
 const DEFAULT_CONTEXT_VALUE = {
   backgroundCoefficient: 0.495,
   closeDrawerMenu: () => {},
@@ -173,6 +171,8 @@ const DEFAULT_CONTEXT_VALUE = {
   isTablet: false,
   openDrawerMenu: () => {},
 };
+
+type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
 
 export const NavigationMenuContext = createContext<NavigationMenuContextValue>(DEFAULT_CONTEXT_VALUE);
 
