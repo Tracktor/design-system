@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
+import { forwardRef } from "react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
 
@@ -379,10 +380,11 @@ WithCustomFooter.args = {
   items: ITEMS,
 };
 
+const CustomField = forwardRef((_, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} />);
 export const WithCustomSearchField = Template.bind({});
 WithCustomSearchField.args = {
   items: ITEMS,
-  SearchField: <TextField fullWidth label="Hello" />,
+  SearchField: <CustomField />,
 };
 
 export default {

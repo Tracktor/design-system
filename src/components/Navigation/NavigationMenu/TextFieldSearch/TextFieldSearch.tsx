@@ -39,7 +39,7 @@ const TextFieldSearch = ({ fullWidth, ...props }: SearchFieldProps) => {
   const placeholder = props?.translations?.search || translations?.search || "Search";
 
   if (SearchField) {
-    return isValidElement(SearchField) ? cloneElement(SearchField as ReactElement, { inputRef, ref: inputRef }) : null;
+    return isValidElement(SearchField) ? cloneElement(SearchField as ReactElement, { ref: inputRef }) : null;
   }
 
   return (
