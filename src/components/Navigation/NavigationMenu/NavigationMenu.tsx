@@ -151,6 +151,8 @@ export interface NavigationMenuProps {
   NavLink?: (props: NavLinkProps) => ReactNode;
   /**
    * Override the default search field
+   * To focus custom search input with custom ref, you need to pass the "ref" to the input like :
+   * const CustomField = forwardRef((_, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} />);
    */
   SearchField?: ReactNode;
   /**
