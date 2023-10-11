@@ -3,11 +3,14 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, UserConfig as UserConfigVite } from "vite";
 import dts from "vite-plugin-dts";
 import { UserConfig as InlineConfigVitest } from "vitest/config";
-import { dependencies, name, peerDependencies } from "./package.json";
+import { name, peerDependencies } from "./package.json";
 
 type UserConfig = UserConfigVite & {
   test: InlineConfigVitest["test"];
 };
+
+const allDependencies = [...Object.keys(peerDependencies), ...Object.keys(peerDependencies)];
+const external = Array.from(new Set(allDependencies));
 
 const config: UserConfig = {
   build: {
@@ -21,7 +24,7 @@ const config: UserConfig = {
     },
     minify: "esbuild",
     rollupOptions: {
-      external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
+      external,
       output: {
         globals: {
           "@mui/material": "material",
@@ -35,12 +38,15 @@ const config: UserConfig = {
     dts({
       insertTypesEntry: true,
     }),
-    react({
-      jsxImportSource: "@emotion/react",
-    }),
+    react(),
   ],
   resolve: {
-    alias: [{ find: "@", replacement: resolve(__dirname, "src") }],
+    alias: [
+      {
+        find: "@",
+        replacement: resolve(__dirname, "src"),
+      },
+    ],
   },
   test: {
     environment: "jsdom",
