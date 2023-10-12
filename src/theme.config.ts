@@ -1,4 +1,4 @@
-import { alpha, ComponentsPropsList, createTheme, getOverlayAlpha, Theme, ThemeOptions } from "@mui/material";
+import { alpha, ComponentsPropsList, createTheme, getOverlayAlpha, responsiveFontSizes, Theme, ThemeOptions } from "@mui/material";
 import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
@@ -29,6 +29,22 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     border?: {
       outline?: string;
+    };
+  }
+
+  // eslint-disable-next-line no-shadow
+  interface Theme {
+    size: {
+      mobileNavBarHeight: number;
+      tabletNavBarHeight: number;
+    };
+  }
+
+  // eslint-disable-next-line no-shadow
+  interface ThemeOptions {
+    size?: {
+      mobileNavBarHeight?: number;
+      tabletNavBarHeight?: number;
     };
   }
 }
@@ -216,6 +232,16 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiDialogActions: {
       styleOverrides: actionStyleOverrides,
+    },
+    MuiDialogTitle: {
+      defaultProps: {
+        variant: "h3",
+      },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          paddingRight: theme.spacing(7),
+        }),
+      },
     },
     MuiFormControlLabel: {
       variants: [
@@ -474,8 +500,9 @@ const commonThemeOptions: ThemeOptions = {
             dir,
           }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
             const isSmallSize = ownerState?.size === "small";
-            const smallHeight = dir === "column" ? 130 : 60;
-            const mediumHeight = dir === "column" ? 150 : 80;
+            const isColumnDirection = dir === "column";
+            const smallHeight = isColumnDirection ? 130 : 60;
+            const mediumHeight = isColumnDirection ? 150 : 80;
 
             return {
               ...(ownerState?.label && {
@@ -484,6 +511,7 @@ const commonThemeOptions: ThemeOptions = {
                   top: "100%",
                 },
                 "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
+                  display: "none",
                   height: 0,
                   opacity: 0,
                   width: 0,
@@ -495,11 +523,12 @@ const commonThemeOptions: ThemeOptions = {
                   alignItems: "center",
                   cursor: "pointer",
                   display: "flex",
-                  flexDirection: dir === "column" ? "column" : "row",
+                  flexDirection: isColumnDirection ? "column" : "row",
                   fontSize: theme.typography.pxToRem(14),
                   height: "100%",
-                  justifyContent: dir === "column" ? "center" : "left",
+                  justifyContent: isColumnDirection ? "center" : "left",
                   maxWidth: "100%",
+                  ...(!isColumnDirection && { paddingRight: theme.spacing(2) }),
                   pointerEvents: "auto",
                   transform: "none !important",
                   whiteSpace: "initial",
@@ -511,7 +540,7 @@ const commonThemeOptions: ThemeOptions = {
                   marginLeft: theme.spacing(2),
                   marginRight: theme.spacing(2),
                   width: 33,
-                  ...(dir === "column" && { marginBottom: theme.spacing(1) }),
+                  ...(isColumnDirection && { marginBottom: theme.spacing(1) }),
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
                   borderStyle: "dashed",
@@ -612,6 +641,10 @@ const commonThemeOptions: ThemeOptions = {
   shape: {
     borderRadius: 8,
   },
+  size: {
+    mobileNavBarHeight: 88,
+    tabletNavBarHeight: 64,
+  },
   typography: () => {
     const fontSize = 14;
     const htmlFontSize = 16;
@@ -623,32 +656,26 @@ const commonThemeOptions: ThemeOptions = {
       h1: {
         fontSize: pxToRem(40),
         fontWeight: 700,
-        lineHeight: "60px",
       },
       h2: {
         fontSize: pxToRem(32),
         fontWeight: 600,
-        lineHeight: "48px",
       },
       h3: {
         fontSize: pxToRem(24),
         fontWeight: 600,
-        lineHeight: "36px",
       },
       h4: {
         fontSize: pxToRem(20),
         fontWeight: 500,
-        lineHeight: "30px",
       },
       h5: {
         fontSize: pxToRem(16),
         fontWeight: 500,
-        lineHeight: "24px",
       },
       h6: {
         fontSize: pxToRem(14),
         fontWeight: 500,
-        lineHeight: "21px",
       },
     };
   },
@@ -705,8 +732,8 @@ const darkThemeOptions: ThemeOptions = {
   },
 };
 
-export const commonTheme = createTheme(commonThemeOptions);
-export const lightTheme = createTheme(commonThemeOptions, lightThemeOptions);
-export const darkTheme = createTheme(commonThemeOptions, darkThemeOptions);
+export const commonTheme = responsiveFontSizes(createTheme(commonThemeOptions));
+export const lightTheme = responsiveFontSizes(createTheme(commonThemeOptions, lightThemeOptions));
+export const darkTheme = responsiveFontSizes(createTheme(commonThemeOptions, darkThemeOptions));
 
 export default lightTheme;

@@ -50,15 +50,11 @@ const styles = {
 };
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
-  const {
-    disableSearch = props.disableSearch,
-    SearchField = props.SearchField,
-    NavLink = props.NavLink,
-  } = useContext(NavigationMenuContext);
+  const { disableSearch = props.disableSearch, NavLink = props.NavLink } = useContext(NavigationMenuContext);
 
   return (
     <Box px={2} component="nav">
-      {!disableSearch && (SearchField || <TextFieldSearch fullWidth />)}
+      {!disableSearch && <TextFieldSearch />}
       <List sx={{ ...styles.list }}>
         {items?.map((item, index) => {
           // Is React Element then return it
@@ -90,4 +86,5 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
     </Box>
   );
 };
+
 export default SideBarMenu;

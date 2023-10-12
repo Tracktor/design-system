@@ -1,5 +1,6 @@
 import { Box, darken, IconButton, Stack, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
+import CloseIcon from "@/components/Icon/CloseIcon";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import SecondaryMenuButton from "@/components/Navigation/NavigationMenu/SecondaryMenuButton";
 
@@ -45,13 +46,12 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
     isMobile,
     isDrawerOpen,
     backgroundCoefficient,
-    mobileNavBarHeight,
     sideBarWidth = width,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
 
-  const { palette } = useTheme();
+  const { palette, size } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.mode === "dark" ? palette.divider : backgroundColor}`;
 
@@ -60,12 +60,7 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
       <Stack sx={styles.logoContainer} direction="row" alignItems="center" spacing={3}>
         {isMobile && (
           <IconButton onClick={closeDrawerMenu}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M15.705 7.41L14.295 6L8.29498 12L14.295 18L15.705 16.59L11.125 12L15.705 7.41Z"
-                fill={palette.getContrastText(backgroundColor)}
-              />
-            </svg>
+            <CloseIcon fill={palette.getContrastText(backgroundColor)} />
           </IconButton>
         )}
         <Box
@@ -83,7 +78,7 @@ const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
       <Box
         sx={{
           ...styles.footer,
-          ...(isMobile && { paddingBottom: `${mobileNavBarHeight}px` }),
+          ...(isMobile && { paddingBottom: `${size.mobileNavBarHeight}px` }),
         }}
       >
         {secondaryMenu && !isMobile && <SecondaryMenuButton />}

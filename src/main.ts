@@ -25,6 +25,8 @@ export { default as Button } from "@/components/Inputs/Button";
 export type { ButtonProps } from "@/components/Inputs/Button";
 export { default as Lightbox } from "@/components/Feedback/Lightbox";
 export * from "@/components/Feedback/Lightbox";
+export { default as DialogCloseIcon } from "@/components/Feedback/Dialog/DialogCloseIcon";
+export * from "@/components/Feedback/Dialog/DialogCloseIcon";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";

@@ -1,8 +1,8 @@
-import { useContext, useLayoutEffect, useRef } from "react";
+import { ElementRef, useContext, useLayoutEffect, useRef } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 
 const useTextFieldSearch = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<ElementRef<"input">>(null);
   const { disableSearchFocusShortcut } = useContext(NavigationMenuContext);
 
   const focusInput = (e: KeyboardEvent) => {

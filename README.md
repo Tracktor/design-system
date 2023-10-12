@@ -15,14 +15,15 @@
 
 ## Installation
 
-**bun:**
-```bash
-bun install @tracktor/design-system
-```
+
 
 **npm:**
 ```bash
 npm install @tracktor/design-system
+```
+**bun:**
+```bash
+bun add @tracktor/design-system
 ```
 **yarn**:
 ```bash

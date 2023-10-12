@@ -4,8 +4,10 @@ import { themes } from "@storybook/theming";
 import { DARK_MODE_EVENT_NAME, useDarkMode } from "storybook-dark-mode";
 import { Preview } from "@storybook/react";
 import { addons } from "@storybook/preview-api";
+import { version } from "../package.json";
 
 const channel = addons.getChannel();
+const brandTitle = `v${version}`;
 
 const ThemeWrapper = (props: any) => {
   const isDarkMode = useDarkMode()
@@ -36,7 +38,9 @@ const decorators = [
 const preview: Preview = {
   decorators,
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: {
+      argTypesRegex: "^on[A-Z].*"
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -44,13 +48,16 @@ const preview: Preview = {
       },
     },
     darkMode: {
+      brandTitle,
       dark: {
         ...themes.dark,
-        brandImage: "../src/assets/img/tracktor-white.svg"
+        brandImage: "../src/assets/img/tracktor-white.svg",
+        brandTitle,
       },
       light: {
         ...themes.light,
-        brandImage: "../src/assets/img/tracktor-black.svg"
+        brandImage: "../src/assets/img/tracktor-black.svg",
+        brandTitle,
       },
       darkClass: "dark-on",
       lightClass: "lights-on",

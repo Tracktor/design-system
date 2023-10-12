@@ -9,12 +9,6 @@ interface SnackBarState {
   component?: ElementType;
 }
 
-interface SnackbarContextValue {
-  closeSnackbar(): void;
-  openSnackbar(params?: openSnackbarParams): void;
-  isOpen: boolean;
-}
-
 interface openSnackbarParamsWithComponent {
   component: ElementType;
   severity?: never;
@@ -28,6 +22,12 @@ interface openSnackbarParamsWithMessage {
 }
 
 export type openSnackbarParams = openSnackbarParamsWithComponent | openSnackbarParamsWithMessage;
+
+interface SnackbarContextValue {
+  closeSnackbar(): void;
+  openSnackbar(params?: openSnackbarParams): void;
+  isOpen: boolean;
+}
 
 export interface SnackbarProviderProps extends PropsWithChildren {
   autoHideDuration?: number;

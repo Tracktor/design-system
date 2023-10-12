@@ -1,4 +1,4 @@
-import { Drawer, useMediaQuery } from "@mui/material";
+import { SwipeableDrawer, useMediaQuery, useTheme } from "@mui/material";
 import { ChangeEvent, createContext, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
@@ -112,6 +112,36 @@ export interface NavigationMenuProps {
    */
   searchValue?: string;
   /**
+   * Mobile options
+   */
+  mobileOptions?: {
+    /**
+     * Scroll threshold to hide mobile bottom navigation
+     * @default 150
+     */
+    scrollThreshold?: number;
+    /**
+     * Hide mobile bottom navigation on scroll
+     * @default false
+     */
+    hideNavBarOnScroll?: boolean;
+    /**
+     * Hide mobile bottom navigation on scroll on specific routes
+     * @default undefined
+     */
+    hideNavBarOnScrollOnRoutes?: string[];
+    /**
+     * Hide mobile bottom navigation
+     * @default false
+     */
+    hideNavBar?: boolean;
+    /**
+     * Hide mobile bottom navigation on specific routes
+     * @default undefined
+     */
+    hideNavBarOnRoutes?: string[];
+  };
+  /**
    * Component to router nav links.
    * This component is used to render the links in the main menu &  mobile bottom navigation
    * It should be a react-router-dom NavLink or a compatible component
@@ -121,6 +151,8 @@ export interface NavigationMenuProps {
   NavLink?: (props: NavLinkProps) => ReactNode;
   /**
    * Override the default search field
+   * To focus custom search input with custom ref, you need to pass the "ref" to the input like :
+   * const CustomField = forwardRef((_, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} />);
    */
   SearchField?: ReactNode;
   /**
@@ -133,34 +165,40 @@ export interface NavigationMenuProps {
   Logo?: ReactNode;
 }
 
-type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
-
 const DEFAULT_CONTEXT_VALUE = {
   backgroundCoefficient: 0.495,
   closeDrawerMenu: () => {},
   isDrawerOpen: false,
   isMobile: false,
   isTablet: false,
-  mobileNavBarHeight: 88,
   openDrawerMenu: () => {},
-  tabletNavBarHeight: 64,
 };
+
+type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
 
 export const NavigationMenuContext = createContext<NavigationMenuContextValue>(DEFAULT_CONTEXT_VALUE);
 
 const NavigationMenuFactory = () => {
-  const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth } =
+  const { items, disableResponsive, isMobile, isTablet, itemsMobile, isDrawerOpen, closeDrawerMenu, sideBarWidth, openDrawerMenu } =
     useContext(NavigationMenuContext);
 
   if (isMobile && !disableResponsive) {
     return (
       <>
         <MobileNavBar items={itemsMobile} />
-        <Drawer anchor="left" open={isDrawerOpen} PaperProps={{ sx: { width: "100%" } }} onClose={closeDrawerMenu}>
+        <SwipeableDrawer
+          anchor="left"
+          open={isDrawerOpen}
+          onClose={closeDrawerMenu}
+          onOpen={openDrawerMenu}
+          PaperProps={{
+            sx: { width: "100%" },
+          }}
+        >
           <SideBar width="100%">
             <SideBarMenu items={items} />
           </SideBar>
-        </Drawer>
+        </SwipeableDrawer>
       </>
     );
   }
@@ -169,11 +207,11 @@ const NavigationMenuFactory = () => {
     return (
       <>
         <TabletNavBar />
-        <Drawer anchor="left" open={isDrawerOpen} onClose={closeDrawerMenu}>
+        <SwipeableDrawer anchor="left" open={isDrawerOpen} onClose={closeDrawerMenu} onOpen={openDrawerMenu}>
           <SideBar>
             <SideBarMenu items={items} />
           </SideBar>
-        </Drawer>
+        </SwipeableDrawer>
       </>
     );
   }
@@ -196,14 +234,16 @@ const NavigationMenu = ({
   sideBarWidth,
   onSearchChange,
   searchValue,
+  mobileOptions,
   SearchField,
   NavLink,
   Footer,
   Logo,
 }: NavigationMenuProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const [isDrawerOpen, setIsDrawerOpen] = useState(DEFAULT_CONTEXT_VALUE.isDrawerOpen);
-  const isMobile = useMediaQuery("(max-width:480px)");
-  const isTablet = useMediaQuery("(max-width:1024px) and (min-width:481px)");
 
   const closeDrawerMenu = useCallback(() => {
     setIsDrawerOpen(false);
@@ -227,7 +267,7 @@ const NavigationMenu = ({
       items,
       itemsMobile,
       Logo,
-      mobileNavBarHeight: DEFAULT_CONTEXT_VALUE.mobileNavBarHeight,
+      mobileOptions,
       NavLink,
       onSearchChange,
       openDrawerMenu,
@@ -235,7 +275,6 @@ const NavigationMenu = ({
       searchValue,
       secondaryMenu,
       sideBarWidth,
-      tabletNavBarHeight: DEFAULT_CONTEXT_VALUE.tabletNavBarHeight,
       translations,
     }),
     [
@@ -258,6 +297,7 @@ const NavigationMenu = ({
       NavLink,
       SearchField,
       disableSearchFocusShortcut,
+      mobileOptions,
     ],
   );
 
