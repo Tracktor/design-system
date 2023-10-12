@@ -34,12 +34,7 @@ const config: UserConfig = {
       },
     },
   },
-  plugins: [
-    dts({
-      insertTypesEntry: true,
-    }),
-    react(),
-  ],
+  plugins: [dts(), react()],
   resolve: {
     alias: [
       {
