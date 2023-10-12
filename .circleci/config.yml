@@ -94,6 +94,8 @@ workflows:
         - not:
             equal: [ master, << pipeline.git.branch >> ]
     jobs:
+      - run-unit-tests:
+          name: Run unit tests
       - chromatic-deployment:
           name: Chromatic Deployment
   Release:
