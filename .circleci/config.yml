@@ -22,7 +22,7 @@ executors:
       - image: cimg/node:16.17.0
 
 jobs:
-  run-tests:
+  run-unit-tests:
     executor: tests
     steps:
       - checkout
@@ -95,14 +95,6 @@ jobs:
           command: bun publish --access public
 
 workflows:
-  Unit Test:
-    when:
-      and:
-        - not:
-            equal: [ master, << pipeline.git.branch >> ]
-    jobs:
-      - run-tests:
-          name: Run Tests
   Visual Test:
     when:
       and:
@@ -115,9 +107,15 @@ workflows:
     when:
       equal: [ master, << pipeline.git.branch >> ]
     jobs:
+      - run-unit-tests:
+          name: Run unit tests
       - publish-storybook-docker:
           name: Publish Storybook
           context: *production_context
+          requires:
+            - Run unit tests
       - publish-npm:
           name: Publish NPM
           context: *production_context
+          requires:
+            - Run unit tests
