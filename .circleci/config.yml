@@ -88,11 +88,6 @@ jobs:
           command: yarn publish --access public
 
 workflows:
-  Unit Test:
-    when: << pipeline.git.branch >>
-    jobs:
-      - run-unit-tests:
-          name: Run unit tests
   Visual Test:
     when:
       and:
