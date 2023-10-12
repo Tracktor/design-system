@@ -89,10 +89,7 @@ jobs:
 
 workflows:
   Unit Test:
-    when:
-      and:
-        - not:
-            equal: [ master, << pipeline.git.branch >> ]
+    when: << pipeline.git.branch >>
     jobs:
       - run-tests:
           name: Run Tests
