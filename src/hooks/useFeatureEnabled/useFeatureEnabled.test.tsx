@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 import { describe, expect, it } from "vitest";
-import { useFeatureEnabled } from "./useFeatureEnabled";
+import useFeatureEnabled from "./useFeatureEnabled";
 import FeatureEnableProvider from "@/context/FeatureEnable/FeatureEnableProvider";
 
 describe("Test useIsFeatureEnabled", () => {

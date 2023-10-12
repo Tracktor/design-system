@@ -37,7 +37,7 @@ export { default as SnackbarProvider } from "@/context/Snackbar/SnackbarProvider
 export * from "@/context/Snackbar/SnackbarProvider";
 
 // Hooks
-export { default as useIsFeatureEnabled } from "@/hooks/useFeatureEnabled";
+export { default as useFeatureEnabled } from "@/hooks/useFeatureEnabled";
 export * from "@/hooks/useFeatureEnabled";
 export { default as useMenu } from "@/hooks/useMenu";
 export * from "@/hooks/useMenu";

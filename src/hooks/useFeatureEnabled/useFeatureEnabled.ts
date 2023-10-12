@@ -5,7 +5,7 @@ import hasFeature from "@/utils/hasFeature";
 /**
  * Hook to manage the state of a feature.
  */
-export const useFeatureEnabled = () => {
+const useFeatureEnabled = () => {
   const { features: featureFromContext, setFeatures, disabledFeatures } = useContext(FeatureEnableContext);
 
   const getIsFeatureEnabled = useCallback(

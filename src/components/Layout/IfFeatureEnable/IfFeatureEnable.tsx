@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useFeatureEnabled } from "@/hooks/useFeatureEnabled";
+import useFeatureEnabled from "@/hooks/useFeatureEnabled";
 
 export interface IfFeatureEnableProps {
   /**
