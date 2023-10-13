@@ -2,10 +2,10 @@
   "name": "@tracktor/design-system",
   "description": "Tracktor Design System",
   "sideEffects": false,
-  "version": "1.44.5",
+  "version": "1.44.6",
   "license": "ISC",
   "type": "module",
-  "types": "./dist/main.d.ts",
+  "types": "./dist/src/main.d.ts",
   "main": "./dist/main.cjs",
   "module": "./dist/main.js",
   "files": [
@@ -21,7 +21,7 @@
     "./colors": {
       "import": "./dist/colors.js",
       "require": "./dist/colors.cjs",
-      "types": "./dist/colors/colors.d.ts"
+      "types": "./dist/colors/main.d.ts"
     }
   },
   "repository": {

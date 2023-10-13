@@ -34,7 +34,21 @@ const config: UserConfig = {
       },
     },
   },
-  plugins: [dts(), react()],
+  plugins: [
+    dts({
+      exclude: [
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/stories/**/*",
+        "**/*.stories.tsx",
+        "**/*.stories.ts",
+        "vite.config.ts",
+        "src/test.config.ts",
+        "src/theme.config.ts",
+      ],
+    }),
+    react(),
+  ],
   resolve: {
     alias: [
       {
