@@ -44,7 +44,6 @@ const config: UserConfig = {
         "**/*.stories.ts",
         "vite.config.ts",
         "src/test.config.ts",
-        "src/theme.config.ts",
       ],
     }),
     react(),
