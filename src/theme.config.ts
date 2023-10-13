@@ -736,4 +736,8 @@ export const commonTheme = responsiveFontSizes(createTheme(commonThemeOptions));
 export const lightTheme = responsiveFontSizes(createTheme(commonThemeOptions, lightThemeOptions));
 export const darkTheme = responsiveFontSizes(createTheme(commonThemeOptions, darkThemeOptions));
 
-export default lightTheme;
+export default {
+  commonTheme,
+  darkTheme,
+  lightTheme,
+};
