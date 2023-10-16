@@ -1,17 +1,37 @@
-import { Box, SxProps } from "@mui/material";
-import type { ReactNode } from "react";
+import { Box } from "@mui/material";
+import { ElementType, ForwardedRef, forwardRef, PropsWithChildren } from "react";
 
-export interface TabPanelProps {
-  children?: ReactNode;
+export interface TabPanelProps extends PropsWithChildren {
   index: number;
   value: number;
-  sx?: SxProps;
+  orientation?: "horizontal" | "vertical";
+  paddingY?: number | string;
+  paddingX?: number | string;
 }
 
-const TabPanel = ({ children, value, index, sx }: TabPanelProps) => (
-  <Box role="tabpanel" hidden={value !== index} id={`tabpanel-${index}`} sx={sx}>
-    {value === index && <Box sx={{ paddingY: 5 }}>{children}</Box>}
-  </Box>
-);
+const TabPanel = <T extends ElementType>(
+  { children, value, index, orientation, paddingY, paddingX }: TabPanelProps,
+  ref: ForwardedRef<T>,
+) => {
+  const defaultPaddingY = paddingY || 3;
+  const defaultPaddingX = paddingX || orientation === "vertical" ? 3 : 0;
 
-export default TabPanel;
+  if (value === index) {
+    return (
+      <Box
+        ref={ref}
+        role="tabpanel"
+        hidden={value !== index}
+        id={`tabpanel-${index}`}
+        paddingY={defaultPaddingY}
+        paddingX={defaultPaddingX}
+      >
+        {children}
+      </Box>
+    );
+  }
+
+  return null;
+};
+
+export default forwardRef(TabPanel);

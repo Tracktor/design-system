@@ -1,0 +1,45 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="Hooks/useTabs"/>
+
+# `useTabs`
+
+Utility hook for handle tabs
+
+###  Usage
+
+```typescript jsx
+import { Box, Tab, Tabs, TabPanel, useTabs } from "@tracktor/design-system";
+
+const { value, handleChange } = useTabs();
+
+const App = () => (
+  <Box sx={{ width: '100%' }}>
+    <Box>
+      <Tabs value={value} onChange={handleChange}>
+        <Tab label="Item One"  />
+        <Tab label="Item Two"  />
+        <Tab label="Item Three"  />
+      </Tabs>
+    </Box>
+    <TabPanel value={value} index={0}>
+      Item One
+    </TabPanel>
+    <TabPanel value={value} index={1}>
+      Item Two
+    </TabPanel>
+    <TabPanel value={value} index={2}>
+      Item Three
+    </TabPanel>
+  </Box>
+);
+
+export default App;
+```
+
+### Available state & function
+
+| Name           | Type     | Description                 |
+|----------------|----------|-----------------------------|
+| `value`        | number   | Value to current active tab |
+| `handleChange` | Function | Handle change tab           |

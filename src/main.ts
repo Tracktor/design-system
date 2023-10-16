@@ -45,6 +45,8 @@ export { default as useMenu } from "@/hooks/useMenu";
 export * from "@/hooks/useMenu";
 export { default as useSnackbar } from "@/hooks/useSnackbar";
 export * from "@/hooks/useSnackbar";
+export { default as useTabs } from "@/hooks/useTabs";
+export * from "@/hooks/useTabs";
 
 // Config
 export { default as theme } from "@/theme.config";
