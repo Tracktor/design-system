@@ -1,42 +1,20 @@
-import { Box, SvgIcon, Tab, Typography, useTheme } from "@mui/material";
+import { Box, SvgIcon, Tab, useTheme } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import { ReactNode, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Tabs from "./Tabs";
+import TabPanel from "@/components/Navigation/TabPanel";
 import LinkTabComponent from "@/components/Navigation/Tabs/LinkTab/LinkTab";
-
-interface TabPanelProps {
-  children?: ReactNode;
-  index: number;
-  value: number;
-}
-
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-};
+import useTabs from "@/hooks/useTabs";
 
 const Template: StoryFn<typeof Tabs> = (args, { name }) => {
-  const [value, setValue] = useState(0);
   const isDisabledContext = name === "Disabled";
   const isScrollableContext = name === "Scrollable";
+  const { value, handleChange } = useTabs();
 
   const a11yProps = (index: number) => ({
     "aria-controls": `simple-tabpanel-${index}`,
     id: `simple-tab-${index}`,
   });
-
-  const handleChange = (_: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center" height="100%">
@@ -118,25 +96,25 @@ const VerticalTemplate: StoryFn<typeof Tabs> = (args) => {
           <Tab label="Item Six" />
           <Tab label="Item Seven" />
         </Tabs>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={value} index={0} orientation="vertical">
           Item One
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={1} orientation="vertical">
           Item Two
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={value} index={2} orientation="vertical">
           Item Three
         </TabPanel>
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={3} orientation="vertical">
           Item Four
         </TabPanel>
-        <TabPanel value={value} index={4}>
+        <TabPanel value={value} index={4} orientation="vertical">
           Item Five
         </TabPanel>
-        <TabPanel value={value} index={5}>
+        <TabPanel value={value} index={5} orientation="vertical">
           Item Six
         </TabPanel>
-        <TabPanel value={value} index={6}>
+        <TabPanel value={value} index={6} orientation="vertical">
           Item Seven
         </TabPanel>
       </Box>
