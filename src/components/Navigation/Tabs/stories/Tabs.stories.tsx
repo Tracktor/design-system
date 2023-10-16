@@ -1,28 +1,9 @@
-import { Box, SvgIcon, Tab, Typography, useTheme } from "@mui/material";
+import { Box, SvgIcon, Tab, useTheme } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import { ReactNode, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import Tabs from "./Tabs";
+import TabPanel from "@/components/Navigation/TabPanel";
 import LinkTabComponent from "@/components/Navigation/Tabs/LinkTab/LinkTab";
-
-interface TabPanelProps {
-  children?: ReactNode;
-  index: number;
-  value: number;
-}
-
-const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-};
 
 const Template: StoryFn<typeof Tabs> = (args, { name }) => {
   const [value, setValue] = useState(0);

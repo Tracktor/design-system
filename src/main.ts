@@ -27,6 +27,8 @@ export { default as Lightbox } from "@/components/Feedback/Lightbox";
 export * from "@/components/Feedback/Lightbox";
 export { default as DialogCloseIcon } from "@/components/Feedback/Dialog/DialogCloseIcon";
 export * from "@/components/Feedback/Dialog/DialogCloseIcon";
+export { default as TabPanel } from "@/components/Navigation/TabPanel";
+export * from "@/components/Navigation/TabPanel";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
