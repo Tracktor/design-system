@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, SxProps } from "@mui/material";
 import { ElementType, ForwardedRef, forwardRef, PropsWithChildren } from "react";
 
 export interface TabPanelProps extends PropsWithChildren {
@@ -7,10 +7,12 @@ export interface TabPanelProps extends PropsWithChildren {
   orientation?: "horizontal" | "vertical";
   paddingY?: number | string;
   paddingX?: number | string;
+  fullHeight?: boolean;
+  sx?: SxProps;
 }
 
 const TabPanel = <T extends ElementType>(
-  { children, value, index, orientation, paddingY, paddingX }: TabPanelProps,
+  { children, value, index, orientation, paddingY, paddingX, fullHeight, sx }: TabPanelProps,
   ref: ForwardedRef<T>,
 ) => {
   const defaultPaddingY = paddingY || 3;
@@ -25,6 +27,8 @@ const TabPanel = <T extends ElementType>(
         id={`tabpanel-${index}`}
         paddingY={defaultPaddingY}
         paddingX={defaultPaddingX}
+        height={fullHeight ? "100%" : undefined}
+        sx={sx}
       >
         {children}
       </Box>
