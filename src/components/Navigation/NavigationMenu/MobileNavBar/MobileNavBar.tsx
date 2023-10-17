@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, darken, GlobalStyles, Slide, Theme, useTheme } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, GlobalStyles, Slide, Theme, useTheme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -44,11 +44,10 @@ const styles = {
 };
 
 const MobileNavBar = ({ items, ...props }: MobileNavBarProps) => {
-  const { backgroundCoefficient, translations, mobileOptions, NavLink = props.NavLink } = useContext(NavigationMenuContext);
-
+  const { translations, mobileOptions, NavLink = props.NavLink } = useContext(NavigationMenuContext);
   const { palette, size } = useTheme();
   const { active, handleChangeNavigation, visible } = useMobileNavBar({ items });
-  const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
+  const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
   const menuLabel = props?.translations?.menu || translations?.menu || "Menu";
 
   const isHidden =

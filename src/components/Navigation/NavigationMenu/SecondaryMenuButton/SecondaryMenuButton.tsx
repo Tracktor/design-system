@@ -2,7 +2,6 @@ import {
   alpha,
   Avatar,
   Button,
-  darken,
   IconButton,
   ListItemIcon,
   ListItemText,
@@ -72,7 +71,7 @@ const styles = {
 const DEFAULT_SECONDARY_MENU_ID = "SecondaryBottomMenu";
 
 const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButtonProps) => {
-  const { backgroundCoefficient, secondaryMenu, isMobile, NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { secondaryMenu, isMobile, NavLink = props.NavLink } = useContext(NavigationMenuContext);
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
   const firstLetterOfName = secondaryMenu?.avatar?.name?.charAt(0).toUpperCase();
   const isButton = variant === "button";
@@ -91,8 +90,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
               width: "auto",
             }),
             color: ({ palette }: Theme) => {
-              const backgroundColor =
-                palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
+              const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.main;
 
               return palette.getContrastText(backgroundColor);
             },

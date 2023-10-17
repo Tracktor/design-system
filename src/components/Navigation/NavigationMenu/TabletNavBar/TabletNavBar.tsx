@@ -1,4 +1,4 @@
-import { AppBar, Box, darken, GlobalStyles, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Box, GlobalStyles, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import { NavigationMenuContext, SecondaryMenu } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -12,15 +12,9 @@ interface TabletNavBarProps {
 }
 
 const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
-  const {
-    openDrawerMenu,
-    backgroundCoefficient,
-    disableSearch = props.disableSearch,
-    secondaryMenu = props.secondaryMenu,
-  } = useContext(NavigationMenuContext);
-
+  const { openDrawerMenu, disableSearch = props.disableSearch, secondaryMenu = props.secondaryMenu } = useContext(NavigationMenuContext);
   const { palette, size } = useTheme();
-  const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
+  const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
 
   return (
     <AppBar
@@ -32,18 +26,18 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
         height: size.tabletNavBarHeight,
       }}
     >
-      <Toolbar component={Stack} direction="row" spacing={3} height="100%">
-        <Box>
-          <IconButton onClick={openDrawerMenu} edge="end" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-        </Box>
-        {!disableSearch && (
-          <Box flex={1} sx={{ textAlign: "right" }}>
-            <TextFieldSearch />
-          </Box>
-        )}
-        {secondaryMenu && <SecondaryMenuButton variant="icon" />}
+      <Toolbar component={Stack} direction="row" spacing={3} height="100%" justifyContent="space-between">
+        <IconButton onClick={openDrawerMenu} edge="end" color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          {!disableSearch && (
+            <Box flex={1} sx={{ maxWidth: 200, textAlign: "right" }}>
+              <TextFieldSearch />
+            </Box>
+          )}
+          {secondaryMenu && <SecondaryMenuButton variant="icon" />}
+        </Stack>
       </Toolbar>
       <GlobalStyles
         styles={{

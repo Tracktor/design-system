@@ -47,6 +47,14 @@ declare module "@mui/material/styles" {
       tabletNavBarHeight?: number;
     };
   }
+
+  interface PaletteColor {
+    black: string;
+  }
+
+  interface SimplePaletteColorOptions {
+    black?: string;
+  }
 }
 
 const actionStyleOverrides: Partial<
@@ -591,6 +599,7 @@ const commonThemeOptions: ThemeOptions = {
       main: "#4D85E0",
     },
     primary: {
+      black: "#004E53",
       dark: "#006C74",
       light: "#33AFB7",
       main: "#009BA6",
