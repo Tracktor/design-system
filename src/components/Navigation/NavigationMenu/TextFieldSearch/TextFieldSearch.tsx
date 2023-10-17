@@ -13,12 +13,12 @@ const styles = {
   "& .Mui-focused svg": {
     animation: "hi-TextFieldSearch 1s ease forwards",
   },
-  "& .MuiInputBase-root.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: ({ palette }: Theme) => palette.primary.main,
-  },
   "& .MuiOutlinedInput-notchedOutline, & .MuiInputBase-root .MuiOutlinedInput-notchedOutline": {
     background: ({ palette }: Theme) => alpha(palette.common.white, 0.12),
     borderColor: ({ palette }: Theme) => alpha(palette.common.white, 0.1),
+  },
+  "&:hover .MuiOutlinedInput-notchedOutline, & .MuiInputBase-root.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: ({ palette }: Theme) => palette.primary.main,
   },
   "@keyframes hi-TextFieldSearch": {
     "100%": { transform: "scale(1)" },
