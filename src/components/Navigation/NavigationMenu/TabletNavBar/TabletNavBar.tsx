@@ -14,15 +14,15 @@ interface TabletNavBarProps {
 const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
   const { openDrawerMenu, disableSearch = props.disableSearch, secondaryMenu = props.secondaryMenu } = useContext(NavigationMenuContext);
   const { palette, size } = useTheme();
-  const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
+  const background = palette.mode === "dark" ? palette.background.default : palette.primary.black;
 
   return (
     <AppBar
       position="fixed"
       elevation={0}
       sx={{
-        background: backgroundColor,
-        borderBottom: (theme) => `1px solid ${theme.palette.mode === "dark" ? theme.palette.divider : backgroundColor}`,
+        background,
+        borderBottom: ({ palette: paletteColor }) => `1px solid ${paletteColor.mode === "dark" ? paletteColor.divider : background}`,
         height: size.tabletNavBarHeight,
       }}
     >

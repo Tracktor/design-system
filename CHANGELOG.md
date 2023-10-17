@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.45.2
-- **[refactor]** - Update and improvement `NavigationMenu`
+## v1.45.3
+- **[style]** - `NavigationMenu` theme palette destructuring

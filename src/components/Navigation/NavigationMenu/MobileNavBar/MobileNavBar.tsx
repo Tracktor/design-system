@@ -22,11 +22,11 @@ const styles = {
   bottomNavigation: {
     ".Mui-selected": {
       ".MuiBottomNavigationAction-label": {
-        color: (theme: Theme) => theme.palette.primary.contrastText,
+        color: ({ palette }: Theme) => palette.primary.contrastText,
       },
       background: ({ palette }: Theme) => palette.primary.dark,
       svg: {
-        color: (theme: Theme) => theme.palette.primary.contrastText,
+        color: ({ palette }: Theme) => palette.primary.contrastText,
       },
     },
     ".MuiBottomNavigationAction-label": {

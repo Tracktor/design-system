@@ -14,11 +14,11 @@ const styles = {
     animation: "hi-TextFieldSearch 1s ease forwards",
   },
   "& .MuiOutlinedInput-notchedOutline": {
-    background: (theme: Theme) => alpha(theme.palette.common.white, 0.12),
-    border: (theme: Theme) => `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+    background: ({ palette }: Theme) => alpha(palette.common.white, 0.12),
+    border: ({ palette }: Theme) => `1px solid ${alpha(palette.common.white, 0.1)}`,
   },
   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: (theme: Theme) => theme.palette.primary.main,
+    borderColor: ({ palette }: Theme) => palette.primary.main,
   },
   "@keyframes hi-TextFieldSearch": {
     "100%": { transform: "scale(1)" },

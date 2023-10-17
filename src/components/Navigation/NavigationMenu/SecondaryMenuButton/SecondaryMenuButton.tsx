@@ -30,16 +30,15 @@ interface SecondaryMenuButtonProps {
 
 const styles = {
   avatar: {
-    background: (theme: Theme) => theme.palette.common.white,
-    color: (theme: Theme) => theme.palette.getContrastText(theme.palette.common.white),
+    background: ({ palette }: Theme) => palette.common.white,
+    color: ({ palette }: Theme) => palette.getContrastText(palette.common.white),
   },
   button: {
     "&:hover": {
       cursor: "pointer",
     },
     borderRadius: 0,
-    borderTop: (theme: Theme) =>
-      `solid 1px ${theme.palette.mode === "dark" ? theme.palette.divider : alpha(theme.palette.common.white, 0.12)}`,
+    borderTop: ({ palette }: Theme) => `solid 1px ${palette.mode === "dark" ? palette.divider : alpha(palette.common.white, 0.12)}`,
     justifyContent: "space-between",
     paddingX: 3,
     paddingY: 2,
@@ -57,11 +56,10 @@ const styles = {
       width: "100%",
     },
     "& > a.active": {
-      backgroundColor: (theme: Theme) => alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
+      backgroundColor: ({ palette }: Theme) => alpha(palette.primary.main, palette.action.selectedOpacity),
     },
     "& > a.active:hover": {
-      backgroundColor: (theme: Theme) =>
-        alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+      backgroundColor: ({ palette }: Theme) => alpha(palette.primary.main, palette.action.selectedOpacity + palette.action.hoverOpacity),
     },
     overflow: "hidden",
     padding: "0 !important",
