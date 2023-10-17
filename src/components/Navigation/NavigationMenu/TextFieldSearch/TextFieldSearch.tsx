@@ -15,7 +15,7 @@ const styles = {
   },
   "& .MuiOutlinedInput-notchedOutline": {
     background: ({ palette }: Theme) => alpha(palette.common.white, 0.12),
-    border: ({ palette }: Theme) => `1px solid ${alpha(palette.common.white, 0.1)}`,
+    borderColor: ({ palette }: Theme) => alpha(palette.common.white, 0.1),
   },
   "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
     borderColor: ({ palette }: Theme) => palette.primary.main,
@@ -50,6 +50,7 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
   if (SearchField) {
     return isValidElement(SearchField)
       ? cloneElement(SearchField as ReactElement, {
+          InputProps: { sx },
           ref,
           sx,
         })
