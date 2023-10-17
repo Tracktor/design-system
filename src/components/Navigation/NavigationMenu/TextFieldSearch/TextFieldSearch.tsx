@@ -13,14 +13,13 @@ const styles = {
   "& .Mui-focused svg": {
     animation: "hi-TextFieldSearch 1s ease forwards",
   },
-  "& .MuiOutlinedInput-notchedOutline, & fieldset.MuiOutlinedInput-notchedOutline": {
+  "& .MuiInputBase-root.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+    borderColor: ({ palette }: Theme) => palette.primary.main,
+  },
+  "& .MuiOutlinedInput-notchedOutline, & .MuiInputBase-root .MuiOutlinedInput-notchedOutline": {
     background: ({ palette }: Theme) => alpha(palette.common.white, 0.12),
     borderColor: ({ palette }: Theme) => alpha(palette.common.white, 0.1),
   },
-  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline, & .MuiOutlinedInput-root:hover fieldset.MuiOutlinedInput-notchedOutline":
-    {
-      borderColor: ({ palette }: Theme) => palette.primary.main,
-    },
   "@keyframes hi-TextFieldSearch": {
     "100%": { transform: "scale(1)" },
     "30%": { transform: "scale(1.5)" },
@@ -67,6 +66,7 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
       inputRef={inputRef}
       onChange={onSearchChange}
       sx={sx}
+      type="search"
       InputLabelProps={{
         shrink: false,
       }}
