@@ -1,4 +1,4 @@
-import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
+import { alpha, Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
@@ -26,7 +26,7 @@ const styles = {
         "& svg": {
           color: ({ palette }: Theme) => palette.primary.contrastText,
         },
-        background: ({ palette }: any) => palette.primary.dark,
+        background: ({ palette }: any) => (palette.mode === "dark" ? palette.primary.dark : alpha(palette.primary.main, 0.3)),
         borderRadius: "4px",
         color: ({ palette }: Theme) => palette.primary.contrastText,
       },

@@ -166,7 +166,6 @@ export interface NavigationMenuProps {
 }
 
 const DEFAULT_CONTEXT_VALUE = {
-  backgroundCoefficient: 0.495,
   closeDrawerMenu: () => {},
   isDrawerOpen: false,
   isMobile: false,
@@ -255,7 +254,6 @@ const NavigationMenu = ({
 
   const value = useMemo(
     () => ({
-      backgroundCoefficient: DEFAULT_CONTEXT_VALUE.backgroundCoefficient,
       closeDrawerMenu,
       disableResponsive,
       disableSearch,

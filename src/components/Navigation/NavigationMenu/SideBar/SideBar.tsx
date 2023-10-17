@@ -1,4 +1,4 @@
-import { Box, darken, IconButton, Stack, useTheme } from "@mui/material";
+import { Box, IconButton, Stack, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import CloseIcon from "@/components/Icon/CloseIcon";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
@@ -39,20 +39,19 @@ const styles = {
   },
 };
 
-const SideBar = ({ children, width = 256, ...props }: SideBarProps) => {
+const SideBar = ({ children, width = 270, ...props }: SideBarProps) => {
   const {
     secondaryMenu,
     closeDrawerMenu,
     isMobile,
     isDrawerOpen,
-    backgroundCoefficient,
     sideBarWidth = width,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
 
   const { palette, size } = useTheme();
-  const backgroundColor = palette.mode === "dark" ? palette.background.default : darken(palette.primary.main, backgroundCoefficient);
+  const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.mode === "dark" ? palette.divider : backgroundColor}`;
 
   return (
