@@ -31,14 +31,29 @@ const styles = {
 
 const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
   const { onSearchChange, translations, searchValue, isTablet, SearchField } = useContext(NavigationMenuContext);
-  const { inputRef } = useTextFieldSearch();
+  const { ref } = useTextFieldSearch();
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.main;
   const color = palette.getContrastText(backgroundColor);
   const placeholder = t?.search || translations?.search || "Search";
 
+  const sx = {
+    ...styles,
+    "& input": {
+      color,
+    },
+    "& label": {
+      color: alpha(color, 0.5),
+    },
+  };
+
   if (SearchField) {
-    return isValidElement(SearchField) ? cloneElement(SearchField as ReactElement, { ref: inputRef }) : null;
+    return isValidElement(SearchField)
+      ? cloneElement(SearchField as ReactElement, {
+          ref,
+          sx,
+        })
+      : null;
   }
 
   return (
@@ -47,14 +62,9 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
       value={searchValue}
       size={isTablet ? "small" : "medium"}
       placeholder={placeholder}
-      inputRef={inputRef}
+      inputRef={ref}
       onChange={onSearchChange}
-      sx={{
-        ...styles,
-        input: {
-          color,
-        },
-      }}
+      sx={sx}
       InputLabelProps={{
         shrink: false,
       }}

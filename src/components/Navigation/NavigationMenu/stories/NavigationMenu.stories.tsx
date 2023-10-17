@@ -374,7 +374,7 @@ WithCustomFooter.args = {
   items: ITEMS,
 };
 
-const CustomField = forwardRef((_, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} />);
+const CustomField = forwardRef((props, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} {...props} />);
 export const WithCustomSearchField = Template.bind({});
 WithCustomSearchField.args = {
   items: ITEMS,

@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.45.3
-- **[style]** - `NavigationMenu` theme palette destructuring
+## v1.45.4
+- **[improvement]** - `NavigationMenu` custom search component extend default style
