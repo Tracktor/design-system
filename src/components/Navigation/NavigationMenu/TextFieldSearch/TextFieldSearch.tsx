@@ -13,13 +13,14 @@ const styles = {
   "& .Mui-focused svg": {
     animation: "hi-TextFieldSearch 1s ease forwards",
   },
-  "& .MuiOutlinedInput-notchedOutline": {
+  "& .MuiOutlinedInput-notchedOutline, & fieldset.MuiOutlinedInput-notchedOutline": {
     background: ({ palette }: Theme) => alpha(palette.common.white, 0.12),
     borderColor: ({ palette }: Theme) => alpha(palette.common.white, 0.1),
   },
-  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: ({ palette }: Theme) => palette.primary.main,
-  },
+  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline, & .MuiOutlinedInput-root:hover fieldset.MuiOutlinedInput-notchedOutline":
+    {
+      borderColor: ({ palette }: Theme) => palette.primary.main,
+    },
   "@keyframes hi-TextFieldSearch": {
     "100%": { transform: "scale(1)" },
     "30%": { transform: "scale(1.5)" },
@@ -31,7 +32,7 @@ const styles = {
 
 const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
   const { onSearchChange, translations, searchValue, isTablet, SearchField } = useContext(NavigationMenuContext);
-  const { ref } = useTextFieldSearch();
+  const { inputRef } = useTextFieldSearch();
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.main;
   const color = palette.getContrastText(backgroundColor);
@@ -51,7 +52,7 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
     return isValidElement(SearchField)
       ? cloneElement(SearchField as ReactElement, {
           InputProps: { sx },
-          ref,
+          ref: inputRef,
           sx,
         })
       : null;
@@ -63,7 +64,7 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
       value={searchValue}
       size={isTablet ? "small" : "medium"}
       placeholder={placeholder}
-      inputRef={ref}
+      inputRef={inputRef}
       onChange={onSearchChange}
       sx={sx}
       InputLabelProps={{

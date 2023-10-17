@@ -2,13 +2,13 @@ import { ElementRef, useContext, useLayoutEffect, useRef } from "react";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 
 const useTextFieldSearch = () => {
-  const ref = useRef<ElementRef<"input">>(null);
+  const inputRef = useRef<ElementRef<"input">>(null);
   const { disableSearchFocusShortcut } = useContext(NavigationMenuContext);
 
   const focusInput = (e: KeyboardEvent) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === "f") {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "f") {
       e.preventDefault();
-      ref.current?.focus();
+      inputRef.current?.focus();
     }
   };
 
@@ -24,7 +24,7 @@ const useTextFieldSearch = () => {
     };
   }, [disableSearchFocusShortcut]);
 
-  return { ref };
+  return { inputRef };
 };
 
 export default useTextFieldSearch;
