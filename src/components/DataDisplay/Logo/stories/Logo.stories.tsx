@@ -41,6 +41,21 @@ CustomSize.args = {
   width: 404,
 };
 
+export const Ops = Template.bind({});
+Ops.args = {
+  variant: "ops",
+};
+
+export const Pricing = Template.bind({});
+Pricing.args = {
+  variant: "pricing",
+};
+
+export const Supplier = Template.bind({});
+Supplier.args = {
+  variant: "supplier",
+};
+
 export default {
   component: Logo,
   title: "Components/Data Display/Logo",

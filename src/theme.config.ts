@@ -1,4 +1,13 @@
-import { alpha, ComponentsPropsList, createTheme, getOverlayAlpha, responsiveFontSizes, Theme, ThemeOptions } from "@mui/material";
+import {
+  alpha,
+  ComponentsPropsList,
+  createTheme,
+  getOverlayAlpha,
+  PaletteMode,
+  responsiveFontSizes,
+  Theme,
+  ThemeOptions,
+} from "@mui/material";
 import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
@@ -57,6 +66,13 @@ declare module "@mui/material/styles" {
   }
 }
 
+declare module "@mui/system" {
+  interface Shape {
+    borderRadiusL: number;
+    borderRadiusS: number;
+  }
+}
+
 const actionStyleOverrides: Partial<
   OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<Theme, "components">>
 > = {
@@ -105,6 +121,11 @@ const commonThemeOptions: ThemeOptions = {
       ],
     },
     MuiAutocomplete: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          marginTop: theme.spacing(0.5),
+        }),
+      },
       variants: [
         {
           props: { size: "small" },
@@ -117,10 +138,36 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiBadge: {
+      styleOverrides: {
+        badge: ({ theme, ownerState }) => {
+          const getBadgeTextColor = (mode: PaletteMode, color?: string) => {
+            if ((mode === "dark" && color === "error") || (mode === "dark" && color === "default")) {
+              return theme.palette.common.white;
+            }
+
+            if ((mode === "light" && color === "secondary") || (mode === "light" && color === "default")) {
+              return theme.palette.common.black;
+            }
+
+            return theme.palette.mode === "dark" ? theme.palette.common.black : theme.palette.common.white;
+          };
+
+          return {
+            backgroundColor: theme.palette.mode === "light" && ownerState.color === "default" ? theme.palette.grey[100] : ownerState.color,
+            borderRadius: theme.shape.borderRadiusS,
+            color: getBadgeTextColor(theme.palette.mode, ownerState.color),
+          };
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({
           borderRadius: theme.shape.borderRadius,
+          lineHeight: 1,
+          paddingLeft: "24px",
+          paddingRight: "24px",
         }),
       },
       variants: [
@@ -132,33 +179,27 @@ const commonThemeOptions: ThemeOptions = {
           }),
         },
         {
-          props: { variant: "contained" },
+          props: { size: "small" },
           style: {
-            color: "white",
+            minHeight: 40,
           },
         },
         {
           props: { size: "medium" },
           style: {
-            padding: "11.75px 24px",
+            minHeight: 48,
           },
         },
         {
           props: { size: "large" },
           style: {
-            padding: "14.88px 24px",
+            minHeight: 56,
           },
         },
         {
-          props: { size: "medium", variant: "outlined" },
+          props: { variant: "contained" },
           style: {
-            padding: "10.75px 24px",
-          },
-        },
-        {
-          props: { size: "large", variant: "outlined" },
-          style: {
-            padding: "13.88px 24px",
+            color: "white",
           },
         },
       ],
@@ -168,8 +209,10 @@ const commonThemeOptions: ThemeOptions = {
         variant: "outlined",
       },
       styleOverrides: {
-        root: ({ ownerState }) => ({
-          ...(!ownerState.square && { borderRadius: 12 }),
+        root: ({ ownerState, theme }) => ({
+          ...(!ownerState.square && {
+            borderRadius: theme.shape.borderRadiusL,
+          }),
         }),
       },
       variants: [
@@ -209,7 +252,7 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { variant: "rounded" },
           style: ({ theme }) => ({
-            borderRadius: theme.shape.borderRadius / 2,
+            borderRadius: theme.shape.borderRadiusS,
           }),
         },
         {
@@ -286,6 +329,13 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: theme.shape.borderRadius,
+        }),
+      },
+    },
     MuiInputBase: {
       variants: [
         {
@@ -325,27 +375,23 @@ const commonThemeOptions: ThemeOptions = {
       },
     },
     MuiMenu: {
+      defaultProps: {
+        elevation: 4,
+      },
       styleOverrides: {
-        root: ({ theme }) => {
-          const { mode, common } = theme.palette;
-          const backgroundImageColor = alpha(common.white, +getOverlayAlpha(mode === "light" ? 10 : 5));
-
-          return {
-            "& .MuiMenu-list": {
-              padding: theme.spacing(1),
-            },
-            "& .MuiMenu-list .MuiMenuItem-root": {
-              ...theme.typography.body2,
-              borderRadius: theme.shape.borderRadius / 2,
-              lineHeight: theme.typography.pxToRem(24),
-              padding: theme.spacing(1, 2),
-            },
-            "& .MuiPaper-elevation": {
-              backgroundImage: `linear-gradient(${backgroundImageColor}, ${backgroundImageColor})`,
-              boxShadow: mode === "light" ? theme.shadows[10] : theme.shadows[5],
-            },
-          };
-        },
+        list: ({ theme }) => ({
+          "& .MuiMenuItem-root": {
+            ...theme.typography.body2,
+            borderRadius: theme.shape.borderRadiusS,
+            lineHeight: theme.typography.pxToRem(24),
+            padding: theme.spacing(1, 2),
+          },
+          minWidth: 200,
+          padding: theme.spacing(1),
+        }),
+        root: ({ theme }) => ({
+          marginTop: theme.spacing(0.5),
+        }),
       },
     },
     MuiPaper: {
@@ -356,7 +402,7 @@ const commonThemeOptions: ThemeOptions = {
           },
           style: ({ theme }) => ({
             border: `solid 1px ${theme.palette.divider}`,
-            borderRadius: 12,
+            borderRadius: theme.shape.borderRadiusL,
           }),
         },
       ],
@@ -391,6 +437,14 @@ const commonThemeOptions: ThemeOptions = {
           }),
         },
       ],
+    },
+    MuiSnackbar: {
+      defaultProps: {
+        anchorOrigin: {
+          horizontal: "center",
+          vertical: "bottom",
+        },
+      },
     },
     MuiTab: {
       styleOverrides: {
@@ -577,47 +631,16 @@ const commonThemeOptions: ThemeOptions = {
     },
   },
   palette: {
-    error: {
-      dark: "#C73443",
-      light: "#FF9A9C",
-      main: "#FF686E",
-    },
     grey: {
-      100: "#E3E8E8",
-      200: "#D2D8D8",
-      300: "#9DAAAB",
-      400: "#7B8B8C",
-      50: "#F5F7F7",
-      500: "#586C6D",
-      600: "#354D4F",
-      700: "#233E40",
-      800: "#001F21",
-    },
-    info: {
-      dark: "#0059AE",
-      light: "#85B4FF",
-      main: "#4D85E0",
-    },
-    primary: {
-      black: "#004E53",
-      dark: "#006C74",
-      light: "#33AFB7",
-      main: "#009BA6",
-    },
-    secondary: {
-      dark: "#B18E00",
-      light: "#FED533",
-      main: "#FECB00",
-    },
-    success: {
-      dark: "#41936E",
-      light: "#7DDBB1",
-      main: "#5DD39E",
-    },
-    warning: {
-      dark: "#C77800",
-      light: "#FFD95B",
-      main: "#FFA726",
+      100: "#e3e8e8",
+      200: "#d2d8d8",
+      300: "#9dabab",
+      400: "#7a8b8c",
+      50: "#f5f7f7",
+      500: "#586c6d",
+      600: "#354c4f",
+      700: "#233d3f",
+      800: "#011e21",
     },
   },
   shadows: [
@@ -649,6 +672,8 @@ const commonThemeOptions: ThemeOptions = {
   ],
   shape: {
     borderRadius: 8,
+    borderRadiusL: 12,
+    borderRadiusS: 4,
   },
   size: {
     mobileNavBarHeight: 88,
@@ -705,11 +730,42 @@ const lightThemeOptions: ThemeOptions = {
       paper: "#ffffff",
     },
     divider: "rgba(0, 0, 0, 0.12)",
+    error: {
+      dark: "#C73443",
+      light: "#FF9A9C",
+      main: "#FF686E",
+    },
+    info: {
+      dark: "#0059AE",
+      light: "#85B4FF",
+      main: "#4D85E0",
+    },
     mode: "light",
+    primary: {
+      black: "#004E53",
+      dark: "#006C74",
+      light: "#33AFB7",
+      main: "#009BA6",
+    },
+    secondary: {
+      dark: "#B18E00",
+      light: "#FED533",
+      main: "#FECB00",
+    },
+    success: {
+      dark: "#41936E",
+      light: "#7DDBB1",
+      main: "#5DD39E",
+    },
     text: {
       disabled: "#ADAFAF",
       primary: "#000000",
       secondary: "#616365",
+    },
+    warning: {
+      dark: "#C77800",
+      light: "#FFD95B",
+      main: "#FFA726",
     },
   },
 };
@@ -732,11 +788,41 @@ const darkThemeOptions: ThemeOptions = {
       outline: "rgba(255, 255, 255, 0.23)",
     },
     divider: "rgba(255, 255, 255, 0.12)",
+    error: {
+      dark: "#d32f2f",
+      light: "#e57273",
+      main: "#f44236",
+    },
+    info: {
+      dark: "#0089d0",
+      light: "#4ec4f7",
+      main: "#2ab6f5",
+    },
     mode: "dark",
+    primary: {
+      dark: "#009ca6",
+      light: "#50c6ce",
+      main: "#35b0b7",
+    },
+    secondary: {
+      dark: "#6001ee",
+      light: "#d5bffa",
+      main: "#9964f4",
+    },
+    success: {
+      dark: "#388e3c",
+      light: "#81c784",
+      main: "#66bb69",
+    },
     text: {
       disabled: "#636262",
       primary: "#ffffff",
       secondary: "#999999",
+    },
+    warning: {
+      dark: "#f57c01",
+      light: "#ffb74d",
+      main: "#fea727",
     },
   },
 };

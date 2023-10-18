@@ -10,6 +10,32 @@ const Template: StoryFn<typeof Badge> = (args) => (
   </Stack>
 );
 
+const TemplateColor: StoryFn<typeof Badge> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Badge badgeContent={4} color="default" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+    <Badge badgeContent={4} color="primary" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+    <Badge badgeContent={4} color="secondary" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+    <Badge badgeContent={4} color="error" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+    <Badge badgeContent={4} color="warning" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+    <Badge badgeContent={4} color="info" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+    <Badge badgeContent={4} color="success" {...args}>
+      <Typography variant="h4">✉️</Typography>
+    </Badge>
+  </Stack>
+);
+
 const TemplateCircle: StoryFn<typeof Badge> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Badge {...args}>
@@ -24,11 +50,8 @@ Basic.args = {
   color: "primary",
 };
 
-export const Color = Template.bind({});
-Color.args = {
-  badgeContent: 13,
-  color: "secondary",
-};
+export const Color = TemplateColor.bind({});
+Color.args = {};
 
 export const Zero = Template.bind({});
 Zero.args = {

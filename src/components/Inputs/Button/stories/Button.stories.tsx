@@ -32,6 +32,9 @@ const Template: StoryFn<typeof Button> = (args) => (
     <Button size="small" color="inherit" {...args}>
       Small inherit
     </Button>
+    <Button size="small" {...args}>
+      Small
+    </Button>
     <Button color="primary" {...args}>
       Medium primary
     </Button>

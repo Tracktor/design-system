@@ -11,6 +11,10 @@ interface CommonLogoProps {
    * Logo width
    */
   width?: number | string;
+  /**
+   * Logo variant
+   */
+  variant?: "default" | "ops" | "supplier" | "pricing";
 }
 
 type SvgLogoProps = CommonLogoProps & {
@@ -32,7 +36,10 @@ type ImgLogoProps = CommonLogoProps & {
 
 export type LogoProps = SvgLogoProps | ImgLogoProps;
 
-const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps, ref: ForwardedRef<SVGSVGElement | HTMLImageElement>) => {
+const Logo = (
+  { color, variant = "default", component = "img", height = 32, width = 259 }: LogoProps,
+  ref: ForwardedRef<SVGSVGElement | HTMLImageElement>,
+) => {
   const [logoSrc, setLogoSrc] = useState("");
   const { palette } = useTheme();
   const { getTextColor } = useLogo();
@@ -45,11 +52,24 @@ const Logo = ({ color, component = "img", height = 32, width = 259 }: LogoProps,
     }
 
     (async () => {
-      const module =
-        colorTextLogo === "white" ? await import("@/assets/img/tracktor-white.svg") : await import("@/assets/img/tracktor-black.svg");
+      const getImageModule = async () => {
+        switch (variant) {
+          case "ops":
+            return import("@/assets/img/tracktor-ops.svg");
+          case "supplier":
+            return import("@/assets/img/tracktor-supplier.svg");
+          case "pricing":
+            return import("@/assets/img/tracktor-pricing.svg");
+          default:
+            return colorTextLogo === "white" ? import("@/assets/img/tracktor-white.svg") : import("@/assets/img/tracktor-black.svg");
+        }
+      };
+
+      const module = await getImageModule();
+
       setLogoSrc(module.default);
     })();
-  }, [colorTextLogo, component]);
+  }, [colorTextLogo, component, variant]);
 
   if (component === "img") {
     return (
