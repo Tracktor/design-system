@@ -110,7 +110,12 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
               <Stack alignItems="flex-start">
                 <Typography>{secondaryMenu?.loading ? <Skeleton width={60} /> : secondaryMenu?.label}</Typography>
                 {secondaryMenu?.subLabel && (
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: ({ palette }: Theme) => alpha(palette.common.white, 0.7),
+                    }}
+                  >
                     {secondaryMenu?.subLabel}
                   </Typography>
                 )}
