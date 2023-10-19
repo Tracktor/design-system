@@ -8,11 +8,7 @@ export interface State extends SnackbarOrigin {
 }
 
 const Template: StoryFn<typeof Snackbar> = (args) => {
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
+  const [open, setOpen] = useState(true);
 
   const handleClose = (_: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
@@ -28,27 +24,20 @@ const Template: StoryFn<typeof Snackbar> = (args) => {
         UNDO
       </Button>
       <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-        X
+        &times;
       </IconButton>
     </>
   );
 
   return (
     <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
-      <Button onClick={handleClick} variant="outlined">
-        Open simple snackbar
-      </Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} message="Note archived" action={action} {...args} />
+      <Snackbar open={open} onClose={handleClose} message="Note archived" action={action} {...args} />
     </Stack>
   );
 };
 
 const CustomTemplate: StoryFn<typeof Snackbar> = (args) => {
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
+  const [open, setOpen] = useState(true);
 
   const handleClose = (_?: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
@@ -60,11 +49,8 @@ const CustomTemplate: StoryFn<typeof Snackbar> = (args) => {
 
   return (
     <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
-      <Button onClick={handleClick} variant="outlined">
-        Open custom snackbar
-      </Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} {...args}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }} variant="filled">
+      <Snackbar open={open} onClose={handleClose} {...args}>
+        <Alert onClose={handleClose} severity="success">
           This is a success message!
         </Alert>
       </Snackbar>
@@ -75,7 +61,7 @@ const CustomTemplate: StoryFn<typeof Snackbar> = (args) => {
 const PositionTemplate: StoryFn<typeof Snackbar> = () => {
   const [state, setState] = useState<State>({
     horizontal: "center",
-    open: false,
+    open: true,
     vertical: "top",
   });
   const { vertical, horizontal, open } = state;
@@ -158,8 +144,8 @@ const PositionTemplate: StoryFn<typeof Snackbar> = () => {
 export const Basic = Template.bind({});
 Basic.args = {};
 
-export const Custom = CustomTemplate.bind({});
-Custom.args = {};
+export const CustomWithAlert = CustomTemplate.bind({});
+CustomWithAlert.args = {};
 
 export const Position = PositionTemplate.bind({});
 Position.args = {};

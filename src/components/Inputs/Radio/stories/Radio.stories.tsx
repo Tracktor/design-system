@@ -42,7 +42,7 @@ const TemplateColor: StoryFn<typeof Radio> = (args) => (
   </Box>
 );
 
-const TemplateCard: StoryFn<any> = (args) => {
+const TemplateCard: StoryFn<any> = (args, { parameters }) => {
   const { direction, size } = args;
 
   return (
@@ -61,7 +61,9 @@ const TemplateCard: StoryFn<any> = (args) => {
               label={
                 <Stack>
                   <Typography>Gestionnaire</Typography>
-                  <Typography color="textSecondary">Peut réserver du matériel et gérer toutes les locations</Typography>
+                  {!parameters.hideDescription && (
+                    <Typography color="textSecondary">Peut réserver du matériel et gérer toutes les locations</Typography>
+                  )}
                 </Stack>
               }
             />
@@ -100,6 +102,15 @@ CardVariantHorizontal.args = {
 export const CardVariantSmall = TemplateCard.bind({});
 CardVariantSmall.args = {
   size: "small",
+};
+
+export const CardSmallHorizontal = TemplateCard.bind({});
+CardSmallHorizontal.args = {
+  direction: "row",
+  size: "small",
+};
+CardSmallHorizontal.parameters = {
+  hideDescription: true,
 };
 
 export default {

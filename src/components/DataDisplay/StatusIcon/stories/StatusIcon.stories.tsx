@@ -13,8 +13,10 @@ const Template: StoryFn<typeof StatusIcon> = (args) => (
   </Stack>
 );
 
-export const Basic = Template.bind({});
-Basic.args = {};
+export const small = Template.bind({});
+small.args = {
+  fontSize: "small",
+};
 
 export const medium = Template.bind({});
 medium.args = {
@@ -26,11 +28,21 @@ large.args = {
   fontSize: "large",
 };
 
-export const CustomFontSize = Template.bind({});
-CustomFontSize.args = {
+export const customFontSize = Template.bind({});
+customFontSize.args = {
   sx: {
     fontSize: 10,
   },
+};
+
+export const filled = Template.bind({});
+large.args = {
+  variant: "filled",
+};
+
+export const outlined = Template.bind({});
+outlined.args = {
+  variant: "outlined",
 };
 
 export default {
