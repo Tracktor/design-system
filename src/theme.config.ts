@@ -623,11 +623,35 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiToggleButton: {
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({ theme, ownerState }) => ({
+          "&.Mui-selected": {
+            ...(ownerState.color &&
+              ownerState.color !== "standard" && { backgroundColor: alpha(theme.palette[ownerState.color].main, 0.12) }),
+          },
           borderRadius: theme.shape.borderRadius,
           padding: "8px 11px",
         }),
       },
+      variants: [
+        {
+          props: { size: "small" },
+          style: {
+            minHeight: 40,
+          },
+        },
+        {
+          props: { size: "medium" },
+          style: {
+            minHeight: 48,
+          },
+        },
+        {
+          props: { size: "large" },
+          style: {
+            minHeight: 56,
+          },
+        },
+      ],
     },
   },
   palette: {
