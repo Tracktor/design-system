@@ -64,10 +64,15 @@ const Logo = (
     ) : (
       <Skeleton
         variant="rounded"
-        width={logoWidth}
-        height={logoHeight}
-        sx={{ display: "inline-block" }}
         ref={ref as RefObject<HTMLDivElement>}
+        sx={{
+          display: "inline-block",
+          fontSize: 0,
+          height: logoHeight,
+          maxHeight: logoHeight,
+          maxWidth: logoWidth,
+          width: logoWidth,
+        }}
       />
     );
   }
