@@ -46,13 +46,34 @@ Ops.args = {
   variant: "ops",
 };
 
+export const OpsBlack = Template.bind({});
+OpsBlack.args = {
+  color: "black",
+  component: "svg",
+  variant: "ops",
+};
+
 export const Pricing = Template.bind({});
 Pricing.args = {
   variant: "pricing",
 };
 
+export const PricingBlack = Template.bind({});
+PricingBlack.args = {
+  color: "black",
+  component: "svg",
+  variant: "pricing",
+};
+
 export const Supplier = Template.bind({});
 Supplier.args = {
+  variant: "supplier",
+};
+
+export const SupplierBlack = Template.bind({});
+SupplierBlack.args = {
+  color: "black",
+  component: "svg",
   variant: "supplier",
 };
 
