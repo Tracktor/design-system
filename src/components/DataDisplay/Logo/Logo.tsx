@@ -1,4 +1,4 @@
-import { Box, Skeleton, useTheme } from "@mui/material";
+import { Skeleton, useTheme } from "@mui/material";
 import { ForwardedRef, forwardRef, ReactElement, RefObject, useEffect, useState } from "react";
 import useLogo from "@/components/DataDisplay/Logo/useLogo";
 
@@ -38,7 +38,7 @@ export type LogoProps = SvgLogoProps | ImgLogoProps;
 
 const Logo = (
   { color, height, width, variant = "default", component = "img" }: LogoProps,
-  ref: ForwardedRef<SVGSVGElement | HTMLImageElement>,
+  ref: ForwardedRef<SVGSVGElement | HTMLImageElement | HTMLDivElement>,
 ): ReactElement => {
   const [logoSrc, setLogoSrc] = useState("");
   const { palette } = useTheme();
@@ -59,14 +59,16 @@ const Logo = (
   }, [colorTextLogo, getImageModule, component, variant]);
 
   if (component === "img") {
-    return (
-      <Box ref={ref} sx={{ color: "red", display: "inline-block", fontSize: 0 }}>
-        {logoSrc ? (
-          <img src={logoSrc} alt="Tracktor" height={logoHeight} width={logoWidth} style={{ color: "red" }} />
-        ) : (
-          <Skeleton variant="rounded" width={logoWidth} height={logoHeight} />
-        )}
-      </Box>
+    return logoSrc ? (
+      <img src={logoSrc} alt="Tracktor" height={logoHeight} width={logoWidth} ref={ref as RefObject<HTMLImageElement>} />
+    ) : (
+      <Skeleton
+        variant="rounded"
+        width={logoWidth}
+        height={logoHeight}
+        sx={{ display: "inline-block" }}
+        ref={ref as RefObject<HTMLDivElement>}
+      />
     );
   }
 
