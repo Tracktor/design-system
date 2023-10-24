@@ -38,14 +38,14 @@ const VIEWPORTS = {
   mobile: {
     name: "Mobile",
     styles: {
-      height: "500px",
+      height: "600px",
       width: "480px",
     },
   },
   tablet: {
     name: "Tablet",
     styles: {
-      height: "500px",
+      height: "600px",
       width: "768px",
     },
   },
