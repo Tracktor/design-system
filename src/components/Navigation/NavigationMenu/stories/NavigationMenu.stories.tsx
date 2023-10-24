@@ -38,14 +38,14 @@ const VIEWPORTS = {
   mobile: {
     name: "Mobile",
     styles: {
-      height: "500px",
+      height: "600px",
       width: "480px",
     },
   },
   tablet: {
     name: "Tablet",
     styles: {
-      height: "500px",
+      height: "600px",
       width: "768px",
     },
   },
@@ -254,6 +254,27 @@ MobileHideOnScroll.args = {
   },
 };
 MobileHideOnScroll.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
+
+export const MobileWithSecondaryMenu = Template.bind({});
+MobileWithSecondaryMenu.args = {
+  items: ITEMS,
+  itemsMobile: ITEMS_MOBILE_WITH_ICON,
+  Logo: <Logo color="white" />,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Jean Dupont",
+    subLabel: "Acorus Bordeaux",
+  },
+};
+MobileWithSecondaryMenu.parameters = {
   viewport: {
     defaultViewport: "mobile",
     viewports: VIEWPORTS,
