@@ -98,7 +98,8 @@ export interface NavigationMenuProps {
    */
   disableResponsive?: boolean;
   /**
-   * Width of the sidebar
+   * Width of the sidebar, only for desktop
+   * @default 270
    */
   sideBarWidth?: number;
   /**
@@ -191,7 +192,7 @@ const NavigationMenuFactory = () => {
           onClose={closeDrawerMenu}
           onOpen={openDrawerMenu}
           PaperProps={{
-            sx: { width: "100%" },
+            sx: { width: "85%" },
           }}
         >
           <SideBar width="100%">
@@ -230,7 +231,6 @@ const NavigationMenu = ({
   disableSearchFocusShortcut,
   translations,
   disableResponsive,
-  sideBarWidth,
   onSearchChange,
   searchValue,
   mobileOptions,
@@ -238,6 +238,7 @@ const NavigationMenu = ({
   NavLink,
   Footer,
   Logo,
+  sideBarWidth = 260,
 }: NavigationMenuProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));

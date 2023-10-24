@@ -1,6 +1,7 @@
 import {
   alpha,
   Avatar,
+  Backdrop,
   Button,
   IconButton,
   ListItemIcon,
@@ -155,48 +156,50 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
         </IconButton>
       )}
 
-      <Menu
-        id={secondaryMenu?.id || DEFAULT_SECONDARY_MENU_ID}
-        anchorEl={anchorMenu}
-        open={isMenuOpen}
-        onClose={closeMenu}
-        onChange={closeMenu}
-        anchorOrigin={{
-          horizontal: isMobile ? "left" : "right",
-          vertical: "bottom",
-        }}
-        slotProps={{
-          paper: {
-            sx: {
-              minWidth: 260,
+      <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isMenuOpen} onClick={closeMenu}>
+        <Menu
+          id={secondaryMenu?.id || DEFAULT_SECONDARY_MENU_ID}
+          anchorEl={anchorMenu}
+          open={isMenuOpen}
+          onClose={closeMenu}
+          onChange={closeMenu}
+          anchorOrigin={{
+            horizontal: isMobile ? "left" : "right",
+            vertical: "bottom",
+          }}
+          slotProps={{
+            paper: {
+              sx: {
+                minWidth: 260,
+              },
             },
-          },
-        }}
-      >
-        {secondaryMenu?.items?.map((item, index) => {
-          // Is React Element then return it
-          if (isValidElement(item)) {
-            return item;
-          }
+          }}
+        >
+          {secondaryMenu?.items?.map((item, index) => {
+            // Is React Element then return it
+            if (isValidElement(item)) {
+              return item;
+            }
 
-          // Is Object then return NavLinkItem
-          if (item && typeof item === "object" && "url" in item) {
-            const { url, label, icon, active, end, state } = item;
-            const key = `${url}-${label}-${index}`;
+            // Is Object then return NavLinkItem
+            if (item && typeof item === "object" && "url" in item) {
+              const { url, label, icon, active, end, state } = item;
+              const key = `${url}-${label}-${index}`;
 
-            return (
-              <MenuItem key={key} sx={styles.menuItem} onClick={closeMenu}>
-                <NavLinkItem url={url} key={key} component={NavLink} active={active} end={end} state={state}>
-                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                  {label && <ListItemText>{label}</ListItemText>}
-                </NavLinkItem>
-              </MenuItem>
-            );
-          }
+              return (
+                <MenuItem key={key} sx={styles.menuItem} onClick={closeMenu}>
+                  <NavLinkItem url={url} key={key} component={NavLink} active={active} end={end} state={state}>
+                    {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                    {label && <ListItemText>{label}</ListItemText>}
+                  </NavLinkItem>
+                </MenuItem>
+              );
+            }
 
-          return null;
-        })}
-      </Menu>
+            return null;
+          })}
+        </Menu>
+      </Backdrop>
     </>
   );
 };

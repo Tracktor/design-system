@@ -38,13 +38,13 @@ const styles = {
   },
 };
 
-const SideBar = ({ children, width = 270, ...props }: SideBarProps) => {
+const SideBar = ({ children, ...props }: SideBarProps) => {
   const {
     secondaryMenu,
     closeDrawerMenu,
     isMobile,
     isDrawerOpen,
-    sideBarWidth = width,
+    sideBarWidth,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
@@ -54,7 +54,15 @@ const SideBar = ({ children, width = 270, ...props }: SideBarProps) => {
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.mode === "dark" ? palette.divider : backgroundColor}`;
 
   return (
-    <Box sx={{ ...styles.container, backgroundColor, borderRight, width: sideBarWidth }} component="aside">
+    <Box
+      sx={{
+        ...styles.container,
+        backgroundColor,
+        borderRight,
+        width: isMobile ? "100%" : sideBarWidth || "auto",
+      }}
+      component="aside"
+    >
       <Stack
         sx={{
           ...styles.logoContainer,

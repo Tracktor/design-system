@@ -71,7 +71,7 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
               <ListItem key={key} disablePadding disableGutters>
                 <NavLinkItem url={url} component={NavLink} active={active}>
                   {icon}
-                  <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
+                  <Stack direction="row" justifyContent="space-between" flex={1}>
                     {label}
                     {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
                   </Stack>
