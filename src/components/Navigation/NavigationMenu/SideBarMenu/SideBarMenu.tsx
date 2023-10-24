@@ -50,10 +50,10 @@ const styles = {
 };
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
-  const { disableSearch = props.disableSearch, NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { disableSearch = props.disableSearch, NavLink = props.NavLink, isMobile } = useContext(NavigationMenuContext);
 
   return (
-    <Box px={2} component="nav">
+    <Box px={isMobile ? 3 : 2} component="nav">
       {!disableSearch && <TextFieldSearch />}
       <List sx={{ ...styles.list }}>
         {items?.map((item, index) => {

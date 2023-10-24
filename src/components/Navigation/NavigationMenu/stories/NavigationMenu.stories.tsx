@@ -260,6 +260,27 @@ MobileHideOnScroll.parameters = {
   },
 };
 
+export const MobileWithSecondaryMenu = Template.bind({});
+MobileWithSecondaryMenu.args = {
+  items: ITEMS,
+  itemsMobile: ITEMS_MOBILE_WITH_ICON,
+  Logo: <Logo color="white" />,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Jean Dupont",
+    subLabel: "Acorus Bordeaux",
+  },
+};
+MobileWithSecondaryMenu.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
+
 export const Tablet = Template.bind({});
 Tablet.args = {
   items: ITEMS,

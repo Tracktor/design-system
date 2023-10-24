@@ -24,7 +24,7 @@ const styles = {
   },
   logo: {
     "& svg, & img": {
-      width: "100%",
+      maxWidth: "100%",
     },
     flex: 1,
     span: {
@@ -34,7 +34,6 @@ const styles = {
   logoContainer: {
     display: "flex",
     justifyContent: "center",
-    paddingX: 3,
     paddingY: 5,
   },
 };
@@ -56,23 +55,37 @@ const SideBar = ({ children, width = 270, ...props }: SideBarProps) => {
 
   return (
     <Box sx={{ ...styles.container, backgroundColor, borderRight, width: sideBarWidth }} component="aside">
-      <Stack sx={styles.logoContainer} direction="row" alignItems="center" spacing={3}>
+      <Stack
+        sx={{
+          ...styles.logoContainer,
+          paddingX: isMobile ? 3 : 2,
+        }}
+        direction="row"
+        alignItems="center"
+        spacing={3}
+      >
+        <Box
+          sx={{
+            ...styles.logo,
+            ...(isMobile && {
+              "& svg, & img": {
+                ...styles.logo["& svg, & img"],
+                maxHeight: 25,
+                width: "auto",
+              },
+            }),
+            textAlign: isMobile ? "left" : "center",
+          }}
+        >
+          {Logo}
+        </Box>
         {isMobile && (
           <IconButton onClick={closeDrawerMenu}>
             <CloseIcon fill={palette.getContrastText(backgroundColor)} />
           </IconButton>
         )}
-        <Box
-          sx={{
-            ...styles.logo,
-            textAlign: isMobile ? "left" : "center",
-          }}
-          width="100%"
-        >
-          {Logo}
-        </Box>
-        {isMobile && secondaryMenu && <SecondaryMenuButton variant="icon" />}
       </Stack>
+      {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
       <Box>{children}</Box>
       <Box
         sx={{
