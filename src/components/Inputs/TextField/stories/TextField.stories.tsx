@@ -55,6 +55,14 @@ FileWithLabelDirectionColumn.args = {
   type: "file",
 };
 
+export const FileLabelDirectionColumnRequired = TemplateFile.bind({});
+FileLabelDirectionColumnRequired.args = {
+  dir: "column",
+  label: "Ajouter une photo ou un fichier",
+  required: true,
+  type: "file",
+};
+
 export const FileWithHelperText = Template.bind({});
 FileWithHelperText.args = {
   helperText: "Helper text",
