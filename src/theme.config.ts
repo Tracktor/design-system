@@ -572,6 +572,9 @@ const commonThemeOptions: ThemeOptions = {
                   position: "absolute",
                   top: "100%",
                 },
+                "& .MuiFormLabel-asterisk": {
+                  display: "contents",
+                },
                 "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
                   display: "none",
                   height: 0,
