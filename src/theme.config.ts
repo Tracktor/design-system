@@ -339,7 +339,7 @@ const commonThemeOptions: ThemeOptions = {
     MuiInputBase: {
       styleOverrides: {
         root: ({ theme }) => ({
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : "transparent",
         }),
       },
       variants: [
