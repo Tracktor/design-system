@@ -337,6 +337,13 @@ const commonThemeOptions: ThemeOptions = {
       },
     },
     MuiInputBase: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "&.MuiOutlinedInput-root": {
+            backgroundColor: theme.palette.background.paper,
+          },
+        }),
+      },
       variants: [
         {
           props: { size: "small" },
