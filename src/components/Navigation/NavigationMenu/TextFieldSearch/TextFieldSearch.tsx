@@ -13,8 +13,10 @@ const styles = {
   "& .Mui-focused svg": {
     animation: "hi-TextFieldSearch 1s ease forwards",
   },
+  "& .MuiInputBase-root": {
+    background: ({ palette }: Theme) => alpha(palette.common.white, 0.09),
+  },
   "& .MuiOutlinedInput-notchedOutline, & .MuiInputBase-root .MuiOutlinedInput-notchedOutline": {
-    background: ({ palette }: Theme) => alpha(palette.common.white, 0.12),
     borderColor: ({ palette }: Theme) => alpha(palette.common.white, 0.1),
   },
   "&:hover .MuiOutlinedInput-notchedOutline, & .MuiInputBase-root.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
