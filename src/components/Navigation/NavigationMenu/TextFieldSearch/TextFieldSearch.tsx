@@ -44,7 +44,7 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
     "& input": {
       color,
     },
-    "& label": {
+    "& label, & svg": {
       color: alpha(color, 0.5),
     },
   };
@@ -52,7 +52,6 @@ const TextFieldSearch = ({ translations: t }: SearchFieldProps) => {
   if (SearchField) {
     return isValidElement(SearchField)
       ? cloneElement(SearchField as ReactElement, {
-          InputProps: { sx },
           ref: inputRef,
           sx,
         })

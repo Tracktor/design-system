@@ -1,5 +1,6 @@
 import {
   Alert,
+  Autocomplete,
   Box,
   Divider,
   FormControl,
@@ -395,7 +396,10 @@ WithCustomFooter.args = {
   items: ITEMS,
 };
 
-const CustomField = forwardRef((props, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} {...props} />);
+const CustomField = forwardRef((props, ref) => (
+  <Autocomplete {...props} options={[]} renderInput={(params) => <TextField {...params} label=" am custom field" inputRef={ref} />} />
+));
+
 export const WithCustomSearchField = Template.bind({});
 WithCustomSearchField.args = {
   items: ITEMS,
