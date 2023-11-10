@@ -74,10 +74,17 @@ const WrapChildren = ({ children, isLoading, loadingIndicator, loadingPosition, 
 };
 
 const Button = <RootComponent extends ElementType>(props: ButtonProps<RootComponent>, ref: ForwardedRef<any>) => {
-  const { children, disabled, isLoading, loadingIndicator, loadingPosition, size, ...restProps } = props;
+  const { children, disabled, disableRipple, isLoading, loadingIndicator, loadingPosition, size, variant, ...restProps } = props;
 
   return (
-    <MuiButton disabled={disabled || isLoading} ref={ref} size={size} {...restProps}>
+    <MuiButton
+      disabled={disabled || isLoading}
+      ref={ref}
+      size={size}
+      variant={variant}
+      disableRipple={disableRipple || variant === "link"}
+      {...restProps}
+    >
       <WrapChildren isLoading={isLoading} loadingIndicator={loadingIndicator} loadingPosition={loadingPosition} size={size}>
         {children}
       </WrapChildren>

@@ -11,6 +11,7 @@ import {
 import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import landscape from "@/assets/img/landscape.svg";
+import { ButtonProps } from "@/components/Inputs/Button";
 import { defaultFontFamily } from "@/constants/fonts";
 
 declare module "@mui/material/Chip" {
@@ -70,6 +71,12 @@ declare module "@mui/system" {
   interface Shape {
     borderRadiusL: number;
     borderRadiusS: number;
+  }
+}
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsVariantOverrides {
+    link: true;
   }
 }
 
@@ -200,6 +207,32 @@ const commonThemeOptions: ThemeOptions = {
           props: { variant: "contained" },
           style: {
             color: "white",
+          },
+        },
+        {
+          props: { variant: "link" },
+          style: ({ theme, ownerState }: { theme: Theme; ownerState?: ButtonProps } & ComponentsPropsList["MuiButton"]) => {
+            const color =
+              ownerState?.color === "inherit" ? theme.palette.text.primary : theme.palette?.[ownerState?.color || "primary"]?.main;
+
+            return {
+              "& .MuiTouchRipple-root": {
+                backgroundColor: "red",
+              },
+              "&:hover": {
+                backgroundColor: "transparent",
+                textDecoration: "underline",
+                textDecorationColor: alpha(color || theme.palette.primary.main, 0.4),
+              },
+              color,
+              fontSize: "inherit",
+              fontWeight: "inherit",
+              lineHeight: "inherit",
+              minHeight: "auto",
+              padding: 0,
+              textDecoration: "underline",
+              textTransform: "none",
+            };
           },
         },
       ],

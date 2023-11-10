@@ -179,6 +179,30 @@ const ButtonAsLinkTemplate: StoryFn<typeof Button> = () => (
   </Stack>
 );
 
+const ButtonLinkTemplate: StoryFn<typeof Button> = () => (
+  <Stack spacing={2} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
+    <Button variant="link">Button link color primary (default)</Button>
+    <Button variant="link" color="secondary">
+      Button link color secondary
+    </Button>
+    <Button variant="link" color="inherit">
+      Button link color inherit
+    </Button>
+    <Button variant="link" color="error">
+      Button link color error
+    </Button>
+    <Button variant="link" color="warning">
+      Button link color warning
+    </Button>
+    <Button variant="link" color="info">
+      Button link color info
+    </Button>
+    <Button variant="link" color="success">
+      Button link color success
+    </Button>
+  </Stack>
+);
+
 export const Contained = Template.bind({});
 Contained.args = {
   variant: "contained",
@@ -207,6 +231,11 @@ Loading.args = {
 
 export const ButtonAsLink = ButtonAsLinkTemplate.bind({});
 ButtonAsLink.args = {};
+
+export const ButtonAsLinkStyle = ButtonLinkTemplate.bind({});
+ButtonAsLinkStyle.args = {
+  variant: "link",
+};
 
 export default {
   component: ButtonStory,
