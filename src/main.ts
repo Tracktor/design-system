@@ -29,6 +29,8 @@ export { default as DialogCloseIcon } from "@/components/Feedback/Dialog/DialogC
 export * from "@/components/Feedback/Dialog/DialogCloseIcon";
 export { default as TabPanel } from "@/components/Navigation/TabPanel";
 export * from "@/components/Navigation/TabPanel";
+export { default as TypographySkeleton } from "@/components/DataDisplay/TypographySkeleton";
+export * from "@/components/DataDisplay/TypographySkeleton";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
