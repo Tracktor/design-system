@@ -2,8 +2,17 @@ import { ReactNode, useMemo, useState } from "react";
 import FeatureEnableContext from "@/context/FeatureEnable/FeatureEnableContext";
 
 export interface FeatureEnableProviderProps {
+  /**
+   * Children
+   */
   children: ReactNode;
+  /**
+   * Features allowed
+   */
   features?: string[];
+  /**
+   * Features disabled (override features)
+   */
   disabledFeatures?: string[];
 }
 

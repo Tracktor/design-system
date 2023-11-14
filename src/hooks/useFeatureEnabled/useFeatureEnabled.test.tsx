@@ -28,9 +28,10 @@ describe("Test useIsFeatureEnabled", () => {
 
   it.each([
     ["empty string", "", false],
+    ["with missing string feature", "xxxx", false],
     ["missing string value", "azerty", false],
-    ["array with some missing", ["feature1", "xxx"], false],
-    ["array with more missing", ["feature1", "staffing_actions", "xxx"], false],
+    ["array with some missing", ["feature1", "xxx"], true],
+    ["array with more missing", ["feature1", "staffing_actions", "xxx"], true],
     ["string match", "feature1", true],
     ["array match with same value", ["feature1", "feature1"], true],
     ["ordered array match", ["feature1", "feature2"], true],
@@ -51,8 +52,8 @@ describe("Test useIsFeatureEnabled", () => {
     ["not ordered match", ["feature2", "feature1"], true],
     ["empty string", "", false],
     ["missing string value", "azerty", false],
-    ["array with some missing", ["feature1", "xxx"], false],
-    ["array with more missing", ["feature1", "staffing_actions", "xxx"], false],
+    ["array with some missing", ["feature1", "xxx"], true],
+    ["array with more missing", ["feature1", "staffing_actions", "xxx"], true],
   ])("%s and features provided by context", (_, name, expected) => {
     const features = ["feature1", "feature2"];
     const wrapper = ({ children }: any) => <FeatureEnableProvider features={features}>{children}</FeatureEnableProvider>;

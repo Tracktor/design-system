@@ -3,7 +3,7 @@ import useFeatureEnabled from "@/hooks/useFeatureEnabled";
 
 export interface IfFeatureEnableProps {
   /**
-   *  Feature name
+   *  Feature name or array of feature names
    */
   name: string | string[];
   /**
@@ -11,11 +11,11 @@ export interface IfFeatureEnableProps {
    */
   children?: ReactNode;
   /**
-   * A fallback react tree to show when user has not ABTest
+   * A fallback react to display when feature is not enabled for given name
    */
   fallback?: ReactNode;
   /**
-   * Features optional if not given to provider
+   * Features optional if not given from provider
    */
   features?: string[];
 }

@@ -18,7 +18,7 @@ const useFeatureEnabled = () => {
       }
 
       if (Array.isArray(name)) {
-        return name.every((nameString) => hasFeature(nameString, userFeatureWithFilteredDisabled));
+        return name.some((nameString) => hasFeature(nameString, userFeatureWithFilteredDisabled));
       }
 
       return hasFeature(name, userFeatureWithFilteredDisabled);
