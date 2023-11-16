@@ -41,7 +41,7 @@ const TypographySkeleton = ({
   }
 
   return (
-    <Typography color="text.disabled" {...typographyProps}>
+    <Typography {...typographyProps} color="text.disabled">
       {emptyText}
     </Typography>
   );
