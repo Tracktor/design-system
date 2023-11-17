@@ -5,7 +5,7 @@ import { MouseEvent, useCallback, useState } from "react";
  */
 const useMenu = <T = HTMLElement>() => {
   const [anchorMenu, setAnchorMenu] = useState<null | T>(null);
-  const isMenuOpen = Boolean(anchorMenu);
+  const isMenuOpen = !!anchorMenu;
 
   const closeMenu = useCallback(() => {
     setAnchorMenu(null);
