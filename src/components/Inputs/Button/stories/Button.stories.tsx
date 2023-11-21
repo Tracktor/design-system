@@ -2,6 +2,7 @@ import { IconButton, Stack, SvgIcon } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import Button from "../Button";
 import ButtonStory from "./Button";
+import CloseIcon from "@/components/Icon/CloseIcon";
 
 const AddShoppingCartIcon = () => (
   <SvgIcon
@@ -113,6 +114,12 @@ const TemplateLoading: StoryFn<typeof Button> = (args) => (
       <Button variant="outlined" isLoading loadingPosition="end" {...args}>
         Loading end
       </Button>
+      <Button variant="outlined" startIcon={<CloseIcon />} isLoading {...args}>
+        Loading outlined with start icon
+      </Button>
+      <Button variant="outlined" endIcon={<CloseIcon />} isLoading {...args}>
+        Loading outlined with end icon
+      </Button>
     </Stack>
 
     <Stack spacing={2} alignItems="center">
@@ -140,6 +147,12 @@ const TemplateLoading: StoryFn<typeof Button> = (args) => (
       <Button variant="text" isLoading loadingPosition="end" {...args}>
         Loading end text
       </Button>
+      <Button variant="text" startIcon={<CloseIcon />} isLoading {...args}>
+        Loading text with start icon
+      </Button>
+      <Button variant="text" endIcon={<CloseIcon />} isLoading {...args}>
+        Loading text with end icon
+      </Button>
     </Stack>
 
     <Stack spacing={2} alignItems="center">
@@ -161,11 +174,17 @@ const TemplateLoading: StoryFn<typeof Button> = (args) => (
       <Button variant="contained" isLoading loadingIndicator="Loading..." fullWidth {...args}>
         Full Width indicator contained
       </Button>
-      <Button variant="text" isLoading loadingPosition="start" {...args}>
+      <Button variant="contained" isLoading loadingPosition="start" {...args}>
         Loading start contained
       </Button>
-      <Button variant="text" isLoading loadingPosition="end" {...args}>
+      <Button variant="contained" isLoading loadingPosition="end" {...args}>
         Loading end contained
+      </Button>
+      <Button variant="contained" startIcon={<CloseIcon />} isLoading {...args}>
+        Loading contained with start icon
+      </Button>
+      <Button variant="contained" endIcon={<CloseIcon />} isLoading {...args}>
+        Loading contained with end icon
       </Button>
     </Stack>
   </Stack>
