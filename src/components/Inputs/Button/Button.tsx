@@ -47,7 +47,17 @@ const Loader = ({ size, loadingPosition, position = "absolute" }: LoaderProps) =
   </Box>
 );
 
-const WrapChildren = ({ children, isLoading, loadingIndicator, loadingPosition, size }: ButtonProps) => {
+const WrapChildren = ({
+  children,
+  isLoading,
+  loadingIndicator,
+  loadingPosition,
+  size,
+  startIcon,
+  endIcon,
+}: Pick<ButtonProps, "children" | "isLoading" | "loadingIndicator" | "loadingPosition" | "size" | "startIcon" | "endIcon">) => {
+  const isButtonWithIcon = startIcon || endIcon;
+
   if (isLoading && loadingPosition) {
     return (
       <Stack direction={loadingPosition === "start" ? "row" : "row-reverse"} alignItems="center">
@@ -57,7 +67,7 @@ const WrapChildren = ({ children, isLoading, loadingIndicator, loadingPosition, 
     );
   }
 
-  if (isLoading && !loadingIndicator) {
+  if (isLoading && !loadingIndicator && !isButtonWithIcon) {
     return (
       <>
         {isLoading && !loadingIndicator && <Loader size={size} />}
@@ -74,7 +84,19 @@ const WrapChildren = ({ children, isLoading, loadingIndicator, loadingPosition, 
 };
 
 const Button = <RootComponent extends ElementType>(props: ButtonProps<RootComponent>, ref: ForwardedRef<any>) => {
-  const { children, disabled, disableRipple, isLoading, loadingIndicator, loadingPosition, size, variant, ...restProps } = props;
+  const {
+    children,
+    disabled,
+    disableRipple,
+    isLoading,
+    loadingIndicator,
+    loadingPosition,
+    size,
+    variant,
+    startIcon,
+    endIcon,
+    ...restProps
+  } = props;
 
   return (
     <MuiButton
@@ -83,9 +105,18 @@ const Button = <RootComponent extends ElementType>(props: ButtonProps<RootCompon
       size={size}
       variant={variant}
       disableRipple={disableRipple || variant === "link"}
+      startIcon={isLoading && startIcon ? <Loader position="relative" size={size} /> : startIcon}
+      endIcon={isLoading && endIcon ? <Loader position="relative" size={size} /> : endIcon}
       {...restProps}
     >
-      <WrapChildren isLoading={isLoading} loadingIndicator={loadingIndicator} loadingPosition={loadingPosition} size={size}>
+      <WrapChildren
+        isLoading={isLoading}
+        loadingIndicator={loadingIndicator}
+        loadingPosition={loadingPosition}
+        size={size}
+        startIcon={startIcon}
+        endIcon={endIcon}
+      >
         {children}
       </WrapChildren>
     </MuiButton>
