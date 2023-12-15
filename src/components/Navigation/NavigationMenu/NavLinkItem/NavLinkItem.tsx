@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import { NavigationMenuContext, NavLinkProps, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 
@@ -7,7 +7,7 @@ interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   component?: (props: NavLinkProps) => ReactNode;
 }
 
-const NavLinkItem = ({ url, end, children, active, state, component }: NavLinkItemProps) => {
+const NavLinkItem = ({ url, end, children, active, state, component, disabled }: NavLinkItemProps) => {
   const { closeDrawerMenu } = useContext(NavigationMenuContext);
 
   if (component) {
@@ -17,6 +17,14 @@ const NavLinkItem = ({ url, end, children, active, state, component }: NavLinkIt
       <Component onClick={closeDrawerMenu} to={url} end={end} state={state}>
         {children}
       </Component>
+    );
+  }
+
+  if (disabled) {
+    return (
+      <Typography component="div" color="text.disabled" aria-disabled="true">
+        {children}
+      </Typography>
     );
   }
 

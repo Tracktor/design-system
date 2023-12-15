@@ -6,19 +6,20 @@ import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
 import TabletNavBar from "@/components/Navigation/NavigationMenu/TabletNavBar";
 
 export type ObjectNavigationItem = {
-  url: string;
+  url?: string;
   label: string;
   count?: number;
   icon?: ReactNode;
   active?: boolean;
   state?: any;
   end?: boolean;
+  disabled?: boolean;
 };
 
 export interface NavLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
   onClick?: () => void;
-  to: string;
+  to?: string;
   end?: boolean;
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
   state?: any;

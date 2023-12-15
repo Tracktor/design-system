@@ -18,6 +18,9 @@ const styles = {
       background: "none !important",
     },
     "& button, & a": {
+      color: ({ palette }: Theme) => palette.grey["200"],
+    },
+    "& button, & a, & [aria-disabled='true']": {
       "& svg": {
         marginRight: 1,
         transition: ".2s",
@@ -34,7 +37,6 @@ const styles = {
         transform: "scale(1.2)",
       },
       alignItems: "center",
-      color: ({ palette }: Theme) => palette.grey["200"],
       display: "flex",
       fontSize: 16,
       justifyContent: "flex-start",
@@ -63,13 +65,13 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
           }
 
           // Is Object then return NavLinkItem
-          if (item && typeof item === "object" && "url" in item) {
-            const { count, url, label, icon, active } = item;
+          if (item && typeof item === "object" && "label" in item) {
+            const { count, url, label, icon, active, disabled } = item;
             const key = `${url}-${label}-${index}`;
 
             return (
               <ListItem key={key} disablePadding disableGutters>
-                <NavLinkItem url={url} component={NavLink} active={active}>
+                <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled}>
                   {icon}
                   <Stack direction="row" justifyContent="space-between" flex={1}>
                     {label}

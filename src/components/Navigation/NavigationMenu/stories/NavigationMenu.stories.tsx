@@ -67,6 +67,10 @@ const ITEMS = [
     label: "Lien 3",
     url: "#",
   },
+  {
+    disabled: true,
+    label: "Disabled link",
+  },
 ];
 
 const ITEMS_WITH_ICON = [
