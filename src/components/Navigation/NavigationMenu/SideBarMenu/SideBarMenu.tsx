@@ -14,6 +14,9 @@ export interface SideBarMenuProps {
 
 const styles = {
   list: {
+    "& [aria-disabled='true']": {
+      cursor: "default",
+    },
     "& button": {
       background: "none !important",
     },

@@ -91,6 +91,11 @@ const ITEMS_WITH_ICON = [
     label: "Location",
     url: "#",
   },
+  {
+    disabled: true,
+    icon: <FavoriteIcon />,
+    label: "Disabled link",
+  },
 ];
 
 const ITEMS_WITH_CUSTOM_NODE = [

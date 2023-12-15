@@ -19,7 +19,7 @@ export type ObjectNavigationItem = {
 export interface NavLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
   onClick?: () => void;
-  to?: string;
+  to: string;
   end?: boolean;
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
   state?: any;
