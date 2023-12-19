@@ -15,21 +15,26 @@
 
 ## Installation
 
-
-
 **npm:**
+
 ```bash
 npm install @tracktor/design-system
 ```
+
 **bun:**
+
 ```bash
 bun add @tracktor/design-system
 ```
+
 **yarn**:
+
 ```bash
 yarn add @tracktor/design-system
 ```
+
 **pnpm**:
+
 ```bash
 pnpm add @tracktor/design-system
 ```
@@ -60,7 +65,6 @@ Package are available in `@tracktor/design-system/{package}`
 | Package | Description                                   |
 |---------|-----------------------------------------------|
 | colors  | This package contains material design colors. |
-
 
 ## Docs
 

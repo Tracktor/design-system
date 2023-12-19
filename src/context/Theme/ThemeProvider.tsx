@@ -3,7 +3,7 @@ import type { ThemeOptions } from "@mui/material/styles/createTheme";
 import type { ReactNode } from "react";
 import { defaultFontWeight } from "@/constants/fonts";
 import useThemeProvider from "@/context/Theme/useThemeProvider";
-import { commonTheme } from "@/theme.config";
+import { commonTheme } from "@/theme";
 
 export interface ThemeProviderProps {
   /**

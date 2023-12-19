@@ -50,5 +50,5 @@ export * from "@/hooks/useSnackbar";
 export { default as useTabs } from "@/hooks/useTabs";
 export * from "@/hooks/useTabs";
 
-// Config
-export { default as theme } from "@/theme.config";
+// Theme
+export { default as theme } from "@/theme";
