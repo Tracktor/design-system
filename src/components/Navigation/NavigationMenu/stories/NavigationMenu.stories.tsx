@@ -219,7 +219,7 @@ WithIcon.args = {
 export const WithLogo = Template.bind({});
 WithLogo.args = {
   items: ITEMS,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
 };
 
 export const WithoutSearch = Template.bind({});
@@ -232,7 +232,7 @@ export const Mobile = Template.bind({});
 Mobile.args = {
   items: ITEMS,
   itemsMobile: ITEMS_MOBILE,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
 };
 Mobile.parameters = {
   viewport: {
@@ -245,7 +245,7 @@ export const MobileWithIcon = Template.bind({});
 MobileWithIcon.args = {
   items: ITEMS,
   itemsMobile: ITEMS_MOBILE_WITH_ICON,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
 };
 MobileWithIcon.parameters = {
   viewport: {
@@ -258,7 +258,7 @@ export const MobileHideOnScroll = TemplateWithContent.bind({});
 MobileHideOnScroll.args = {
   items: ITEMS,
   itemsMobile: ITEMS_MOBILE,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
   mobileOptions: {
     hideNavBarOnScroll: true,
   },
@@ -274,7 +274,7 @@ export const MobileWithSecondaryMenu = Template.bind({});
 MobileWithSecondaryMenu.args = {
   items: ITEMS,
   itemsMobile: ITEMS_MOBILE_WITH_ICON,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
   secondaryMenu: {
     avatar: {
       name: "Mickaël",
@@ -294,7 +294,7 @@ MobileWithSecondaryMenu.parameters = {
 export const Tablet = Template.bind({});
 Tablet.args = {
   items: ITEMS,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
 };
 Tablet.parameters = {
   viewport: {
@@ -306,7 +306,7 @@ Tablet.parameters = {
 export const TabletWithSecondaryMenu = Template.bind({});
 TabletWithSecondaryMenu.args = {
   items: ITEMS,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
   secondaryMenu: {
     avatar: {
       name: "Mickaël",
@@ -351,7 +351,7 @@ export const WithSecondaryMenuMobile = Template.bind({});
 WithSecondaryMenuMobile.args = {
   items: ITEMS.slice(0, -1),
   itemsMobile: ITEMS_MOBILE,
-  Logo: <Logo color="white" />,
+  Logo: <Logo colorShape="white" />,
   secondaryMenu: {
     avatar: {
       name: "Mickaël",

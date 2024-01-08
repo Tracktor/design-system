@@ -15,11 +15,19 @@ interface CommonLogoProps {
    * Logo variant
    */
   variant?: "default" | "ops" | "supplier" | "pricing";
+  /**
+   * If true, the text logo is not displayed
+   */
+  withoutText?: boolean;
 }
 
 type SvgLogoProps = CommonLogoProps & {
   /**
-   * The color of text logo
+   * The color of logo shape, available only for svg variant
+   */
+  colorShape?: string;
+  /**
+   * The color of text logo, available only for svg variant
    */
   color?: "black" | "white" | string;
   /**
@@ -30,6 +38,7 @@ type SvgLogoProps = CommonLogoProps & {
 };
 
 type ImgLogoProps = CommonLogoProps & {
+  colorShape?: never;
   color?: "black" | "white";
   component?: "img";
 };
@@ -37,13 +46,13 @@ type ImgLogoProps = CommonLogoProps & {
 export type LogoProps = SvgLogoProps | ImgLogoProps;
 
 const Logo = (
-  { color, height, width, variant = "default", component = "img" }: LogoProps,
+  { colorShape, color, height, width, withoutText, variant = "default", component = "img" }: LogoProps,
   ref: ForwardedRef<SVGSVGElement | HTMLImageElement | HTMLDivElement>,
 ): ReactElement => {
   const [logoSrc, setLogoSrc] = useState("");
   const { palette } = useTheme();
   const { getTextColor, getImageModule, getSize } = useLogo();
-  const { height: logoHeight, width: logoWidth } = getSize({ height, variant, width });
+  const { height: logoHeight, width: logoWidth } = getSize({ height, variant, width, withoutText });
   const colorTextLogo = getTextColor(color);
 
   // Get image async
@@ -53,10 +62,10 @@ const Logo = (
     }
 
     (async () => {
-      const module = await getImageModule(variant, colorTextLogo);
+      const module = await getImageModule(variant, colorTextLogo, withoutText);
       setLogoSrc(module.default);
     })();
-  }, [colorTextLogo, getImageModule, component, variant]);
+  }, [colorTextLogo, getImageModule, component, variant, withoutText]);
 
   if (component === "img") {
     return logoSrc ? (
@@ -74,6 +83,19 @@ const Logo = (
           width: logoWidth,
         }}
       />
+    );
+  }
+
+  if (withoutText) {
+    const colorLogo = colorShape || palette.primary.main;
+
+    return (
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 0V15H32C32 6.71026 25.2897 0 17 0Z" fill={colorLogo} />
+        <path d="M0 0V15H15C15 6.71026 8.27968 0 0 0Z" fill={colorLogo} />
+        <path d="M14.9955 16C14.9955 16 15.0056 16 14.9955 16V32H0C0 23.1576 6.71832 16 14.9955 16Z" fill={colorLogo} />
+        <path d="M32 16V32H17C17 23.1576 23.7103 16 32 16Z" fill={colorLogo} />
+      </svg>
     );
   }
 
