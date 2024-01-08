@@ -12,7 +12,7 @@ const useLogo = () => {
   const { mode } = palette;
 
   const getTextColor = useCallback(
-    (color: LogoProps["color"]): NonNullable<LogoProps["color"]> => {
+    (color: LogoProps["colorShape"]): NonNullable<LogoProps["colorShape"]> => {
       if (color) {
         return color;
       }
@@ -22,21 +22,42 @@ const useLogo = () => {
     [mode],
   );
 
-  const getImageModule = useCallback(async (variant: LogoProps["variant"], color: LogoProps["color"]) => {
-    switch (variant) {
-      case "ops":
-        return import("@/assets/img/tracktor-ops.svg");
-      case "supplier":
-        return import("@/assets/img/tracktor-supplier.svg");
-      case "pricing":
-        return import("@/assets/img/tracktor-pricing.svg");
-      default:
-        return color === "white" ? import("@/assets/img/tracktor-white.svg") : import("@/assets/img/tracktor-black.svg");
-    }
-  }, []);
+  const getImageModule = useCallback(
+    async (variant: LogoProps["variant"], color: LogoProps["color"], withoutText: LogoProps["withoutText"]) => {
+      if (withoutText) {
+        return import("@/assets/img/tracktor-logo.svg");
+      }
+
+      switch (variant) {
+        case "ops":
+          return import("@/assets/img/tracktor-ops.svg");
+        case "supplier":
+          return import("@/assets/img/tracktor-supplier.svg");
+        case "pricing":
+          return import("@/assets/img/tracktor-pricing.svg");
+        default:
+          return color === "white" ? import("@/assets/img/tracktor-white.svg") : import("@/assets/img/tracktor-black.svg");
+      }
+    },
+    [],
+  );
 
   const getSize = useCallback(
-    ({ variant, width, height }: { variant: LogoProps["variant"]; width: LogoProps["width"]; height: LogoProps["height"] }) => {
+    ({
+      variant,
+      width,
+      height,
+      withoutText,
+    }: {
+      variant: LogoProps["variant"];
+      width: LogoProps["width"];
+      height: LogoProps["height"];
+      withoutText: LogoProps["withoutText"];
+    }) => {
+      if (withoutText) {
+        return { height: 32, width: 32 };
+      }
+
       if (variant === "default") {
         return {
           height: height || DEFAULT_HEIGHT_DEFAULT_VARIANT,

@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.49.2
-- **[fix]** - Improvements
+## v1.50.0
+- **[feat]** - Logo shape only

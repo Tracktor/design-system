@@ -77,6 +77,24 @@ SupplierBlack.args = {
   variant: "supplier",
 };
 
+export const WithoutText = Template.bind({});
+WithoutText.args = {
+  withoutText: true,
+};
+
+export const WithoutTextSvg = Template.bind({});
+WithoutTextSvg.args = {
+  component: "svg",
+  withoutText: true,
+};
+
+export const WithoutTextWithCustomColorSvg = Template.bind({});
+WithoutTextWithCustomColorSvg.args = {
+  colorShape: "purple",
+  component: "svg",
+  withoutText: true,
+};
+
 export default {
   component: Logo,
   title: "Components/Data Display/Logo",
