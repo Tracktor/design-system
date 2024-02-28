@@ -21,6 +21,7 @@ const config: UserConfig = {
       },
       fileName: "[name]",
       name,
+      formats: ["es"],
     },
     minify: "esbuild",
     rollupOptions: {
