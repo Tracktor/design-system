@@ -175,6 +175,7 @@ const commonThemeOptions: ThemeOptions = {
           lineHeight: 1,
           paddingLeft: "24px",
           paddingRight: "24px",
+          textTransform: "none",
         }),
       },
       variants: [
