@@ -20,7 +20,6 @@ const config: UserConfig = {
         main: resolve(__dirname, "src/main.ts"),
       },
       fileName: "[name]",
-      formats: ["es"],
       name,
     },
     minify: "esbuild",
