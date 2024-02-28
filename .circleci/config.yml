@@ -16,10 +16,10 @@ executors:
       - image: cimg/base:current
   publish-npm:
     docker:
-      - image: cimg/node:16.17.0
+      - image: cimg/node:20.9.0
   tests:
     docker:
-      - image: cimg/node:16.17.0
+      - image: cimg/node:20.9.0
 
 jobs:
   run-unit-tests:

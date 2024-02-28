@@ -8,6 +8,9 @@
   "types": "./dist/src/main.d.ts",
   "main": "./dist/main.js",
   "module": "./dist/main.js",
+  "engines": {
+    "node": ">=20 <21"
+  },
   "files": [
     "dist",
     "colors/index.d.ts"
