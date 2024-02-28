@@ -32,7 +32,11 @@ const config: StorybookConfig = {
   },
   framework: {
     name: "@storybook/react-vite",
-    options: {},
+    options: {
+      builder : {
+        viteConfigPath: path.resolve(__dirname, "./vite.config.ts"),
+      }
+    },
   },
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   typescript: {
