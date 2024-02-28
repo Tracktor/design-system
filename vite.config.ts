@@ -16,8 +16,8 @@ const config: UserConfig = {
   build: {
     lib: {
       entry: {
-        colors: resolve(__dirname, "/colors/main.ts"),
-        main: resolve(__dirname, "/src/main.ts"),
+        colors: resolve(__dirname, "colors/main.ts"),
+        main: resolve(__dirname, "src/main.ts"),
       },
       fileName: "[name]",
       formats: ["es"],
@@ -43,8 +43,8 @@ const config: UserConfig = {
         "**/stories/**/*",
         "**/*.stories.tsx",
         "**/*.stories.ts",
-        "/vite.config.ts",
-        "/src/test.config.ts",
+        "vite.config.ts",
+        "src/test.config.ts",
       ],
     }),
     react(),
@@ -53,14 +53,14 @@ const config: UserConfig = {
     alias: [
       {
         find: "@",
-        replacement: resolve(__dirname, "/src"),
+        replacement: resolve(__dirname, "src"),
       },
     ],
   },
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: "/test.config.ts",
+    setupFiles: "test.config.ts",
   },
 };
 
