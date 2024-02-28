@@ -20,8 +20,8 @@ const config: UserConfig = {
         main: resolve(__dirname, "/src/main.ts"),
       },
       fileName: "[name]",
-      name,
       formats: ["es"],
+      name,
     },
     minify: "esbuild",
     rollupOptions: {
