@@ -13,7 +13,7 @@ references:
 executors:
   build-docker:
     docker:
-      - image: cimg/base:20.11.0
+      - image: cimg/node:20.11.0
   publish-npm:
     docker:
       - image: cimg/node:20.11.0
