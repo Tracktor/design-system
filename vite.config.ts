@@ -43,7 +43,7 @@ const config: UserConfig = {
         "**/*.stories.tsx",
         "**/*.stories.ts",
         "vite.config.ts",
-        "src/test.config.ts",
+        "test.config.ts",
       ],
     }),
     react(),
