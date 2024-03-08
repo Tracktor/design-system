@@ -1323,7 +1323,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.8.1.tgz#c1ddb040429c6d21d38cc945fe75c818cfb68e17"
   integrity sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==
 
-"@emotion/react@11.11.4":
+"@emotion/react@^11.11.4":
   version "11.11.4"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.11.4.tgz#3a829cac25c1f00e126408fab7f891f00ecc3c1d"
   integrity sha512-t8AjMlF0gHpvvxk5mAtCqR4vmxiGHCeJBaQO6gncUSdklELOgtwjerNY2yuJNfwnc6vi16U/+uMF+afIawJ9iw==
@@ -1364,7 +1364,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.2.2.tgz#d58e788ee27267a14342303e1abb3d508b6d0fec"
   integrity sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==
 
-"@emotion/styled@11.11.0":
+"@emotion/styled@^11.11.0":
   version "11.11.0"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.11.0.tgz#26b75e1b5a1b7a629d7c0a8b708fbf5a9cdce346"
   integrity sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==
@@ -1920,7 +1920,7 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.15.12.tgz#f3da6ff16c753ab8b2f8d401c1e1534ba8a8a9a9"
   integrity sha512-brRO+tMFLpGyjEYHrX97bzqeF6jZmKpqqe1rY0LyIHAwP6xRVzh++zSecOQorDOCaZJg4XkGT9xfD+RWOWxZBA==
 
-"@mui/material@5.15.12":
+"@mui/material@^5.15.12":
   version "5.15.12"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.15.12.tgz#08d6582e4037f45df510f3bce51fa06b38a9a676"
   integrity sha512-vXJGg6KNKucsvbW6l7w9zafnpOp0CWc0Wx4mDykuABTpQ5QQBnZxP7+oB4yAS1hDZQ1WobbeIl0CjxK4EEahkA==

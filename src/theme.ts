@@ -8,7 +8,7 @@ import {
   Theme,
   ThemeOptions,
 } from "@mui/material";
-import type { OverridesStyleRules } from "@mui/material/styles/overrides";
+import { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { defaultFontFamily } from "@/constants/fonts";
