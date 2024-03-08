@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, isValidElement } from "react";
-import landscape from "@/assets/img/landscape.svg";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { defaultFontFamily } from "@/constants/fonts";
 
@@ -639,7 +638,7 @@ const commonThemeOptions: ThemeOptions = {
                   width: "100%",
                 },
                 "& .MuiInputLabel-root:before": {
-                  content: `url(${landscape})`,
+                  content: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35.59 32'%3E%3Crect width='35.59' height='32' fill='none'/%3E%3Cg%3E%3Cg%3E%3Cpath d='m32.26,1H3.34c-1.23,0-2.22.9-2.22,2v26c0,1.1,1,2,2.22,2h28.92c1.23,0,2.22-.9,2.22-2V3c0-1.1-1-2-2.22-2Z' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3Cpath d='m7.79,23l5.13-6.15c.19-.23.44-.42.71-.56.28-.14.59-.22.91-.24.32-.02.64.02.94.12.3.1.57.26.8.46l1.52,1.37,4.89-5.87c.21-.25.48-.45.78-.59.31-.14.65-.21.99-.21s.69.07.99.21c.31.14.58.34.78.59l3.96,4.75' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3Cpath d='m9.45,11c1.54,0,2.78-1.12,2.78-2.5s-1.24-2.5-2.78-2.5-2.78,1.12-2.78,2.5,1.25,2.5,2.78,2.5Z' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3Cpath d='m1.11,23h33.37' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A")`,
                   height: 30,
                   marginLeft: theme.spacing(2),
                   marginRight: theme.spacing(2),
