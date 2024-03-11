@@ -47,7 +47,6 @@ const styles = {
       paddingY: 2,
       textAlign: "left",
       textDecoration: "none",
-      textTransform: "capitalize",
       width: "100%",
     },
     mt: 3,

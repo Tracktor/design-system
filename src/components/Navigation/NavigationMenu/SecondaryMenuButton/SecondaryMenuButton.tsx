@@ -44,7 +44,6 @@ const styles = {
     minHeight: "auto",
     paddingX: 3,
     paddingY: 2,
-    textTransform: "capitalize",
     width: "100%",
   },
   menuItem: {

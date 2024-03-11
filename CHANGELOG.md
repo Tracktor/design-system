@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.50.5
-- **[fix]** - mui package import
+## v1.50.6
+- **[feat]** - navigation menu style
