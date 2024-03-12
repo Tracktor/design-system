@@ -49,6 +49,7 @@ export interface SecondaryMenu {
    */
   avatar?: {
     name?: string;
+    src?: string;
   };
   /**
    * Menu items secondary menu

@@ -99,11 +99,14 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
           <Stack spacing={2} alignItems="center" direction="row" component="span">
             {secondaryMenu?.avatar && (
               <Avatar
+                src={secondaryMenu?.avatar?.src}
                 component="span"
                 alt={secondaryMenu?.avatar?.name}
                 sx={styles.avatar}
-                imgProps={{
-                  referrerPolicy: "no-referrer",
+                slotProps={{
+                  img: {
+                    referrerPolicy: "no-referrer",
+                  },
                 }}
               >
                 {secondaryMenu?.loading ? null : firstLetterOfName}
