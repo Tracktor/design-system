@@ -31,6 +31,8 @@ export { default as TabPanel } from "@/components/Navigation/TabPanel";
 export * from "@/components/Navigation/TabPanel";
 export { default as TypographySkeleton } from "@/components/DataDisplay/TypographySkeleton";
 export * from "@/components/DataDisplay/TypographySkeleton";
+export { default as ArticleImage } from "@/components/DataDisplay/ArticleImage";
+export * from "@/components/DataDisplay/ArticleImage";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
