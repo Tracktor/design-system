@@ -110,7 +110,7 @@ const commonThemeOptions: ThemeOptions = {
     MuiAlert: {
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
-          ...(!ownerState.square && { borderRadius: 12 }),
+          ...(!ownerState.square && { borderRadius: theme.shape.borderRadiusL }),
           ...(ownerState.variant === "standard" && {
             border: `solid 1px ${theme.palette[ownerState.severity || "success"].main}`,
           }),

@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.50.7
-- **[feat]** - add avatar `src` to `NavigationMenu`
+## v1.51.0
+- **[feat]** - new component: `ArticleImage`
