@@ -1,4 +1,5 @@
-import { Box, Skeleton, Stack } from "@mui/material";
+import { Box, Skeleton, Stack, Theme, useTheme } from "@mui/material";
+import { SyntheticEvent, useState } from "react";
 
 export interface ArticleImageProps {
   src?: string;
@@ -8,14 +9,46 @@ export interface ArticleImageProps {
   height?: string | number;
 }
 
-const ArticleImage = ({ src, isLoading, width, height, alt = "Article" }: ArticleImageProps) => {
-  if (isLoading) {
-    return <Skeleton variant="rounded" width={width} height={height} />;
+const geStyles = (width: number | string, height: number | string, shape: Theme["shape"]) => {
+  const { w, h } = { h: Number(height), w: Number(width) };
+
+  if (w < 25 || h < 25) {
+    return { borderRadius: `${shape.borderRadiusS}px`, padding: 0.5 };
   }
 
-  if (src) {
+  if (w < 50 || h < 50) {
+    return { borderRadius: `${shape.borderRadius}px`, padding: 1 };
+  }
+
+  return { borderRadius: `${shape.borderRadiusL}px`, padding: 1.5 };
+};
+
+const ArticleImage = ({ src, isLoading, width = 64, height = 64, alt = "Article" }: ArticleImageProps) => {
+  const { shape } = useTheme();
+  const [error, setError] = useState<SyntheticEvent>();
+  const [loaded, setLoaded] = useState<SyntheticEvent>();
+  const { borderRadius, padding } = geStyles(width, height, shape);
+
+  if (isLoading) {
+    return <Skeleton variant="rounded" width={width} height={height} sx={{ borderRadius }} />;
+  }
+
+  if (src && !error) {
     return (
-      <Box component="img" src={src} alt={alt} width={width} height={height} borderRadius={({ shape }) => `${shape.borderRadiusL}px`} />
+      <>
+        {!loaded && !error && <Skeleton variant="rounded" width={width} height={height} sx={{ borderRadius }} />}
+        <Box
+          component="img"
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          borderRadius={borderRadius}
+          onError={setError}
+          onLoad={setLoaded}
+          display={loaded ? "block" : "none"}
+        />
+      </>
     );
   }
 
@@ -27,11 +60,11 @@ const ArticleImage = ({ src, isLoading, width, height, alt = "Article" }: Articl
       height={height}
       sx={{
         background: ({ palette }) => palette.background.default,
-        borderRadius: ({ shape }) => `${shape.borderRadiusL}px`,
-        padding: 1.5,
+        borderRadius,
+        padding,
       }}
     >
-      <svg width="39" height="38" viewBox="0 0 39 38" fill="none">
+      <svg width="100%" height="100%" viewBox="0 0 39 38" fill="none">
         <path
           d="M31.2231 13.3867V20.5549C33.1243 20.5549 34.9475 19.7997 36.2918 18.4554C37.6361 17.1111 38.3913 15.2878 38.3913 13.3867H31.2231Z"
           fill="#9DAAAB"
