@@ -11,6 +11,7 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleLoad = () => {
+    console.log("loaded");
     setIsLoaded(true);
   };
 
@@ -36,6 +37,11 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
         >
           &times;
         </IconButton>
+        {!isLoaded && (
+          <Box position="absolute" width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
+            <CircularProgress />
+          </Box>
+        )}
         <Box
           sx={{
             left: "50%",
@@ -46,16 +52,9 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
           }}
         >
           {children || (
-            <>
-              {!isLoaded && (
-                <Box position="absolute" width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-                  <CircularProgress />
-                </Box>
-              )}
-              <Fade in={open && isLoaded}>
-                <Box component="img" src={src} width="100%" onLoad={handleLoad} />
-              </Fade>
-            </>
+            <Fade in={open && isLoaded}>
+              <Box component="img" src={src} width="100%" onLoad={handleLoad} />
+            </Fade>
           )}
         </Box>
       </>
