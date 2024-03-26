@@ -1,27 +1,38 @@
 import { Box, CircularProgress, Fade, IconButton, Modal, ModalProps } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { MouseEvent, ReactNode, useState } from "react";
 
 export interface LightboxProps extends Omit<ModalProps, "children"> {
   src?: string;
   children?: ReactNode;
-  onClose?(event: {}, reason: "backdropClick" | "escapeKeyDown" | "closeButton"): void;
+  onClose?(event: MouseEvent | {} | undefined, reason?: "backdropClick" | "escapeKeyDown" | "closeButton"): void;
 }
 
 const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleLoad = () => {
-    console.log("loaded");
     setIsLoaded(true);
   };
 
+  const handleClose = (event: MouseEvent | object | undefined, reason: "backdropClick" | "escapeKeyDown" | "closeButton") => {
+    if (event) {
+      onClose?.(event, reason);
+      setIsLoaded(false);
+    }
+
+    return (e: MouseEvent) => {
+      onClose?.(e, reason);
+      setIsLoaded(false);
+    };
+  };
+
   return (
-    <Modal open={open} onClose={onClose} {...props}>
+    <Modal open={open} onClose={handleClose} {...props}>
       <>
         <IconButton
           size="small"
           aria-label="close"
-          onClick={(e) => onClose?.(e, "closeButton")}
+          onClick={handleClose(undefined, "closeButton")}
           sx={{
             "&:hover": {
               background: ({ palette }) => palette.augmentColor({ color: { main: palette.background.default } }).light,
