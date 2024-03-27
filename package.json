@@ -2,7 +2,7 @@
   "name": "@tracktor/design-system",
   "description": "Tracktor Design System",
   "sideEffects": false,
-  "version": "1.51.6",
+  "version": "1.52.0",
   "license": "ISC",
   "type": "module",
   "types": "./dist/src/main.d.ts",
@@ -91,7 +91,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.12"
+    "@mui/material": "^5.15.14"
   },
   "peerDependencies": {
     "@emotion/react": ">=11.0.0",

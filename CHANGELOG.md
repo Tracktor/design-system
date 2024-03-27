@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.51.6
-- **[fix]** - replace deprecated `imgProps` with `slotProps` in `SecondaryMenuButton`
+## v1.52.0
+- **[chore]** - upgrade design system version
+- **[feat]** - add `enableColorScheme` to `ThemeProvider`

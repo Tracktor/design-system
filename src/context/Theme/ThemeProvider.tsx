@@ -26,6 +26,13 @@ export interface ThemeProviderProps {
    */
   theme?: "dark" | "light" | ThemeOptions;
   /**
+   * Enable `color-scheme` CSS property to use `theme.palette.mode`.
+   * For more details, check out https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
+   * For browser support, check out https://caniuse.com/?search=color-scheme
+   * @default false
+   */
+  enableColorScheme?: boolean;
+  /**
    * Font options
    */
   font?: {
@@ -89,6 +96,7 @@ const FullHeightStyle = () => (
 
 const ThemeProvider = ({
   children,
+  enableColorScheme,
   includeCssBaseline = true,
   includeScrollBarStyle = true,
   fullHeight = true,
@@ -109,10 +117,9 @@ const ThemeProvider = ({
           `}
         />
       )}
-
+      {includeCssBaseline && <CssBaseline enableColorScheme={enableColorScheme} />}
       {fullHeight && <FullHeightStyle />}
       {includeScrollBarStyle && <ScrollBarStyle />}
-      {includeCssBaseline && <CssBaseline />}
       {children}
     </ThemeProviderMUI>
   );
