@@ -149,8 +149,10 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
           <Avatar
             alt={secondaryMenu?.avatar?.name}
             sx={styles.avatar}
-            imgProps={{
-              referrerPolicy: "no-referrer",
+            slotProps={{
+              img: {
+                referrerPolicy: "no-referrer",
+              },
             }}
           >
             {firstLetterOfName}
