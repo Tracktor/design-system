@@ -3,7 +3,7 @@ import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 
 const useTextFieldSearch = () => {
   const inputRef = useRef<ElementRef<"input">>(null);
-  const { disableSearchFocusShortcut } = useContext(NavigationMenuContext);
+  const { enableSearchFocusShortcut } = useContext(NavigationMenuContext);
 
   const focusInput = (e: KeyboardEvent) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "f") {
@@ -13,16 +13,14 @@ const useTextFieldSearch = () => {
   };
 
   useLayoutEffect(() => {
-    if (disableSearchFocusShortcut) {
-      return undefined;
+    if (enableSearchFocusShortcut) {
+      window.addEventListener("keydown", focusInput);
     }
-
-    window.addEventListener("keydown", focusInput);
 
     return () => {
       window.removeEventListener("keydown", focusInput);
     };
-  }, [disableSearchFocusShortcut]);
+  }, [enableSearchFocusShortcut]);
 
   return { inputRef };
 };

@@ -88,9 +88,9 @@ export interface NavigationMenuProps {
     search?: string;
   };
   /**
-   * Disable search field focus shortcut when pressing "ctrl + f" or "cmd + f"
+   * Enabler search field focus shortcut when pressing "ctrl + f" or "cmd + f"
    */
-  disableSearchFocusShortcut?: boolean;
+  enableSearchFocusShortcut?: boolean;
   /**
    * Disable search field
    */
@@ -230,7 +230,7 @@ const NavigationMenu = ({
   itemsMobile,
   secondaryMenu,
   disableSearch,
-  disableSearchFocusShortcut,
+  enableSearchFocusShortcut,
   translations,
   disableResponsive,
   onSearchChange,
@@ -260,7 +260,7 @@ const NavigationMenu = ({
       closeDrawerMenu,
       disableResponsive,
       disableSearch,
-      disableSearchFocusShortcut,
+      enableSearchFocusShortcut,
       Footer,
       isDrawerOpen,
       isMobile,
@@ -297,7 +297,7 @@ const NavigationMenu = ({
       Logo,
       NavLink,
       SearchField,
-      disableSearchFocusShortcut,
+      enableSearchFocusShortcut,
       mobileOptions,
     ],
   );
