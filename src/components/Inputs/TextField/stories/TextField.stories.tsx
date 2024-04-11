@@ -90,6 +90,18 @@ MultilineFilled.args = {
   variant: "filled",
 };
 
+export const Date = Template.bind({});
+Date.args = {
+  label: "",
+  type: "date",
+};
+
+export const Time = Template.bind({});
+Time.args = {
+  label: "",
+  type: "time",
+};
+
 export default {
   component: TextField,
   title: "Components/Inputs/TextField",
