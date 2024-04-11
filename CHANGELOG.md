@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.53.0
-- **[feat]** - Replace `disableSearchFocusShortcut` to `enableSearchFocusShortcut` in props  of `NavigationMenu` component
+## v1.53.1
+- **[fix]** - Icon color `TextField` type `date` & `time`

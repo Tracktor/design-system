@@ -107,9 +107,17 @@ const ThemeProvider = ({
   const fontOptions = { ...defaultFont, ...font };
   const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
   const fontWeight = fontOptions?.fontWeight?.join(";");
+  const mode = theme === "dark" ? "dark" : "light";
 
   return (
     <ThemeProviderMUI theme={getTheme(theme)}>
+      <GlobalStyles
+        styles={css`
+          ::-webkit-calendar-picker-indicator {
+            filter: invert(${mode === "dark" ? 1 : 0});
+          }
+        `}
+      />
       {fontOptions.import && (
         <GlobalStyles
           styles={css`
