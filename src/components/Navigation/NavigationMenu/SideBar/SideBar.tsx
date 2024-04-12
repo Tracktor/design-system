@@ -20,7 +20,7 @@ const styles = {
   footer: {
     alignItems: "flex-end",
     display: "flex",
-    flex: 1,
+    flexDirection: "column",
   },
   logo: {
     "& svg, & img": {
@@ -94,15 +94,15 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
         )}
       </Stack>
       {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
-      <Box>{children}</Box>
+      <Box flex={1}>{children}</Box>
       <Box
         sx={{
           ...styles.footer,
           ...(isMobile && { paddingBottom: `${size.mobileNavBarHeight}px` }),
         }}
       >
-        {secondaryMenu && !isMobile && <SecondaryMenuButton />}
         {Footer && Footer}
+        {secondaryMenu && !isMobile && <SecondaryMenuButton />}
       </Box>
     </Box>
   );

@@ -405,6 +405,26 @@ WithCustomFooter.args = {
   items: ITEMS,
 };
 
+export const WithFooterAndSecondaryMenu = Template.bind({});
+WithFooterAndSecondaryMenu.args = {
+  Footer: (
+    <Box textAlign="center" width="100%" paddingBottom={2}>
+      <Typography variant="caption" color="text.secondary">
+        Copyright © 2023 - Tracktor
+      </Typography>
+    </Box>
+  ),
+  items: ITEMS,
+  secondaryMenu: {
+    avatar: {
+      name: "Mickaël",
+    },
+    items: ITEMS_SECONDARY,
+    label: "Menu label",
+    loading: true,
+  },
+};
+
 const CustomField = forwardRef((props, ref) => (
   <Autocomplete {...props} options={[]} renderInput={(params) => <TextField {...params} label=" am custom field" inputRef={ref} />} />
 ));
