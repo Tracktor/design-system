@@ -231,9 +231,6 @@ const commonThemeOptions: ThemeOptions = {
               ownerState?.color === "inherit" ? theme.palette.text.primary : theme.palette?.[ownerState?.color || "primary"]?.main;
 
             return {
-              "& .MuiTouchRipple-root": {
-                backgroundColor: "red",
-              },
               "&:hover": {
                 backgroundColor: "transparent",
                 textDecoration: "underline",

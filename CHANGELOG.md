@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.54.0
-- **[feat]** - add new variant `body3` for `Typography` component
+## v1.54.1
+- **[fix]** - remove forget text color `"& .MuiTouchRipple-root": { backgroundColor: "red"},`
