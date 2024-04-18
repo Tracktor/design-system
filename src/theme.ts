@@ -9,7 +9,7 @@ import {
   ThemeOptions,
 } from "@mui/material";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
-import { Children, isValidElement } from "react";
+import { Children, CSSProperties, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { defaultFontFamily } from "@/constants/fonts";
 
@@ -64,6 +64,15 @@ declare module "@mui/material/styles" {
   interface SimplePaletteColorOptions {
     black?: string;
   }
+
+  interface TypographyVariants {
+    body3: CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    body3?: CSSProperties;
+  }
 }
 
 declare module "@mui/system" {
@@ -76,6 +85,12 @@ declare module "@mui/system" {
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     link: true;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    body3: true;
   }
 }
 
@@ -751,6 +766,9 @@ const commonThemeOptions: ThemeOptions = {
     const pxToRem = (size: number) => `${(size / htmlFontSize) * coefficient}rem`;
 
     return {
+      body3: {
+        fontSize: pxToRem(12),
+      },
       fontFamily: defaultFontFamily,
       h1: {
         fontSize: pxToRem(40),

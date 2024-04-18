@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.53.2
-- **[fix]** - Navigation menu position with custom footer and secondary menu
+## v1.54.0
+- **[feat]** - add new variant `body3` for `Typography` component
