@@ -48,7 +48,7 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
         >
           &times;
         </IconButton>
-        {!isLoaded && (
+        {!isLoaded && !children && (
           <Box position="absolute" width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
             <CircularProgress />
           </Box>

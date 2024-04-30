@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import { useState } from "react";
 import Lightbox from "./Lightbox";
@@ -26,8 +26,28 @@ const Template: StoryFn<typeof Lightbox> = (args) => {
   );
 };
 
+const WithChildrenTemplate: StoryFn<typeof Lightbox> = (args) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <Box display="flex" alignItems="center" justifyContent="center" height="100%">
+      <Button onClick={handleOpen} variant="contained">
+        Open
+      </Button>
+      <Lightbox {...args} open={open} onClose={handleClose} src={IMG_SRC} />
+    </Box>
+  );
+};
+
 export const Basic = Template.bind({});
 Basic.args = {};
+
+export const WithChildren = WithChildrenTemplate.bind({});
+WithChildren.args = {
+  children: <Box>My children</Box>,
+};
 
 export default {
   component: Lightbox,
