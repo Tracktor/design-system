@@ -52,5 +52,9 @@ export * from "@/hooks/useSnackbar";
 export { default as useTabs } from "@/hooks/useTabs";
 export * from "@/hooks/useTabs";
 
+// Utils
+export { default as getBackgroundImageElevation } from "@/utils/getBackgroundImageElevation";
+export * from "@/utils/getBackgroundImageElevation";
+
 // Theme
 export { default as theme } from "@/theme";
