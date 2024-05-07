@@ -57,4 +57,4 @@ export { default as getBackgroundImageElevation } from "@/utils/getBackgroundIma
 export * from "@/utils/getBackgroundImageElevation";
 
 // Theme
-export { default as theme } from "@/theme";
+export { default as theme } from "@/config/theme";

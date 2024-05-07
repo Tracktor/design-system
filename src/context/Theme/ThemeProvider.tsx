@@ -1,8 +1,8 @@
 import { css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import type { ReactNode } from "react";
+import { commonTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
 import useThemeProvider from "@/context/Theme/useThemeProvider";
-import { commonTheme } from "@/theme";
 
 export interface ThemeProviderProps {
   /**

@@ -133,11 +133,22 @@ const commonThemeOptions: ThemeOptions = {
       },
       variants: [
         {
-          props: { variant: "filled" },
+          props: {
+            variant: "filled",
+          },
           style: {
             borderColor: "transparent",
             color: "white",
           },
+        },
+        {
+          props: {
+            variant: "standard",
+          },
+          style: ({ theme, severity }: { theme: Theme } & ComponentsPropsList["MuiAlert"]) => ({
+            backgroundColor: alpha(theme.palette[severity || "success"].main, 0.08),
+            color: theme.palette.mode === "dark" ? theme.palette[severity || "success"].light : theme.palette[severity || "success"].dark,
+          }),
         },
       ],
     },
