@@ -4,6 +4,7 @@ import TextField from "./TextField";
 
 const Template: StoryFn<typeof TextField> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <TextField id="xSmall" label="xSmall" size="xSmall" {...args} />
     <TextField id="small" label="Small" size="small" {...args} />
     <TextField id="medium" label="Medium" size="medium" {...args} />
   </Stack>

@@ -13,6 +13,30 @@ import { Children, CSSProperties, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { defaultFontFamily } from "@/constants/fonts";
 
+declare module "@mui/material/InputBase" {
+  interface InputBasePropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/InputLabel" {
+  interface InputLabelPropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/TextField" {
+  interface TextFieldPropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/Autocomplete" {
+  interface AutocompletePropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
 declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
     rounded: true;
@@ -159,6 +183,18 @@ const commonThemeOptions: ThemeOptions = {
         }),
       },
       variants: [
+        {
+          props: { size: "xSmall" },
+          style: {
+            "& .MuiInputLabel-root:not(.MuiInputLabel-shrink)": {
+              transform: "translate(12px, 8px) scale(1)",
+            },
+            "& .MuiOutlinedInput-root": {
+              paddingBottom: 1,
+              paddingTop: 1,
+            },
+          },
+        },
         {
           props: { size: "small" },
           style: {
@@ -412,10 +448,42 @@ const commonThemeOptions: ThemeOptions = {
             },
           },
         },
+        {
+          props: { size: "xSmall" },
+          style: {
+            "& .MuiInputBase-input.MuiFilledInput-input": {
+              paddingBottom: 3.5,
+              paddingTop: 13.5,
+            },
+            "& .MuiInputBase-input.MuiOutlinedInput-input": {
+              paddingBottom: 8.5,
+              paddingTop: 8.5,
+            },
+            "&.MuiInputBase-multiline": {
+              paddingBottom: 0,
+              paddingTop: 0,
+            },
+            "&.MuiInputBase-multiline textarea": {
+              height: 50,
+            },
+          },
+        },
       ],
     },
     MuiInputLabel: {
       variants: [
+        {
+          props: { size: "xSmall" },
+          style: {
+            "&.MuiInputLabel-filled.MuiInputLabel-sizeXSmall": {
+              transform: "translate(12px, 0px) scale(0.75)",
+            },
+            "&.MuiInputLabel-outlined.MuiInputLabel-sizeXSmall:not(.MuiInputLabel-shrink), &.MuiInputLabel-filled.MuiInputLabel-sizeXSmall:not(.MuiInputLabel-shrink)":
+              {
+                transform: "translate(14px, 8px) scale(1)",
+              },
+          },
+        },
         {
           props: { size: "small" },
           style: {

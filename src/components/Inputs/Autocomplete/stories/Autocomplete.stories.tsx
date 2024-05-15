@@ -19,8 +19,19 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
       <Autocomplete
         {...args}
-        defaultValue={defaultValuesWithContext}
         disablePortal
+        defaultValue={defaultValuesWithContext}
+        id="combo-box-demo"
+        options={topFilms}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label="Movie (xSmall)" />}
+        size="xSmall"
+        isOptionEqualToValue={(option, value) => option.label === value.label}
+      />
+      <Autocomplete
+        {...args}
+        disablePortal
+        defaultValue={defaultValuesWithContext}
         id="combo-box-demo"
         options={topFilms}
         sx={{ width: 300 }}
@@ -30,8 +41,8 @@ const Template: StoryFn<typeof Autocomplete> = (args) => {
       />
       <Autocomplete
         {...args}
-        defaultValue={defaultValuesWithContext}
         disablePortal
+        defaultValue={defaultValuesWithContext}
         id="combo-box-demo"
         options={topFilms}
         sx={{ width: 300 }}
