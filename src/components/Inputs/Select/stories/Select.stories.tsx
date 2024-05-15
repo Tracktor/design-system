@@ -37,6 +37,16 @@ const Template: StoryFn<typeof Select> = (args) => {
 
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+      <FormControl sx={{ width: 150 }}>
+        <InputLabel id="demo-simple-select-label-xsmall" size="xSmall" variant={variant}>
+          Age (xSmall)
+        </InputLabel>
+        <Select labelId="demo-simple-select-label-small" value={age} label="Age (xSmall)" onChange={handleChange} size="xSmall" {...args}>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
       <FormControl sx={{ width: 200 }}>
         <InputLabel id="demo-simple-select-label-small" size="small" variant={variant}>
           Age (small)
