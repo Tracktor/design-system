@@ -64,6 +64,7 @@ const SnackbarProvider = ({
       isOpen: true,
       message: params?.message || "",
       severity: params?.severity || "success",
+      variant: params?.variant || "filled",
     });
   }, []);
 
@@ -75,7 +76,14 @@ const SnackbarProvider = ({
     setSnackbar((prevState) => ({ ...prevState, isOpen: false }));
   }, []);
 
-  const value = useMemo(() => ({ closeSnackbar, isOpen: snackbar.isOpen, openSnackbar }), [closeSnackbar, openSnackbar, snackbar.isOpen]);
+  const value = useMemo(
+    () => ({
+      closeSnackbar,
+      isOpen: snackbar.isOpen,
+      openSnackbar,
+    }),
+    [closeSnackbar, openSnackbar, snackbar.isOpen],
+  );
 
   return (
     <SnackbarContext.Provider value={value}>

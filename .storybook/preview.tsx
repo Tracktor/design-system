@@ -5,6 +5,7 @@ import { DARK_MODE_EVENT_NAME, useDarkMode } from "storybook-dark-mode";
 import { Preview } from "@storybook/react";
 import { addons } from "@storybook/preview-api";
 import { version } from "../package.json";
+import SnackbarProvider from "../src/context/Snackbar/SnackbarProvider";
 
 const channel = addons.getChannel();
 const brandTitle = `v${version}`;
@@ -22,7 +23,9 @@ const ThemeWrapper = (props: any) => {
 
   return (
     <ThemeProvider theme={isDark ? "dark" : "light"}>
+      <SnackbarProvider>
       {props.children}
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

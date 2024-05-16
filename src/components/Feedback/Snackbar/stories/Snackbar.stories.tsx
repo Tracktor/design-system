@@ -2,6 +2,7 @@ import { Alert, Button, IconButton, SnackbarOrigin, Stack } from "@mui/material"
 import type { Meta, StoryFn } from "@storybook/react";
 import { SyntheticEvent, useState } from "react";
 import Snackbar from "./Snackbar";
+import useSnackbar from "@/hooks/useSnackbar";
 
 export interface State extends SnackbarOrigin {
   open: boolean;
@@ -141,6 +142,22 @@ const PositionTemplate: StoryFn<typeof Snackbar> = () => {
   );
 };
 
+const SnackbarHookTemplate: StoryFn<typeof Snackbar> = () => {
+  const { openSnackbar } = useSnackbar();
+
+  const handleOpen = () => {
+    openSnackbar({ message: "This is a success message!", severity: "success" });
+  };
+
+  return (
+    <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
+      <Button onClick={handleOpen} variant="outlined">
+        Open snackbar
+      </Button>
+    </Stack>
+  );
+};
+
 export const Basic = Template.bind({});
 Basic.args = {};
 
@@ -149,6 +166,9 @@ CustomWithAlert.args = {};
 
 export const Position = PositionTemplate.bind({});
 Position.args = {};
+
+export const SnackbarHook = SnackbarHookTemplate.bind({});
+SnackbarHook.args = {};
 
 export default {
   component: Snackbar,
