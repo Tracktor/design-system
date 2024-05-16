@@ -1,4 +1,4 @@
-import { Alert, AlertColor, Snackbar } from "@mui/material";
+import { Alert, AlertColor, AlertProps, Snackbar } from "@mui/material";
 import type { SnackbarOrigin } from "@mui/material/Snackbar/Snackbar";
 import { createContext, ElementType, PropsWithChildren, SyntheticEvent, useCallback, useMemo, useState } from "react";
 
@@ -7,17 +7,20 @@ interface SnackBarState {
   isOpen: boolean;
   severity: AlertColor;
   component?: ElementType;
+  variant?: AlertProps["variant"];
 }
 
 interface openSnackbarParamsWithComponent {
   component: ElementType;
   severity?: never;
   message?: never;
+  variant?: never;
 }
 
 interface openSnackbarParamsWithMessage {
   component?: never;
   severity?: AlertColor;
+  variant?: AlertProps["variant"];
   message: string;
 }
 
@@ -39,6 +42,7 @@ const defaultSnackbarState: SnackBarState = {
   isOpen: false,
   message: "",
   severity: "success",
+  variant: "filled",
 };
 
 export const SnackbarContext = createContext<SnackbarContextValue>({
@@ -82,7 +86,13 @@ const SnackbarProvider = ({
         anchorOrigin={anchorOrigin}
         key={snackbar.message}
       >
-        {snackbar.component ? <snackbar.component /> : <Alert severity={snackbar.severity}>{snackbar.message}</Alert>}
+        {snackbar.component ? (
+          <snackbar.component />
+        ) : (
+          <Alert severity={snackbar.severity} variant={snackbar.variant}>
+            {snackbar.message}
+          </Alert>
+        )}
       </Snackbar>
       {children}
     </SnackbarContext.Provider>
