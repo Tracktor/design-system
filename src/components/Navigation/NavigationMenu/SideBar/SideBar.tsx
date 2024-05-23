@@ -59,6 +59,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
         ...styles.container,
         backgroundColor,
         borderRight,
+        overflowX: "auto",
         width: isMobile ? "100%" : sideBarWidth || "auto",
       }}
       component="aside"
