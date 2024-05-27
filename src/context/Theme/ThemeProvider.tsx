@@ -47,11 +47,13 @@ const defaultFont: ThemeProviderProps["font"] = {
   import: true,
 };
 
-const ScrollBarStyle = () => (
+const ScrollBarStyle = ({ theme }: { theme: ThemeProviderProps["theme"] }) => (
   <GlobalStyles
     styles={css`
       * {
-        scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+        scrollbar-color: ${theme === "dark"
+          ? "rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05)"
+          : "rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05)"};
         scrollbar-width: thin;
       }
 
@@ -127,7 +129,7 @@ const ThemeProvider = ({
       )}
       {includeCssBaseline && <CssBaseline enableColorScheme={enableColorScheme} />}
       {fullHeight && <FullHeightStyle />}
-      {includeScrollBarStyle && <ScrollBarStyle />}
+      {includeScrollBarStyle && <ScrollBarStyle theme={theme} />}
       {children}
     </ThemeProviderMUI>
   );
