@@ -25,6 +25,7 @@ const styles = {
     },
     "& button, & a, & [aria-disabled='true']": {
       "& svg": {
+        color: ({ palette }: Theme) => palette.grey["200"],
         marginRight: 1,
         transition: ".2s",
       },
