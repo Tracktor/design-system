@@ -1,4 +1,4 @@
-import { Box, Skeleton, Stack, Theme, useTheme } from "@mui/material";
+import { Box, Skeleton, Stack, SxProps, Theme, useTheme } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
 
 export interface ArticleImageProps {
@@ -7,6 +7,7 @@ export interface ArticleImageProps {
   isLoading?: boolean;
   width?: string | number;
   height?: string | number;
+  sx?: SxProps;
 }
 
 const geStyles = (width: number | string, height: number | string, shape: Theme["shape"]) => {
@@ -23,7 +24,7 @@ const geStyles = (width: number | string, height: number | string, shape: Theme[
   return { borderRadius: `${shape.borderRadiusL}px`, padding: 1.5 };
 };
 
-const ArticleImage = ({ src, isLoading, width = 64, height = 64, alt = "Article" }: ArticleImageProps) => {
+const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Article" }: ArticleImageProps) => {
   const { shape } = useTheme();
   const [error, setError] = useState<SyntheticEvent>();
   const [loaded, setLoaded] = useState<SyntheticEvent>();
@@ -58,10 +59,12 @@ const ArticleImage = ({ src, isLoading, width = 64, height = 64, alt = "Article"
       alignItems="center"
       width={width}
       height={height}
+      flexShrink={0}
       sx={{
         background: ({ palette }) => palette.background.default,
         borderRadius,
         padding,
+        ...sx,
       }}
     >
       <svg width="100%" height="100%" viewBox="0 0 39 38" fill="none">
