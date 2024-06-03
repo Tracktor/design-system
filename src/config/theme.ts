@@ -424,6 +424,7 @@ const commonThemeOptions: ThemeOptions = {
               backgroundColor: alpha(theme.palette.primary.main, 0.08),
               borderColor: theme.palette.primary.main,
             },
+            backgroundColor: theme.palette.background.paper,
             margin: "inherit",
             padding: theme.spacing(2),
             paddingRight: theme.spacing(5),
