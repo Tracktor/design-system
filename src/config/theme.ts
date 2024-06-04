@@ -184,7 +184,7 @@ const commonThemeOptions: ThemeOptions = {
             variant: "standard",
           },
           style: ({ theme, severity }: { theme: Theme } & ComponentsPropsList["MuiAlert"]) => ({
-            backgroundColor: alpha(theme.palette[severity || "success"].main, 0.08),
+            backgroundColor: theme.palette[severity || "success"]["8p"],
             color: theme.palette[severity || "success"]["160p"],
           }),
         },
