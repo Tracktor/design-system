@@ -133,6 +133,7 @@ const dark: ThemeOptions = {
       "4p": "#131819",
       "50p": "#236164",
       "8p": "#151e1f",
+      contrastText: "#020202",
       dark: "#009ca6",
       light: "#50c6ce",
       main: "#35b0b7",

@@ -1,16 +1,87 @@
-import { ColorItem, ColorPalette, Meta } from '@storybook/blocks';
+import { ColorItem, Meta } from '@storybook/blocks';
+import { GlobalStyles, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { addons } from "@storybook/preview-api";
+import ThemeProvider from "@/context/Theme/ThemeProvider";
+import { DARK_MODE_EVENT_NAME, useDarkMode } from "storybook-dark-mode";
+
+# Colors
+
+export const ColorsComposition = () => {
+  const { palette } = useTheme();
+
+  return Object.keys(palette).map((colorCategory) => {
+    const colors = palette[colorCategory];
+
+    if (typeof colors === 'object' && !Array.isArray(colors)) {
+      return (
+        <ColorItem
+          key={colorCategory}
+          title={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)}`}
+          subtitle={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)} color palette`}
+          colors={Object.fromEntries(
+            Object.entries(colors).map(([shade, value]) => [shade.charAt(0).toUpperCase() + shade.slice(1), value])
+          )}
+        />
+      );
+    }
+
+    // If hex color or rgb color
+    if(typeof colors === "string" && (colors.charAt(0) === "#" || colors.includes("rgb"))) {
+      return (
+        <ColorItem
+          key={colorCategory}
+          title={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)}`}
+          subtitle={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)} color palette`}
+          colors={{
+            "": colors,
+          }}
+        />
+      );
+
+    }
+
+    return null;
+
+  })
+
+};
+
+export const Colors = () => {
+  const channel = addons.getChannel();
+  const isDarkMode = useDarkMode()
+  const [isDark, setDark] = useState(isDarkMode);
+
+
+  useEffect(() => {
+    channel.on(DARK_MODE_EVENT_NAME, setDark);
+    return () => {
+      channel.off(DARK_MODE_EVENT_NAME, setDark)
+    }
+  }, [channel, setDark]);
+
+
+  return (
+    <>
+      <GlobalStyles styles={{
+        body: {
+          ".sbdocs.sbdocs-content": {
+            maxWidth: "100%",
+          },
+          ".sbdocs.sbdocs-content > div > div:first-of-type": {
+            flex: "0 0 20%",
+          },
+        }
+      }} />
+      <ThemeProvider theme={isDark ? "dark" : "light"}>
+        <ColorsComposition />
+      </ThemeProvider>
+    </>
+  )
+
+};
 
 <Meta title="Colors"/>
+<Colors/>
 
-<ColorPalette>
-  <ColorItem
-    title="theme.palette.color.primary"
-    subtitle="Caribbean blue"
-    colors={{
-      Black: "#004E53",
-      Dark: "#006C74",
-      Main: "#009BA6",
-      Light: "#33AFB7"
-    }}
-  />
-</ColorPalette>
+
