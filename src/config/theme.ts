@@ -82,10 +82,24 @@ declare module "@mui/material/styles" {
   }
 
   interface PaletteColor {
+    "4p": string;
+    "8p": string;
+    "12p": string;
+    "16p": string;
+    "30p": string;
+    "50p": string;
+    "160p": string;
     black: string;
   }
 
   interface SimplePaletteColorOptions {
+    "4p"?: string;
+    "8p"?: string;
+    "12p"?: string;
+    "16p"?: string;
+    "30p"?: string;
+    "50p"?: string;
+    "160p"?: string;
     black?: string;
   }
 
@@ -171,7 +185,7 @@ const commonThemeOptions: ThemeOptions = {
           },
           style: ({ theme, severity }: { theme: Theme } & ComponentsPropsList["MuiAlert"]) => ({
             backgroundColor: alpha(theme.palette[severity || "success"].main, 0.08),
-            color: theme.palette.mode === "dark" ? theme.palette[severity || "success"].light : theme.palette[severity || "success"].dark,
+            color: theme.palette[severity || "success"]["160p"],
           }),
         },
       ],
@@ -909,17 +923,35 @@ const lightThemeOptions: ThemeOptions = {
     },
     divider: "rgba(0, 0, 0, 0.12)",
     error: {
+      "12p": "#ffedee",
+      "160p": "#662b2c",
+      "30p": "#ffd2d3",
+      "4p": "#fff9f9",
+      "50p": "#ffb3b7",
+      "8p": "#fff3f3",
       dark: "#C73443",
       light: "#FF9A9C",
       main: "#FF686E",
     },
     info: {
+      "12p": "#eaf0fb",
+      "160p": "#1f355a",
+      "30p": "#c9daf7",
+      "4p": "#f8fafe",
+      "50p": "#a6c2ef",
+      "8p": "#f1f5fd",
       dark: "#0059AE",
       light: "#85B4FF",
       main: "#4D85E0",
     },
     mode: "light",
     primary: {
+      "12p": "#e0f3f4",
+      "16p": "#d6eef1",
+      "30p": "#b2e1e3",
+      "4p": "#f5fbfb",
+      "50p": "#81cdd3",
+      "8p": "#ebf7f8",
       black: "#004E53",
       dark: "#006C74",
       light: "#33AFB7",
@@ -931,6 +963,12 @@ const lightThemeOptions: ThemeOptions = {
       main: "#FECB00",
     },
     success: {
+      "12p": "#e6efe6",
+      "160p": "#123114",
+      "30p": "#c0d9c1",
+      "4p": "#f6faf7",
+      "50p": "#97be98",
+      "8p": "#eef6ef",
       dark: "#41936E",
       light: "#7DDBB1",
       main: "#5DD39E",
@@ -941,6 +979,12 @@ const lightThemeOptions: ThemeOptions = {
       secondary: "#616365",
     },
     warning: {
+      "12p": "#fdede1",
+      "160p": "#5f2b01",
+      "30p": "#fad3b3",
+      "4p": "#fef9f5",
+      "50p": "#f6b580",
+      "8p": "#fdf3ea",
       dark: "#C77800",
       light: "#FFD95B",
       main: "#FFA726",
@@ -967,17 +1011,35 @@ const darkThemeOptions: ThemeOptions = {
     },
     divider: "rgba(255, 255, 255, 0.12)",
     error: {
+      "12p": "#2d1816",
+      "160p": "#fbb4af",
+      "30p": "#56211d",
+      "4p": "#1b1313",
+      "50p": "#832b24",
+      "8p": "#241615",
       dark: "#d32f2f",
       light: "#e57273",
       main: "#f44236",
     },
     info: {
+      "12p": "#102029",
+      "160p": "#9acfed",
+      "30p": "#0c354b",
+      "4p": "#11171a",
+      "50p": "#0c354b",
+      "8p": "#111c21",
       dark: "#0089d0",
       light: "#4ec4f7",
       main: "#2ab6f5",
     },
     mode: "dark",
     primary: {
+      "12p": "#151e1f",
+      "16p": "#172b2c",
+      "30p": "#1c4144",
+      "4p": "#131819",
+      "50p": "#236164",
+      "8p": "#151e1f",
       dark: "#009ca6",
       light: "#50c6ce",
       main: "#35b0b7",
@@ -988,6 +1050,12 @@ const darkThemeOptions: ThemeOptions = {
       main: "#9964f4",
     },
     success: {
+      "12p": "#1d261c",
+      "160p": "#c2e4c3",
+      "30p": "#2b452c",
+      "4p": "#151916",
+      "50p": "#3c673e",
+      "8p": "#192019",
       dark: "#388e3c",
       light: "#81c784",
       main: "#66bb69",
@@ -998,6 +1066,12 @@ const darkThemeOptions: ThemeOptions = {
       secondary: "#999999",
     },
     warning: {
+      "12p": "#2e2414",
+      "160p": "#ffdca8",
+      "30p": "#593f18",
+      "4p": "#1c1813",
+      "50p": "#885d1d",
+      "8p": "#251e14",
       dark: "#f57c01",
       light: "#ffb74d",
       main: "#fea727",
