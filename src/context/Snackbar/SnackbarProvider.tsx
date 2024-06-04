@@ -64,7 +64,7 @@ const SnackbarProvider = ({
       isOpen: true,
       message: params?.message || "",
       severity: params?.severity || "success",
-      variant: params?.variant || "filled",
+      variant: params?.variant || "outlined",
     });
   }, []);
 
