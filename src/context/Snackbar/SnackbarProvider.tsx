@@ -42,7 +42,7 @@ const defaultSnackbarState: SnackBarState = {
   isOpen: false,
   message: "",
   severity: "success",
-  variant: "filled",
+  variant: "outlined",
 };
 
 export const SnackbarContext = createContext<SnackbarContextValue>({
