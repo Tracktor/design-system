@@ -1,14 +1,14 @@
 import { Box, Stack } from "@mui/material";
-import type { ComponentStory, Meta } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import Skeleton from "./Skeleton";
 
-const Template: ComponentStory<typeof Skeleton> = (args) => (
+const Template: StoryFn<typeof Skeleton> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
     <Skeleton variant="rectangular" {...args} />
   </Stack>
 );
 
-const AnimationTemplate: ComponentStory<typeof Skeleton> = (args) => (
+const AnimationTemplate: StoryFn<typeof Skeleton> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
     <Box sx={{ width: 300 }}>
       <Skeleton {...args} />
@@ -18,7 +18,7 @@ const AnimationTemplate: ComponentStory<typeof Skeleton> = (args) => (
   </Stack>
 );
 
-const PulsateTemplate: ComponentStory<typeof Skeleton> = (args) => (
+const PulsateTemplate: StoryFn<typeof Skeleton> = (args) => (
   <Stack spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%" }}>
     <Box sx={{ width: 300 }}>
       <Skeleton variant="rectangular" width={300} height={118} {...args} />

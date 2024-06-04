@@ -1,7 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import { mergeConfig } from "vite";
 import path from "path";
-import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   addons: [
@@ -10,25 +8,11 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-storysource",
     "storybook-dark-mode",
-    {
-      name: "@storybook/addon-docs",
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm],
-          },
-        },
-      },
-    },
+    "@storybook/addon-docs",
   ],
-  docs: {
-    autodocs: true,
-  },
   core: {
     disableTelemetry: true,
-  },
-  features: {
-    "storyStoreV7": true
+    builder: "@storybook/builder-vite", // 👈 The builder enabled here.
   },
   framework: {
     name: "@storybook/react-vite",
@@ -43,7 +27,13 @@ const config: StorybookConfig = {
     reactDocgen: "react-docgen-typescript"
   },
   async viteFinal(config) {
+    const { mergeConfig } = await import("vite");
+
     return mergeConfig(config, {
+      // Add dependencies to pre-optimization
+      optimizeDeps: {
+        include: ["storybook-dark-mode"],
+      },
       resolve: {
         alias: [{find: "@", replacement: path.resolve(__dirname, "../src")}],
       }

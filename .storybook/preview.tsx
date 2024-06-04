@@ -39,6 +39,7 @@ const decorators = [
 ];
 
 const preview: Preview = {
+  tags: ["autodocs"],
   decorators,
   parameters: {
     actions: {
