@@ -724,10 +724,18 @@ const commonThemeOptions: ThemeOptions = {
             fullWidth,
             dir,
           }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
-            const isSmallSize = ownerState?.size === "small";
             const isColumnDirection = dir === "column";
-            const smallHeight = isColumnDirection ? 130 : 60;
-            const mediumHeight = isColumnDirection ? 150 : 80;
+
+            const getHeight = () => {
+              if (ownerState?.size === "xSmall") {
+                return isColumnDirection ? 120 : 50;
+              }
+
+              if (ownerState?.size === "small") {
+                return isColumnDirection ? 130 : 60;
+              }
+              return isColumnDirection ? 150 : 80;
+            };
 
             return {
               ...(ownerState?.label && {
@@ -739,7 +747,6 @@ const commonThemeOptions: ThemeOptions = {
                   display: "contents",
                 },
                 "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
-                  display: "none",
                   height: 0,
                   opacity: 0,
                   width: 0,
@@ -774,10 +781,13 @@ const commonThemeOptions: ThemeOptions = {
                   borderStyle: "dashed",
                   top: 0,
                 },
+                "& .MuiOutlinedInput-notchedOutline legend": {
+                  display: "none",
+                },
                 "&:hover .MuiOutlinedInput-notchedOutline": {
                   borderColor: theme.palette.primary.main,
                 },
-                height: isSmallSize ? smallHeight : mediumHeight,
+                height: getHeight(),
                 justifyContent: "center",
                 maxWidth: fullWidth ? "100%" : 400,
                 width: "100%",
