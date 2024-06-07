@@ -67,7 +67,7 @@ const TimeLine = ({ data, isLoading, emptyMessage, containerStyle }: TimeLinePro
             <Stack>
               <Typography>
                 <Skeleton width={80} />
-              </Typography>{" "}
+              </Typography>
               <Typography variant="body2">
                 <Skeleton width={110} height={20} />
               </Typography>

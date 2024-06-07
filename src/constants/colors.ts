@@ -14,6 +14,9 @@ const light: ThemeOptions = {
       default: "#F5F7F7",
       paper: "#ffffff",
     },
+    border: {
+      outline: "rgba(0, 0, 0, 0.23)",
+    },
     divider: "rgba(0, 0, 0, 0.12)",
     error: {
       "12p": "#ffedee",
