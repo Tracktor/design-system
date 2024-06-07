@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v1.58.0
+## v1.58.1
 - **[feat]** - add `TimeLine` component
