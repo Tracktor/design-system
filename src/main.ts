@@ -33,6 +33,8 @@ export { default as TypographySkeleton } from "@/components/DataDisplay/Typograp
 export * from "@/components/DataDisplay/TypographySkeleton";
 export { default as ArticleImage } from "@/components/DataDisplay/ArticleImage";
 export * from "@/components/DataDisplay/ArticleImage";
+export { default as TimeLine } from "@/components/DataDisplay/TimeLine";
+export * from "@/components/DataDisplay/TimeLine";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
