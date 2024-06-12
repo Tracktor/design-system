@@ -6,10 +6,13 @@ import AppBar from "@/components/Surface/AppBar";
 
 const menuItems = [
   {
+    active: true,
+    icon: "🏠",
     label: "Dashboard",
     url: "#",
   },
   {
+    icon: "📦",
     label: "Booking",
     url: "#",
   },

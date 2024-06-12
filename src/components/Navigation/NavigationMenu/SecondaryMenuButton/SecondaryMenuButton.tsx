@@ -2,6 +2,7 @@ import {
   alpha,
   Avatar,
   Backdrop,
+  Box,
   Button,
   IconButton,
   ListItemIcon,
@@ -36,15 +37,16 @@ const styles = {
   },
   button: {
     "&:hover": {
-      background: "transparent",
+      background: ({ palette }: Theme) => palette.grey[50],
       cursor: "pointer",
     },
     alignSelf: "flex-start",
-    borderRadius: 0,
+    borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
     justifyContent: "flex-start",
     minHeight: "auto",
     paddingX: 3,
-    paddingY: 2,
+    paddingY: 1,
+    width: "100%",
   },
   menuItem: {
     "& > a": {
@@ -77,7 +79,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
   const isIconButton = variant === "icon";
 
   return (
-    <>
+    <Box padding={isMobile ? 0 : 2} width="100%">
       {isButton && (
         <Button
           onClick={openMenu}
@@ -88,7 +90,6 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
             ...(isMobile && {
               marginBottom: 1,
               paddingX: 3,
-              width: "auto",
             }),
             color: ({ palette }: Theme) => {
               const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.main;
@@ -97,7 +98,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
             },
           }}
         >
-          <Stack spacing={2} alignItems="center" direction="row" component="span">
+          <Stack spacing={2} alignItems="center" direction="row" component="span" flex={1}>
             {secondaryMenu?.avatar && (
               <Avatar
                 src={secondaryMenu?.avatar?.src}
@@ -199,7 +200,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
           })}
         </Menu>
       </Backdrop>
-    </>
+    </Box>
   );
 };
 

@@ -1,6 +1,7 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
 ## v2.0.0
+- **[feat]** - update theme colors
 - **[feat]** - add new`Backoffice` component
 - **[feat]** - add new`AppBar` component
 - **[feat]** - Add new `Logo`

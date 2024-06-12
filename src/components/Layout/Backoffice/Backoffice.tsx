@@ -11,7 +11,7 @@ const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
   const gridRef = useRef<HTMLDivElement>(null);
 
   return (
-    <>
+    <Stack height="100%">
       {AppBar}
       <Stack height="100%" direction="row">
         {Sidebar}
@@ -21,7 +21,7 @@ const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
           </Box>
         </Box>
       </Stack>
-    </>
+    </Stack>
   );
 };
 

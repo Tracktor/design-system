@@ -68,7 +68,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
         <Stack
           sx={{
             ...styles.logoContainer,
-            paddingX: isMobile ? 3 : 2,
+            paddingX: 2,
           }}
           direction="row"
           alignItems="center"
@@ -84,7 +84,6 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
                   width: "auto",
                 },
               }),
-              textAlign: isMobile ? "left" : "center",
             }}
           >
             {Logo}
