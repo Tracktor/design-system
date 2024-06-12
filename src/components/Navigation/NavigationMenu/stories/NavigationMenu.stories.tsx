@@ -397,7 +397,7 @@ export const WithCustomFooter = Template.bind({});
 WithCustomFooter.args = {
   Footer: (
     <Box textAlign="center" width="100%">
-      <Typography variant="caption" color="text.secondary">
+      <Typography variant="caption" color="white">
         Copyright © 2023 - Tracktor
       </Typography>
     </Box>

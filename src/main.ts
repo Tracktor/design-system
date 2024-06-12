@@ -35,6 +35,10 @@ export { default as ArticleImage } from "@/components/DataDisplay/ArticleImage";
 export * from "@/components/DataDisplay/ArticleImage";
 export { default as TimeLine } from "@/components/DataDisplay/TimeLine";
 export * from "@/components/DataDisplay/TimeLine";
+export { default as Backoffice } from "@/components/Layout/Backoffice";
+export * from "@/components/Layout/Backoffice";
+export { default as AppBar } from "@/components/Surface/AppBar";
+export * from "@/components/Surface/AppBar";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";

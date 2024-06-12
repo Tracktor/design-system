@@ -95,6 +95,11 @@ WithoutTextWithCustomColorSvg.args = {
   withoutText: true,
 };
 
+export const ShapeBackground = Template.bind({});
+ShapeBackground.args = {
+  variant: "shape-background",
+};
+
 export default {
   component: Logo,
   title: "Components/Data Display/Logo",

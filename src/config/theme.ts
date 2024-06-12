@@ -9,129 +9,10 @@ import {
   ThemeOptions,
 } from "@mui/material";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
-import { Children, CSSProperties, isValidElement } from "react";
+import { Children, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { dark, light } from "@/constants/colors";
 import { defaultFontFamily } from "@/constants/fonts";
-
-declare module "@mui/material/InputBase" {
-  interface InputBasePropsSizeOverrides {
-    xSmall: true;
-  }
-}
-
-declare module "@mui/material/InputLabel" {
-  interface InputLabelPropsSizeOverrides {
-    xSmall: true;
-  }
-}
-
-declare module "@mui/material/TextField" {
-  interface TextFieldPropsSizeOverrides {
-    xSmall: true;
-  }
-}
-
-declare module "@mui/material/Autocomplete" {
-  interface AutocompletePropsSizeOverrides {
-    xSmall: true;
-  }
-}
-
-declare module "@mui/material/Chip" {
-  interface ChipPropsVariantOverrides {
-    rounded: true;
-  }
-  interface ChipPropsSizeOverrides {
-    xSmall: true;
-  }
-}
-
-declare module "@mui/material/FormControlLabel" {
-  interface FormControlLabelProps {
-    variant?: "card";
-    size?: "small" | "medium";
-  }
-}
-
-declare module "@mui/material/styles" {
-  interface Palette {
-    border: {
-      outline: string;
-    };
-  }
-  interface PaletteOptions {
-    border?: {
-      outline?: string;
-    };
-  }
-
-  // eslint-disable-next-line no-shadow
-  interface Theme {
-    size: {
-      mobileNavBarHeight: number;
-      tabletNavBarHeight: number;
-    };
-  }
-
-  // eslint-disable-next-line no-shadow
-  interface ThemeOptions {
-    size?: {
-      mobileNavBarHeight?: number;
-      tabletNavBarHeight?: number;
-    };
-  }
-
-  interface PaletteColor {
-    "4p": string;
-    "8p": string;
-    "12p": string;
-    "16p": string;
-    "30p": string;
-    "50p": string;
-    "160p": string;
-    black: string;
-  }
-
-  interface SimplePaletteColorOptions {
-    "4p"?: string;
-    "8p"?: string;
-    "12p"?: string;
-    "16p"?: string;
-    "30p"?: string;
-    "50p"?: string;
-    "160p"?: string;
-    black?: string;
-  }
-
-  interface TypographyVariants {
-    body3: CSSProperties;
-  }
-
-  // allow configuration using `createTheme`
-  interface TypographyVariantsOptions {
-    body3?: CSSProperties;
-  }
-}
-
-declare module "@mui/system" {
-  interface Shape {
-    borderRadiusL: number;
-    borderRadiusS: number;
-  }
-}
-
-declare module "@mui/material/Button" {
-  interface ButtonPropsVariantOverrides {
-    link: true;
-  }
-}
-
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    body3: true;
-  }
-}
 
 const actionStyleOverrides: Partial<
   OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<Theme, "components">>
@@ -190,6 +71,14 @@ const commonThemeOptions: ThemeOptions = {
           }),
         },
       ],
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: () => ({
+          backgroundColor: dark.palette?.background?.paper,
+          height: 60,
+        }),
+      },
     },
     MuiAutocomplete: {
       styleOverrides: {
@@ -828,19 +717,6 @@ const commonThemeOptions: ThemeOptions = {
           },
         },
       ],
-    },
-  },
-  palette: {
-    grey: {
-      100: "#e3e8e8",
-      200: "#d2d8d8",
-      300: "#9dabab",
-      400: "#7a8b8c",
-      50: "#f5f7f7",
-      500: "#586c6d",
-      600: "#354c4f",
-      700: "#233d3f",
-      800: "#011e21",
     },
   },
   shadows: [

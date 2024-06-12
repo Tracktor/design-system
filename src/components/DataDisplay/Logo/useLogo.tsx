@@ -35,6 +35,8 @@ const useLogo = () => {
           return import("@/assets/img/tracktor-supplier.svg");
         case "pricing":
           return import("@/assets/img/tracktor-pricing.svg");
+        case "shape-background":
+          return import("@/assets/img/tracktor-shape-background.svg");
         default:
           return color === "white" ? import("@/assets/img/tracktor-white.svg") : import("@/assets/img/tracktor-black.svg");
       }

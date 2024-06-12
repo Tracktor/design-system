@@ -39,7 +39,7 @@
     ".husky",
     ".storybook",
     "dist",
-    "node_modules",
+    "node_modules"
   ],
   "references": [
     {

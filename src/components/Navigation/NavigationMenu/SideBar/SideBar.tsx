@@ -16,6 +16,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     height: "100%",
+    paddingTop: 3,
   },
   footer: {
     alignItems: "flex-end",
@@ -34,7 +35,7 @@ const styles = {
   logoContainer: {
     display: "flex",
     justifyContent: "center",
-    paddingY: 5,
+    paddingY: 2,
   },
 };
 
@@ -64,36 +65,38 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
       }}
       component="aside"
     >
-      <Stack
-        sx={{
-          ...styles.logoContainer,
-          paddingX: isMobile ? 3 : 2,
-        }}
-        direction="row"
-        alignItems="center"
-        spacing={3}
-      >
-        <Box
+      {Logo && (
+        <Stack
           sx={{
-            ...styles.logo,
-            ...(isMobile && {
-              "& svg, & img": {
-                ...styles.logo["& svg, & img"],
-                maxHeight: 25,
-                width: "auto",
-              },
-            }),
-            textAlign: isMobile ? "left" : "center",
+            ...styles.logoContainer,
+            paddingX: isMobile ? 3 : 2,
           }}
+          direction="row"
+          alignItems="center"
+          spacing={3}
         >
-          {Logo}
-        </Box>
-        {isMobile && (
-          <IconButton onClick={closeDrawerMenu}>
-            <CloseIcon fill={palette.getContrastText(backgroundColor)} />
-          </IconButton>
-        )}
-      </Stack>
+          <Box
+            sx={{
+              ...styles.logo,
+              ...(isMobile && {
+                "& svg, & img": {
+                  ...styles.logo["& svg, & img"],
+                  maxHeight: 25,
+                  width: "auto",
+                },
+              }),
+              textAlign: isMobile ? "left" : "center",
+            }}
+          >
+            {Logo}
+          </Box>
+          {isMobile && (
+            <IconButton onClick={closeDrawerMenu}>
+              <CloseIcon fill={palette.getContrastText(backgroundColor)} />
+            </IconButton>
+          )}
+        </Stack>
+      )}
       {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
       <Box flex={1}>{children}</Box>
       <Box

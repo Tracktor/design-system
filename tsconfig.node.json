@@ -8,9 +8,12 @@
     "esModuleInterop": true
   },
   "include": [
-    "vite.config.ts",
+    "vite.config.ts"
   ],
-  "files": ["package.json"],
+  "files": [
+    "package.json",
+    "types"
+  ],
   "exclude": [
     "node_modules",
     "dist"
