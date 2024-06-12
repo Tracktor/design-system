@@ -15,11 +15,32 @@ const menuItems = [
   },
 ];
 
+const secondaryMenuItems = [
+  {
+    label: "Restore",
+    url: "#",
+  },
+  {
+    active: true,
+    label: "Favorite",
+    url: "#",
+  },
+];
+
 const Template: StoryFn<typeof Backoffice> = (args) => (
   <Box sx={{ height: "100%", width: "100%" }}>
     <Backoffice
       AppBar={<AppBar />}
-      Sidebar={<NavigationMenu items={menuItems} />}
+      Sidebar={
+        <NavigationMenu
+          items={menuItems}
+          secondaryMenu={{
+            items: secondaryMenuItems,
+            label: "Settings",
+            startIcon: "⚙️",
+          }}
+        />
+      }
       Main={
         <Box p={3}>
           <Typography variant="h1">This is main</Typography>

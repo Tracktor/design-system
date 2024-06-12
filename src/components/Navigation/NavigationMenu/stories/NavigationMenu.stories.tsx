@@ -1,19 +1,5 @@
-import {
-  Alert,
-  Autocomplete,
-  Box,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  SvgIcon,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon, Typography } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import { forwardRef } from "react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
 
@@ -222,12 +208,6 @@ WithLogo.args = {
   Logo: <Logo colorShape="white" />,
 };
 
-export const WithoutSearch = Template.bind({});
-WithoutSearch.args = {
-  disableSearch: true,
-  items: ITEMS,
-};
-
 export const Mobile = Template.bind({});
 Mobile.args = {
   items: ITEMS,
@@ -396,7 +376,7 @@ WithSecondaryMenuLoading.args = {
 export const WithCustomFooter = Template.bind({});
 WithCustomFooter.args = {
   Footer: (
-    <Box textAlign="center" width="100%">
+    <Box textAlign="center" width="100%" paddingBottom={2}>
       <Typography variant="caption" color="white">
         Copyright © 2023 - Tracktor
       </Typography>
@@ -423,16 +403,6 @@ WithFooterAndSecondaryMenu.args = {
     label: "Menu label",
     loading: true,
   },
-};
-
-const CustomField = forwardRef((props, ref) => (
-  <Autocomplete {...props} options={[]} renderInput={(params) => <TextField {...params} label=" am custom field" inputRef={ref} />} />
-));
-
-export const WithCustomSearchField = Template.bind({});
-WithCustomSearchField.args = {
-  items: ITEMS,
-  SearchField: <CustomField />,
 };
 
 export default {

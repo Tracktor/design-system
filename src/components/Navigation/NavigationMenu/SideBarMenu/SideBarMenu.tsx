@@ -1,14 +1,11 @@
 import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
-import { isValidElement, ReactElement, ReactNode, useContext } from "react";
+import { isValidElement, ReactElement, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
-import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
 export interface SideBarMenuProps {
   NavLink?: (props: NavLinkProps) => ReactElement | null;
-  SearchField?: ReactNode;
   translate?: (str: string) => string;
-  disableSearch?: boolean;
   items?: NavigationItem[];
 }
 
@@ -58,11 +55,10 @@ const styles = {
 };
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
-  const { disableSearch = props.disableSearch, NavLink = props.NavLink, isMobile } = useContext(NavigationMenuContext);
+  const { NavLink = props.NavLink, isMobile } = useContext(NavigationMenuContext);
 
   return (
     <Box px={isMobile ? 3 : 2} component="nav">
-      {!disableSearch && <TextFieldSearch />}
       <List sx={{ ...styles.list }}>
         {items?.map((item, index) => {
           // Is React Element then return it

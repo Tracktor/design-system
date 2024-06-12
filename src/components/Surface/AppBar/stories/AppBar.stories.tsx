@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import AppBar from "../AppBar";
 
 const Template: StoryFn<typeof AppBar> = (args) => (
-  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" sx={{ background: "grey", height: "100%", width: "100%" }}>
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
     <AppBar {...args} />
   </Stack>
 );

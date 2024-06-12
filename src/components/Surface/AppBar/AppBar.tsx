@@ -1,6 +1,7 @@
 import { AppBar as AppBarMui, Avatar, Box, Stack, SxProps } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 import Logo from "@/components/DataDisplay/Logo";
+import TextFieldAppBar from "@/components/Inputs/TextFieldAppBar";
 
 interface AppBarProps extends PropsWithChildren {
   Avatar?: ReactNode;
@@ -15,8 +16,8 @@ interface AppBarProps extends PropsWithChildren {
 
 const AppBar = ({
   Avatar: AvatarProps,
+  Search: SearchProps,
   Action,
-  Search,
   avatarSrc,
   logoSrc,
   children,
@@ -39,11 +40,12 @@ const AppBar = ({
 
   return (
     <AppBarMui position={position} elevation={elevation} sx={styles}>
-      <Stack direction="row" sx={{ alignItems: "center", height: "100%", width: "100%" }}>
+      <Stack direction="row" sx={{ alignItems: "center", height: "100%", width: "100%" }} spacing={1}>
         <Box component="a" href={logoSrc} sx={{ lineHeight: 0 }}>
           <Logo mode="dark" />
         </Box>
-        <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>{Search}</Box>
+        {/* eslint-disable-next-line react/jsx-no-undef */}
+        <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>{SearchProps || <TextFieldAppBar />}</Box>
         <Stack direction="row" alignItems="center">
           {Action}
           {AvatarProps || <Avatar variant="rounded" src={avatarSrc} />}

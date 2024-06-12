@@ -17,7 +17,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    paddingTop: 3,
   },
   footer: {
     alignItems: "flex-end",

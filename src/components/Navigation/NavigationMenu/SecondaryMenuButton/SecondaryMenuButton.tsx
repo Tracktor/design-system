@@ -36,15 +36,15 @@ const styles = {
   },
   button: {
     "&:hover": {
+      background: "transparent",
       cursor: "pointer",
     },
+    alignSelf: "flex-start",
     borderRadius: 0,
-    borderTop: ({ palette }: Theme) => `solid 1px ${palette.mode === "dark" ? palette.divider : alpha(palette.common.white, 0.12)}`,
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     minHeight: "auto",
     paddingX: 3,
     paddingY: 2,
-    width: "100%",
   },
   menuItem: {
     "& > a": {
@@ -81,10 +81,11 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
       {isButton && (
         <Button
           onClick={openMenu}
+          startIcon={secondaryMenu?.startIcon}
+          variant="text"
           sx={{
             ...styles.button,
             ...(isMobile && {
-              borderTop: "none",
               marginBottom: 1,
               paddingX: 3,
               width: "auto",
@@ -129,18 +130,12 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
             )}
           </Stack>
           {isButton &&
-            (secondaryMenu?.iconOpenMenu || (
-              <SvgIcon>
-                {isMobile ? (
+            (secondaryMenu?.iconOpenMenu ||
+              (isMobile && (
+                <SvgIcon>
                   <path d="M8.12 9.29 12 13.17l3.88-3.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0L6.7 10.7a.9959.9959 0 0 1 0-1.41c.39-.38 1.03-.39 1.42 0z" />
-                ) : (
-                  <path
-                    d="M12 8.25C13.1 8.25 14 7.35 14 6.25C14 5.15 13.1 4.25 12 4.25C10.9 4.25 10 5.15 10 6.25C10 7.35 10.9 8.25 12 8.25ZM12 10.25C10.9 10.25 10 11.15 10 12.25C10 13.35 10.9 14.25 12 14.25C13.1 14.25 14 13.35 14 12.25C14 11.15 13.1 10.25 12 10.25ZM12 16.25C10.9 16.25 10 17.15 10 18.25C10 19.35 10.9 20.25 12 20.25C13.1 20.25 14 19.35 14 18.25C14 17.15 13.1 16.25 12 16.25Z"
-                    fill="white"
-                  />
-                )}
-              </SvgIcon>
-            ))}
+                </SvgIcon>
+              )))}
         </Button>
       )}
 

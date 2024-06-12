@@ -39,6 +39,8 @@ export { default as Backoffice } from "@/components/Layout/Backoffice";
 export * from "@/components/Layout/Backoffice";
 export { default as AppBar } from "@/components/Surface/AppBar";
 export * from "@/components/Surface/AppBar";
+export { default as TextFieldAppBar } from "@/components/Inputs/TextFieldAppBar";
+export * from "@/components/Inputs/TextFieldAppBar";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
