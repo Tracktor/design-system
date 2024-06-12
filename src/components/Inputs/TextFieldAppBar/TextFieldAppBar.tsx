@@ -13,7 +13,7 @@ const TextFieldAppBar = forwardRef(({ type = "search", ...props }: TextFieldProp
         backgroundColor: dark?.palette?.grey?.["50"],
       },
       "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: alpha(dark?.palette?.border?.outline || "#ffffff", 0.54),
+        borderColor: alpha(dark?.palette?.border?.outline || "#ffffff", 0.23),
       },
       maxWidth: 400,
     }}
