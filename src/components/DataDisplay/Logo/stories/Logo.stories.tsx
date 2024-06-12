@@ -11,18 +11,6 @@ const Template: StoryFn<typeof Logo> = (args) => (
 export const AutoColorFromTheme = Template.bind({});
 AutoColorFromTheme.args = {};
 
-export const Black = Template.bind({});
-Black.args = {
-  color: "black",
-  component: "img",
-};
-
-export const White = Template.bind({});
-White.args = {
-  color: "white",
-  component: "img",
-};
-
 export const RenderAsSvgBlack = Template.bind({});
 RenderAsSvgBlack.args = {
   color: "black",
@@ -39,18 +27,6 @@ export const CustomSize = Template.bind({});
 CustomSize.args = {
   height: 50,
   width: 404,
-};
-
-export const Ops = Template.bind({});
-Ops.args = {
-  variant: "ops",
-};
-
-export const OpsBlack = Template.bind({});
-OpsBlack.args = {
-  color: "black",
-  component: "svg",
-  variant: "ops",
 };
 
 export const Pricing = Template.bind({});
@@ -70,13 +46,6 @@ Supplier.args = {
   variant: "supplier",
 };
 
-export const SupplierBlack = Template.bind({});
-SupplierBlack.args = {
-  color: "black",
-  component: "svg",
-  variant: "supplier",
-};
-
 export const WithoutText = Template.bind({});
 WithoutText.args = {
   withoutText: true,
@@ -93,11 +62,6 @@ WithoutTextWithCustomColorSvg.args = {
   colorShape: "purple",
   component: "svg",
   withoutText: true,
-};
-
-export const ShapeBackground = Template.bind({});
-ShapeBackground.args = {
-  variant: "shape-background",
 };
 
 export default {

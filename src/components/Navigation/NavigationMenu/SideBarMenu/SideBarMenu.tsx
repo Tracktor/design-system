@@ -1,4 +1,4 @@
-import { alpha, Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
+import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
@@ -21,21 +21,24 @@ const styles = {
       background: "none !important",
     },
     "& button, & a": {
-      color: ({ palette }: Theme) => palette.grey["200"],
+      color: "text.primary",
     },
     "& button, & a, & [aria-disabled='true']": {
       "& svg": {
-        color: ({ palette }: Theme) => palette.grey["200"],
+        color: "text.secondary",
         marginRight: 1,
         transition: ".2s",
       },
       "&.active": {
         "& svg": {
-          color: ({ palette }: Theme) => palette.primary.contrastText,
+          color: "text.primary",
         },
-        background: ({ palette }: any) => (palette.mode === "dark" ? palette.primary.dark : alpha(palette.primary.main, 0.3)),
-        borderRadius: "4px",
-        color: ({ palette }: Theme) => palette.primary.contrastText,
+        background: ({ palette }: Theme) => palette.grey[50],
+        borderColor: "divider",
+        borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
+        borderStyle: "solid",
+        borderWidth: 1,
+        color: "text.primary",
       },
       "&:hover svg": {
         transform: "scale(1.2)",
@@ -45,7 +48,7 @@ const styles = {
       fontSize: 16,
       justifyContent: "flex-start",
       paddingX: 3,
-      paddingY: 2,
+      paddingY: 1,
       textAlign: "left",
       textDecoration: "none",
       width: "100%",

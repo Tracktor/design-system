@@ -89,6 +89,10 @@ declare module "@mui/material/styles" {
     };
   }
 
+  interface TypeBackground {
+    dark: string;
+  }
+
   interface PaletteColor {
     "4p": string;
     "8p": string;

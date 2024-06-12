@@ -74,8 +74,8 @@ const commonThemeOptions: ThemeOptions = {
     },
     MuiAppBar: {
       styleOverrides: {
-        root: () => ({
-          backgroundColor: dark.palette?.background?.paper,
+        root: ({ theme }) => ({
+          backgroundColor: theme.palette.background.dark,
           height: 60,
         }),
       },

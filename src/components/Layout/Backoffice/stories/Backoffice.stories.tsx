@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import Backoffice from "../Backoffice";
 import NavigationMenu from "@/components/Navigation/NavigationMenu";
@@ -17,7 +17,16 @@ const menuItems = [
 
 const Template: StoryFn<typeof Backoffice> = (args) => (
   <Box sx={{ height: "100%", width: "100%" }}>
-    <Backoffice AppBar={<AppBar />} Sidebar={<NavigationMenu items={menuItems} />} Main={<Box p={3}>This is main</Box>} {...args} />
+    <Backoffice
+      AppBar={<AppBar />}
+      Sidebar={<NavigationMenu items={menuItems} />}
+      Main={
+        <Box p={3}>
+          <Typography variant="h1">This is main</Typography>
+        </Box>
+      }
+      {...args}
+    />
   </Box>
 );
 

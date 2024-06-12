@@ -55,12 +55,12 @@ const preview: Preview = {
       brandTitle,
       dark: {
         ...themes.dark,
-        brandImage: "../src/assets/img/tracktor-white.svg",
+        brandImage: "../src/assets/img/tracktor-dark.svg",
         brandTitle,
       },
       light: {
         ...themes.light,
-        brandImage: "../src/assets/img/tracktor-black.svg",
+        brandImage: "../src/assets/img/tracktor-light.svg",
         brandTitle,
       },
       darkClass: "dark-on",

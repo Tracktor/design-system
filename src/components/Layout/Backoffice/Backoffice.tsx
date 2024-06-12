@@ -5,15 +5,14 @@ interface BackofficeProps {
   AppBar?: ReactNode;
   Main?: ReactNode;
   Sidebar?: ReactNode;
-  InputSearch?: ReactNode;
 }
 
-const Backoffice = ({ Main, Sidebar, AppBar: AppBarProps }: BackofficeProps) => {
+const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
   const gridRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      {AppBarProps}
+      {AppBar}
       <Stack height="100%" direction="row">
         {Sidebar}
         <Box flex={1} sx={{ maxHeight: "100%", overflow: "auto" }} ref={gridRef}>

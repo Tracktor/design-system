@@ -13,6 +13,7 @@ export interface SideBarProps {
 
 const styles = {
   container: {
+    backgroundColor: "grey.A100",
     display: "flex",
     flexDirection: "column",
     height: "100%",
@@ -52,13 +53,12 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
 
   const { palette, size } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
-  const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.mode === "dark" ? palette.divider : backgroundColor}`;
+  const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.divider}`;
 
   return (
     <Box
       sx={{
         ...styles.container,
-        backgroundColor,
         borderRight,
         overflowX: "auto",
         width: isMobile ? "100%" : sideBarWidth || "auto",
