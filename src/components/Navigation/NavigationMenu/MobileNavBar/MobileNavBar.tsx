@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationAction, GlobalStyles, Slide, Theme, useTheme } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, GlobalStyles, Slide, useTheme } from "@mui/material";
 import { isValidElement, ReactElement, ReactNode, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, ObjectNavigationItem } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
@@ -20,25 +20,10 @@ export interface MobileNavBarProps {
 
 const styles = {
   bottomNavigation: {
-    ".Mui-selected": {
-      ".MuiBottomNavigationAction-label": {
-        color: ({ palette }: Theme) => palette.primary.contrastText,
-      },
-      background: ({ palette }: Theme) => palette.primary.dark,
-      svg: {
-        color: ({ palette }: Theme) => palette.primary.contrastText,
-      },
-    },
-    ".MuiBottomNavigationAction-label": {
-      color: ({ palette }: Theme) => palette.grey["200"],
-    },
     bottom: 0,
     left: 0,
     position: "fixed",
     right: 0,
-    svg: {
-      color: ({ palette }: Theme) => palette.grey["200"],
-    },
     zIndex: 1200,
   },
 };

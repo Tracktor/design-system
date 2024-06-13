@@ -144,6 +144,25 @@ const commonThemeOptions: ThemeOptions = {
         },
       },
     },
+    MuiBottomNavigationAction: {
+      styleOverrides: {
+        label: ({ theme }) => ({
+          "&.Mui-selected": {
+            color: theme.palette.common.white,
+          },
+          color: theme.palette.text.secondary,
+        }),
+        root: ({ theme }) => ({
+          "&.Mui-selected": {
+            color: theme.palette.common.white,
+            svg: {
+              color: theme.palette.common.white,
+            },
+          },
+          backgroundColor: theme.palette.background.dark,
+        }),
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({

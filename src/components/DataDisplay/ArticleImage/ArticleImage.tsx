@@ -61,7 +61,7 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
       height={height}
       flexShrink={0}
       sx={{
-        background: ({ palette }) => palette.background.default,
+        background: ({ palette }) => palette.background.paper,
         borderRadius,
         padding,
         ...sx,
