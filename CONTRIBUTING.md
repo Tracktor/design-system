@@ -57,28 +57,36 @@ Then you may open [http://localhost:6006](http://localhost:6006) to view it in t
 ## Sending a Pull Request
 
 1. Clone the repository and create a new branch: `git checkout
+
   ``` bash
 git clone https://github.com/Tracktor/design-system.git  
 ```
 
 2. Synchronize your local master branch with the upstream one:
+
 ```bash
 git checkout master
 git pull upstream master
 ```
 
 3. Install the dependencies with [yarn](https://yarnpkg.com/) :
+
 ```bash
 yarn install
 ```
+
 4. Create a new branch:
+
 ```bash
 git checkout -b my-branch-name
 ```
+
 5. Make changes, commit and push :
+
 ```bash
 git push -u origin HEAD
 ```
+
 6. Go to the [repository](https://github.com/Tracktor/design-system) and make a Pull Request.
 
 ## Available Scripts
