@@ -542,6 +542,9 @@ const commonThemeOptions: ThemeOptions = {
     MuiTab: {
       styleOverrides: {
         root: ({ theme }) => ({
+          "&.Mui-selected": {
+            color: theme.palette.text.primary,
+          },
           "&:first-of-type": {
             marginLeft: 0,
           },
@@ -561,6 +564,15 @@ const commonThemeOptions: ThemeOptions = {
         root: ({ theme }) => ({
           border: `solid 1px ${theme.palette.divider}`,
           borderRadius: theme.shape.borderRadius,
+        }),
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& .MuiTabs-indicator": {
+            backgroundColor: theme.palette.text.primary,
+          },
         }),
       },
     },
