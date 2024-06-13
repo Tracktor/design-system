@@ -1,18 +1,15 @@
-import { AppBar, Box, GlobalStyles, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
-import { ReactNode, useContext } from "react";
+import { AppBar, GlobalStyles, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
+import { useContext } from "react";
 import { NavigationMenuContext, SecondaryMenu } from "@/components/Navigation/NavigationMenu";
 import MenuIcon from "@/components/Navigation/NavigationMenu/MenuIcon";
 import SecondaryMenuButton from "@/components/Navigation/NavigationMenu/SecondaryMenuButton";
-import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
 interface TabletNavBarProps {
-  SearchField?: ReactNode;
-  disableSearch?: boolean;
   secondaryMenu?: SecondaryMenu;
 }
 
 const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
-  const { openDrawerMenu, disableSearch = props.disableSearch, secondaryMenu = props.secondaryMenu } = useContext(NavigationMenuContext);
+  const { openDrawerMenu, secondaryMenu = props.secondaryMenu } = useContext(NavigationMenuContext);
   const { palette, size } = useTheme();
   const background = palette.mode === "dark" ? palette.background.default : palette.primary.black;
 
@@ -31,11 +28,6 @@ const TabletNavBar = ({ ...props }: TabletNavBarProps) => {
           <MenuIcon />
         </IconButton>
         <Stack direction="row" alignItems="center" spacing={1}>
-          {!disableSearch && (
-            <Box flex={1} sx={{ maxWidth: 200, textAlign: "right" }}>
-              <TextFieldSearch />
-            </Box>
-          )}
           {secondaryMenu && <SecondaryMenuButton variant="icon" />}
         </Stack>
       </Toolbar>

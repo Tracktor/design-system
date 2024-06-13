@@ -6,11 +6,26 @@ import AppBar from "@/components/Surface/AppBar";
 
 const menuItems = [
   {
+    active: true,
+    icon: "🏠",
     label: "Dashboard",
     url: "#",
   },
   {
+    icon: "📦",
     label: "Booking",
+    url: "#",
+  },
+];
+
+const secondaryMenuItems = [
+  {
+    label: "Restore",
+    url: "#",
+  },
+  {
+    active: true,
+    label: "Favorite",
     url: "#",
   },
 ];
@@ -18,8 +33,46 @@ const menuItems = [
 const Template: StoryFn<typeof Backoffice> = (args) => (
   <Box sx={{ height: "100%", width: "100%" }}>
     <Backoffice
-      AppBar={<AppBar />}
-      Sidebar={<NavigationMenu items={menuItems} />}
+      AppBar={
+        <AppBar
+          actionProps={{
+            children: "Action",
+          }}
+        />
+      }
+      Sidebar={
+        <NavigationMenu
+          items={menuItems}
+          secondaryMenu={{
+            items: secondaryMenuItems,
+            label: "Settings",
+            startIcon: "⚙️",
+          }}
+        />
+      }
+      Main={
+        <Box p={3}>
+          <Typography variant="h1">This is main</Typography>
+        </Box>
+      }
+      {...args}
+    />
+  </Box>
+);
+
+const WithoutAppBarTemplate: StoryFn<typeof Backoffice> = (args) => (
+  <Box sx={{ height: "100%", width: "100%" }}>
+    <Backoffice
+      Sidebar={
+        <NavigationMenu
+          items={menuItems}
+          secondaryMenu={{
+            items: secondaryMenuItems,
+            label: "Settings",
+            startIcon: "⚙️",
+          }}
+        />
+      }
       Main={
         <Box p={3}>
           <Typography variant="h1">This is main</Typography>
@@ -32,6 +85,9 @@ const Template: StoryFn<typeof Backoffice> = (args) => (
 
 export const Basic = Template.bind({});
 Basic.args = {};
+
+export const WithoutAppBar = WithoutAppBarTemplate.bind({});
+WithoutAppBar.args = {};
 
 export default {
   component: Backoffice,

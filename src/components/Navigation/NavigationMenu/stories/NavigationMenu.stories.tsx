@@ -1,6 +1,5 @@
 import {
   Alert,
-  Autocomplete,
   Box,
   Divider,
   FormControl,
@@ -13,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import { forwardRef } from "react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
 
@@ -211,6 +209,19 @@ Basic.args = {
   items: ITEMS,
 };
 
+export const WithSearch = Template.bind({});
+WithSearch.args = {
+  items: ITEMS,
+  Search: <TextField label="Search" type="search" fullWidth size="small" />,
+};
+
+export const WithSearchAndLogo = Template.bind({});
+WithSearchAndLogo.args = {
+  items: ITEMS,
+  Logo: <Logo colorShape="white" />,
+  Search: <TextField label="Search" type="search" fullWidth size="small" />,
+};
+
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   items: ITEMS_WITH_ICON,
@@ -220,12 +231,6 @@ export const WithLogo = Template.bind({});
 WithLogo.args = {
   items: ITEMS,
   Logo: <Logo colorShape="white" />,
-};
-
-export const WithoutSearch = Template.bind({});
-WithoutSearch.args = {
-  disableSearch: true,
-  items: ITEMS,
 };
 
 export const Mobile = Template.bind({});
@@ -396,7 +401,7 @@ WithSecondaryMenuLoading.args = {
 export const WithCustomFooter = Template.bind({});
 WithCustomFooter.args = {
   Footer: (
-    <Box textAlign="center" width="100%">
+    <Box textAlign="center" width="100%" paddingBottom={2}>
       <Typography variant="caption" color="white">
         Copyright © 2023 - Tracktor
       </Typography>
@@ -423,16 +428,6 @@ WithFooterAndSecondaryMenu.args = {
     label: "Menu label",
     loading: true,
   },
-};
-
-const CustomField = forwardRef((props, ref) => (
-  <Autocomplete {...props} options={[]} renderInput={(params) => <TextField {...params} label=" am custom field" inputRef={ref} />} />
-));
-
-export const WithCustomSearchField = Template.bind({});
-WithCustomSearchField.args = {
-  items: ITEMS,
-  SearchField: <CustomField />,
 };
 
 export default {

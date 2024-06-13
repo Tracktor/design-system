@@ -9,6 +9,7 @@ export interface SideBarProps {
   width?: number | string;
   Footer?: ReactNode;
   Logo?: ReactNode;
+  Search?: ReactNode;
 }
 
 const styles = {
@@ -17,7 +18,6 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     height: "100%",
-    paddingTop: 3,
   },
   footer: {
     alignItems: "flex-end",
@@ -47,6 +47,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
     isMobile,
     isDrawerOpen,
     sideBarWidth,
+    Search = props.Logo,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
@@ -69,7 +70,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
         <Stack
           sx={{
             ...styles.logoContainer,
-            paddingX: isMobile ? 3 : 2,
+            paddingX: 2,
           }}
           direction="row"
           alignItems="center"
@@ -85,7 +86,6 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
                   width: "auto",
                 },
               }),
-              textAlign: isMobile ? "left" : "center",
             }}
           >
             {Logo}
@@ -96,6 +96,11 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
             </IconButton>
           )}
         </Stack>
+      )}
+      {Search && (
+        <Box px={2} py={1}>
+          {Search}
+        </Box>
       )}
       {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
       <Box flex={1}>{children}</Box>

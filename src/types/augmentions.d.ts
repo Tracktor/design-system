@@ -93,6 +93,10 @@ declare module "@mui/material/styles" {
     dark: string;
   }
 
+  interface TypeText {
+    contrast: string;
+  }
+
   interface PaletteColor {
     "4p": string;
     "8p": string;

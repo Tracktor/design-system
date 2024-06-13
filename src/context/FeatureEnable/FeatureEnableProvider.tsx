@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import FeatureEnableContext from "@/context/FeatureEnable/FeatureEnableContext";
 
 export interface FeatureEnableProviderProps {
@@ -17,8 +17,7 @@ export interface FeatureEnableProviderProps {
 }
 
 export const FeatureEnableProvider = ({ children, features, disabledFeatures }: FeatureEnableProviderProps) => {
-  const initialFeatures = useMemo(() => features, [features]);
-  const [featuresState, setFeatures] = useState<string[] | undefined>(initialFeatures);
+  const [featuresState, setFeatures] = useState<string[]>();
 
   const value = useMemo(
     () => ({
@@ -28,6 +27,10 @@ export const FeatureEnableProvider = ({ children, features, disabledFeatures }: 
     }),
     [disabledFeatures, featuresState],
   );
+
+  useEffect(() => {
+    setFeatures(features);
+  }, [features]);
 
   return <FeatureEnableContext.Provider value={value}>{children}</FeatureEnableContext.Provider>;
 };

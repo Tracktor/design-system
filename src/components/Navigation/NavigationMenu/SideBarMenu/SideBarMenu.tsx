@@ -1,14 +1,11 @@
 import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
-import { isValidElement, ReactElement, ReactNode, useContext } from "react";
+import { isValidElement, ReactElement, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
-import TextFieldSearch from "@/components/Navigation/NavigationMenu/TextFieldSearch";
 
 export interface SideBarMenuProps {
   NavLink?: (props: NavLinkProps) => ReactElement | null;
-  SearchField?: ReactNode;
   translate?: (str: string) => string;
-  disableSearch?: boolean;
   items?: NavigationItem[];
 }
 
@@ -26,8 +23,6 @@ const styles = {
     "& button, & a, & [aria-disabled='true']": {
       "& svg": {
         color: "text.secondary",
-        marginRight: 1,
-        transition: ".2s",
       },
       "&.active": {
         "& svg": {
@@ -35,15 +30,15 @@ const styles = {
         },
         background: ({ palette }: Theme) => palette.grey[50],
         borderColor: "divider",
-        borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
         borderStyle: "solid",
         borderWidth: 1,
         color: "text.primary",
       },
-      "&:hover svg": {
-        transform: "scale(1.2)",
+      "&:hover": {
+        background: ({ palette }: Theme) => palette.grey[50],
       },
       alignItems: "center",
+      borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
       display: "flex",
       fontSize: 16,
       justifyContent: "flex-start",
@@ -58,11 +53,10 @@ const styles = {
 };
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
-  const { disableSearch = props.disableSearch, NavLink = props.NavLink, isMobile } = useContext(NavigationMenuContext);
+  const { NavLink = props.NavLink } = useContext(NavigationMenuContext);
 
   return (
-    <Box px={isMobile ? 3 : 2} component="nav">
-      {!disableSearch && <TextFieldSearch />}
+    <Box px={2} component="nav">
       <List sx={{ ...styles.list }}>
         {items?.map((item, index) => {
           // Is React Element then return it
@@ -76,12 +70,18 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
             const key = `${url}-${label}-${index}`;
 
             return (
-              <ListItem key={key} disablePadding disableGutters>
+              <ListItem key={key} disableGutters sx={{ paddingY: 0.5 }}>
                 <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled}>
-                  {icon}
-                  <Stack direction="row" justifyContent="space-between" flex={1}>
-                    {label}
-                    {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                  <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
+                    {icon && (
+                      <Box component="span" display="flex" alignItems="center">
+                        {icon}
+                      </Box>
+                    )}
+                    <Stack direction="row" justifyContent="space-between" flex={1}>
+                      {label}
+                      {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                    </Stack>
                   </Stack>
                 </NavLinkItem>
               </ListItem>

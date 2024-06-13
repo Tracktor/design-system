@@ -1,5 +1,5 @@
 import { SwipeableDrawer, useMediaQuery, useTheme } from "@mui/material";
-import { ChangeEvent, createContext, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, memo, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import MobileNavBar from "@/components/Navigation/NavigationMenu/MobileNavBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
@@ -40,6 +40,10 @@ export interface SecondaryMenu {
    * Menu sub label
    */
   subLabel?: string;
+  /**
+   * Menu start icon
+   */
+  startIcon?: ReactNode;
   /**
    * Menu icon
    */
@@ -92,10 +96,6 @@ export interface NavigationMenuProps {
    */
   enableSearchFocusShortcut?: boolean;
   /**
-   * Disable search field
-   */
-  disableSearch?: boolean;
-  /**
    * Disable responsive behavior
    */
   disableResponsive?: boolean;
@@ -104,16 +104,6 @@ export interface NavigationMenuProps {
    * @default 270
    */
   sideBarWidth?: number;
-  /**
-   * Callback for search field change
-   * Not triggered if disableSearch is true or if SearchField is provided
-   * @param e
-   */
-  onSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  /**
-   * Value of the search field for controlled mode
-   */
-  searchValue?: string;
   /**
    * Mobile options
    */
@@ -153,12 +143,6 @@ export interface NavigationMenuProps {
    */
   NavLink?: (props: NavLinkProps) => ReactNode;
   /**
-   * Override the default search field
-   * To focus custom search input with shortcut ctrl+f, you need forward "ref" to the input like :
-   * const CustomField = forwardRef((_, ref) => <TextField fullWidth label="I am custom field" inputRef={ref} />);
-   */
-  SearchField?: ReactNode;
-  /**
    * Footer component only for desktop
    */
   Footer?: ReactNode;
@@ -166,6 +150,10 @@ export interface NavigationMenuProps {
    * Logo component
    */
   Logo?: ReactNode;
+  /**
+   * Search component
+   */
+  Search?: ReactNode;
 }
 
 const DEFAULT_CONTEXT_VALUE = {
@@ -229,16 +217,13 @@ const NavigationMenu = ({
   items,
   itemsMobile,
   secondaryMenu,
-  disableSearch,
   enableSearchFocusShortcut,
   translations,
   disableResponsive,
-  onSearchChange,
-  searchValue,
   mobileOptions,
-  SearchField,
   NavLink,
   Footer,
+  Search,
   Logo,
   sideBarWidth = 260,
 }: NavigationMenuProps) => {
@@ -259,7 +244,6 @@ const NavigationMenu = ({
     () => ({
       closeDrawerMenu,
       disableResponsive,
-      disableSearch,
       enableSearchFocusShortcut,
       Footer,
       isDrawerOpen,
@@ -270,10 +254,8 @@ const NavigationMenu = ({
       Logo,
       mobileOptions,
       NavLink,
-      onSearchChange,
       openDrawerMenu,
-      SearchField,
-      searchValue,
+      Search,
       secondaryMenu,
       sideBarWidth,
       translations,
@@ -281,24 +263,21 @@ const NavigationMenu = ({
     [
       closeDrawerMenu,
       disableResponsive,
-      disableSearch,
       isDrawerOpen,
       isMobile,
       isTablet,
       items,
       itemsMobile,
       secondaryMenu,
-      onSearchChange,
       openDrawerMenu,
       sideBarWidth,
       translations,
-      searchValue,
       Footer,
       Logo,
       NavLink,
-      SearchField,
       enableSearchFocusShortcut,
       mobileOptions,
+      Search,
     ],
   );
 
