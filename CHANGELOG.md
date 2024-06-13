@@ -10,6 +10,7 @@
 - **[feat]** - Add new `ActionAppBar` component
 - **[feat]** - Add new `AvatarAppBar` component
 - **[feat]** - adapte `NavigationMenu` component for new `AppBar` component
-- **[chore]** - Improve module augmentation declaration
+- **[feat]** - update `Button` theme
 - **[docs]** - Add new story for `AppBar` component
 - **[docs]** - Add new story for `Backoffice` component
+- **[chore]** - Improve module augmentation declaration

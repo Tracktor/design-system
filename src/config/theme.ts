@@ -147,6 +147,9 @@ const commonThemeOptions: ThemeOptions = {
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({
+          "&:not(:hover)": {
+            boxShadow: "none",
+          },
           borderRadius: theme.shape.borderRadius,
           lineHeight: 1,
           paddingLeft: "24px",
@@ -156,7 +159,10 @@ const commonThemeOptions: ThemeOptions = {
       },
       variants: [
         {
-          props: { color: "primary", variant: "outlined" },
+          props: {
+            color: "primary",
+            variant: "outlined",
+          },
           style: ({ theme }) => ({
             backgroundColor: alpha(theme.palette.primary.main, 0.08),
             borderColor: alpha(theme.palette.primary.main, 0.5),
@@ -181,10 +187,34 @@ const commonThemeOptions: ThemeOptions = {
           },
         },
         {
-          props: { variant: "contained" },
-          style: {
-            color: "white",
+          props: {
+            variant: "contained",
           },
+          style: ({ theme }) => ({
+            color: theme.palette.primary.contrastText,
+          }),
+        },
+        {
+          props: {
+            color: "primary",
+            variant: "contained",
+          },
+          style: ({ theme }) => ({
+            ...(theme.palette.mode === "dark" && { outline: `solid 1px ${theme.palette.divider}` }),
+            backgroundColor: theme.palette.mode === "light" ? theme.palette.primary.main : theme.palette.secondary.main,
+            color: theme.palette.mode === "light" ? theme.palette.primary.contrastText : theme.palette.secondary.contrastText,
+          }),
+        },
+        {
+          props: {
+            color: "secondary",
+            variant: "contained",
+          },
+          style: ({ theme }) => ({
+            ...(theme.palette.mode === "light" && { outline: `solid 1px ${theme.palette.divider}` }),
+            backgroundColor: theme.palette.mode === "light" ? theme.palette.secondary.main : theme.palette.primary.main,
+            color: theme.palette.mode === "light" ? theme.palette.secondary.contrastText : theme.palette.primary.contrastText,
+          }),
         },
         {
           props: { variant: "link" },
