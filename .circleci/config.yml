@@ -92,7 +92,7 @@ workflows:
     when:
       and:
         - not:
-            equal: [ master, << pipeline.git.branch >> ]
+            equal: [ v1, << pipeline.git.branch >> ]
     jobs:
       - run-unit-tests:
           name: Run unit tests
@@ -100,7 +100,7 @@ workflows:
           name: Chromatic Deployment
   Release:
     when:
-      equal: [ master, << pipeline.git.branch >> ]
+      equal: [ v1, << pipeline.git.branch >> ]
     jobs:
       - run-unit-tests:
           name: Run unit tests
