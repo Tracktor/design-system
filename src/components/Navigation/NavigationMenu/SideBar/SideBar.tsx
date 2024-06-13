@@ -9,6 +9,7 @@ export interface SideBarProps {
   width?: number | string;
   Footer?: ReactNode;
   Logo?: ReactNode;
+  Search?: ReactNode;
 }
 
 const styles = {
@@ -46,6 +47,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
     isMobile,
     isDrawerOpen,
     sideBarWidth,
+    Search = props.Logo,
     Logo = props.Logo,
     Footer = props.Footer,
   } = useContext(NavigationMenuContext);
@@ -94,6 +96,11 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
             </IconButton>
           )}
         </Stack>
+      )}
+      {Search && (
+        <Box px={2} py={1}>
+          {Search}
+        </Box>
       )}
       {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
       <Box flex={1}>{children}</Box>

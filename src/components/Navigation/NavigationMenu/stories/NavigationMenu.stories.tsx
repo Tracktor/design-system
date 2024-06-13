@@ -1,4 +1,16 @@
-import { Alert, Box, Divider, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, SvgIcon, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  SvgIcon,
+  TextField,
+  Typography,
+} from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -195,6 +207,19 @@ const TemplateWithContent: StoryFn<typeof NavigationMenu> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = {
   items: ITEMS,
+};
+
+export const WithSearch = Template.bind({});
+WithSearch.args = {
+  items: ITEMS,
+  Search: <TextField label="Search" type="search" fullWidth size="small" />,
+};
+
+export const WithSearchAndLogo = Template.bind({});
+WithSearchAndLogo.args = {
+  items: ITEMS,
+  Logo: <Logo colorShape="white" />,
+  Search: <TextField label="Search" type="search" fullWidth size="small" />,
 };
 
 export const WithIcon = Template.bind({});

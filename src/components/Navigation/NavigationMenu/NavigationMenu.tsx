@@ -150,6 +150,10 @@ export interface NavigationMenuProps {
    * Logo component
    */
   Logo?: ReactNode;
+  /**
+   * Search component
+   */
+  Search?: ReactNode;
 }
 
 const DEFAULT_CONTEXT_VALUE = {
@@ -219,6 +223,7 @@ const NavigationMenu = ({
   mobileOptions,
   NavLink,
   Footer,
+  Search,
   Logo,
   sideBarWidth = 260,
 }: NavigationMenuProps) => {
@@ -250,6 +255,7 @@ const NavigationMenu = ({
       mobileOptions,
       NavLink,
       openDrawerMenu,
+      Search,
       secondaryMenu,
       sideBarWidth,
       translations,
@@ -271,6 +277,7 @@ const NavigationMenu = ({
       NavLink,
       enableSearchFocusShortcut,
       mobileOptions,
+      Search,
     ],
   );
 

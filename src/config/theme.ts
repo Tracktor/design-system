@@ -110,6 +110,17 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiAvatar: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& svg": {
+            color: theme.palette.text.disabled,
+          },
+          backgroundColor: theme.palette.grey[100],
+          color: theme.palette.text.primary,
+        }),
+      },
+    },
     MuiBadge: {
       styleOverrides: {
         badge: ({ theme, ownerState }) => {

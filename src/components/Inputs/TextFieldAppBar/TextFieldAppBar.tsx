@@ -2,7 +2,7 @@ import { alpha, InputAdornment, SvgIcon, TextField, TextFieldProps } from "@mui/
 import { forwardRef, Ref } from "react";
 import { dark } from "@/constants/colors";
 
-const TextFieldAppBar = forwardRef(({ type = "search", ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => (
+const TextFieldAppBar = forwardRef(({ sx, type = "search", ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => (
   <TextField
     fullWidth
     size="xSmall"
@@ -16,6 +16,7 @@ const TextFieldAppBar = forwardRef(({ type = "search", ...props }: TextFieldProp
         borderColor: alpha(dark?.palette?.border?.outline || "#ffffff", 0.23),
       },
       maxWidth: 400,
+      ...sx,
     }}
     // eslint-disable-next-line react/jsx-no-duplicate-props
     InputProps={{

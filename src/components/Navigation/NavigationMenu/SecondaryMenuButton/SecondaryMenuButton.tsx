@@ -91,11 +91,7 @@ const SecondaryMenuButton = ({ variant = "button", ...props }: SecondaryMenuButt
               marginBottom: 1,
               paddingX: 3,
             }),
-            color: ({ palette }: Theme) => {
-              const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.main;
-
-              return palette.getContrastText(backgroundColor);
-            },
+            color: "text.primary",
           }}
         >
           <Stack spacing={2} alignItems="center" direction="row" component="span" flex={1}>

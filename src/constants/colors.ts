@@ -89,7 +89,7 @@ const light: ThemeOptions = {
     },
     text: {
       disabled: "#ADAFAF",
-      primary: "#000000",
+      primary: "#1E1E1E",
       secondary: "#616365",
     },
     warning: {

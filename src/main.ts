@@ -41,6 +41,10 @@ export { default as AppBar } from "@/components/Surface/AppBar";
 export * from "@/components/Surface/AppBar";
 export { default as TextFieldAppBar } from "@/components/Inputs/TextFieldAppBar";
 export * from "@/components/Inputs/TextFieldAppBar";
+export { default as ActionAppBar } from "@/components/Inputs/ActionAppBar";
+export * from "@/components/Inputs/ActionAppBar";
+export { default as AvatarAppBar } from "@/components/DataDisplay/AvatarAppBar";
+export * from "@/components/DataDisplay/AvatarAppBar";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
