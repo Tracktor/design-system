@@ -78,25 +78,6 @@ declare module "@mui/material/styles" {
     };
   }
 
-  interface Palette {
-    border: {
-      outline: string;
-    };
-  }
-  interface PaletteOptions {
-    border?: {
-      outline?: string;
-    };
-  }
-
-  interface TypeBackground {
-    dark: string;
-  }
-
-  interface TypeText {
-    contrast: string;
-  }
-
   interface PaletteColor {
     "4p": string;
     "8p": string;
@@ -108,6 +89,13 @@ declare module "@mui/material/styles" {
     black: string;
   }
 
+  interface Palette {
+    tertiary: PaletteColor;
+    border: {
+      outline: string;
+    };
+  }
+
   interface SimplePaletteColorOptions {
     "4p"?: string;
     "8p"?: string;
@@ -117,6 +105,20 @@ declare module "@mui/material/styles" {
     "50p"?: string;
     "160p"?: string;
     black?: string;
+  }
+  interface PaletteOptions {
+    tertiary?: SimplePaletteColorOptions;
+    border?: {
+      outline?: string;
+    };
+  }
+
+  interface TypeBackground {
+    dark: string;
+  }
+
+  interface TypeText {
+    contrast: string;
   }
 
   interface TypographyVariants {
