@@ -13,7 +13,7 @@ const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
   return (
     <Stack height="100%">
       {AppBar}
-      <Stack height="100%" direction="row">
+      <Stack height="100%" direction="row" minHeight={0}>
         {Sidebar}
         <Box flex={1} sx={{ maxHeight: "100%", overflow: "auto" }} ref={gridRef}>
           <Box component="main" height="100%">

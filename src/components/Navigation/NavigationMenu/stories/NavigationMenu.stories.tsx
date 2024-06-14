@@ -217,6 +217,7 @@ WithSearch.args = {
 
 export const WithSearchAndLogo = Template.bind({});
 WithSearchAndLogo.args = {
+  hideSearchDesktop: true,
   items: ITEMS,
   Logo: <Logo colorShape="white" />,
   Search: <TextField label="Search" type="search" fullWidth size="small" />,

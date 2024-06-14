@@ -100,6 +100,10 @@ export interface NavigationMenuProps {
    */
   disableResponsive?: boolean;
   /**
+   * Hide search field on desktop
+   */
+  hideSearchDesktop?: boolean;
+  /**
    * Width of the sidebar, only for desktop
    * @default 270
    */
@@ -221,6 +225,7 @@ const NavigationMenu = ({
   translations,
   disableResponsive,
   mobileOptions,
+  hideSearchDesktop,
   NavLink,
   Footer,
   Search,
@@ -246,6 +251,7 @@ const NavigationMenu = ({
       disableResponsive,
       enableSearchFocusShortcut,
       Footer,
+      hideSearchDesktop,
       isDrawerOpen,
       isMobile,
       isTablet,
@@ -278,6 +284,7 @@ const NavigationMenu = ({
       enableSearchFocusShortcut,
       mobileOptions,
       Search,
+      hideSearchDesktop,
     ],
   );
 

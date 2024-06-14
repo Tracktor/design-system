@@ -43,8 +43,10 @@ const styles = {
 const SideBar = ({ children, ...props }: SideBarProps) => {
   const {
     secondaryMenu,
+    hideSearchDesktop,
     closeDrawerMenu,
     isMobile,
+    isTablet,
     isDrawerOpen,
     sideBarWidth,
     Search = props.Logo,
@@ -55,6 +57,8 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
   const { palette, size } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.divider}`;
+  const isDesktop = !isMobile && !isTablet;
+  const displaySearch = hideSearchDesktop ? !isDesktop : true;
 
   return (
     <Box
@@ -97,11 +101,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           )}
         </Stack>
       )}
-      {Search && (
-        <Box px={2} py={1}>
-          {Search}
-        </Box>
-      )}
+      {Search && displaySearch && <Box p={2}>{Search}</Box>}
       {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
       <Box flex={1}>{children}</Box>
       <Box

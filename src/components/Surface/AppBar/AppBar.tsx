@@ -1,7 +1,7 @@
 import { AppBar as AppBarMui, AvatarProps, Box, ButtonProps, Stack, SxProps, TextFieldProps, useMediaQuery, useTheme } from "@mui/material";
 import { PropsWithChildren, ReactNode } from "react";
 import AvatarAppBar from "@/components/DataDisplay/AvatarAppBar";
-import Logo from "@/components/DataDisplay/Logo";
+import Logo, { LogoProps } from "@/components/DataDisplay/Logo";
 import ActionAppBar from "@/components/Inputs/ActionAppBar";
 import TextFieldAppBar from "@/components/Inputs/TextFieldAppBar";
 
@@ -9,11 +9,13 @@ interface AppBarProps extends PropsWithChildren {
   Avatar?: ReactNode;
   Action?: ReactNode;
   Search?: ReactNode;
+  Logo?: ReactNode;
   position?: "fixed" | "absolute" | "sticky" | "static" | "relative";
   logoSrc?: string;
   avatarProps?: AvatarProps;
   searchProps?: TextFieldProps;
   actionProps?: ButtonProps;
+  logoProps?: LogoProps;
   elevation?: number;
   sx?: SxProps;
 }
@@ -22,10 +24,11 @@ const AppBar = ({
   Avatar: AvatarComponent,
   Search: SearchComponent,
   Action: ActionComponent,
+  Logo: LogoComponent,
   avatarProps,
   searchProps,
   actionProps,
-  logoSrc,
+  logoProps,
   children,
   sx,
   position = "static",
@@ -55,10 +58,7 @@ const AppBar = ({
   return (
     <AppBarMui position={position} elevation={elevation} sx={styles}>
       <Stack direction="row" sx={{ alignItems: "center", height: "100%", width: "100%" }} spacing={1}>
-        <Box component="a" href={logoSrc} sx={{ lineHeight: 0 }}>
-          <Logo mode="dark" />
-        </Box>
-        {/* eslint-disable-next-line react/jsx-no-undef */}
+        {LogoComponent === null ? null : <Logo mode="dark" {...logoProps} />}
         <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>
           {SearchComponent === null ? null : SearchComponent || <TextFieldAppBar {...searchProps} />}
         </Box>

@@ -183,8 +183,19 @@ const commonThemeOptions: ThemeOptions = {
             variant: "outlined",
           },
           style: ({ theme }) => ({
-            backgroundColor: alpha(theme.palette.primary.main, 0.08),
-            borderColor: alpha(theme.palette.primary.main, 0.5),
+            backgroundColor: theme.palette.secondary.main,
+            borderColor: theme.palette.divider,
+          }),
+        },
+        {
+          props: {
+            color: "secondary",
+            variant: "outlined",
+          },
+          style: ({ theme }) => ({
+            backgroundColor: theme.palette.secondary.main,
+            borderColor: theme.palette.divider,
+            color: theme.palette.secondary.contrastText,
           }),
         },
         {
@@ -220,6 +231,9 @@ const commonThemeOptions: ThemeOptions = {
           },
           style: ({ theme }) => ({
             ...(theme.palette.mode === "dark" && { outline: `solid 1px ${theme.palette.divider}` }),
+            "&:hover": {
+              backgroundColor: theme.palette.mode === "light" ? theme.palette.primary.dark : theme.palette.secondary.dark,
+            },
             backgroundColor: theme.palette.mode === "light" ? theme.palette.primary.main : theme.palette.secondary.main,
             color: theme.palette.mode === "light" ? theme.palette.primary.contrastText : theme.palette.secondary.contrastText,
           }),
@@ -231,6 +245,9 @@ const commonThemeOptions: ThemeOptions = {
           },
           style: ({ theme }) => ({
             ...(theme.palette.mode === "light" && { outline: `solid 1px ${theme.palette.divider}` }),
+            "&:hover": {
+              backgroundColor: theme.palette.mode === "light" ? theme.palette.secondary.dark : theme.palette.primary.dark,
+            },
             backgroundColor: theme.palette.mode === "light" ? theme.palette.secondary.main : theme.palette.primary.main,
             color: theme.palette.mode === "light" ? theme.palette.secondary.contrastText : theme.palette.primary.contrastText,
           }),
@@ -355,9 +372,13 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { variant: "card" },
           style: ({ theme }) => ({
+            "& .MuiFormControlLabel-label": {
+              zIndex: 1,
+            },
             "& .MuiRadio-root": {
               border: `solid 1px ${theme.palette.mode === "light" ? theme.palette.grey[200] : theme.palette.border.outline}`,
               borderRadius: theme.shape.borderRadius,
+              color: theme.palette.primary,
               height: "100%",
               left: 0,
               margin: 0,
@@ -370,7 +391,7 @@ const commonThemeOptions: ThemeOptions = {
             },
             "& .MuiRadio-root.Mui-checked": {
               "&:before": {
-                backgroundImage: `url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.79508%2015.8749L4.62508%2011.7049L3.20508%2013.1149L8.79508%2018.7049L20.7951%206.70492L19.3851%205.29492L8.79508%2015.8749Z%22%20fill%3D%22%23${theme.palette.primary.main.replace(
+                backgroundImage: `url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.79508%2015.8749L4.62508%2011.7049L3.20508%2013.1149L8.79508%2018.7049L20.7951%206.70492L19.3851%205.29492L8.79508%2015.8749Z%22%20fill%3D%22%23${theme.palette.info.main.replace(
                   "#",
                   "",
                 )}%22%2F%3E%3C%2Fsvg%3E")`,
@@ -385,10 +406,10 @@ const commonThemeOptions: ThemeOptions = {
                 transform: "translateY(-50%)",
                 width: 20,
               },
-              backgroundColor: alpha(theme.palette.primary.main, 0.08),
-              borderColor: theme.palette.primary.main,
+              backgroundColor: theme.palette.info["12p"],
+              borderColor: theme.palette.info.main,
             },
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: "transparent",
             margin: "inherit",
             padding: theme.spacing(2),
             paddingRight: theme.spacing(5),
@@ -515,6 +536,18 @@ const commonThemeOptions: ThemeOptions = {
           style: ({ theme }) => ({
             border: `solid 1px ${theme.palette.divider}`,
             borderRadius: theme.shape.borderRadiusL,
+          }),
+        },
+      ],
+    },
+    MuiRadio: {
+      variants: [
+        {
+          props: { color: "secondary" },
+          style: ({ theme }) => ({
+            "&.MuiRadio-colorSecondary": {
+              color: theme.palette.secondary.contrastText,
+            },
           }),
         },
       ],
