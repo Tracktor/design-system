@@ -39,7 +39,7 @@ interface AppBarProps extends PropsWithChildren {
   elevation?: number;
   sx?: SxProps;
   avatarProps?: AvatarProps & {
-    items: NavigationItem[];
+    items?: NavigationItem[];
   };
 }
 

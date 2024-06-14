@@ -1,5 +1,5 @@
 /**
- * Check if a feature is present in a list of features
+ * Check if a feature is present in a list of features given
  * @param searchFeature
  * @param matchFeatures
  */

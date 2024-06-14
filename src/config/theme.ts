@@ -13,6 +13,7 @@ import { Children, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { dark, light } from "@/constants/colors";
 import { defaultFontFamily } from "@/constants/fonts";
+import pxToRem from "@/utils/pxToRem";
 
 const actionStyleOverrides: Partial<
   OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<Theme, "components">>
@@ -72,6 +73,14 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(16),
+          letterSpacing: 0.35,
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: ({ theme }) => ({
@@ -118,6 +127,8 @@ const commonThemeOptions: ThemeOptions = {
           },
           backgroundColor: theme.palette.grey[100],
           color: theme.palette.text.primary,
+          fontSize: pxToRem(14),
+          letterSpacing: 0.45,
         }),
       },
     },
@@ -140,6 +151,8 @@ const commonThemeOptions: ThemeOptions = {
             backgroundColor: theme.palette.mode === "light" && ownerState.color === "default" ? theme.palette.grey[100] : ownerState.color,
             borderRadius: theme.shape.borderRadiusS,
             color: getBadgeTextColor(theme.palette.mode, ownerState.color),
+            fontSize: pxToRem(12),
+            letterSpacing: 0.14,
           };
         },
       },
@@ -151,6 +164,8 @@ const commonThemeOptions: ThemeOptions = {
             color: theme.palette.common.white,
           },
           color: theme.palette.text.secondary,
+          fontSize: pxToRem(14),
+          letterSpacing: 0.3,
         }),
         root: ({ theme }) => ({
           "&.Mui-selected": {
@@ -201,6 +216,8 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "small" },
           style: {
+            fontSize: pxToRem(13),
+            letterSpacing: 0.3,
             minHeight: 40,
           },
         },
@@ -213,6 +230,8 @@ const commonThemeOptions: ThemeOptions = {
         {
           props: { size: "large" },
           style: {
+            fontSize: pxToRem(15),
+            letterSpacing: 0.35,
             minHeight: 56,
           },
         },
@@ -329,6 +348,26 @@ const commonThemeOptions: ThemeOptions = {
           }),
         },
         {
+          props: { size: "medium" },
+          style: ({ theme }) => ({
+            "& .MuiChip-label": {
+              fontSize: theme.typography.pxToRem(14),
+              letterSpacing: 0.3,
+              paddingLeft: 8,
+              paddingRight: 8,
+            },
+          }),
+        },
+        {
+          props: { size: "small" },
+          style: ({ theme }) => ({
+            "& .MuiChip-label": {
+              fontSize: theme.typography.pxToRem(13),
+              letterSpacing: 0.2,
+            },
+          }),
+        },
+        {
           props: { size: "xSmall" },
           style: ({ theme }) => ({
             "& .MuiChip-deleteIcon": {
@@ -339,6 +378,7 @@ const commonThemeOptions: ThemeOptions = {
             },
             "& .MuiChip-label": {
               fontSize: theme.typography.pxToRem(12),
+              letterSpacing: 0,
               paddingLeft: 8,
               paddingRight: 8,
             },
@@ -424,6 +464,14 @@ const commonThemeOptions: ThemeOptions = {
           }),
         },
       ],
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: pxToRem(14),
+          letterSpacing: 0.4,
+        },
+      },
     },
     MuiIconButton: {
       styleOverrides: {
@@ -823,6 +871,14 @@ const commonThemeOptions: ThemeOptions = {
         },
       ],
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          fontSize: pxToRem(14),
+          letterSpacing: 0,
+        },
+      },
+    },
   },
   shadows: [
     "none",
@@ -860,43 +916,71 @@ const commonThemeOptions: ThemeOptions = {
     mobileNavBarHeight: 88,
     tabletNavBarHeight: 64,
   },
-  typography: () => {
-    const fontSize = 14;
-    const htmlFontSize = 16;
-    const coefficient = fontSize / 14;
-    const pxToRem = (size: number) => `${(size / htmlFontSize) * coefficient}rem`;
-
-    return {
-      body3: {
-        fontSize: pxToRem(12),
-      },
-      fontFamily: defaultFontFamily,
-      h1: {
-        fontSize: pxToRem(40),
-        fontWeight: 700,
-      },
-      h2: {
-        fontSize: pxToRem(32),
-        fontWeight: 600,
-      },
-      h3: {
-        fontSize: pxToRem(24),
-        fontWeight: 600,
-      },
-      h4: {
-        fontSize: pxToRem(20),
-        fontWeight: 500,
-      },
-      h5: {
-        fontSize: pxToRem(16),
-        fontWeight: 500,
-      },
-      h6: {
-        fontSize: pxToRem(14),
-        fontWeight: 500,
-      },
-    };
-  },
+  typography: () => ({
+    body1: {
+      fontSize: pxToRem(16),
+      letterSpacing: 0.35,
+    },
+    body2: {
+      fontSize: pxToRem(14),
+      letterSpacing: 0.3,
+    },
+    body3: {
+      fontSize: pxToRem(12),
+      letterSpacing: 0.3,
+    },
+    button: {
+      fontSize: pxToRem(14),
+      letterSpacing: 0.3,
+    },
+    caption: {
+      fontSize: pxToRem(12),
+      letterSpacing: 0.3,
+    },
+    fontFamily: defaultFontFamily,
+    h1: {
+      fontSize: pxToRem(28),
+      fontWeight: 700,
+      letterSpacing: 0.6,
+    },
+    h2: {
+      fontSize: pxToRem(24),
+      fontWeight: 600,
+      letterSpacing: 0.5,
+    },
+    h3: {
+      fontSize: pxToRem(20),
+      fontWeight: 600,
+      letterSpacing: 0.45,
+    },
+    h4: {
+      fontSize: pxToRem(18),
+      fontWeight: 500,
+      letterSpacing: 0.4,
+    },
+    h5: {
+      fontSize: pxToRem(16),
+      fontWeight: 500,
+      letterSpacing: 0.35,
+    },
+    h6: {
+      fontSize: pxToRem(14),
+      fontWeight: 500,
+      letterSpacing: 0.3,
+    },
+    overline: {
+      fontSize: pxToRem(12),
+      letterSpacing: 0.25,
+    },
+    subtitle1: {
+      fontSize: pxToRem(16),
+      letterSpacing: 0.35,
+    },
+    subtitle2: {
+      fontSize: pxToRem(14),
+      letterSpacing: 0.3,
+    },
+  }),
 };
 
 export const commonTheme = responsiveFontSizes(createTheme(commonThemeOptions));

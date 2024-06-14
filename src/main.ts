@@ -67,6 +67,10 @@ export * from "@/hooks/useTabs";
 // Utils
 export { default as getBackgroundImageElevation } from "@/utils/getBackgroundImageElevation";
 export * from "@/utils/getBackgroundImageElevation";
+export { default as pxToRem } from "@/utils/pxToRem";
+export * from "@/utils/pxToRem";
+export { default as hasFeature } from "@/utils/hasFeature";
+export * from "@/utils/hasFeature";
 
 // Theme
 export { default as theme } from "@/config/theme";
