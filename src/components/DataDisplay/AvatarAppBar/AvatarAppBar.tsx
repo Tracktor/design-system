@@ -10,6 +10,7 @@ const AvatarAppBar = ({ sx, ...props }: AvatarProps) => (
       },
       backgroundColor: dark?.palette?.grey?.[100],
       color: dark?.palette?.text?.primary,
+      ...sx,
     }}
     {...props}
   />

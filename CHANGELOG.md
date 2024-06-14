@@ -4,5 +4,6 @@
 - **[fix]** - backoffice flex grow overflow
 - **[fix]** - app bar logo
 - **[fix]** - radio card background color
+- **[fix]** - radio secondary color
 - **[fix]** - outline button
 - **[feat]** - add new props `hideSearchDesktop` to `NavigationMenu` component

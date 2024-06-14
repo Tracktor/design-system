@@ -2,6 +2,18 @@ import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import AppBar from "../AppBar";
 
+const ITEMS_SECONDARY = [
+  {
+    label: "Restore",
+    url: "#",
+  },
+  {
+    active: true,
+    label: "Favorite",
+    url: "#",
+  },
+];
+
 const Template: StoryFn<typeof AppBar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" sx={{ height: "100%", width: "100%" }}>
     <AppBar
@@ -21,6 +33,13 @@ const SimpleTemplate: StoryFn<typeof AppBar> = (args) => (
 
 export const Basic = Template.bind({});
 Basic.args = {};
+
+export const WithAvatarMenu = Template.bind({});
+WithAvatarMenu.args = {
+  avatarProps: {
+    items: ITEMS_SECONDARY,
+  },
+};
 
 export const Simple = SimpleTemplate.bind({});
 Simple.args = {};
