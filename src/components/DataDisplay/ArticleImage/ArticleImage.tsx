@@ -29,32 +29,23 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
   const [error, setError] = useState<SyntheticEvent>();
   const [loaded, setLoaded] = useState<SyntheticEvent>();
   const { borderRadius, padding } = geStyles(width, height, shape);
+  const stylesBase = { borderRadius, flexShrink: 0 };
 
   if (isLoading) {
-    return (
-      <Skeleton
-        variant="rounded"
-        width={width}
-        height={height}
-        sx={{
-          borderRadius,
-          flexShrink: 0,
-        }}
-      />
-    );
+    return <Skeleton variant="rounded" width={width} height={height} sx={stylesBase} />;
   }
 
   if (src && !error) {
     return (
       <>
-        {!loaded && !error && <Skeleton variant="rounded" width={width} height={height} sx={{ borderRadius }} />}
+        {!loaded && !error && <Skeleton variant="rounded" width={width} height={height} sx={stylesBase} />}
         <Box
           component="img"
           src={src}
           alt={alt}
           width={width}
           height={height}
-          borderRadius={borderRadius}
+          sx={stylesBase}
           onError={setError}
           onLoad={setLoaded}
           display={loaded ? "block" : "none"}
@@ -69,11 +60,10 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
       alignItems="center"
       width={width}
       height={height}
-      flexShrink={0}
       sx={{
         background: ({ palette }) => palette.background.paper,
-        borderRadius,
         padding,
+        ...stylesBase,
         ...sx,
       }}
     >
