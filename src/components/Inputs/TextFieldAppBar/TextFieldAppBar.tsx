@@ -10,13 +10,26 @@ const TextFieldAppBar = forwardRef(({ sx, InputProps, type = "search", ...props 
     ref={ref}
     sx={{
       "& .MuiInputBase-root": {
+        "&:hover .MuiOutlinedInput-notchedOutline": {
+          borderColor: dark?.palette?.primary?.light,
+        },
         backgroundColor: dark?.palette?.grey?.["50"],
+        color: dark?.palette?.text?.primary,
       },
+      // Border
       "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: alpha(dark?.palette?.border?.outline || "#ffffff", 0.23),
+        borderColor: alpha(dark?.palette?.border?.outline, 0.23),
+      },
+      // Border focus
+      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: dark?.palette?.primary?.main,
       },
       maxWidth: 400,
       ...sx,
+      "input[type='search']::-webkit-search-cancel-button": {
+        "-webkit-appearance": "none",
+        filter: ({ palette }) => (palette?.mode === "light" ? "invert(1)" : "invert(0)"),
+      },
     }}
     // eslint-disable-next-line react/jsx-no-duplicate-props
     InputProps={{

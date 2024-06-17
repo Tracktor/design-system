@@ -21,27 +21,27 @@ const Template: StoryFn<typeof Tabs> = (args, { name }) => {
       <Box sx={{ maxWidth: isScrollableContext ? 380 : "auto", width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs {...args} value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Item One" {...a11yProps(0)} />
-            <Tab label="Item Two" {...a11yProps(1)} />
-            <Tab label={isDisabledContext ? "Disabled" : "Item Three"} {...a11yProps(2)} disabled={isDisabledContext} />
+            <Tab label="Item one" {...a11yProps(0)} />
+            <Tab label="Item two" {...a11yProps(1)} />
+            <Tab label={isDisabledContext ? "Disabled" : "Item three"} {...a11yProps(2)} disabled={isDisabledContext} />
             {isScrollableContext && (
               <>
-                <Tab label="Item Four" />
-                <Tab label="Item Five" />
-                <Tab label="Item Six" />
-                <Tab label="Item Seven" />
+                <Tab label="Item four" />
+                <Tab label="Item five" />
+                <Tab label="Item six" />
+                <Tab label="Item seven" />
               </>
             )}
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          Item One
+          Item one
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Item Two
+          Item two
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Item Three
+          Item three
         </TabPanel>
       </Box>
     </Box>
@@ -59,9 +59,9 @@ const WrappedLabelsTemplate: StoryFn<typeof Tabs> = (args, { name }) => {
     <Box display="flex" alignItems="center" justifyContent="center" height="100%" width="100%">
       <Box>
         <Tabs {...args} value={value} onChange={handleChange} aria-label="wrapped label tabs example">
-          <Tab value="one" label="New Arrivals in the Longest Text of Nonfiction that should appear in the next line" wrapped />
-          <Tab value="two" label="Item Two" disabled={name === "Disabled"} />
-          <Tab value="three" label="Item Three" />
+          <Tab value="one" label="New arrivals in the longest text of nonfiction that should appear in the next line" wrapped />
+          <Tab value="two" label="Item two" disabled={name === "Disabled"} />
+          <Tab value="three" label="Item three" />
         </Tabs>
       </Box>
     </Box>
@@ -88,34 +88,34 @@ const VerticalTemplate: StoryFn<typeof Tabs> = (args) => {
           aria-label="Vertical tabs example"
           sx={{ borderColor: `${palette.divider} !important`, borderRight: 1 }}
         >
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
-          <Tab label="Item Four" />
-          <Tab label="Item Five" />
-          <Tab label="Item Six" />
-          <Tab label="Item Seven" />
+          <Tab label="Item one" />
+          <Tab label="Item two" />
+          <Tab label="Item three" />
+          <Tab label="Item four" />
+          <Tab label="Item five" />
+          <Tab label="Item six" />
+          <Tab label="Item seven" />
         </Tabs>
         <TabPanel value={value} index={0} orientation="vertical">
-          Item One
+          Item one
         </TabPanel>
         <TabPanel value={value} index={1} orientation="vertical">
-          Item Two
+          Item two
         </TabPanel>
         <TabPanel value={value} index={2} orientation="vertical">
-          Item Three
+          Item three
         </TabPanel>
         <TabPanel value={value} index={3} orientation="vertical">
-          Item Four
+          Item four
         </TabPanel>
         <TabPanel value={value} index={4} orientation="vertical">
-          Item Five
+          Item five
         </TabPanel>
         <TabPanel value={value} index={5} orientation="vertical">
-          Item Six
+          Item six
         </TabPanel>
         <TabPanel value={value} index={6} orientation="vertical">
-          Item Seven
+          Item seven
         </TabPanel>
       </Box>
     </Box>

@@ -23,6 +23,9 @@ const Template: StoryFn<typeof AppBar> = (args) => (
       actionProps={{
         children: "Action",
       }}
+      searchProps={{
+        placeholder: "Search",
+      }}
       {...args}
     />
   </Stack>

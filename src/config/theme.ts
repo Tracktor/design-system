@@ -192,7 +192,7 @@ const commonThemeOptions: MuiThemeOptions = {
       styleOverrides: {
         root: {
           fontSize: pxToRem(16),
-          letterSpacing: 0.35,
+          letterSpacing: -0.35,
         },
       },
     },
@@ -243,7 +243,7 @@ const commonThemeOptions: MuiThemeOptions = {
           backgroundColor: theme.palette.grey[100],
           color: theme.palette.text.primary,
           fontSize: pxToRem(14),
-          letterSpacing: 0.45,
+          letterSpacing: -0.45,
         }),
       },
     },
@@ -280,7 +280,7 @@ const commonThemeOptions: MuiThemeOptions = {
           },
           color: theme.palette.text.secondary,
           fontSize: pxToRem(14),
-          letterSpacing: 0.3,
+          letterSpacing: -0.3,
         }),
         root: ({ theme }) => ({
           "&.Mui-selected": {
@@ -321,7 +321,7 @@ const commonThemeOptions: MuiThemeOptions = {
           props: { size: "small" },
           style: {
             fontSize: pxToRem(13),
-            letterSpacing: 0.3,
+            letterSpacing: -0.3,
             minHeight: 40,
           },
         },
@@ -335,7 +335,7 @@ const commonThemeOptions: MuiThemeOptions = {
           props: { size: "large" },
           style: {
             fontSize: pxToRem(15),
-            letterSpacing: 0.35,
+            letterSpacing: -0.35,
             minHeight: 56,
           },
         },
@@ -428,7 +428,7 @@ const commonThemeOptions: MuiThemeOptions = {
           style: ({ theme }) => ({
             "& .MuiChip-label": {
               fontSize: theme.typography.pxToRem(14),
-              letterSpacing: 0.3,
+              letterSpacing: -0.3,
               paddingLeft: 8,
               paddingRight: 8,
             },
@@ -439,7 +439,7 @@ const commonThemeOptions: MuiThemeOptions = {
           style: ({ theme }) => ({
             "& .MuiChip-label": {
               fontSize: theme.typography.pxToRem(13),
-              letterSpacing: 0.2,
+              letterSpacing: -0.2,
             },
           }),
         },
@@ -557,6 +557,9 @@ const commonThemeOptions: MuiThemeOptions = {
     },
     MuiInputBase: {
       styleOverrides: {
+        input: () => ({
+          letterSpacing: -0.3,
+        }),
         root: ({ theme }) => ({
           backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : "transparent",
         }),
@@ -705,9 +708,6 @@ const commonThemeOptions: MuiThemeOptions = {
     MuiTab: {
       styleOverrides: {
         root: ({ theme }) => ({
-          "&.Mui-selected": {
-            color: theme.palette.text.primary,
-          },
           "&:first-of-type": {
             marginLeft: 0,
           },
@@ -719,6 +719,7 @@ const commonThemeOptions: MuiThemeOptions = {
           minWidth: 0,
           paddingLeft: 0,
           paddingRight: 0,
+          textTransform: "none",
         }),
       },
     },
@@ -727,15 +728,6 @@ const commonThemeOptions: MuiThemeOptions = {
         root: ({ theme }) => ({
           border: `solid 1px ${theme.palette.divider}`,
           borderRadius: theme.shape.borderRadius,
-        }),
-      },
-    },
-    MuiTabs: {
-      styleOverrides: {
-        root: ({ theme }) => ({
-          "& .MuiTabs-indicator": {
-            backgroundColor: theme.palette.text.primary,
-          },
         }),
       },
     },
@@ -978,54 +970,54 @@ const commonThemeOptions: MuiThemeOptions = {
   typography: () => ({
     body1: {
       fontSize: pxToRem(16),
-      letterSpacing: 0.35,
+      letterSpacing: -0.35,
     },
     body2: {
       fontSize: pxToRem(14),
-      letterSpacing: 0.3,
+      letterSpacing: -0.3,
     },
     body3: {
       fontSize: pxToRem(12),
-      letterSpacing: 0.3,
+      letterSpacing: -0.3,
     },
     button: {
       fontSize: pxToRem(14),
-      letterSpacing: 0.3,
+      letterSpacing: -0.3,
     },
     caption: {
       fontSize: pxToRem(12),
-      letterSpacing: 0.3,
+      letterSpacing: -0.3,
     },
     fontFamily: defaultFontFamily,
     h1: {
       fontSize: pxToRem(28),
       fontWeight: 700,
-      letterSpacing: 0.6,
+      letterSpacing: -0.6,
     },
     h2: {
       fontSize: pxToRem(24),
       fontWeight: 600,
-      letterSpacing: 0.5,
+      letterSpacing: -0.5,
     },
     h3: {
       fontSize: pxToRem(20),
       fontWeight: 600,
-      letterSpacing: 0.45,
+      letterSpacing: -0.45,
     },
     h4: {
       fontSize: pxToRem(18),
       fontWeight: 500,
-      letterSpacing: 0.4,
+      letterSpacing: -0.4,
     },
     h5: {
       fontSize: pxToRem(16),
       fontWeight: 500,
-      letterSpacing: 0.35,
+      letterSpacing: -0.35,
     },
     h6: {
       fontSize: pxToRem(14),
       fontWeight: 500,
-      letterSpacing: 0.3,
+      letterSpacing: -0.3,
     },
     overline: {
       fontSize: pxToRem(12),
@@ -1033,11 +1025,11 @@ const commonThemeOptions: MuiThemeOptions = {
     },
     subtitle1: {
       fontSize: pxToRem(16),
-      letterSpacing: 0.35,
+      letterSpacing: -0.35,
     },
     subtitle2: {
       fontSize: pxToRem(14),
-      letterSpacing: 0.3,
+      letterSpacing: -0.3,
     },
   }),
 };
