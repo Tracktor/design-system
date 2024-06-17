@@ -34,16 +34,6 @@ export interface NavigationMenuProps {
   /**
    * Override the default translations
    */
-  translations?: {
-    /**
-     * Menu label on mobile bottom navigation
-     */
-    menu?: string;
-    /**
-     * Search label
-     */
-    search?: string;
-  };
   /**
    * Enabler search field focus shortcut when pressing "ctrl + f" or "cmd + f"
    */
@@ -61,36 +51,6 @@ export interface NavigationMenuProps {
    * @default 270
    */
   sideBarWidth?: number;
-  /**
-   * Mobile options
-   */
-  mobileOptions?: {
-    /**
-     * Scroll threshold to hide mobile bottom navigation
-     * @default 150
-     */
-    scrollThreshold?: number;
-    /**
-     * Hide mobile bottom navigation on scroll
-     * @default false
-     */
-    hideNavBarOnScroll?: boolean;
-    /**
-     * Hide mobile bottom navigation on scroll on specific routes
-     * @default undefined
-     */
-    hideNavBarOnScrollOnRoutes?: string[];
-    /**
-     * Hide mobile bottom navigation
-     * @default false
-     */
-    hideNavBar?: boolean;
-    /**
-     * Hide mobile bottom navigation on specific routes
-     * @default undefined
-     */
-    hideNavBarOnRoutes?: string[];
-  };
   /**
    * Component to render the bottom link
    */
@@ -161,16 +121,14 @@ const NavigationMenuFactory = () => {
 };
 
 const NavigationMenu = ({
-  items,
-  enableSearchFocusShortcut,
-  translations,
-  disableResponsive,
-  mobileOptions,
-  hideSearchDesktop,
+  AppBar,
   NavLink,
   Search,
   Logo,
-  AppBar,
+  items,
+  enableSearchFocusShortcut,
+  disableResponsive,
+  hideSearchDesktop,
   bottomLink,
   sideBarWidth = 260,
 }: NavigationMenuProps) => {
@@ -200,12 +158,10 @@ const NavigationMenu = ({
       isTablet,
       items,
       Logo,
-      mobileOptions,
       NavLink,
       openDrawerMenu,
       Search,
       sideBarWidth,
-      translations,
     }),
     [
       closeDrawerMenu,
@@ -216,11 +172,9 @@ const NavigationMenu = ({
       items,
       openDrawerMenu,
       sideBarWidth,
-      translations,
       Logo,
       NavLink,
       enableSearchFocusShortcut,
-      mobileOptions,
       Search,
       hideSearchDesktop,
       bottomLink,

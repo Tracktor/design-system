@@ -1,4 +1,4 @@
-import { Alert, Box, SvgIcon, TextField } from "@mui/material";
+import { Alert, SvgIcon, TextField } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -99,42 +99,6 @@ const ITEMS_WITH_CUSTOM_NODE = [
 
 const Template: StoryFn<typeof NavigationMenu> = (args) => <NavigationMenu {...args} />;
 
-const TemplateWithContent: StoryFn<typeof NavigationMenu> = (args) => (
-  <Box>
-    <NavigationMenu {...args} />
-    <Box p={2} paddingBottom={10}>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet architecto commodi distinctio, doloremque dolores illo in
-        perspiciatis possimus sed sit soluta totam vel veritatis vero vitae. Cum provident quis rem?
-      </p>
-    </Box>
-  </Box>
-);
-
 export const Basic = Template.bind({});
 Basic.args = {
   items: ITEMS,
@@ -189,21 +153,6 @@ MobileWithIcon.parameters = {
   },
 };
 
-export const MobileHideOnScroll = TemplateWithContent.bind({});
-MobileHideOnScroll.args = {
-  items: ITEMS,
-  Logo: <Logo colorShape="white" />,
-  mobileOptions: {
-    hideNavBarOnScroll: true,
-  },
-};
-MobileHideOnScroll.parameters = {
-  viewport: {
-    defaultViewport: "mobile",
-    viewports: VIEWPORTS,
-  },
-};
-
 export const Tablet = Template.bind({});
 Tablet.args = {
   items: ITEMS,
@@ -213,14 +162,6 @@ Tablet.parameters = {
   viewport: {
     defaultViewport: "tablet",
     viewports: VIEWPORTS,
-  },
-};
-
-export const WithTranslation = Template.bind({});
-WithTranslation.args = {
-  items: ITEMS,
-  translations: {
-    search: "Rechercher",
   },
 };
 
