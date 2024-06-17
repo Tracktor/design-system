@@ -24,15 +24,16 @@ const styles = {
         },
         background: ({ palette }: Theme) => palette.grey[50],
         borderColor: "divider",
-        borderStyle: "solid",
-        borderWidth: 1,
         color: "text.primary",
       },
       "&:hover": {
         background: ({ palette }: Theme) => palette.grey[50],
       },
       alignItems: "center",
+      borderColor: "transparent",
       borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
+      borderStyle: "solid",
+      borderWidth: 1,
       color: "text.primary",
       display: "flex",
       fontSize: 16,
@@ -133,9 +134,17 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
       {bottomLink && (
         <Box sx={styles.bottomLink}>
           <NavLinkItem component={NavLink} {...bottomLink}>
-            <Stack alignItems="center" spacing={1} direction="row">
-              {bottomLink?.icon && <Box>{bottomLink?.icon}</Box>}
-              {bottomLink?.label && <Box>{bottomLink?.label}</Box>}
+            <Stack alignItems="center" justifyContent="center" spacing={1} direction="row">
+              {bottomLink?.icon && (
+                <Box component="span" display="flex">
+                  {bottomLink?.icon}
+                </Box>
+              )}
+              {bottomLink?.label && (
+                <Box component="span" display="flex">
+                  {bottomLink?.label}
+                </Box>
+              )}
             </Stack>
           </NavLinkItem>
         </Box>
