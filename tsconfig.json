@@ -37,7 +37,7 @@
   },
   "include": [
     "src",
-    "types/augmentations.d.ts"
+    "types/augmentations.ts"
   ],
   "exclude": [
     ".circleci",
