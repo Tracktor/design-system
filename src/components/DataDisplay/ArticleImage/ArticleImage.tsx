@@ -31,7 +31,17 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
   const { borderRadius, padding } = geStyles(width, height, shape);
 
   if (isLoading) {
-    return <Skeleton variant="rounded" width={width} height={height} sx={{ borderRadius }} />;
+    return (
+      <Skeleton
+        variant="rounded"
+        width={width}
+        height={height}
+        sx={{
+          borderRadius,
+          flexShrink: 0,
+        }}
+      />
+    );
   }
 
   if (src && !error) {
