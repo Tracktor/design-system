@@ -27,7 +27,6 @@ const TextFieldAppBar = forwardRef(({ sx, InputProps, type = "search", ...props 
       maxWidth: 400,
       ...sx,
       "input[type='search']::-webkit-search-cancel-button": {
-        "-webkit-appearance": "none",
         filter: ({ palette }) => (palette?.mode === "light" ? "invert(1)" : "invert(0)"),
       },
     }}
