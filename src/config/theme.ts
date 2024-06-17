@@ -5,18 +5,133 @@ import {
   getOverlayAlpha,
   PaletteMode,
   responsiveFontSizes,
-  Theme,
-  ThemeOptions,
+  Theme as MuiTheme,
+  ThemeOptions as MuiThemeOptions,
 } from "@mui/material";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
-import { Children, isValidElement } from "react";
+import { Children, CSSProperties, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";
 import { dark, light } from "@/constants/colors";
 import { defaultFontFamily } from "@/constants/fonts";
 import pxToRem from "@/utils/pxToRem";
 
+// Components module augmentation
+declare module "@mui/material/Autocomplete" {
+  interface AutocompletePropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsVariantOverrides {
+    link: true;
+  }
+}
+
+declare module "@mui/material/Chip" {
+  interface ChipPropsVariantOverrides {
+    rounded: true;
+  }
+  interface ChipPropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/FormControlLabel" {
+  interface FormControlLabelProps {
+    variant?: "card";
+    size?: "small" | "medium";
+  }
+}
+
+declare module "@mui/material/InputBase" {
+  interface InputBasePropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/InputLabel" {
+  interface InputLabelPropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/TextField" {
+  interface TextFieldPropsSizeOverrides {
+    xSmall: true;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    body3: true;
+  }
+}
+
+// Shape module augmentation
+declare module "@mui/system" {
+  interface Shape {
+    borderRadiusL: number;
+    borderRadiusS: number;
+  }
+}
+
+// Theme module augmentation
+declare module "@mui/material/styles" {
+  interface PaletteColor {
+    "4p": string;
+    "8p": string;
+    "12p": string;
+    "16p": string;
+    "30p": string;
+    "50p": string;
+    "160p": string;
+    black: string;
+  }
+
+  interface Palette {
+    tertiary: PaletteColor;
+    border: {
+      outline: string;
+    };
+  }
+
+  interface SimplePaletteColorOptions {
+    "4p"?: string;
+    "8p"?: string;
+    "12p"?: string;
+    "16p"?: string;
+    "30p"?: string;
+    "50p"?: string;
+    "160p"?: string;
+    black?: string;
+  }
+  interface PaletteOptions {
+    tertiary?: SimplePaletteColorOptions;
+    border?: {
+      outline?: string;
+    };
+  }
+
+  interface TypeBackground {
+    dark: string;
+  }
+
+  interface TypeText {
+    contrast: string;
+  }
+
+  interface TypographyVariants {
+    body3: CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    body3?: CSSProperties;
+  }
+}
+
 const actionStyleOverrides: Partial<
-  OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<Theme, "components">>
+  OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<MuiTheme, "components">>
 > = {
   root: ({ theme, ownerState }) => {
     const children = Children.toArray(ownerState.children);
@@ -41,7 +156,7 @@ const actionStyleOverrides: Partial<
   },
 };
 
-const commonThemeOptions: ThemeOptions = {
+const commonThemeOptions: MuiThemeOptions = {
   components: {
     MuiAlert: {
       styleOverrides: {
@@ -66,7 +181,7 @@ const commonThemeOptions: ThemeOptions = {
           props: {
             variant: "standard",
           },
-          style: ({ theme, severity }: { theme: Theme } & ComponentsPropsList["MuiAlert"]) => ({
+          style: ({ theme, severity }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
             backgroundColor: theme.palette[severity || "success"]["8p"],
             color: theme.palette[severity || "success"]["160p"],
           }),
@@ -234,7 +349,7 @@ const commonThemeOptions: ThemeOptions = {
         },
         {
           props: { variant: "link" },
-          style: ({ theme, ownerState }: { theme: Theme; ownerState?: ButtonProps } & ComponentsPropsList["MuiButton"]) => {
+          style: ({ theme, ownerState }: { theme: MuiTheme; ownerState?: ButtonProps } & ComponentsPropsList["MuiButton"]) => {
             const color =
               ownerState?.color === "inherit" ? theme.palette.text.primary : theme.palette?.[ownerState?.color || "primary"]?.main;
 
@@ -713,7 +828,7 @@ const commonThemeOptions: ThemeOptions = {
             ownerState,
             fullWidth,
             dir,
-          }: { theme: Theme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
+          }: { theme: MuiTheme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
             const isColumnDirection = dir === "column";
 
             const getHeight = () => {
@@ -859,10 +974,6 @@ const commonThemeOptions: ThemeOptions = {
     borderRadius: 8,
     borderRadiusL: 12,
     borderRadiusS: 4,
-  },
-  size: {
-    mobileNavBarHeight: 88,
-    tabletNavBarHeight: 64,
   },
   typography: () => ({
     body1: {

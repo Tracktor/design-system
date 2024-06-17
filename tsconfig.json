@@ -25,9 +25,7 @@
     "noUnusedParameters": true,
     "types": [
       "vitest/globals",
-      "@emotion/react/types/css-prop",
-      "@types/jest",
-      "@testing-library/jest-dom"
+      "@emotion/react/types/css-prop"
     ],
     "paths": {
       "@/*": [
@@ -35,10 +33,6 @@
       ]
     }
   },
-  "include": [
-    "src",
-    "types/augmentations.ts"
-  ],
   "exclude": [
     ".circleci",
     ".github",

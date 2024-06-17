@@ -1,11 +1,11 @@
-import { AppBar, GlobalStyles, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
 import { cloneElement, useContext } from "react";
 import MenuIcon from "@/components/DataDisplay/Icons/MenuIcon";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 
 const BurgerAppBar = () => {
   const { openDrawerMenu, AppBar: AppBarComponent } = useContext(NavigationMenuContext);
-  const { palette, size } = useTheme();
+  const { palette } = useTheme();
   const background = palette.mode === "dark" ? palette.background.default : palette.primary.black;
   const AppBarWithTrigger = AppBarComponent ? cloneElement(AppBarComponent, { onClickBurger: openDrawerMenu }) : AppBarComponent;
 
@@ -20,7 +20,6 @@ const BurgerAppBar = () => {
       sx={{
         background,
         borderBottom: ({ palette: paletteColor }) => `1px solid ${paletteColor.mode === "dark" ? paletteColor.divider : background}`,
-        height: size.tabletNavBarHeight,
       }}
     >
       <Toolbar component={Stack} direction="row" spacing={3} height="100%" justifyContent="space-between">
@@ -28,13 +27,6 @@ const BurgerAppBar = () => {
           <MenuIcon />
         </IconButton>
       </Toolbar>
-      <GlobalStyles
-        styles={{
-          body: {
-            paddingTop: size.tabletNavBarHeight,
-          },
-        }}
-      />
     </AppBar>
   );
 };
