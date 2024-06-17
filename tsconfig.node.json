@@ -11,8 +11,7 @@
     "vite.config.ts"
   ],
   "files": [
-    "package.json",
-    "types"
+    "package.json"
   ],
   "exclude": [
     "node_modules",

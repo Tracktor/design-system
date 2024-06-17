@@ -42,7 +42,7 @@ interface AppBarProps extends PropsWithChildren {
   sx?: SxProps;
   onClickBurger?: () => void;
   avatarProps?: AvatarProps & {
-    items?: NavigationItem[];
+    menuItems?: NavigationItem[];
   };
 }
 
@@ -66,7 +66,7 @@ const AppBar = ({
 }: AppBarProps) => {
   const { breakpoints } = useTheme();
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
-  const { items, ...avatarPropsWithoutItems } = avatarProps || {};
+  const { menuItems, ...avatarPropsWithoutItems } = avatarProps || {};
   const isMobile = useMediaQuery(breakpoints.down("sm"));
   const isTablet = useMediaQuery(breakpoints.between("sm", "md"));
   const isSmallScreen = isMobile || isTablet;
@@ -123,7 +123,7 @@ const AppBar = ({
               : AvatarComponent || (
                   <AvatarAppBar
                     sx={{
-                      cursor: items ? "pointer" : "default",
+                      cursor: menuItems ? "pointer" : "default",
                     }}
                     onClick={openMenu}
                     {...avatarPropsWithoutItems}
@@ -132,7 +132,7 @@ const AppBar = ({
           </Stack>
         </Stack>
       </AppBarMui>
-      {items && (
+      {menuItems && (
         <Backdrop sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isMenuOpen} onClick={closeMenu}>
           <Menu
             id={DEFAULT_AVATAR_MENU_ID}
@@ -152,7 +152,7 @@ const AppBar = ({
               },
             }}
           >
-            {avatarProps?.items?.map((item, index) => {
+            {menuItems?.map((item, index) => {
               // Is React Element then return it
               if (isValidElement(item)) {
                 return item;

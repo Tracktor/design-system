@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import AppBar from "../AppBar";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
-const ITEMS_SECONDARY = [
+const menuItems = [
   {
     icon: <CloseIcon />,
     label: "Check",
@@ -40,7 +40,7 @@ Basic.args = {};
 export const WithAvatarMenu = Template.bind({});
 WithAvatarMenu.args = {
   avatarProps: {
-    items: ITEMS_SECONDARY,
+    menuItems,
   },
 };
 
