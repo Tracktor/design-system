@@ -1,16 +1,4 @@
-import {
-  Alert,
-  Box,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  SvgIcon,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, SvgIcon, TextField } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -109,63 +97,6 @@ const ITEMS_WITH_CUSTOM_NODE = [
   <Alert key={1}>Custom Node</Alert>,
 ];
 
-const ITEMS_MOBILE = [
-  {
-    label: "Lien 1",
-    url: "lien-1",
-  },
-  {
-    label: "Lien 2",
-    url: "lien-2",
-  },
-  {
-    label: "Lien 3",
-    url: "lien-3",
-  },
-];
-
-const ITEMS_MOBILE_WITH_ICON = [
-  {
-    icon: <RestoreIcon />,
-    label: "Lien 1",
-    url: "#",
-  },
-  {
-    icon: <FavoriteIcon />,
-    label: "Lien 2",
-    url: "#",
-  },
-  {
-    icon: <LocationIcon />,
-    label: "Lien 3",
-    url: "#",
-  },
-];
-
-const ITEMS_SECONDARY = [
-  <Box key="company" p={1}>
-    <FormControl sx={{ px: 1 }}>
-      <FormLabel>Company</FormLabel>
-      <RadioGroup defaultValue="a">
-        <FormControlLabel value="a" control={<Radio />} label="Company A" />
-        <FormControlLabel value="b" control={<Radio />} label="Company B" />
-      </RadioGroup>
-    </FormControl>
-    <Divider sx={{ my: 1 }} />
-  </Box>,
-  {
-    icon: <RestoreIcon />,
-    label: "Restore",
-    url: "#",
-  },
-  {
-    active: true,
-    icon: <FavoriteIcon />,
-    label: "Favorite",
-    url: "#",
-  },
-];
-
 const Template: StoryFn<typeof NavigationMenu> = (args) => <NavigationMenu {...args} />;
 
 const TemplateWithContent: StoryFn<typeof NavigationMenu> = (args) => (
@@ -237,7 +168,6 @@ WithLogo.args = {
 export const Mobile = Template.bind({});
 Mobile.args = {
   items: ITEMS,
-  itemsMobile: ITEMS_MOBILE,
   Logo: <Logo colorShape="white" />,
 };
 Mobile.parameters = {
@@ -250,7 +180,6 @@ Mobile.parameters = {
 export const MobileWithIcon = Template.bind({});
 MobileWithIcon.args = {
   items: ITEMS,
-  itemsMobile: ITEMS_MOBILE_WITH_ICON,
   Logo: <Logo colorShape="white" />,
 };
 MobileWithIcon.parameters = {
@@ -263,7 +192,6 @@ MobileWithIcon.parameters = {
 export const MobileHideOnScroll = TemplateWithContent.bind({});
 MobileHideOnScroll.args = {
   items: ITEMS,
-  itemsMobile: ITEMS_MOBILE,
   Logo: <Logo colorShape="white" />,
   mobileOptions: {
     hideNavBarOnScroll: true,
@@ -276,52 +204,12 @@ MobileHideOnScroll.parameters = {
   },
 };
 
-export const MobileWithSecondaryMenu = Template.bind({});
-MobileWithSecondaryMenu.args = {
-  items: ITEMS,
-  itemsMobile: ITEMS_MOBILE_WITH_ICON,
-  Logo: <Logo colorShape="white" />,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Jean Dupont",
-    subLabel: "Acorus Bordeaux",
-  },
-};
-MobileWithSecondaryMenu.parameters = {
-  viewport: {
-    defaultViewport: "mobile",
-    viewports: VIEWPORTS,
-  },
-};
-
 export const Tablet = Template.bind({});
 Tablet.args = {
   items: ITEMS,
   Logo: <Logo colorShape="white" />,
 };
 Tablet.parameters = {
-  viewport: {
-    defaultViewport: "tablet",
-    viewports: VIEWPORTS,
-  },
-};
-
-export const TabletWithSecondaryMenu = Template.bind({});
-TabletWithSecondaryMenu.args = {
-  items: ITEMS,
-  Logo: <Logo colorShape="white" />,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Menu label",
-  },
-};
-TabletWithSecondaryMenu.parameters = {
   viewport: {
     defaultViewport: "tablet",
     viewports: VIEWPORTS,
@@ -341,93 +229,30 @@ CustomMenuItem.args = {
   items: ITEMS_WITH_CUSTOM_NODE,
 };
 
-export const WithSecondaryMenu = Template.bind({});
-WithSecondaryMenu.args = {
-  items: ITEMS,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Menu label",
+export const WithBottomLinkMenu = Template.bind({});
+WithBottomLinkMenu.args = {
+  bottomLink: {
+    icon: "⚙️",
+    label: "Settings",
+    url: "#",
   },
+  items: ITEMS,
 };
 
-export const WithSecondaryMenuMobile = Template.bind({});
-WithSecondaryMenuMobile.args = {
-  items: ITEMS.slice(0, -1),
-  itemsMobile: ITEMS_MOBILE,
-  Logo: <Logo colorShape="white" />,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Menu label",
+export const WithBottomLinkMenuMobile = Template.bind({});
+WithBottomLinkMenuMobile.args = {
+  bottomLink: {
+    icon: "⚙️",
+    label: "Settings",
+    url: "#",
   },
+  items: ITEMS.slice(0, -1),
+  Logo: <Logo colorShape="white" />,
 };
-WithSecondaryMenuMobile.parameters = {
+WithBottomLinkMenuMobile.parameters = {
   viewport: {
     defaultViewport: "mobile",
     viewports: VIEWPORTS,
-  },
-};
-
-export const WithSecondaryMenuSubLabel = Template.bind({});
-WithSecondaryMenuSubLabel.args = {
-  items: ITEMS,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Menu label",
-    subLabel: "Sub label",
-  },
-};
-
-export const WithSecondaryMenuLoading = Template.bind({});
-WithSecondaryMenuLoading.args = {
-  items: ITEMS,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Menu label",
-    loading: true,
-  },
-};
-
-export const WithCustomFooter = Template.bind({});
-WithCustomFooter.args = {
-  Footer: (
-    <Box textAlign="center" width="100%" paddingBottom={2}>
-      <Typography variant="caption" color="white">
-        Copyright © 2023 - Tracktor
-      </Typography>
-    </Box>
-  ),
-  items: ITEMS,
-};
-
-export const WithFooterAndSecondaryMenu = Template.bind({});
-WithFooterAndSecondaryMenu.args = {
-  Footer: (
-    <Box textAlign="center" width="100%" paddingBottom={2}>
-      <Typography variant="caption" color="text.secondary">
-        Copyright © 2023 - Tracktor
-      </Typography>
-    </Box>
-  ),
-  items: ITEMS,
-  secondaryMenu: {
-    avatar: {
-      name: "Mickaël",
-    },
-    items: ITEMS_SECONDARY,
-    label: "Menu label",
-    loading: true,
   },
 };
 

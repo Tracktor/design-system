@@ -2,7 +2,7 @@ import { IconButton, Stack, SvgIcon } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import Button from "../Button";
 import ButtonStory from "./Button";
-import CloseIcon from "@/components/Icon/CloseIcon";
+import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
 const AddShoppingCartIcon = () => (
   <SvgIcon

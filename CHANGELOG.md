@@ -4,5 +4,6 @@
 - **[feat]** - Typography: size update
 - **[feat]** - Typography: letter-spacing update
 - **[feat]** - add tertiary color to palette
+- **[fix]** - border menu item hover gap
 - **[fix]** - secondary color
 - 

@@ -1,15 +1,18 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import AppBar from "../AppBar";
+import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
 const ITEMS_SECONDARY = [
   {
-    label: "Restore",
+    icon: <CloseIcon />,
+    label: "Check",
     url: "#",
   },
   {
     active: true,
-    label: "Favorite",
+    icon: <CloseIcon />,
+    label: "Close",
     url: "#",
   },
 ];

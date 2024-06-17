@@ -1,15 +1,15 @@
 import { SvgIcon } from "@mui/material";
 
 interface CloseIconProps {
-  fill?: string | undefined;
+  color?: string;
 }
 
-const CloseIcon = ({ fill }: CloseIconProps) => (
+const CloseIcon = ({ color }: CloseIconProps) => (
   <SvgIcon
     sx={{
       fill: ({ palette }) => {
-        if (fill) {
-          return fill;
+        if (color) {
+          return color;
         }
 
         return palette.mode === "dark" ? palette.common.white : palette.common.black;

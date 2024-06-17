@@ -1,8 +1,8 @@
-import { Box, IconButton, Stack, useTheme } from "@mui/material";
+import { Box, IconButton, Stack, Theme, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
-import CloseIcon from "@/components/Icon/CloseIcon";
+import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
-import SecondaryMenuButton from "@/components/Navigation/NavigationMenu/SecondaryMenuButton";
+import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
 
 export interface SideBarProps {
   children?: ReactNode;
@@ -13,16 +13,43 @@ export interface SideBarProps {
 }
 
 const styles = {
+  bottomLink: {
+    "& a": {
+      "& svg": {
+        color: "text.secondary",
+      },
+      "&.active": {
+        "& svg": {
+          color: "text.primary",
+        },
+        background: ({ palette }: Theme) => palette.grey[50],
+        borderColor: "divider",
+        borderStyle: "solid",
+        borderWidth: 1,
+        color: "text.primary",
+      },
+      "&:hover": {
+        background: ({ palette }: Theme) => palette.grey[50],
+      },
+      alignItems: "center",
+      borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
+      color: "text.primary",
+      display: "flex",
+      fontSize: 16,
+      justifyContent: "flex-start",
+      paddingX: 3,
+      paddingY: 1,
+      textAlign: "left",
+      textDecoration: "none",
+      width: "100%",
+    },
+    p: 2,
+  },
   container: {
     backgroundColor: "grey.A100",
     display: "flex",
     flexDirection: "column",
     height: "100%",
-  },
-  footer: {
-    alignItems: "flex-end",
-    display: "flex",
-    flexDirection: "column",
   },
   logo: {
     "& svg, & img": {
@@ -42,19 +69,19 @@ const styles = {
 
 const SideBar = ({ children, ...props }: SideBarProps) => {
   const {
-    secondaryMenu,
     hideSearchDesktop,
     closeDrawerMenu,
     isMobile,
     isTablet,
     isDrawerOpen,
     sideBarWidth,
+    bottomLink,
+    NavLink,
     Search = props.Logo,
     Logo = props.Logo,
-    Footer = props.Footer,
   } = useContext(NavigationMenuContext);
 
-  const { palette, size } = useTheme();
+  const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.divider}`;
   const isDesktop = !isMobile && !isTablet;
@@ -96,23 +123,23 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           </Box>
           {isMobile && (
             <IconButton onClick={closeDrawerMenu}>
-              <CloseIcon fill={palette.getContrastText(backgroundColor)} />
+              <CloseIcon color={palette.getContrastText(backgroundColor)} />
             </IconButton>
           )}
         </Stack>
       )}
       {Search && displaySearch && <Box p={2}>{Search}</Box>}
-      {isMobile && !!secondaryMenu && <SecondaryMenuButton />}
       <Box flex={1}>{children}</Box>
-      <Box
-        sx={{
-          ...styles.footer,
-          ...(isMobile && { paddingBottom: `${size.mobileNavBarHeight}px` }),
-        }}
-      >
-        {Footer && Footer}
-        {secondaryMenu && !isMobile && <SecondaryMenuButton />}
-      </Box>
+      {bottomLink && (
+        <Box sx={styles.bottomLink}>
+          <NavLinkItem component={NavLink} {...bottomLink}>
+            <Stack alignItems="center" spacing={1} direction="row">
+              {bottomLink?.icon && <Box>{bottomLink?.icon}</Box>}
+              {bottomLink?.label && <Box>{bottomLink?.label}</Box>}
+            </Stack>
+          </NavLinkItem>
+        </Box>
+      )}
     </Box>
   );
 };

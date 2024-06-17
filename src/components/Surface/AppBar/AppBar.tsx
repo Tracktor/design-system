@@ -5,6 +5,7 @@ import {
   Backdrop,
   Box,
   ButtonProps,
+  IconButton,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -18,6 +19,7 @@ import {
 } from "@mui/material";
 import { isValidElement, PropsWithChildren, ReactNode } from "react";
 import AvatarAppBar from "@/components/DataDisplay/AvatarAppBar";
+import MenuIcon from "@/components/DataDisplay/Icons/MenuIcon";
 import Logo, { LogoProps } from "@/components/DataDisplay/Logo";
 import ActionAppBar from "@/components/Inputs/ActionAppBar";
 import TextFieldAppBar from "@/components/Inputs/TextFieldAppBar";
@@ -38,6 +40,7 @@ interface AppBarProps extends PropsWithChildren {
   logoProps?: LogoProps;
   elevation?: number;
   sx?: SxProps;
+  onClickBurger?: () => void;
   avatarProps?: AvatarProps & {
     items?: NavigationItem[];
   };
@@ -56,15 +59,17 @@ const AppBar = ({
   actionProps,
   logoProps,
   children,
+  onClickBurger,
   sx,
   position = "static",
   elevation = 0,
 }: AppBarProps) => {
   const { breakpoints } = useTheme();
-  const isMobile = useMediaQuery(breakpoints.down("sm"));
-  const isTablet = useMediaQuery(breakpoints.between("sm", "md"));
   const { closeMenu, isMenuOpen, anchorMenu, openMenu } = useMenu();
   const { items, ...avatarPropsWithoutItems } = avatarProps || {};
+  const isMobile = useMediaQuery(breakpoints.down("sm"));
+  const isTablet = useMediaQuery(breakpoints.between("sm", "md"));
+  const isSmallScreen = isMobile || isTablet;
 
   const styles = {
     menuItem: {
@@ -86,13 +91,9 @@ const AppBar = ({
       overflow: "hidden",
       padding: "0 !important",
     },
-    paddingX: 3,
+    paddingX: isMobile ? 1 : 3,
     ...sx,
   };
-
-  if (isMobile || isTablet) {
-    return null;
-  }
 
   if (children) {
     return (
@@ -106,7 +107,12 @@ const AppBar = ({
     <>
       <AppBarMui position={position} elevation={elevation} sx={styles}>
         <Stack direction="row" sx={{ alignItems: "center", height: "100%", width: "100%" }} spacing={1}>
-          {LogoComponent === null ? null : <Logo mode="dark" {...logoProps} />}
+          {isSmallScreen && (
+            <IconButton onClick={onClickBurger} edge="end" color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+          )}
+          {isSmallScreen || LogoComponent === null ? null : <Logo mode="dark" {...logoProps} />}
           <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>
             {SearchComponent === null ? null : SearchComponent || <TextFieldAppBar {...searchProps} />}
           </Box>

@@ -1,20 +1,23 @@
-import { Box, Stack } from "@mui/material";
-import { ReactNode, useRef } from "react";
+import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { cloneElement, ReactElement, ReactNode, useRef } from "react";
 
 interface BackofficeProps {
-  AppBar?: ReactNode;
+  AppBar?: ReactElement;
   Main?: ReactNode;
-  Sidebar?: ReactNode;
+  Sidebar?: ReactElement;
 }
 
 const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
+  const { breakpoints } = useTheme();
   const gridRef = useRef<HTMLDivElement>(null);
+  const isSmallScreen = useMediaQuery(breakpoints.down("md"));
+  const SideBarAppBar = Sidebar ? cloneElement(Sidebar, { AppBar }) : Sidebar;
 
   return (
     <Stack height="100%">
-      {AppBar}
+      {!isSmallScreen && AppBar}
       <Stack height="100%" direction="row" minHeight={0}>
-        {Sidebar}
+        {SideBarAppBar}
         <Box flex={1} sx={{ maxHeight: "100%", overflow: "auto" }} ref={gridRef}>
           <Box component="main" height="100%">
             {Main}
