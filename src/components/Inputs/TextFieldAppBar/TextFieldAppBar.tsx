@@ -2,7 +2,7 @@ import { alpha, InputAdornment, SvgIcon, TextField, TextFieldProps } from "@mui/
 import { forwardRef, Ref } from "react";
 import { dark } from "@/constants/colors";
 
-const TextFieldAppBar = forwardRef(({ sx, type = "search", ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => (
+const TextFieldAppBar = forwardRef(({ sx, InputProps, type = "search", ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => (
   <TextField
     fullWidth
     size="xSmall"
@@ -43,6 +43,7 @@ const TextFieldAppBar = forwardRef(({ sx, type = "search", ...props }: TextField
           </SvgIcon>
         </InputAdornment>
       ),
+      ...InputProps,
     }}
     {...props}
   />
