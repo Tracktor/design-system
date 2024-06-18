@@ -34,7 +34,6 @@ interface AppBarProps extends PropsWithChildren {
   Search?: ReactNode;
   Logo?: ReactNode;
   position?: "fixed" | "absolute" | "sticky" | "static" | "relative";
-  logoSrc?: string;
   searchProps?: TextFieldProps;
   actionProps?: ButtonProps;
   logoProps?: LogoProps;
@@ -112,7 +111,7 @@ const AppBar = ({
               <MenuIcon />
             </IconButton>
           )}
-          {isSmallScreen || LogoComponent === null ? null : <Logo mode="dark" {...logoProps} />}
+          {isSmallScreen || LogoComponent === null ? null : LogoComponent || <Logo mode="dark" {...logoProps} />}
           <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>
             {SearchComponent === null ? null : SearchComponent || <TextFieldAppBar {...searchProps} />}
           </Box>
