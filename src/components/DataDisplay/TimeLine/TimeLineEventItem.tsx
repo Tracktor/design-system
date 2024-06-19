@@ -9,12 +9,12 @@ const TimeLineEventItem = ({ title, subtitle, isLastElement, active, onClick, Ic
     <Box mt={0.5} textAlign="center">
       <Stack spacing={1} alignItems="center" sx={{ height: "100%", width: 32 }}>
         <>
-          {Icon || <StatusIcon color="primary" />}
+          {Icon || <StatusIcon color={active ? "secondary" : "primary"} />}
           <Box sx={{ flex: 1 }}>
             {!isLastElement && (
               <Divider
                 sx={{
-                  borderColor: ({ palette }) => (active ? palette.primary.main : palette.divider),
+                  borderColor: ({ palette }) => (active ? palette.secondary.main : palette.divider),
                   height: "100%",
                   minHeight: 40,
                 }}
