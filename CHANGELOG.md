@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.0.0
-- **[fix]** - Timeline : icon color
+## v2.0.1
+- **[fix]** - AppBar : center vertical logo

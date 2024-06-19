@@ -71,6 +71,13 @@ const AppBar = ({
   const isSmallScreen = isMobile || isTablet;
 
   const styles = {
+    logoContainer: {
+      a: {
+        display: "flex",
+      },
+      alignItems: "center",
+      display: "flex",
+    },
     menuItem: {
       "& > a": {
         alignItems: "center",
@@ -111,7 +118,9 @@ const AppBar = ({
               <MenuIcon />
             </IconButton>
           )}
-          {isSmallScreen || LogoComponent === null ? null : LogoComponent || <Logo mode="dark" {...logoProps} />}
+          {isSmallScreen || LogoComponent === null ? null : (
+            <Box sx={styles.logoContainer}>{LogoComponent || <Logo mode="dark" {...logoProps} />}</Box>
+          )}
           <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>
             {SearchComponent === null ? null : SearchComponent || <TextFieldAppBar {...searchProps} />}
           </Box>
