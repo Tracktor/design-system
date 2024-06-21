@@ -3,8 +3,8 @@ export * from "@mui/material";
 export * from "@mui/material/transitions";
 
 // Components
-export { default as HasPermission } from "src/components/Utils/HasPermission";
-export * from "src/components/Utils/HasPermission";
+export { default as HasPermission } from "@/components/Utils/HasPermission";
+export * from "@/components/Utils/HasPermission";
 export { default as Logo } from "@/components/DataDisplay/Logo";
 export * from "@/components/DataDisplay/Logo";
 export { default as LinkTab } from "@/components/Navigation/Tabs/LinkTab";
@@ -55,8 +55,8 @@ export { default as SnackbarProvider } from "@/context/Snackbar/SnackbarProvider
 export * from "@/context/Snackbar/SnackbarProvider";
 
 // Hooks
-export { default as usePermission } from "src/hooks/usePermission";
-export * from "src/hooks/usePermission";
+export { default as usePermission } from "@/hooks/usePermission";
+export * from "@/hooks/usePermission";
 export { default as useMenu } from "@/hooks/useMenu";
 export * from "@/hooks/useMenu";
 export { default as useSnackbar } from "@/hooks/useSnackbar";
