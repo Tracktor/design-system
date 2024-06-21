@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks/usePermission"/>
+
+# `usePermission`
+
+Utility hook for permission management.
+
+### Basic usage
+
+```typescript jsx
+import { usePermission } from "@tracktor/design-system";
+
+const { hasPermission } = usePermission();
+const hasCheckout = hasPermission("order", ["order", "checkout"]); // return true
+const hasBill = hasPermission("bill", ["order", "checkout"]); // return false
+
+console.log(hasCheckout) // true
+console.log(hasBill) // false
+```
+
+### Provide permissions
+
+Put `<PermissionProvider>` to provide user `permissions`<br/>
+In this example above static data is provided, but you can fetch user permissions.
+
+```typescript jsx
+import Home from "./Home";
+import { PermissionProvider } from "@tracktor/design-system";
+
+const App = () => (
+    <PermissionProvider permissions={["order", "checkout"]}>
+      <Home />
+    </PermissionProvider>
+);
+
+export default App;
+```
+
+Then anywhere in your application like `home.tsx` you can use the hook without give permissions.
+
+```typescript jsx
+import { usePermission } from "@tracktor/design-system";
+
+const { hasPermission } = usePermission();
+const hasCheckout = hasPermission("checkout");
+const hasBill = hasPermission("bill");
+
+console.log(hasCheckout) // true
+console.log(hasBill) // false
+```
+
+### Available function
+
+| Name                | Description                            |
+|---------------------|----------------------------------------|
+| `hasPermission`     | Check if has permission                |
+| `appendPermissions` | Append permission to PermissionContext |
+| `setPermissions`    | Set permission to PermissionContext    |
+
+
+### State available
+
+| Name                  | Description                                                 |
+|-----------------------|-------------------------------------------------------------|
+| `disabledPermissions` | List of current disabled permissions (override permissions) |
+| `permissions`         | List of current permissions                                 |

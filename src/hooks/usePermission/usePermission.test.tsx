@@ -1,15 +1,15 @@
 import { renderHook } from "@testing-library/react-hooks";
 import { describe, expect, it } from "vitest";
-import useFeatureEnabled from "./useFeatureEnabled";
-import FeatureEnableProvider from "@/context/FeatureEnable/FeatureEnableProvider";
+import usePermission from "./usePermission";
+import PermissionProvider from "@/context/Permission/PermissionProvider";
 
-describe("Test useIsFeatureEnabled", () => {
-  it("provide name & features with empty string array", () => {
+describe("Test usePermission", () => {
+  it("provide name & permissions with empty string array", () => {
     const name = [""];
-    const features = [""];
-    const { result } = renderHook(() => useFeatureEnabled());
-    const { getIsFeatureEnabled } = result.current;
-    const isFeatureEnabled = getIsFeatureEnabled(name, features);
+    const permissions = [""];
+    const { result } = renderHook(() => usePermission());
+    const { hasPermission } = result.current;
+    const isFeatureEnabled = hasPermission(name, permissions);
 
     expect(isFeatureEnabled).toBe(false);
   });
@@ -19,11 +19,11 @@ describe("Test useIsFeatureEnabled", () => {
     ["give empty string name", "", false],
     ["give empty string array name", [""], false],
   ])("%s without features)", (_, name, expected) => {
-    const { result } = renderHook(() => useFeatureEnabled());
-    const { getIsFeatureEnabled } = result.current;
-    const isFeatureEnabled = getIsFeatureEnabled(name);
+    const { result } = renderHook(() => usePermission());
+    const { hasPermission } = result.current;
+    const hasAccess = hasPermission(name);
 
-    expect(isFeatureEnabled).toBe(expected);
+    expect(hasAccess).toBe(expected);
   });
 
   it.each([
@@ -38,9 +38,9 @@ describe("Test useIsFeatureEnabled", () => {
     ["not ordered match", ["feature2", "feature1"], true],
   ])("%s and features provided by context props)", (_, name, expected) => {
     const features = ["feature1", "feature2"];
-    const { result } = renderHook(() => useFeatureEnabled());
-    const { getIsFeatureEnabled } = result.current;
-    const isFeatureEnabled = getIsFeatureEnabled(name, features);
+    const { result } = renderHook(() => usePermission());
+    const { hasPermission } = result.current;
+    const isFeatureEnabled = hasPermission(name, features);
 
     expect(isFeatureEnabled).toBe(expected);
   });
@@ -55,11 +55,11 @@ describe("Test useIsFeatureEnabled", () => {
     ["array with some missing", ["feature1", "xxx"], true],
     ["array with more missing", ["feature1", "staffing_actions", "xxx"], true],
   ])("%s and features provided by context", (_, name, expected) => {
-    const features = ["feature1", "feature2"];
-    const wrapper = ({ children }: any) => <FeatureEnableProvider features={features}>{children}</FeatureEnableProvider>;
-    const { result } = renderHook(() => useFeatureEnabled(), { wrapper });
-    const { getIsFeatureEnabled } = result.current;
-    const isFeatureEnabled = getIsFeatureEnabled(name);
+    const permissions = ["feature1", "feature2"];
+    const wrapper = ({ children }: any) => <PermissionProvider permissions={permissions}>{children}</PermissionProvider>;
+    const { result } = renderHook(() => usePermission(), { wrapper });
+    const { hasPermission } = result.current;
+    const isFeatureEnabled = hasPermission(name);
 
     expect(isFeatureEnabled).toBe(expected);
   });
@@ -68,17 +68,17 @@ describe("Test useIsFeatureEnabled", () => {
     ["should feature2 disabled", "feature2", false],
     ["should feature1 enabled", "feature1", true],
   ])("%s and features provided by context", (_, name, expected) => {
-    const features = ["feature1", "feature2", "feature3"];
+    const permissions = ["feature1", "feature2", "feature3"];
     const disabledFeatures = ["feature2"];
 
     const wrapper = ({ children }: any) => (
-      <FeatureEnableProvider features={features} disabledFeatures={disabledFeatures}>
+      <PermissionProvider permissions={permissions} disabledPermissions={disabledFeatures}>
         {children}
-      </FeatureEnableProvider>
+      </PermissionProvider>
     );
-    const { result } = renderHook(() => useFeatureEnabled(), { wrapper });
-    const { getIsFeatureEnabled } = result.current;
-    const isFeatureEnabled = getIsFeatureEnabled(name);
+    const { result } = renderHook(() => usePermission(), { wrapper });
+    const { hasPermission } = result.current;
+    const isFeatureEnabled = hasPermission(name);
 
     expect(isFeatureEnabled).toBe(expected);
   });

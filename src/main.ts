@@ -3,8 +3,8 @@ export * from "@mui/material";
 export * from "@mui/material/transitions";
 
 // Components
-export { default as IfFeatureEnable } from "@/components/Layout/IfFeatureEnable";
-export * from "@/components/Layout/IfFeatureEnable";
+export { default as HasPermission } from "src/components/Utils/HasPermission";
+export * from "src/components/Utils/HasPermission";
 export { default as Logo } from "@/components/DataDisplay/Logo";
 export * from "@/components/DataDisplay/Logo";
 export { default as LinkTab } from "@/components/Navigation/Tabs/LinkTab";
@@ -49,14 +49,14 @@ export * from "@/components/DataDisplay/AvatarAppBar";
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
 export * from "@/context/Theme/ThemeProvider";
-export { default as FeatureEnableProvider } from "@/context/FeatureEnable/FeatureEnableProvider";
-export * from "@/context/FeatureEnable/FeatureEnableProvider";
+export { default as PermissionProvider } from "@/context/Permission/PermissionProvider";
+export * from "@/context/Permission/PermissionProvider";
 export { default as SnackbarProvider } from "@/context/Snackbar/SnackbarProvider";
 export * from "@/context/Snackbar/SnackbarProvider";
 
 // Hooks
-export { default as useFeatureEnabled } from "@/hooks/useFeatureEnabled";
-export * from "@/hooks/useFeatureEnabled";
+export { default as usePermission } from "src/hooks/usePermission";
+export * from "src/hooks/usePermission";
 export { default as useMenu } from "@/hooks/useMenu";
 export * from "@/hooks/useMenu";
 export { default as useSnackbar } from "@/hooks/useSnackbar";
@@ -69,8 +69,6 @@ export { default as getBackgroundImageElevation } from "@/utils/getBackgroundIma
 export * from "@/utils/getBackgroundImageElevation";
 export { default as pxToRem } from "@/utils/pxToRem";
 export * from "@/utils/pxToRem";
-export { default as hasFeature } from "@/utils/hasFeature";
-export * from "@/utils/hasFeature";
 
 // Theme
 export { default as theme } from "@/config/theme";

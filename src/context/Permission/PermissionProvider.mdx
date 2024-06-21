@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Provider/PermissionProvider"/>
+
+# `PermissionProvider`
+
+Provider to manage permissions in your application.
+
+### Usage
+
+
+```typescript jsx
+import Home from "./Home";
+import { PermissionProvider } from "@tracktor/design-system";
+
+const App = () => (
+    <PermissionProvider permissions={["order", "checkout"]}>
+      <Home />
+    </PermissionProvider>
+);
+
+export default App;
+```
+
+Then anywhere in your application like `home.tsx` you can use the hook without give permissions again.
+
+```typescript jsx
+import { usePermission } from "@tracktor/design-system";
+
+const { hasPermission } = usePermission();
+const hasCheckout = hasPermission("checkout");
+const hasBill = hasPermission("bill");
+
+console.log(hasCheckout) // true
+console.log(hasBill) // false
+```
+
+### Props
+
+| Name                  | Type     | Required | Description                       |
+|-----------------------|----------|----------|-----------------------------------|
+| `permissions`         | string[] | false    | Array of permissions name         |
+| `disabledPermissions` | string[] | false    | Array of disabledPermissions name |
+| `children`            | string   | false    | Children                          |
