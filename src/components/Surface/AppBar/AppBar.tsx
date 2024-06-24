@@ -34,12 +34,12 @@ interface AppBarProps extends PropsWithChildren {
   Search?: ReactNode;
   Logo?: ReactNode;
   position?: "fixed" | "absolute" | "sticky" | "static" | "relative";
-  searchProps?: TextFieldProps;
-  actionProps?: ButtonProps;
-  logoProps?: LogoProps;
   elevation?: number;
   sx?: SxProps;
-  onClickBurger?: () => void;
+  onClickBurger?(): void;
+  actionProps?: ButtonProps;
+  logoProps?: LogoProps;
+  searchProps?: TextFieldProps;
   avatarProps?: AvatarProps & {
     menuItems?: NavigationItem[];
   };

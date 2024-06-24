@@ -54,14 +54,17 @@ export interface NavigationMenuProps {
   /**
    * Component to render the bottom link
    */
-  bottomLink?: {
-    url?: string;
-    state?: any;
-    end?: boolean;
-    label?: ReactNode;
-    active?: boolean;
-    icon?: ReactNode;
-  };
+  bottomLink?:
+    | {
+        url?: string;
+        state?: any;
+        end?: boolean;
+        label?: ReactNode;
+        active?: boolean;
+        icon?: ReactNode;
+      }
+    | null
+    | false;
   /**
    * Component to router nav links.
    * This component is used to render the links in the main menu &  mobile bottom navigation
