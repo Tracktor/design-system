@@ -17,7 +17,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { isValidElement, PropsWithChildren, ReactNode } from "react";
+import { cloneElement, isValidElement, PropsWithChildren, ReactNode } from "react";
 import AvatarAppBar from "@/components/DataDisplay/AvatarAppBar";
 import MenuIcon from "@/components/DataDisplay/Icons/MenuIcon";
 import Logo, { LogoProps } from "@/components/DataDisplay/Logo";
@@ -163,7 +163,14 @@ const AppBar = ({
             {menuItems?.map((item, index) => {
               // Is React Element then return it
               if (isValidElement(item)) {
-                return item;
+                if (item.key) {
+                  return item;
+                }
+
+                const key = `${menuItems}-${index}`;
+
+                // Add key to element
+                return cloneElement(item, { key });
               }
 
               // Is Object then return NavLinkItem
