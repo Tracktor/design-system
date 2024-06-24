@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import Chip from "./Chip";
+import Chip from "../Chip";
 
 const Template: StoryFn<typeof Chip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
@@ -13,23 +13,33 @@ const Template: StoryFn<typeof Chip> = (args) => (
 const TemplateColor: StoryFn<typeof Chip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Stack spacing={1}>
-      <Chip variant="outlined" label="outlined default" color="default" {...args} />
-      <Chip variant="outlined" label="outlined primary" color="primary" {...args} />
-      <Chip variant="outlined" label="outlined secondary" color="secondary" {...args} />
-      <Chip variant="outlined" label="outlined info" color="info" {...args} />
-      <Chip variant="outlined" label="outlined success" color="success" {...args} />
-      <Chip variant="outlined" label="outlined warning" color="warning" {...args} />
-      <Chip variant="outlined" label="outlined error" color="error" {...args} />
+      <Chip variant="outlined" label="outlined default" color="default" sx={{ width: 200 }} {...args} />
+      <Chip variant="outlined" label="outlined primary" color="primary" sx={{ width: 200 }} {...args} />
+      <Chip variant="outlined" label="outlined secondary" color="secondary" sx={{ width: 200 }} {...args} />
+      <Chip variant="outlined" label="outlined info" color="info" sx={{ width: 200 }} {...args} />
+      <Chip variant="outlined" label="outlined success" color="success" sx={{ width: 200 }} {...args} />
+      <Chip variant="outlined" label="outlined warning" color="warning" sx={{ width: 200 }} {...args} />
+      <Chip variant="outlined" label="outlined error" color="error" sx={{ width: 200 }} {...args} />
     </Stack>
 
     <Stack spacing={1}>
-      <Chip label="default" color="default" {...args} />
-      <Chip label="primary" color="primary" {...args} />
-      <Chip label="secondary" color="secondary" {...args} />
-      <Chip label="info" color="info" {...args} />
-      <Chip label="success" color="success" {...args} />
-      <Chip label="warning" color="warning" {...args} />
-      <Chip label="error" color="error" {...args} />
+      <Chip variant="rounded" label="rounded default" color="default" sx={{ width: 200 }} {...args} />
+      <Chip variant="rounded" label="rounded primary" color="primary" sx={{ width: 200 }} {...args} />
+      <Chip variant="rounded" label="rounded secondary" color="secondary" sx={{ width: 200 }} {...args} />
+      <Chip variant="rounded" label="rounded info" color="info" sx={{ width: 200 }} {...args} />
+      <Chip variant="rounded" label="rounded success" color="success" sx={{ width: 200 }} {...args} />
+      <Chip variant="rounded" label="rounded warning" color="warning" sx={{ width: 200 }} {...args} />
+      <Chip variant="rounded" label="rounded error" color="error" sx={{ width: 200 }} {...args} />
+    </Stack>
+
+    <Stack spacing={1}>
+      <Chip label="default" color="default" sx={{ width: 200 }} {...args} />
+      <Chip label="primary" color="primary" sx={{ width: 200 }} {...args} />
+      <Chip label="secondary" color="secondary" sx={{ width: 200 }} {...args} />
+      <Chip label="info" color="info" sx={{ width: 200 }} {...args} />
+      <Chip label="success" color="success" sx={{ width: 200 }} {...args} />
+      <Chip label="warning" color="warning" sx={{ width: 200 }} {...args} />
+      <Chip label="error" color="error" sx={{ width: 200 }} {...args} />
     </Stack>
   </Stack>
 );
@@ -59,6 +69,12 @@ WithDeleteIcon.args = {
 
 export const Colors = TemplateColor.bind({});
 Colors.args = {
+  onDelete: undefined,
+};
+
+export const Dot = TemplateColor.bind({});
+Dot.args = {
+  dot: true,
   onDelete: undefined,
 };
 

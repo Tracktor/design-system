@@ -45,6 +45,8 @@ export { default as ActionAppBar } from "@/components/Inputs/ActionAppBar";
 export * from "@/components/Inputs/ActionAppBar";
 export { default as AvatarAppBar } from "@/components/DataDisplay/AvatarAppBar";
 export * from "@/components/DataDisplay/AvatarAppBar";
+export { default as Chip } from "@/components/DataDisplay/Chip";
+export * from "@/components/DataDisplay/Chip";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";

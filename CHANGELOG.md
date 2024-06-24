@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.0.5
-- **[fix]** - fix responsive Backoffice layout
+## v2.0.6
+- **[fix]** - update chips color
+- **[fix]** - add dot props to chip component

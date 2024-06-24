@@ -416,6 +416,45 @@ const commonThemeOptions: MuiThemeOptions = {
       },
     },
     MuiChip: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => {
+          const color = ownerState.color || "default";
+          const variant = ownerState.variant || "standard";
+
+          return {
+            ...(color === "default" && {
+              backgroundColor: variant === "outlined" ? theme.palette.grey[50] : theme.palette.grey[100],
+              borderColor: variant === "outlined" ? theme.palette.divider : "transparent",
+              color: theme.palette.text.primary,
+            }),
+            ...(color === "primary" && {
+              backgroundColor: theme.palette.primary["4p"],
+              borderColor: variant === "outlined" ? theme.palette.divider : "transparent",
+              color: theme.palette.primary.black,
+            }),
+            ...(color === "secondary" && {
+              backgroundColor: variant === "outlined" ? theme.palette.secondary["8p"] : theme.palette.secondary["16p"],
+              color: variant === "outlined" ? theme.palette.secondary.dark : theme.palette.secondary.black,
+            }),
+            ...(color === "error" && {
+              backgroundColor: variant === "outlined" ? theme.palette.error["8p"] : theme.palette.error["30p"],
+              color: variant === "outlined" ? theme.palette.error.dark : theme.palette.error["160p"],
+            }),
+            ...(color === "info" && {
+              backgroundColor: variant === "outlined" ? theme.palette.info["8p"] : theme.palette.info["30p"],
+              color: variant === "outlined" ? theme.palette.info.dark : theme.palette.info["160p"],
+            }),
+            ...(color === "success" && {
+              backgroundColor: variant === "outlined" ? theme.palette.success["8p"] : theme.palette.success["30p"],
+              color: variant === "outlined" ? theme.palette.success.dark : theme.palette.success["160p"],
+            }),
+            ...(color === "warning" && {
+              backgroundColor: variant === "outlined" ? theme.palette.warning["8p"] : theme.palette.warning["30p"],
+              color: variant === "outlined" ? theme.palette.warning.dark : theme.palette.warning["160p"],
+            }),
+          };
+        },
+      },
       variants: [
         {
           props: { variant: "rounded" },
