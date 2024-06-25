@@ -18,7 +18,26 @@ const Chip = ({ dot, color, variant, ...props }: ChipProps) => {
     warning: palette.warning.main,
   };
 
-  return <ChipMui variant={variant} color={color} icon={dot ? <DotIcon color={dotColor[color || "default"]} /> : undefined} {...props} />;
+  return (
+    <ChipMui
+      variant={variant}
+      color={color}
+      icon={
+        dot ? (
+          <DotIcon
+            color={dotColor[color || "default"]}
+            fontSize="inherit"
+            sx={{
+              height: 8,
+              marginLeft: 1,
+              width: 8,
+            }}
+          />
+        ) : undefined
+      }
+      {...props}
+    />
+  );
 };
 
 export default Chip;
