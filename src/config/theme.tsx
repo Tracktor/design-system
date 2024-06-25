@@ -438,20 +438,25 @@ const commonThemeOptions: MuiThemeOptions = {
             }),
             ...(color === "error" && {
               backgroundColor: variant === "outlined" ? theme.palette.error["8p"] : theme.palette.error["30p"],
+              borderColor: variant === "outlined" ? theme.palette.error["30p"] : "transparent",
               color: variant === "outlined" ? theme.palette.error.dark : theme.palette.error["160p"],
             }),
             ...(color === "info" && {
               backgroundColor: variant === "outlined" ? theme.palette.info["8p"] : theme.palette.info["30p"],
+              borderColor: variant === "outlined" ? theme.palette.info["30p"] : "transparent",
               color: variant === "outlined" ? theme.palette.info.dark : theme.palette.info["160p"],
             }),
             ...(color === "success" && {
               backgroundColor: variant === "outlined" ? theme.palette.success["8p"] : theme.palette.success["30p"],
+              borderColor: variant === "outlined" ? theme.palette.success["30p"] : "transparent",
               color: variant === "outlined" ? theme.palette.success.dark : theme.palette.success["160p"],
             }),
             ...(color === "warning" && {
               backgroundColor: variant === "outlined" ? theme.palette.warning["8p"] : theme.palette.warning["30p"],
+              borderColor: variant === "outlined" ? theme.palette.warning["30p"] : "transparent",
               color: variant === "outlined" ? theme.palette.warning.dark : theme.palette.warning["160p"],
             }),
+            fontWeight: 500,
           };
         },
       },
