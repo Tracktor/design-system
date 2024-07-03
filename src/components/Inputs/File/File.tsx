@@ -11,11 +11,12 @@ export interface FileProps {
   error?: ReactNode;
   id?: string;
   name?: string;
-  value?: string;
+  value?: unknown;
   accept?: string;
   required?: boolean;
   multiple?: boolean;
   fullWidth?: boolean;
+  disabled?: boolean;
   localeText?: {
     files: string;
   };
@@ -60,9 +61,18 @@ const getFileNames = (files: FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
+const getInputValue = (value: unknown) => {
+  if (typeof value === "string" || typeof value === "number" || Array.isArray(value)) {
+    return value;
+  }
+
+  return undefined;
+};
+
 const File = ({
   accept,
   name,
+  disabled,
   required,
   error,
   localeText,
@@ -113,6 +123,7 @@ const File = ({
         justifyContent={isVertical ? "center" : "flex-start"}
         textAlign={isVertical ? "center" : "left"}
         spacing={0.5}
+        color={disabled ? "text.disabled" : "text.secondary"}
       >
         {icon || <UploadIcon sx={{ height: 40, width: 40 }} />}
         {fileName ? (
@@ -132,7 +143,7 @@ const File = ({
           </>
         ) : (
           <>
-            <Typography variant="subtitle1" color="primary">
+            <Typography variant="subtitle1" color={disabled ? "text.disabled" : "primary"}>
               {label} {required && "*"}
             </Typography>
             {error ? (
@@ -147,7 +158,17 @@ const File = ({
           </>
         )}
       </Stack>
-      <input hidden id={htmlId} type="file" name={name} multiple={multiple} onChange={handleChange} value={value} accept={accept} />
+      <input
+        hidden
+        disabled={disabled}
+        id={htmlId}
+        type="file"
+        name={name}
+        multiple={multiple}
+        onChange={handleChange}
+        value={getInputValue(value)}
+        accept={accept}
+      />
     </InputLabel>
   );
 };

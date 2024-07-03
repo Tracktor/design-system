@@ -51,6 +51,13 @@ WithError.args = {
   label: "Ajouter une photo ou un fichier",
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+  helperText: "SVG, PNG, JPG or GIF (max. 3MB)",
+  label: "Ajouter une photo ou un fichier",
+};
+
 export default {
   component: File,
   title: "Components/Inputs/File",
