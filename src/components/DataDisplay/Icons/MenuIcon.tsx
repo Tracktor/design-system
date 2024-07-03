@@ -4,7 +4,7 @@ interface MenuIconProps {
   color?: string;
 }
 
-const MenuIcon = ({ color }: MenuIconProps) => (
+const MenuIcon = ({ color = "currentColor" }: MenuIconProps) => (
   <SvgIcon focusable="false" aria-hidden="true" viewBox="0 0 24 24">
     <path
       fill={color}

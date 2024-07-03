@@ -130,14 +130,6 @@ declare module "@mui/material/styles" {
   }
 }
 
-const getInputFileIcon = (isColumn: boolean) => {
-  if (isColumn) {
-    return `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_12914_201806)'%3E%3Cpath d='M22 10H14C12.9 10 12.01 10.9 12.01 12L12 28C12 29.1 12.89 30 13.99 30H26C27.1 30 28 29.1 28 28V16L22 10ZM26 28H14V12H21V17H26V28ZM16 23.01L17.41 24.42L19 22.84V27H21V22.84L22.59 24.43L24 23.01L20.01 19L16 23.01Z' fill='%23616365'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_12914_201806'%3E%3Crect width='40' height='40' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E")`;
-  }
-
-  return `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35.59 32'%3E%3Crect width='35.59' height='32' fill='none'/%3E%3Cg%3E%3Cg%3E%3Cpath d='m32.26,1H3.34c-1.23,0-2.22.9-2.22,2v26c0,1.1,1,2,2.22,2h28.92c1.23,0,2.22-.9,2.22-2V3c0-1.1-1-2-2.22-2Z' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3Cpath d='m7.79,23l5.13-6.15c.19-.23.44-.42.71-.56.28-.14.59-.22.91-.24.32-.02.64.02.94.12.3.1.57.26.8.46l1.52,1.37,4.89-5.87c.21-.25.48-.45.78-.59.31-.14.65-.21.99-.21s.69.07.99.21c.31.14.58.34.78.59l3.96,4.75' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3Cpath d='m9.45,11c1.54,0,2.78-1.12,2.78-2.5s-1.24-2.5-2.78-2.5-2.78,1.12-2.78,2.5,1.25,2.5,2.78,2.5Z' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3Cpath d='m1.11,23h33.37' fill='none' stroke='%23adafaf' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A")`;
-};
-
 const actionStyleOverrides: Partial<
   OverridesStyleRules<"root" | "spacing", "MuiDialogActions" | "MuiCardActions", Omit<MuiTheme, "components">>
 > = {
@@ -784,51 +776,6 @@ const commonThemeOptions: MuiThemeOptions = {
       },
     },
     MuiTextField: {
-      defaultProps: {
-        dir: "column",
-        ref: (instance) => {
-          instance?.addEventListener("change", (e: Event) => {
-            const target = e.target as HTMLInputElement;
-
-            if (target?.files && target?.type === "file" && target?.tagName === "INPUT") {
-              const maxFilesToDisplay = 5;
-              const files = [...(target?.files || [])];
-              const isColumnDirection = instance?.getAttribute("dir") === "column";
-              const hasMultipleFiles = files.length > 1;
-
-              const fileName = files
-                // Limit the number of displayed files to 3
-                .slice(0, 5)
-                // Truncate the file name if it's too long
-                .map(({ name }) => {
-                  const extension = name.split(".").pop();
-
-                  if (name.length > 10 && hasMultipleFiles) {
-                    return `${name.substring(0, 10)}(...).${extension}`;
-                  }
-
-                  return name;
-                })
-                // Separate the file names with a bullet
-                .join(" • ");
-
-              // Add to fileName (xx mores) if there are more than 5
-              const fileNameMore = files.length > maxFilesToDisplay ? `${fileName} + ${files.length - maxFilesToDisplay}` : fileName;
-              const span = document.createElement("span");
-              const label = instance?.querySelector("label");
-
-              if (label && fileName) {
-                label.textContent = fileNameMore;
-
-                if (isColumnDirection && hasMultipleFiles) {
-                  span.textContent = `${files.length.toString()} Fichiers`;
-                  label.prepend(span);
-                }
-              }
-            }
-          });
-        },
-      },
       styleOverrides: {
         root: {
           // Remove the default spin button on number inputs
@@ -889,92 +836,6 @@ const commonThemeOptions: MuiThemeOptions = {
                 WebkitAppearance: "none",
                 width: 28,
               },
-            };
-          },
-        },
-        {
-          props: {
-            type: "file",
-          },
-          style: ({
-            theme,
-            ownerState,
-            fullWidth,
-            dir,
-          }: { theme: MuiTheme; ownerState?: Record<string, any> } & ComponentsPropsList["MuiTextField"]) => {
-            const isColumnDirection = dir === "column";
-
-            const getHeight = () => {
-              if (ownerState?.size === "xSmall") {
-                return isColumnDirection ? 120 : 50;
-              }
-
-              if (ownerState?.size === "small") {
-                return isColumnDirection ? 130 : 60;
-              }
-              return isColumnDirection ? 150 : 80;
-            };
-
-            return {
-              ...(ownerState?.label && {
-                "& .MuiFormHelperText-root": {
-                  position: "absolute",
-                  top: "100%",
-                },
-                "& .MuiFormLabel-asterisk": {
-                  display: "contents",
-                },
-                "& .MuiInputBase-input, .MuiOutlinedInput-notchedOutline legend": {
-                  height: 0,
-                  opacity: 0,
-                  width: 0,
-                },
-                "& .MuiInputBase-root": {
-                  height: "100%",
-                },
-                "& .MuiInputLabel-root": {
-                  alignItems: "center",
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: isColumnDirection ? "column" : "row",
-                  fontSize: theme.typography.pxToRem(14),
-                  height: "100%",
-                  justifyContent: isColumnDirection ? "center" : "left",
-                  maxWidth: "100%",
-                  padding: isColumnDirection ? 15 : 0,
-                  textAlign: isColumnDirection ? "center" : "left",
-                  ...(!isColumnDirection && { paddingRight: theme.spacing(2) }),
-                  "& span": {
-                    color: theme.palette.text.secondary,
-                  },
-                  pointerEvents: "auto",
-                  transform: "none !important",
-                  whiteSpace: "initial",
-                  width: "100%",
-                },
-                "& .MuiInputLabel-root:before": {
-                  content: getInputFileIcon(isColumnDirection),
-                  height: 30,
-                  marginLeft: theme.spacing(2),
-                  marginRight: theme.spacing(2),
-                  width: 33,
-                  ...(isColumnDirection && { marginBottom: theme.spacing(1) }),
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderStyle: "dashed",
-                  top: 0,
-                },
-                "& .MuiOutlinedInput-notchedOutline legend": {
-                  display: "none",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: theme.palette.primary.main,
-                },
-                height: getHeight(),
-                justifyContent: "center",
-                maxWidth: fullWidth ? "100%" : 400,
-                width: "100%",
-              }),
             };
           },
         },
