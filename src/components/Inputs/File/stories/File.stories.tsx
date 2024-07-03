@@ -45,6 +45,12 @@ DirectionRowMultiple.args = {
   variant: "horizontal",
 };
 
+export const WithError = Template.bind({});
+WithError.args = {
+  error: "Fichier invalide",
+  label: "Ajouter une photo ou un fichier",
+};
+
 export default {
   component: File,
   title: "Components/Inputs/File",

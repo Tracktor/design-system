@@ -5,16 +5,17 @@ import UploadIcon from "@/components/DataDisplay/Icons/UploadIcon";
 export interface FileProps {
   size?: "small" | "medium";
   variant?: "vertical" | "horizontal";
-  label?: string;
-  name?: string;
-  required?: boolean;
-  multiple?: boolean;
-  id?: string;
-  helperText?: string;
-  fullWidth?: boolean;
+  label?: ReactNode;
+  helperText?: ReactNode;
   icon?: ReactNode;
+  error?: ReactNode;
+  id?: string;
+  name?: string;
   value?: string;
   accept?: string;
+  required?: boolean;
+  multiple?: boolean;
+  fullWidth?: boolean;
   localeText?: {
     files: string;
   };
@@ -63,6 +64,7 @@ const File = ({
   accept,
   name,
   required,
+  error,
   localeText,
   value,
   multiple,
@@ -95,7 +97,7 @@ const File = ({
         "&:hover": {
           borderColor: palette.primary.main,
         },
-        border: `1px dashed ${palette.divider}`,
+        border: `1px dashed ${error ? palette.error.main : palette.divider}`,
         borderRadius: 1,
         cursor: "pointer",
         height: getHeight(size, variant),
@@ -133,9 +135,15 @@ const File = ({
             <Typography variant="subtitle1" color="primary">
               {label} {required && "*"}
             </Typography>
-            <Typography color="textSecondary" variant="body2">
-              {helperText}
-            </Typography>
+            {error ? (
+              <Typography color="error" variant="body2">
+                {error}
+              </Typography>
+            ) : (
+              <Typography color="textSecondary" variant="body2">
+                {helperText}
+              </Typography>
+            )}
           </>
         )}
       </Stack>
