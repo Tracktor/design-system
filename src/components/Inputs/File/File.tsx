@@ -14,6 +14,7 @@ export interface FileProps {
   fullWidth?: boolean;
   icon?: ReactNode;
   value?: string;
+  accept?: string;
   localeText?: {
     files: string;
   };
@@ -59,6 +60,7 @@ const getFileNames = (files: FileList | null) => {
 };
 
 const File = ({
+  accept,
   name,
   required,
   localeText,
@@ -137,7 +139,7 @@ const File = ({
           </>
         )}
       </Stack>
-      <input hidden id={htmlId} type="file" name={name} multiple={multiple} onChange={handleChange} value={value} />
+      <input hidden id={htmlId} type="file" name={name} multiple={multiple} onChange={handleChange} value={value} accept={accept} />
     </InputLabel>
   );
 };
