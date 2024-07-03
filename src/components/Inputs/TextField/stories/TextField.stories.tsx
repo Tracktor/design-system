@@ -43,27 +43,6 @@ File.args = {
   type: "file",
 };
 
-export const FileWithLabel = TemplateFile.bind({});
-FileWithLabel.args = {
-  label: "Ajouter une photo ou un fichier",
-  type: "file",
-};
-
-export const FileWithLabelDirectionColumn = TemplateFile.bind({});
-FileWithLabelDirectionColumn.args = {
-  dir: "column",
-  label: "Ajouter une photo ou un fichier",
-  type: "file",
-};
-
-export const FileLabelDirectionColumnRequired = TemplateFile.bind({});
-FileLabelDirectionColumnRequired.args = {
-  dir: "column",
-  label: "Ajouter une photo ou un fichier",
-  required: true,
-  type: "file",
-};
-
 export const FileWithHelperText = Template.bind({});
 FileWithHelperText.args = {
   helperText: "Helper text",
@@ -71,9 +50,41 @@ FileWithHelperText.args = {
   type: "file",
 };
 
+export const FileWithLabel = TemplateFile.bind({});
+FileWithLabel.args = {
+  dir: "column",
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
+};
+
+export const FileMultipleWithLabel = TemplateFile.bind({});
+FileMultipleWithLabel.args = {
+  dir: "column",
+  inputProps: {
+    multiple: true,
+  },
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
+};
+
+export const FileLabelDirectionRequired = TemplateFile.bind({});
+FileLabelDirectionRequired.args = {
+  dir: "column",
+  label: "Ajouter une photo ou un fichier",
+  required: true,
+  type: "file",
+};
+
 export const FileWithLabelAndHelperText = Template.bind({});
 FileWithLabelAndHelperText.args = {
   helperText: "Helper text",
+  label: "Ajouter une photo ou un fichier",
+  type: "file",
+};
+
+export const FileWithLabelDirectionRow = TemplateFile.bind({});
+FileWithLabelDirectionRow.args = {
+  dir: "row",
   label: "Ajouter une photo ou un fichier",
   type: "file",
 };
