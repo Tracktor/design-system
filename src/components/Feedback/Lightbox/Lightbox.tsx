@@ -44,6 +44,7 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
             right: 15,
             top: 15,
             width: 30,
+            zIndex: 9999,
           }}
         >
           &times;
