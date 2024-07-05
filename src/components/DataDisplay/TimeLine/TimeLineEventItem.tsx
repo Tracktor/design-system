@@ -28,7 +28,7 @@ const TimeLineEventItem = ({ title, subtitle, isLastElement, active, onClick, Ic
     </Box>
     <Stack flex={1} pt={0.5} pl={1} mb={1}>
       <Stack spacing={1} justifyContent="space-between" direction="row">
-        <Typography component="div">
+        <Box>
           <Typography
             component="span"
             sx={{
@@ -36,6 +36,7 @@ const TimeLineEventItem = ({ title, subtitle, isLastElement, active, onClick, Ic
                 opacity: onClick ? 0.9 : 1,
               },
               cursor: onClick ? "pointer" : "default",
+              marginRight: 1,
               textDecoration: onClick ? "underline" : "none",
             }}
             onClick={onClick || (() => null)}
@@ -43,8 +44,8 @@ const TimeLineEventItem = ({ title, subtitle, isLastElement, active, onClick, Ic
           >
             {title}
           </Typography>
-          {tag && <Chip color={tag?.color || "default"} label={tag.label} size="xSmall" variant="rounded" sx={{ ml: 1 }} />}
-        </Typography>
+          {tag && <Chip color={tag?.color || "default"} label={tag.label} size="xSmall" variant="rounded" />}
+        </Box>
         {Action && Action}
       </Stack>
 
