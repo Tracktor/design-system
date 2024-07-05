@@ -10,7 +10,7 @@ const data = [
     key: "1",
     subtitle: "First Event Subtitle",
     tag: {
-      color: "primary",
+      color: "secondary",
       label: "First Tag",
     },
     title: "First Event",
@@ -22,7 +22,7 @@ const data = [
     key: "2",
     subtitle: "Second Event Subtitle",
     tag: {
-      color: "primary",
+      color: "warning",
       label: "Second Tag",
     },
     title: "Second Event",
@@ -34,10 +34,10 @@ const data = [
     key: "3",
     subtitle: "Third Event Subtitle",
     tag: {
-      color: "primary",
+      color: "info",
       label: "Third Tag",
     },
-    title: "Third Event",
+    title: "Third Event with a very long title that should be truncated",
   } as const,
 ];
 
