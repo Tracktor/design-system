@@ -47,6 +47,11 @@ const Template: StoryFn<typeof ListAvatar> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = {};
 
+export const AlwaysDisplaySecondaryAction = Template.bind({});
+AlwaysDisplaySecondaryAction.args = {
+  alwaysDisplaySecondaryAction: true,
+};
+
 export default {
   component: ListAvatar,
   title: "Components/Data Display/ListAvatar",

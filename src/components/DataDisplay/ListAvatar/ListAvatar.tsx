@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 interface ListAvatarProps {
   sx?: SxProps;
   fullWidth?: boolean;
+  alwaysDisplaySecondaryAction?: boolean;
   data?: {
     id?: string | number | null;
     title?: string | null;
@@ -22,7 +23,7 @@ const AVATAR_MARGIN_RIGHT = 1;
 
 const isChipColor = (color: ChipProps["color"] | string): color is ChipProps["color"] => typeof color === "string";
 
-export const ListAvatar = ({ data, fullWidth, sx }: ListAvatarProps) => (
+export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction }: ListAvatarProps) => (
   <List
     sx={{
       minWidth: 250,
@@ -43,8 +44,12 @@ export const ListAvatar = ({ data, fullWidth, sx }: ListAvatarProps) => (
               alignItems: "center",
               display: "flex",
               justifyContent: "center",
+              opacity: alwaysDisplaySecondaryAction ? 1 : 0,
             },
             "&:hover": {
+              "& .MuiListItemSecondaryAction-root": {
+                opacity: 1,
+              },
               backgroundColor: ({ palette }) => palette.action.hover,
             },
             borderRadius: 1,
