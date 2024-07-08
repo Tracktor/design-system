@@ -52,6 +52,11 @@ AlwaysDisplaySecondaryAction.args = {
   alwaysDisplaySecondaryAction: true,
 };
 
+export const Loading = Template.bind({});
+Loading.args = {
+  isLoading: true,
+};
+
 export default {
   component: ListAvatar,
   title: "Components/Data Display/ListAvatar",

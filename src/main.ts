@@ -49,6 +49,8 @@ export { default as Chip } from "@/components/DataDisplay/Chip";
 export * from "@/components/DataDisplay/Chip";
 export { default as File } from "@/components/Inputs/File";
 export * from "@/components/Inputs/File";
+export { default as ListAvatars } from "@/components/DataDisplay/ListAvatar";
+export * from "@/components/DataDisplay/ListAvatar";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
