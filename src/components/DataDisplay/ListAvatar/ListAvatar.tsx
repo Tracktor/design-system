@@ -20,6 +20,7 @@ interface ListAvatarProps {
   fullWidth?: boolean;
   alwaysDisplaySecondaryAction?: boolean;
   isLoading?: boolean;
+  numberLoadingItems?: number;
   data?: {
     id?: string | number | null;
     title?: string | null;
@@ -48,17 +49,12 @@ const styles = {
       display: "flex",
       justifyContent: "center",
     },
-    "&:hover": {
-      "& .MuiListItemSecondaryAction-root": {
-        opacity: 1,
-      },
-    },
     borderRadius: 1,
     padding: 0.5,
   },
 };
 
-export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, isLoading }: ListAvatarProps) => {
+export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, isLoading, numberLoadingItems = 3 }: ListAvatarProps) => {
   if (isLoading) {
     return (
       <List
@@ -67,7 +63,7 @@ export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, 
           ...(fullWidth && { width: "100%" }),
         }}
       >
-        {[1, 2, 3].map((index) => (
+        {[...Array(numberLoadingItems).keys()].map((index) => (
           <ListItem key={index} sx={styles.listItem}>
             <Skeleton width={40} height={40} sx={{ marginRight: AVATAR_MARGIN_RIGHT }} variant="rounded" />
             <ListItemText
@@ -107,6 +103,9 @@ export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, 
                 opacity: alwaysDisplaySecondaryAction ? 1 : 0,
               },
               "&:hover": {
+                "& .MuiListItemSecondaryAction-root": {
+                  opacity: 1,
+                },
                 backgroundColor: ({ palette }: Theme) => palette.action.hover,
               },
               cursor: onClick ? "pointer" : "default",

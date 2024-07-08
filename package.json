@@ -2,7 +2,7 @@
   "name": "@tracktor/design-system",
   "description": "Tracktor Design System",
   "sideEffects": false,
-  "version": "2.2.1",
+  "version": "2.2.2",
   "license": "ISC",
   "type": "module",
   "types": "./dist/src/main.d.ts",
