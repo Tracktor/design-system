@@ -44,11 +44,6 @@ const styles = {
     minWidth: 250,
   },
   listItem: {
-    "& .MuiListItemSecondaryAction-root": {
-      alignItems: "center",
-      display: "flex",
-      justifyContent: "center",
-    },
     borderRadius: 1,
     padding: 0.5,
   },
@@ -84,7 +79,7 @@ export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, 
   return (
     <List
       sx={{
-        minWidth: 250,
+        ...styles.list,
         ...(fullWidth && { width: "100%" }),
         ...sx,
       }}
@@ -100,6 +95,9 @@ export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, 
             sx={{
               ...styles.listItem,
               "& .MuiListItemSecondaryAction-root": {
+                alignItems: "center",
+                display: "flex",
+                justifyContent: "center",
                 opacity: alwaysDisplaySecondaryAction ? 1 : 0,
               },
               "&:hover": {
