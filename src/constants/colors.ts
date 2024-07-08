@@ -5,7 +5,7 @@ const light = {
       disabled: "rgba(0, 0, 0, 0.26)",
       disabledBackground: "rgba(0, 0, 0, 0.12)",
       focus: "rgba(0, 0, 0, 0.12)",
-      hover: "rgba(0, 0, 0, 0.12)",
+      hover: "rgba(0, 0, 0, 0.04)",
       selected: "rgba(0, 0, 0, 0.08)",
     },
     background: {
