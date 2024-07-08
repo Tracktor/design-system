@@ -15,6 +15,7 @@ const TimeLineEventItem = ({ title, subtitle, isLastElement, active, onClick, Ic
               <Divider
                 sx={{
                   borderColor: ({ palette }) => (active ? palette.secondary.main : palette.divider),
+                  borderStyle: active ? "solid" : "dashed",
                   height: "100%",
                   minHeight: 40,
                 }}
