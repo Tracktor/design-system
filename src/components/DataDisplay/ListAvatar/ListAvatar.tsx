@@ -41,7 +41,6 @@ const isChipColor = (color: ChipProps["color"] | string): color is ChipProps["co
 
 const styles = {
   list: {
-    margin: 6,
     marginLeft: ({ spacing }: Theme) => `-${spacing(0.5)} !important`,
     marginRight: ({ spacing }: Theme) => `-${spacing(0.5)} !important`,
     minWidth: 250,
