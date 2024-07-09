@@ -16,6 +16,7 @@ import {
 import { ReactNode } from "react";
 
 interface ListAvatarProps {
+  Empty?: ReactNode;
   sx?: SxProps;
   fullWidth?: boolean;
   alwaysDisplaySecondaryAction?: boolean;
@@ -51,7 +52,19 @@ const styles = {
   },
 };
 
-export const ListAvatar = ({ data, fullWidth, sx, alwaysDisplaySecondaryAction, isLoading, numberLoadingItems = 3 }: ListAvatarProps) => {
+export const ListAvatar = ({
+  Empty,
+  data,
+  fullWidth,
+  sx,
+  alwaysDisplaySecondaryAction,
+  isLoading,
+  numberLoadingItems = 3,
+}: ListAvatarProps) => {
+  if (!data?.length && !isLoading) {
+    return Empty || null;
+  }
+
   if (isLoading) {
     return (
       <List
