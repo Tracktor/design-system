@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import { ListAvatar } from "../ListAvatar";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
@@ -21,7 +21,11 @@ const data = [
   },
   {
     id: 3,
-    secondaryAction: <CloseIcon />,
+    secondaryAction: (
+      <IconButton>
+        <CloseIcon />
+      </IconButton>
+    ),
     subtitle: "Lorem Ipsum",
     title: "Secondary action",
   },

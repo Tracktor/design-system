@@ -125,6 +125,7 @@ export const ListAvatar = ({
                   display: "flex",
                   justifyContent: "center",
                   opacity: alwaysDisplaySecondaryAction ? 1 : 0,
+                  right: ({ spacing }: Theme) => spacing(0.5),
                 },
                 "&:hover": {
                   "& .MuiListItemSecondaryAction-root": {
