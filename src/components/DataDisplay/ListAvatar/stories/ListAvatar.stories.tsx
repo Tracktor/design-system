@@ -2,6 +2,7 @@ import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import { ListAvatar } from "../ListAvatar";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
+import CheckIcon from "@/components/DataDisplay/Icons/CheckIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
 const data = [
@@ -40,7 +41,7 @@ const data = [
 
 const Template: StoryFn<typeof ListAvatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <ListAvatar data={data} {...args} />
+    <ListAvatar items={data} {...args} />
   </Stack>
 );
 
@@ -55,6 +56,14 @@ AlwaysDisplaySecondaryAction.args = {
 export const Loading = Template.bind({});
 Loading.args = {
   isLoading: true,
+};
+
+export const WithAction = Template.bind({});
+WithAction.args = {
+  action: {
+    icon: <CheckIcon />,
+    title: "Action here !",
+  },
 };
 
 export default {

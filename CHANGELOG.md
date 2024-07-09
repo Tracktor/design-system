@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.2.6
-- **[fix]** - `ListAvatar` empty state improvement
+## v2.2.7
+- **[fix]** - `ListAvatar` rename data to items
+- **[fix]** - `ListAvatar` action

@@ -5,6 +5,8 @@ import {
   ChipProps,
   List,
   ListItem,
+  ListItemButton,
+  ListItemButtonProps,
   ListItemProps,
   ListItemText,
   Skeleton,
@@ -22,7 +24,7 @@ interface ListAvatarProps {
   alwaysDisplaySecondaryAction?: boolean;
   isLoading?: boolean;
   numberLoadingItems?: number;
-  data?: {
+  items?: {
     id?: string | number | null;
     title?: string | null;
     subtitle?: string | null;
@@ -34,6 +36,13 @@ interface ListAvatarProps {
     onClick?: ListItemProps["onClick"];
     Avatar?: ReactNode;
   }[];
+  action?: {
+    title?: string | null;
+    subtitle?: string | null;
+    image?: string | null;
+    icon?: ReactNode;
+    onClick?: ListItemButtonProps["onClick"];
+  };
 }
 
 const AVATAR_MARGIN_RIGHT = 1;
@@ -54,14 +63,15 @@ const styles = {
 
 export const ListAvatar = ({
   Empty,
-  data,
+  action,
+  items,
   fullWidth,
   sx,
   alwaysDisplaySecondaryAction,
   isLoading,
   numberLoadingItems = 3,
 }: ListAvatarProps) => {
-  if (!data?.length && !isLoading) {
+  if (!items?.length && !isLoading && !action) {
     return Empty || null;
   }
 
@@ -99,53 +109,75 @@ export const ListAvatar = ({
         ...sx,
       }}
     >
-      {data?.map(({ id, title, subtitle, image, secondaryAction, chipLabel, chipColor, onClick, icon, Avatar: AvatarComponent }, index) => {
-        const key = id || `id-${index}-${title}`;
+      {items?.map(
+        ({ id, title, subtitle, image, secondaryAction, chipLabel, chipColor, onClick, icon, Avatar: AvatarComponent }, index) => {
+          const key = id || `id-${index}-${title}`;
 
-        return (
-          <ListItem
-            key={key}
-            secondaryAction={secondaryAction}
-            onClick={onClick}
-            sx={{
-              ...styles.listItem,
-              "& .MuiListItemSecondaryAction-root": {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                opacity: alwaysDisplaySecondaryAction ? 1 : 0,
-              },
-              "&:hover": {
+          return (
+            <ListItem
+              key={key}
+              secondaryAction={secondaryAction}
+              onClick={onClick}
+              sx={{
+                ...styles.listItem,
                 "& .MuiListItemSecondaryAction-root": {
-                  opacity: 1,
+                  alignItems: "center",
+                  display: "flex",
+                  justifyContent: "center",
+                  opacity: alwaysDisplaySecondaryAction ? 1 : 0,
                 },
-                backgroundColor: ({ palette }: Theme) => palette.action.hover,
-              },
-              cursor: onClick ? "pointer" : "default",
-            }}
-          >
-            {AvatarComponent ? (
-              <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>
-            ) : (
-              <Avatar src={image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
-                {icon || title?.charAt(0).toUpperCase()}
-              </Avatar>
-            )}
-            <ListItemText
-              primary={
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  {title && <Typography variant="h6">{title}</Typography>}
-                  {chipLabel && (
-                    <Chip label={chipLabel} variant="rounded" size="xSmall" color={isChipColor(chipColor) ? chipColor : "default"} />
-                  )}
-                </Stack>
-              }
-              secondary={subtitle}
-              sx={{ marginY: 0 }}
-            />
-          </ListItem>
-        );
-      })}
+                "&:hover": {
+                  "& .MuiListItemSecondaryAction-root": {
+                    opacity: 1,
+                  },
+                  backgroundColor: ({ palette }: Theme) => palette.action.hover,
+                },
+                cursor: onClick ? "pointer" : "default",
+              }}
+            >
+              {AvatarComponent ? (
+                <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>
+              ) : (
+                <Avatar src={image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
+                  {icon || title?.charAt(0).toUpperCase()}
+                </Avatar>
+              )}
+              <ListItemText
+                primary={
+                  <Stack direction="row" alignItems="center" spacing={1}>
+                    {title && <Typography variant="h6">{title}</Typography>}
+                    {chipLabel && (
+                      <Chip label={chipLabel} variant="rounded" size="xSmall" color={isChipColor(chipColor) ? chipColor : "default"} />
+                    )}
+                  </Stack>
+                }
+                secondary={subtitle}
+                sx={{ marginY: 0 }}
+              />
+            </ListItem>
+          );
+        },
+      )}
+      {action && (
+        <ListItemButton
+          onClick={action?.onClick}
+          sx={{
+            ...styles.listItem,
+            "&:hover": {
+              backgroundColor: ({ palette }: Theme) => palette.action.hover,
+            },
+          }}
+        >
+          <Avatar src={action?.image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
+            {action?.icon || action?.title?.charAt(0).toUpperCase()}
+          </Avatar>
+          <ListItemText
+            primary={action?.title && <Typography variant="h6">{action?.title}</Typography>}
+            secondary={action?.subtitle}
+            sx={{ marginY: 0 }}
+          />
+        </ListItemButton>
+      )}
     </List>
   );
 };
