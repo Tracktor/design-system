@@ -4,7 +4,7 @@ interface CloseIconProps {
   color?: string;
 }
 
-const CloseIcon = ({ color }: CloseIconProps) => (
+const CloseIcon = ({ color = "currentColor" }: CloseIconProps) => (
   <SvgIcon
     sx={{
       fill: ({ palette }) => {
