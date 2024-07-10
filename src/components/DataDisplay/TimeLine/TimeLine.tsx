@@ -7,7 +7,9 @@ export interface TimeLineProps {
   containerStyle?: SxProps;
   isLoading?: boolean;
   emptyMessage?: string;
+  variant?: "default" | "hover";
   data?: {
+    Collapse?: ReactNode;
     Icon?: ReactNode;
     Action?: ReactNode;
     Footer?: ReactNode;
@@ -17,8 +19,17 @@ export interface TimeLineProps {
     isLastElement: boolean;
     active?: boolean;
     onClick?(): void;
+    collapseItems?: {
+      title?: string | null;
+      subtitle?: string | null;
+      image?: string | string[] | null;
+      tag?: {
+        label?: string | null;
+        color?: ChipProps["color"];
+      };
+    }[];
     tag?: {
-      label: string;
+      label?: string | null;
       color?: ChipProps["color"];
     };
   }[];
@@ -35,7 +46,7 @@ const CardContainer = ({ children, sx }: PropsWithChildren & { sx?: SxProps }) =
   </Card>
 );
 
-const TimeLine = ({ data, isLoading, emptyMessage, containerStyle }: TimeLineProps) => {
+const TimeLine = ({ data, isLoading, emptyMessage, containerStyle, variant }: TimeLineProps) => {
   if (isLoading) {
     return (
       <CardContainer sx={containerStyle}>
@@ -88,20 +99,27 @@ const TimeLine = ({ data, isLoading, emptyMessage, containerStyle }: TimeLinePro
 
   return (
     <CardContainer sx={containerStyle}>
-      {data?.map(({ Action, subtitle, key, active, Footer, Icon, isLastElement, onClick, tag, title }) => (
-        <TimeLineEventItem
-          key={key}
-          active={active}
-          title={title}
-          subtitle={subtitle}
-          Footer={Footer}
-          Icon={Icon}
-          isLastElement={isLastElement}
-          onClick={onClick}
-          Action={Action}
-          tag={tag}
-        />
-      ))}
+      {data?.map(({ Action, Collapse, collapseItems, subtitle, key, active, Footer, Icon, isLastElement, onClick, tag, title }, index) => {
+        const keyString = `${key}-${index}-${title}`;
+
+        return (
+          <TimeLineEventItem
+            key={keyString}
+            Action={Action}
+            Footer={Footer}
+            Collapse={Collapse}
+            collapseItems={collapseItems}
+            active={active}
+            title={title}
+            subtitle={subtitle}
+            Icon={Icon}
+            isLastElement={isLastElement}
+            onClick={onClick}
+            tag={tag}
+            variant={variant}
+          />
+        );
+      })}
     </CardContainer>
   );
 };
