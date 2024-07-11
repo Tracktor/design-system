@@ -2,7 +2,7 @@ import { Link, Stack, Typography } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import TimeLine from "@/components/DataDisplay/TimeLine";
 
-const data = [
+const items = [
   {
     Action: <Link color="inherit">Action</Link>,
     active: true,
@@ -45,7 +45,7 @@ const Template: StoryFn<typeof TimeLine> = (args) => (
   <Stack spacing={2} height="100%" alignItems="center" justifyContent="center">
     <TimeLine
       isLoading={args?.isLoading}
-      data={args?.data}
+      items={args?.items}
       emptyMessage={args?.emptyMessage}
       containerStyle={{ maxWidth: 400 }}
       variant={args?.variant}
@@ -55,7 +55,7 @@ const Template: StoryFn<typeof TimeLine> = (args) => (
 
 export const Basic = Template.bind({});
 Basic.args = {
-  data,
+  items,
 };
 
 export const Loading = Template.bind({});
@@ -65,19 +65,20 @@ Loading.args = {
 
 export const EmptyMessage = Template.bind({});
 EmptyMessage.args = {
-  data: [],
   emptyMessage: "No events to display.",
+  items: [],
 };
 
 export const CollapseItems = Template.bind({});
 CollapseItems.args = {
-  data: [
+  items: [
     {
       active: true,
       collapseItems: [
         {
+          onClick: () => null,
           subtitle: "First Collapse Item Subtitle",
-          title: "First Collapse Item",
+          title: "First Collapse Item clickable",
         },
         {
           image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -107,13 +108,13 @@ CollapseItems.args = {
       },
       title: "Second Event",
     },
-    ...data,
+    ...items,
   ],
 };
 
 export const CollapseCustom = Template.bind({});
 CollapseCustom.args = {
-  data: [
+  items: [
     {
       active: true,
       Collapse: <Typography>Collapsed content</Typography>,
@@ -126,13 +127,13 @@ CollapseCustom.args = {
       },
       title: "Second Event",
     },
-    ...data,
+    ...items,
   ],
 };
 
 export const VariantHover = Template.bind({});
 VariantHover.args = {
-  data,
+  items,
   variant: "hover",
 };
 

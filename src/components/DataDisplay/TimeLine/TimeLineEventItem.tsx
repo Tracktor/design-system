@@ -5,9 +5,13 @@ import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import StatusIcon from "@/components/DataDisplay/StatusIcon";
 import { TimeLineProps } from "@/components/DataDisplay/TimeLine/TimeLine";
 
-type TimeLineEventItemProps = NonNullable<TimeLineProps["data"]>[number] & { variant?: TimeLineProps["variant"] };
+type TimeLineEventItemProps = NonNullable<TimeLineProps["items"]>[number] & {
+  variant?: TimeLineProps["variant"];
+  onClickImage?(imageSrc: string): void;
+};
 
 const IMAGE_SIZE = 64;
+const ENTER_DELAY = 1000;
 
 const TimeLineEventItem = ({
   title,
@@ -18,6 +22,7 @@ const TimeLineEventItem = ({
   variant,
   tag,
   collapseItems,
+  onClickImage,
   Action,
   Icon,
   Footer,
@@ -70,21 +75,18 @@ const TimeLineEventItem = ({
             <Stack
               direction="row"
               alignItems="center"
-              sx={{ cursor: hasCollapse ? "pointer" : "inherit" }}
+              sx={{ cursor: hasCollapse ? "pointer" : "default" }}
               onClick={() => setIsCollapseOpen((prevState) => !prevState)}
             >
               <Typography
                 component="span"
+                onClick={onClick}
+                variant="body1"
                 sx={{
-                  "&:hover": {
-                    opacity: onClick ? 0.9 : 1,
-                  },
-                  cursor: onClick ? "pointer" : "default",
+                  cursor: hasCollapse || onClick ? "pointer" : "default",
                   marginRight: 1,
                   textDecoration: onClick ? "underline" : "none",
                 }}
-                onClick={onClick || (() => null)}
-                variant="body1"
               >
                 {title}
               </Typography>
@@ -97,7 +99,7 @@ const TimeLineEventItem = ({
                 />
               )}
             </Stack>
-            {tag && <Chip color={tag?.color || "default"} label={tag?.label} size="xSmall" variant="rounded" />}
+            {tag && <Chip color={tag?.color || "default"} label={tag?.label} size="xSmall" variant="outlined" />}
           </Box>
           {Action && (
             <Box
@@ -124,26 +126,36 @@ const TimeLineEventItem = ({
             <Stack marginY={2} spacing={3}>
               {collapseItems?.map((item, index) => {
                 const key = `${item.title}-${index}`;
+                const image = Array.isArray(item?.image) ? item?.image[0] : item?.image;
 
                 return (
-                  <Stack key={key} direction="row" spacing={1} minWidth={0}>
+                  <Stack key={key} direction="row" spacing={1} minWidth={0} onClick={item?.onClick}>
                     <ArrowRightIcon sx={{ height: 18, paddingTop: 0.5, width: 18 }} />
                     <Stack minWidth={0}>
                       <Stack direction="row" alignItems="center" spacing={1} overflow="hidden">
                         {item?.title && (
-                          <Tooltip title={item?.title} enterDelay={1000}>
+                          <Tooltip
+                            title={item?.title}
+                            enterDelay={ENTER_DELAY}
+                            sx={{
+                              ...(item?.onClick && {
+                                cursor: "pointer",
+                                textDecoration: "underline",
+                              }),
+                            }}
+                          >
                             <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" minWidth={0}>
                               {item?.title}
                             </Typography>
                           </Tooltip>
                         )}
                         {item?.tag && (
-                          <Chip color={item?.tag?.color || "default"} label={item?.tag?.label} size="xSmall" variant="rounded" />
+                          <Chip color={item?.tag?.color || "default"} label={item?.tag?.label} size="xSmall" variant="outlined" />
                         )}
                       </Stack>
 
                       {item?.subtitle && (
-                        <Tooltip title={item?.subtitle} enterDelay={1000}>
+                        <Tooltip title={item?.subtitle} enterDelay={ENTER_DELAY}>
                           <Typography
                             variant="body2"
                             color="textSecondary"
@@ -158,14 +170,19 @@ const TimeLineEventItem = ({
                       )}
                       {item?.image && (
                         <Stack direction="row" marginTop={1} spacing={0.5}>
-                          <Box
-                            component="img"
-                            src={Array.isArray(item?.image) ? item?.image[0] : item?.image}
-                            sx={{
-                              height: IMAGE_SIZE,
-                              width: IMAGE_SIZE,
-                            }}
-                          />
+                          {image && (
+                            <Box
+                              onClick={() => onClickImage?.(image)}
+                              component="img"
+                              src={image}
+                              sx={{
+                                borderRadius: 0.5,
+                                cursor: "pointer",
+                                height: IMAGE_SIZE,
+                                width: IMAGE_SIZE,
+                              }}
+                            />
+                          )}
                           {Array.isArray(item?.image) && item?.image?.length > 1 && (
                             <Box
                               sx={{

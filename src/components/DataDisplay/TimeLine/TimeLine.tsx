@@ -1,38 +1,44 @@
 import { Alert, Card, CardContent, ChipProps, Skeleton, Stack, SxProps, Typography } from "@mui/material";
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode, useState } from "react";
 import StatusIcon from "@/components/DataDisplay/StatusIcon";
 import TimeLineEventItem from "@/components/DataDisplay/TimeLine/TimeLineEventItem";
+import Lightbox from "@/components/Feedback/Lightbox";
+
+export interface TimeLineCollapseItems {
+  title?: string | null;
+  subtitle?: string | null;
+  image?: string | string[] | null;
+  onClick?(): void;
+  tag?: {
+    label?: string | null;
+    color?: ChipProps["color"];
+  };
+}
+
+export interface TimeLineItem {
+  onClick?(): void;
+  Collapse?: ReactNode;
+  Icon?: ReactNode;
+  Action?: ReactNode;
+  Footer?: ReactNode;
+  key?: string;
+  title?: string;
+  subtitle?: string;
+  isLastElement: boolean;
+  active?: boolean;
+  collapseItems?: TimeLineCollapseItems[];
+  tag?: {
+    label?: string | null;
+    color?: ChipProps["color"];
+  };
+}
 
 export interface TimeLineProps {
   containerStyle?: SxProps;
   isLoading?: boolean;
   emptyMessage?: string;
   variant?: "default" | "hover";
-  data?: {
-    Collapse?: ReactNode;
-    Icon?: ReactNode;
-    Action?: ReactNode;
-    Footer?: ReactNode;
-    key?: string;
-    title?: string;
-    subtitle?: string;
-    isLastElement: boolean;
-    active?: boolean;
-    onClick?(): void;
-    collapseItems?: {
-      title?: string | null;
-      subtitle?: string | null;
-      image?: string | string[] | null;
-      tag?: {
-        label?: string | null;
-        color?: ChipProps["color"];
-      };
-    }[];
-    tag?: {
-      label?: string | null;
-      color?: ChipProps["color"];
-    };
-  }[];
+  items?: TimeLineItem[];
 }
 
 const CardContainer = ({ children, sx }: PropsWithChildren & { sx?: SxProps }) => (
@@ -46,7 +52,9 @@ const CardContainer = ({ children, sx }: PropsWithChildren & { sx?: SxProps }) =
   </Card>
 );
 
-const TimeLine = ({ data, isLoading, emptyMessage, containerStyle, variant }: TimeLineProps) => {
+const TimeLine = ({ items, isLoading, emptyMessage, containerStyle, variant }: TimeLineProps) => {
+  const [lightboxSrc, setLightboxSrc] = useState("");
+
   if (isLoading) {
     return (
       <CardContainer sx={containerStyle}>
@@ -89,7 +97,7 @@ const TimeLine = ({ data, isLoading, emptyMessage, containerStyle, variant }: Ti
     );
   }
 
-  if (!data?.length && !isLoading) {
+  if (!items?.length && !isLoading) {
     return (
       <CardContainer sx={containerStyle}>
         <Alert severity="info">{emptyMessage}</Alert>
@@ -98,29 +106,38 @@ const TimeLine = ({ data, isLoading, emptyMessage, containerStyle, variant }: Ti
   }
 
   return (
-    <CardContainer sx={containerStyle}>
-      {data?.map(({ Action, Collapse, collapseItems, subtitle, key, active, Footer, Icon, isLastElement, onClick, tag, title }, index) => {
-        const keyString = `${key}-${index}-${title}`;
+    <>
+      <CardContainer sx={containerStyle}>
+        {items?.map(
+          ({ Action, Collapse, collapseItems, subtitle, key, active, Footer, Icon, isLastElement, onClick, tag, title }, index) => {
+            const keyString = `${key}-${index}-${title}`;
 
-        return (
-          <TimeLineEventItem
-            key={keyString}
-            Action={Action}
-            Footer={Footer}
-            Collapse={Collapse}
-            collapseItems={collapseItems}
-            active={active}
-            title={title}
-            subtitle={subtitle}
-            Icon={Icon}
-            isLastElement={isLastElement}
-            onClick={onClick}
-            tag={tag}
-            variant={variant}
-          />
-        );
-      })}
-    </CardContainer>
+            return (
+              <TimeLineEventItem
+                key={keyString}
+                Action={Action}
+                Footer={Footer}
+                Collapse={Collapse}
+                collapseItems={collapseItems}
+                active={active}
+                title={title}
+                subtitle={subtitle}
+                Icon={Icon}
+                isLastElement={isLastElement}
+                onClick={onClick}
+                tag={tag}
+                variant={variant}
+                onClickImage={(imageSrc) => {
+                  console.log(imageSrc);
+                  setLightboxSrc(imageSrc);
+                }}
+              />
+            );
+          },
+        )}
+      </CardContainer>
+      <Lightbox open={!!lightboxSrc} onClose={() => setLightboxSrc("")} src={lightboxSrc} />
+    </>
   );
 };
 export default TimeLine;
