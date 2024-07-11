@@ -364,6 +364,7 @@ const commonThemeOptions: MuiThemeOptions = {
               fontWeight: "inherit",
               lineHeight: "inherit",
               minHeight: "auto",
+              minWidth: "auto",
               padding: 0,
               textDecoration: "underline",
               textTransform: "none",

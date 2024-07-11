@@ -237,6 +237,11 @@ Text.args = {
   variant: "text",
 };
 
+export const Link = ButtonLinkTemplate.bind({});
+Link.args = {
+  variant: "link",
+};
+
 export const Icon = IconTemplate.bind({});
 Icon.args = {};
 
@@ -250,11 +255,6 @@ Loading.args = {
 
 export const ButtonAsLink = ButtonAsLinkTemplate.bind({});
 ButtonAsLink.args = {};
-
-export const ButtonAsLinkStyle = ButtonLinkTemplate.bind({});
-ButtonAsLinkStyle.args = {
-  variant: "link",
-};
 
 export default {
   component: ButtonStory,
