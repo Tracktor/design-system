@@ -1,4 +1,4 @@
-import { IconButton, Stack } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import { ListAvatar } from "../ListAvatar";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
@@ -27,7 +27,7 @@ const data = [
       </IconButton>
     ),
     subtitle: "Lorem Ipsum",
-    title: "Secondary action",
+    title: "Secondary action with a very long text that should be truncated",
   },
   {
     icon: <CloseIcon />,
@@ -41,11 +41,19 @@ const data = [
     subtitle: "Lorem Ipsum",
     title: "Custom avatar",
   },
+  {
+    Avatar: <ArticleImage width={40} height={40} />,
+    id: 6,
+    subtitle: "Lorem Ipsum",
+    title: "Title with a very long text that should be truncated",
+  },
 ];
 
 const Template: StoryFn<typeof ListAvatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-    <ListAvatar items={data} {...args} />
+    <Box maxWidth={320}>
+      <ListAvatar items={data} {...args} />
+    </Box>
   </Stack>
 );
 

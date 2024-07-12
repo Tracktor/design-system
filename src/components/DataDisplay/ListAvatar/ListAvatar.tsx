@@ -125,7 +125,9 @@ export const ListAvatar = ({
                   display: "flex",
                   justifyContent: "center",
                   opacity: alwaysDisplaySecondaryAction ? 1 : 0,
+                  position: "static",
                   right: ({ spacing }: Theme) => spacing(0.5),
+                  transform: "none",
                 },
                 "&:hover": {
                   "& .MuiListItemSecondaryAction-root": {
@@ -146,7 +148,11 @@ export const ListAvatar = ({
               <ListItemText
                 primary={
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    {title && <Typography variant="h6">{title}</Typography>}
+                    {title && (
+                      <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+                        {title}
+                      </Typography>
+                    )}
                     {chipLabel && (
                       <Chip label={chipLabel} variant="rounded" size="xSmall" color={isChipColor(chipColor) ? chipColor : "default"} />
                     )}
