@@ -106,7 +106,51 @@ CollapseItems.args = {
         color: "warning",
         label: "Second Tag",
       },
-      title: "Second Event",
+      title: "Collapse Event",
+    },
+    ...items,
+  ],
+};
+
+export const CollapseItemsDefaultOpen = Template.bind({});
+CollapseItemsDefaultOpen.args = {
+  items: [
+    {
+      active: true,
+      collapseDefaultOpen: true,
+      collapseItems: [
+        {
+          onClick: () => null,
+          subtitle: "First Collapse Item Subtitle",
+          title: "First Collapse Item clickable",
+        },
+        {
+          image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+          subtitle: "Second Collapse Item Subtitle with very long subtitle that should be truncated",
+          tag: {
+            color: "error",
+            label: "Second Tag",
+          },
+          title: "Second Collapse Item with very long title that should be truncated",
+        },
+        {
+          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Second Collapse Item Subtitle",
+          title: "Third Collapse Item",
+        },
+        {
+          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Second Collapse Item Subtitle",
+          title: "Fourth Collapse Item",
+        },
+      ],
+      isLastElement: false,
+      subtitle: "Second Event Subtitle",
+      tag: {
+        color: "warning",
+        label: "Second Tag",
+      },
+      title: "Collapse Event",
     },
     ...items,
   ],
@@ -133,7 +177,46 @@ CollapseCustom.args = {
 
 export const VariantHover = Template.bind({});
 VariantHover.args = {
-  items,
+  items: [
+    {
+      Action: <Link color="inherit">Action</Link>,
+      active: true,
+      collapseItems: [
+        {
+          onClick: () => null,
+          subtitle: "First Collapse Item Subtitle",
+          title: "First Collapse Item clickable",
+        },
+        {
+          image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+          subtitle: "Second Collapse Item Subtitle with very long subtitle that should be truncated",
+          tag: {
+            color: "error",
+            label: "Second Tag",
+          },
+          title: "Second Collapse Item with very long title that should be truncated",
+        },
+        {
+          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Second Collapse Item Subtitle",
+          title: "Third Collapse Item",
+        },
+        {
+          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Second Collapse Item Subtitle",
+          title: "Fourth Collapse Item",
+        },
+      ],
+      isLastElement: false,
+      subtitle: "Second Event Subtitle",
+      tag: {
+        color: "warning",
+        label: "Second Tag",
+      },
+      title: "Collapse Event",
+    },
+    ...items,
+  ],
   variant: "hover",
 };
 

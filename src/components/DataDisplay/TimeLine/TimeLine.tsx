@@ -16,28 +16,91 @@ export interface TimeLineCollapseItems {
 }
 
 export interface TimeLineItem {
+  /**
+   * Callback to execute when the event is clicked.
+   */
   onClick?(): void;
+  /**
+   * Custom collapse to display below the event.
+   */
   Collapse?: ReactNode;
+  /**
+   * Custom icon to display on the left of the event.
+   */
   Icon?: ReactNode;
+  /**
+   * Custom action to display on the right of the event.
+   */
   Action?: ReactNode;
+  /**
+   * Custom footer to display below the event.
+   */
   Footer?: ReactNode;
+  /**
+   * Unique key of the event.
+   */
   key?: string;
+  /**
+   * Title of the event.
+   */
   title?: string;
+  /**
+   * Subtitle of the event.
+   */
   subtitle?: string;
+  /**
+   * If true, the event is the last element and the divider will not be displayed.
+   */
   isLastElement: boolean;
+  /**
+   * If true, the event will be displayed as active.
+   */
   active?: boolean;
+  /**
+   * Collapse items are displayed in a list below the main event.
+   */
   collapseItems?: TimeLineCollapseItems[];
+  /**
+   * If true, the collapse will be open by default.
+   */
+  collapseDefaultOpen?: boolean;
+  /**
+   * Tag to display between the title and the subtitle.
+   */
   tag?: {
+    /**
+     * Label of the tag.
+     */
     label?: string | null;
+    /**
+     * Color of the tag.
+     */
     color?: ChipProps["color"];
   };
 }
 
 export interface TimeLineProps {
+  /**
+   * Custom style for the container.
+   */
   containerStyle?: SxProps;
+  /**
+   * If true, skeleton loading will be displayed.
+   */
   isLoading?: boolean;
+  /**
+   * Message to display when there are no items.
+   */
   emptyMessage?: string;
+  /**
+   * Variant of the timeline.
+   * hover: Timeline action will be displayed when hovering the event.
+   * @default default
+   */
   variant?: "default" | "hover";
+  /**
+   * List of items to display in the timeline.
+   */
   items?: TimeLineItem[];
 }
 
@@ -109,7 +172,24 @@ const TimeLine = ({ items, isLoading, emptyMessage, containerStyle, variant }: T
     <>
       <CardContainer sx={containerStyle}>
         {items?.map(
-          ({ Action, Collapse, collapseItems, subtitle, key, active, Footer, Icon, isLastElement, onClick, tag, title }, index) => {
+          (
+            {
+              Action,
+              Collapse,
+              collapseItems,
+              collapseDefaultOpen,
+              subtitle,
+              key,
+              active,
+              Footer,
+              Icon,
+              isLastElement,
+              onClick,
+              tag,
+              title,
+            },
+            index,
+          ) => {
             const keyString = `${key}-${index}-${title}`;
 
             return (
@@ -118,6 +198,7 @@ const TimeLine = ({ items, isLoading, emptyMessage, containerStyle, variant }: T
                 Action={Action}
                 Footer={Footer}
                 Collapse={Collapse}
+                collapseDefaultOpen={collapseDefaultOpen}
                 collapseItems={collapseItems}
                 active={active}
                 title={title}

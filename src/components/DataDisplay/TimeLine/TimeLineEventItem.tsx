@@ -1,5 +1,5 @@
 import { Box, Chip, Collapse as CollapseMui, Divider, Stack, Tooltip, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowRightIcon from "@/components/DataDisplay/Icons/ArrowRightIcon";
 import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import StatusIcon from "@/components/DataDisplay/StatusIcon";
@@ -22,6 +22,7 @@ const TimeLineEventItem = ({
   variant,
   tag,
   collapseItems,
+  collapseDefaultOpen,
   onClickImage,
   Action,
   Icon,
@@ -30,6 +31,13 @@ const TimeLineEventItem = ({
 }: TimeLineEventItemProps) => {
   const [isCollapseOpen, setIsCollapseOpen] = useState(false);
   const hasCollapse = Collapse || !!collapseItems?.length;
+
+  // Open collapse by default
+  useEffect(() => {
+    if (collapseDefaultOpen) {
+      setIsCollapseOpen(true);
+    }
+  }, [collapseDefaultOpen]);
 
   return (
     <Stack direction="row" alignItems="stretch" spacing={0} mt={0.5}>
@@ -44,7 +52,6 @@ const TimeLineEventItem = ({
                     borderColor: ({ palette }) => (active ? palette.secondary.main : palette.divider),
                     borderStyle: active ? "solid" : "dashed",
                     height: "100%",
-                    minHeight: 40,
                   }}
                   flexItem
                   orientation="vertical"
@@ -64,7 +71,6 @@ const TimeLineEventItem = ({
             "& .action": {
               opacity: 1,
             },
-            backgroundColor: ({ palette }) => (variant === "hover" ? palette.action.hover : undefined),
             borderRadius: 1,
           },
           padding: 1.5,
@@ -81,7 +87,7 @@ const TimeLineEventItem = ({
               <Typography
                 component="span"
                 onClick={onClick}
-                variant="body1"
+                variant="h6"
                 sx={{
                   cursor: hasCollapse || onClick ? "pointer" : "default",
                   marginRight: 1,
@@ -100,6 +106,11 @@ const TimeLineEventItem = ({
               )}
             </Stack>
             {tag && <Chip color={tag?.color || "default"} label={tag?.label} size="xSmall" variant="outlined" />}
+            {subtitle && (
+              <Typography variant="body2" color="textSecondary">
+                {subtitle}
+              </Typography>
+            )}
           </Box>
           {Action && (
             <Box
@@ -113,12 +124,6 @@ const TimeLineEventItem = ({
             </Box>
           )}
         </Stack>
-
-        {subtitle && (
-          <Typography variant="body2" color="textSecondary">
-            {subtitle}
-          </Typography>
-        )}
         {Footer}
         {Collapse && <CollapseMui in={isCollapseOpen}>{Collapse}</CollapseMui>}
         {!!collapseItems?.length && (
@@ -172,7 +177,10 @@ const TimeLineEventItem = ({
                         <Stack direction="row" marginTop={1} spacing={0.5}>
                           {image && (
                             <Box
-                              onClick={() => onClickImage?.(image)}
+                              onClick={(e) => {
+                                e?.stopPropagation();
+                                onClickImage?.(image);
+                              }}
                               component="img"
                               src={image}
                               sx={{
