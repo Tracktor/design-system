@@ -128,7 +128,7 @@ const TimeLineEventItem = ({
         {Collapse && <CollapseMui in={isCollapseOpen}>{Collapse}</CollapseMui>}
         {!!collapseItems?.length && (
           <CollapseMui in={isCollapseOpen}>
-            <Stack marginTop={2} spacing={3}>
+            <Stack marginTop={3} spacing={3}>
               {collapseItems?.map((item, index) => {
                 const key = `${item.title}-${index}`;
                 const image = Array.isArray(item?.image) ? item?.image[0] : item?.image;
