@@ -131,7 +131,7 @@ export const ListAvatar = ({
                   "& .MuiListItemSecondaryAction-root": {
                     opacity: 1,
                   },
-                  backgroundColor: ({ palette }: Theme) => palette.action.hover,
+                  backgroundColor: ({ palette }: Theme) => (onClick || secondaryAction ? palette.action.hover : "transparent"),
                 },
                 cursor: onClick ? "pointer" : "default",
               }}
