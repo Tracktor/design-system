@@ -85,6 +85,10 @@ export interface NavigationMenuProps {
    * AppBar component for small screens
    */
   AppBar?: ReactElement;
+  /**
+   * Search component
+   */
+  Footer?: ReactNode;
 }
 
 const DEFAULT_CONTEXT_VALUE = {
@@ -128,6 +132,7 @@ const NavigationMenu = ({
   NavLink,
   Search,
   Logo,
+  Footer,
   items,
   enableSearchFocusShortcut,
   disableResponsive,
@@ -155,6 +160,7 @@ const NavigationMenu = ({
       closeDrawerMenu,
       disableResponsive,
       enableSearchFocusShortcut,
+      Footer,
       hideSearchDesktop,
       isDrawerOpen,
       isMobile,
@@ -182,6 +188,7 @@ const NavigationMenu = ({
       hideSearchDesktop,
       bottomLink,
       AppBar,
+      Footer,
     ],
   );
 

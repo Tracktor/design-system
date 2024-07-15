@@ -1,4 +1,4 @@
-import { Alert, SvgIcon, TextField } from "@mui/material";
+import { Alert, Box, SvgIcon, TextField, Typography } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import NavigationMenu from "./NavigationMenu";
 import Logo from "@/components/DataDisplay/Logo";
@@ -212,6 +212,18 @@ WithBottomLinkMenuMobile.parameters = {
     defaultViewport: "mobile",
     viewports: VIEWPORTS,
   },
+};
+
+export const WithFooter = Template.bind({});
+WithFooter.args = {
+  Footer: (
+    <Box p={2} textAlign="center">
+      <Typography variant="caption" color="textSecondary">
+        © Custom Footer
+      </Typography>
+    </Box>
+  ),
+  items: ITEMS,
 };
 
 export default {

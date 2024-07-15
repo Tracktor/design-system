@@ -78,6 +78,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
     sideBarWidth,
     bottomLink,
     NavLink,
+    Footer,
     Search = props.Logo,
     Logo = props.Logo,
   } = useContext(NavigationMenuContext);
@@ -149,6 +150,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           </NavLinkItem>
         </Box>
       )}
+      {Footer}
     </Box>
   );
 };
