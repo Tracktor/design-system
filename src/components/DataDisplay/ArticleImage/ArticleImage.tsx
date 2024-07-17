@@ -35,7 +35,12 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
   const { borderRadius, padding } = geStyles(width, height, shape);
   const stylesBase = { borderRadius, flexShrink: 0 };
   const displayLoader = src && !loaded && !error;
-  const displayPlaceholder = !src || (error && !loaded);
+  const displayPlaceholder = !src || (error && !loaded) || (error && loaded);
+
+  const handleLoad = (e: SyntheticEvent) => {
+    setError(undefined);
+    setLoaded(e);
+  };
 
   if (isLoading) {
     return <ArticleImageSkeleton width={width} height={height} sx={stylesBase} />;
@@ -90,8 +95,8 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
         height={height}
         sx={stylesBase}
         onError={setError}
-        onLoad={setLoaded}
-        display={loaded ? "block" : "none"}
+        onLoad={handleLoad}
+        display={displayPlaceholder || !loaded ? "none" : "block"}
       />
     </>
   );
