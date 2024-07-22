@@ -60,7 +60,7 @@ const getFileNames = (files: FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
-const FileInput = ({
+const File = ({
   accept,
   name,
   disabled,
@@ -169,4 +169,4 @@ const FileInput = ({
   );
 };
 
-export default FileInput;
+export default File;

@@ -1,11 +1,11 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import FileInput from "@/components/Inputs/FileInput";
+import File from "@/components/Inputs/File";
 
-const Template: StoryFn<typeof FileInput> = (args) => (
+const Template: StoryFn<typeof File> = (args) => (
   <Stack spacing={2} height="100%" alignItems="center" justifyContent="center">
-    <FileInput size="small" {...args} />
-    <FileInput size="medium" {...args} />
+    <File size="small" {...args} />
+    <File size="medium" {...args} />
   </Stack>
 );
 
@@ -60,6 +60,6 @@ Disabled.args = {
 };
 
 export default {
-  component: FileInput,
-  title: "Components/Inputs/FileInput",
-} as Meta<typeof FileInput>;
+  component: File,
+  title: "Components/Inputs/File",
+} as Meta<typeof File>;
