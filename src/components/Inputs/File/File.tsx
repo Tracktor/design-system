@@ -8,7 +8,7 @@ export interface FileProps {
   label?: ReactNode;
   helperText?: ReactNode;
   icon?: ReactNode;
-  error?: ReactNode;
+  error?: boolean;
   id?: string;
   name?: string;
   value?: unknown;
@@ -142,20 +142,14 @@ const File = ({
             </Typography>
           </>
         ) : (
-          <>
-            <Typography variant="subtitle1" color={disabled ? "text.disabled" : "primary"}>
-              {label} {required && "*"}
-            </Typography>
-            {error ? (
-              <Typography color="error" variant="body2">
-                {error}
-              </Typography>
-            ) : (
-              <Typography color="textSecondary" variant="body2">
-                {helperText}
-              </Typography>
-            )}
-          </>
+          <Typography variant="subtitle1" color={disabled ? "text.disabled" : "primary"}>
+            {label} {required && "*"}
+          </Typography>
+        )}
+        {helperText && (
+          <Typography color={error ? "error" : "textSecondary"} variant="body2">
+            {helperText}
+          </Typography>
         )}
       </Stack>
       <input

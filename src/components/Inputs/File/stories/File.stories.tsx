@@ -47,7 +47,8 @@ DirectionRowMultiple.args = {
 
 export const WithError = Template.bind({});
 WithError.args = {
-  error: "Fichier invalide",
+  error: true,
+  helperText: "Fichier invalide",
   label: "Ajouter une photo ou un fichier",
 };
 
