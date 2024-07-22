@@ -47,8 +47,8 @@ export { default as AvatarAppBar } from "@/components/DataDisplay/AvatarAppBar";
 export * from "@/components/DataDisplay/AvatarAppBar";
 export { default as Chip } from "@/components/DataDisplay/Chip";
 export * from "@/components/DataDisplay/Chip";
-export { default as File } from "@/components/Inputs/File";
-export * from "@/components/Inputs/File";
+export { default as File } from "src/components/Inputs/FileInput";
+export * from "src/components/Inputs/FileInput";
 export { default as ListAvatars } from "@/components/DataDisplay/ListAvatar";
 export * from "@/components/DataDisplay/ListAvatar";
 

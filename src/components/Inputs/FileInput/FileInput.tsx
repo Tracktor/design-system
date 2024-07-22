@@ -2,7 +2,7 @@ import { InputLabel, Stack, Typography, useTheme } from "@mui/material";
 import { ChangeEvent, ElementRef, ReactNode, useRef, useState } from "react";
 import UploadIcon from "@/components/DataDisplay/Icons/UploadIcon";
 
-export interface FileProps {
+export interface FileUploadProps {
   size?: "small" | "medium";
   variant?: "vertical" | "horizontal";
   label?: ReactNode;
@@ -11,7 +11,6 @@ export interface FileProps {
   error?: boolean;
   id?: string;
   name?: string;
-  value?: unknown;
   accept?: string;
   required?: boolean;
   multiple?: boolean;
@@ -25,7 +24,7 @@ export interface FileProps {
 
 const MAX_FILE_NAME_TO_DISPLAY = 5;
 
-const getHeight = (size: FileProps["size"], variant: FileProps["variant"]) => {
+const getHeight = (size: FileUploadProps["size"], variant: FileUploadProps["variant"]) => {
   const isVertical = variant === "vertical";
 
   if (size === "small") {
@@ -61,22 +60,13 @@ const getFileNames = (files: FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
-const getInputValue = (value: unknown) => {
-  if (typeof value === "string" || typeof value === "number" || Array.isArray(value)) {
-    return value;
-  }
-
-  return undefined;
-};
-
-const File = ({
+const FileInput = ({
   accept,
   name,
   disabled,
   required,
   error,
   localeText,
-  value,
   multiple,
   id,
   size,
@@ -86,7 +76,7 @@ const File = ({
   onChange,
   label = "Click to upload",
   variant = "vertical",
-}: FileProps) => {
+}: FileUploadProps) => {
   const { palette } = useTheme();
   const isVertical = variant === "vertical";
   const htmlId = id || name;
@@ -162,7 +152,6 @@ const File = ({
         accept={accept}
         id={htmlId}
         onChange={handleChange}
-        value={getInputValue(value)}
         style={{
           // Hide the input element
           // The input element is hidden
@@ -180,4 +169,4 @@ const File = ({
   );
 };
 
-export default File;
+export default FileInput;
