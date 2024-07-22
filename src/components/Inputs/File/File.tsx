@@ -81,10 +81,10 @@ const File = ({
   id,
   size,
   helperText,
-  label = "Click to upload",
   fullWidth,
   icon,
   onChange,
+  label = "Click to upload",
   variant = "vertical",
 }: FileProps) => {
   const { palette } = useTheme();
