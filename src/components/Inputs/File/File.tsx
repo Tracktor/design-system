@@ -113,6 +113,7 @@ const File = ({
         height: getHeight(size, variant),
         maxWidth: fullWidth ? "100%" : 400,
         padding: 2,
+        position: "relative",
         width: "100%",
       }}
     >
@@ -153,15 +154,27 @@ const File = ({
         )}
       </Stack>
       <input
-        hidden
-        disabled={disabled}
-        id={htmlId}
         type="file"
+        disabled={disabled}
+        required={required}
         name={name}
         multiple={multiple}
+        accept={accept}
+        id={htmlId}
         onChange={handleChange}
         value={getInputValue(value)}
-        accept={accept}
+        style={{
+          // Hide the input element
+          // The input element is hidden
+          // But still clickable and focusable for accessibility and HTML validation
+          left: "50%",
+          opacity: 0,
+          pointerEvents: "none",
+          position: "absolute",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: -1,
+        }}
       />
     </InputLabel>
   );
