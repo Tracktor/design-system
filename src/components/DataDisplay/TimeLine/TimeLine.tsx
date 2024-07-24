@@ -235,10 +235,7 @@ const TimeLine = ({
                 onClick={onClick}
                 tag={tag}
                 variant={variant}
-                onClickImage={(imageSrc) => {
-                  console.log(imageSrc);
-                  setLightboxSrc(imageSrc);
-                }}
+                onClickImage={(imageSrc) => setLightboxSrc(imageSrc)}
               />
             );
           },
