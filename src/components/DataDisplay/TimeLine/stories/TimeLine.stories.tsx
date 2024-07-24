@@ -43,18 +43,13 @@ const items = [
 
 const Template: StoryFn<typeof TimeLine> = (args) => (
   <Stack spacing={2} height="100%" alignItems="center" justifyContent="center">
-    <TimeLine
-      isLoading={args?.isLoading}
-      items={args?.items}
-      emptyMessage={args?.emptyMessage}
-      containerStyle={{ maxWidth: 400 }}
-      variant={args?.variant}
-    />
+    <TimeLine containerStyle={{ maxWidth: 400 }} {...args} />
   </Stack>
 );
 
 export const Basic = Template.bind({});
 Basic.args = {
+  isLoading: false,
   items,
 };
 

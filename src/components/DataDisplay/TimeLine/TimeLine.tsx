@@ -102,10 +102,29 @@ export interface TimeLineProps {
    * List of items to display in the timeline.
    */
   items?: TimeLineItem[];
+  /**
+   * Data attributes for testing purposes.
+   */
+  "data-test"?: string;
+  /**
+   * Data attributes for testing purposes.
+   */
+  "data-testid"?: string;
 }
 
-const CardContainer = ({ children, sx }: PropsWithChildren & { sx?: SxProps }) => (
+const CardContainer = ({
+  children,
+  sx,
+  "data-test": dataTest,
+  "data-testid": dataTestId,
+}: PropsWithChildren & {
+  sx?: SxProps;
+  "data-test"?: string;
+  "data-testid"?: string;
+}) => (
   <Card
+    data-test={dataTest}
+    data-testid={dataTestId}
     sx={{
       width: "100%",
       ...sx,
@@ -115,12 +134,20 @@ const CardContainer = ({ children, sx }: PropsWithChildren & { sx?: SxProps }) =
   </Card>
 );
 
-const TimeLine = ({ items, isLoading, emptyMessage, containerStyle, variant }: TimeLineProps) => {
+const TimeLine = ({
+  items,
+  isLoading,
+  emptyMessage,
+  containerStyle,
+  variant,
+  "data-test": dataTest,
+  "data-testid": dataTestId,
+}: TimeLineProps) => {
   const [lightboxSrc, setLightboxSrc] = useState("");
 
   if (isLoading) {
     return (
-      <CardContainer sx={containerStyle}>
+      <CardContainer sx={containerStyle} data-test={dataTest} data-testid={dataTestId}>
         <Stack spacing={3}>
           <Stack spacing={2} pt={1} pl={0.5} direction="row">
             <StatusIcon />
@@ -170,7 +197,7 @@ const TimeLine = ({ items, isLoading, emptyMessage, containerStyle, variant }: T
 
   return (
     <>
-      <CardContainer sx={containerStyle}>
+      <CardContainer sx={containerStyle} data-test={dataTest} data-testid={dataTestId}>
         {items?.map(
           (
             {
