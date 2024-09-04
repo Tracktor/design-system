@@ -20,6 +20,7 @@ const items = [
     Footer: "Footer",
     isLastElement: false,
     key: "2",
+    onClick: () => null,
     subtitle: "Second Event Subtitle",
     tag: {
       color: "warning",
@@ -30,7 +31,6 @@ const items = [
   {
     Action: <Link color="inherit">Action</Link>,
     active: false,
-    isLastElement: true,
     key: "3",
     subtitle: "Third Event Subtitle",
     tag: {
@@ -95,7 +95,6 @@ CollapseItems.args = {
           title: "Fourth Collapse Item",
         },
       ],
-      isLastElement: false,
       subtitle: "Second Event Subtitle",
       tag: {
         color: "warning",
@@ -139,7 +138,6 @@ CollapseItemsDefaultOpen.args = {
           title: "Fourth Collapse Item",
         },
       ],
-      isLastElement: false,
       subtitle: "Second Event Subtitle",
       tag: {
         color: "warning",
@@ -158,7 +156,6 @@ CollapseCustom.args = {
       active: true,
       Collapse: <Typography>Collapsed content</Typography>,
       Footer: "Footer",
-      isLastElement: false,
       subtitle: "Second Event Subtitle",
       tag: {
         color: "warning",
@@ -202,7 +199,6 @@ VariantHover.args = {
           title: "Fourth Collapse Item",
         },
       ],
-      isLastElement: false,
       subtitle: "Second Event Subtitle",
       tag: {
         color: "warning",

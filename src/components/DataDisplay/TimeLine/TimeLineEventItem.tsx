@@ -6,6 +6,7 @@ import StatusIcon from "@/components/DataDisplay/StatusIcon";
 import { TimeLineProps } from "@/components/DataDisplay/TimeLine/TimeLine";
 
 type TimeLineEventItemProps = NonNullable<TimeLineProps["items"]>[number] & {
+  isLastElement: boolean;
   variant?: TimeLineProps["variant"];
   onClickImage?(imageSrc: string): void;
 };

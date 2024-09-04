@@ -49,10 +49,6 @@ export interface TimeLineItem {
    */
   subtitle?: string;
   /**
-   * If true, the event is the last element and the divider will not be displayed.
-   */
-  isLastElement: boolean;
-  /**
    * If true, the event will be displayed as active.
    */
   active?: boolean;
@@ -199,25 +195,9 @@ const TimeLine = ({
     <>
       <CardContainer sx={containerStyle} data-test={dataTest} data-testid={dataTestId}>
         {items?.map(
-          (
-            {
-              Action,
-              Collapse,
-              collapseItems,
-              collapseDefaultOpen,
-              subtitle,
-              key,
-              active,
-              Footer,
-              Icon,
-              isLastElement,
-              onClick,
-              tag,
-              title,
-            },
-            index,
-          ) => {
+          ({ Action, Collapse, collapseItems, collapseDefaultOpen, subtitle, key, active, Footer, Icon, onClick, tag, title }, index) => {
             const keyString = `${key}-${index}-${title}`;
+            const isLastElement = index === items.length - 1;
 
             return (
               <TimeLineEventItem
