@@ -26,8 +26,8 @@ interface ListAvatarProps {
   numberLoadingItems?: number;
   items?: {
     id?: string | number | null;
-    title?: string | null;
-    subtitle?: string | null;
+    title?: ReactNode;
+    subtitle?: ReactNode;
     image?: string | null;
     icon?: ReactNode;
     chipLabel?: ReactNode;
@@ -142,7 +142,7 @@ export const ListAvatar = ({
                 <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>
               ) : (
                 <Avatar src={image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
-                  {icon || title?.charAt(0).toUpperCase()}
+                  {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
                 </Avatar>
               )}
               <ListItemText
