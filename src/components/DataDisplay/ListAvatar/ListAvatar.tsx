@@ -142,7 +142,7 @@ export const ListAvatar = ({
                 <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>
               ) : (
                 <Avatar src={image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
-                  {icon || (typeof title === "string" && title?.charAt(0).toUpperCase())}
+                  {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
                 </Avatar>
               )}
               <ListItemText
