@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.3.14
-- **[fix]** - `ListAvatar` change type: ReactNode for title and subtitle
+## v2.3.15
+- **[fix]** - `AppBar` onclick event

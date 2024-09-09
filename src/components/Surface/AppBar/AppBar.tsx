@@ -133,7 +133,10 @@ const AppBar = ({
                     sx={{
                       cursor: menuItems ? "pointer" : "default",
                     }}
-                    onClick={openMenu}
+                    onClick={(e) => {
+                      openMenu(e);
+                      avatarPropsWithoutItems?.onClick?.(e);
+                    }}
                     {...avatarPropsWithoutItems}
                   />
                 )}
