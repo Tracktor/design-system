@@ -70,6 +70,8 @@ const AppBar = ({
   const isTablet = useMediaQuery(breakpoints.between("sm", "md"));
   const isSmallScreen = isMobile || isTablet;
 
+  console.log(avatarProps);
+
   const styles = {
     logoContainer: {
       a: {
@@ -130,6 +132,7 @@ const AppBar = ({
               ? null
               : AvatarComponent || (
                   <AvatarAppBar
+                    {...avatarPropsWithoutItems}
                     sx={{
                       cursor: menuItems ? "pointer" : "default",
                     }}
@@ -137,7 +140,6 @@ const AppBar = ({
                       openMenu(e);
                       avatarProps?.onClick?.(e);
                     }}
-                    {...avatarPropsWithoutItems}
                   />
                 )}
           </Stack>
