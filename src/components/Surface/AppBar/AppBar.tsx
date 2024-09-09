@@ -135,7 +135,7 @@ const AppBar = ({
                     }}
                     onClick={(e) => {
                       openMenu(e);
-                      avatarPropsWithoutItems?.onClick?.(e);
+                      avatarProps?.onClick?.(e);
                     }}
                     {...avatarPropsWithoutItems}
                   />
