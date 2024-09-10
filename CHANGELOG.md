@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.3.18
-- **[fix]** - Remove console.log
+## v2.3.19
+- **[fix]** - List item component type

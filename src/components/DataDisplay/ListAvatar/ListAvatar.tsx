@@ -159,6 +159,12 @@ export const ListAvatar = ({
                   </Stack>
                 }
                 secondary={subtitle}
+                primaryTypographyProps={{
+                  component: "div",
+                }}
+                secondaryTypographyProps={{
+                  component: "div",
+                }}
                 sx={{ marginY: 0 }}
               />
             </ListItem>
