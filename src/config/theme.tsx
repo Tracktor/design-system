@@ -205,7 +205,14 @@ const commonThemeOptions: MuiThemeOptions = {
       },
     },
     MuiAutocomplete: {
+      defaultProps: {
+        limitTags: 1,
+      },
       styleOverrides: {
+        inputRoot: ({ ownerState }) => ({
+          flexWrap: ownerState.focused ? "wrap" : "nowrap",
+          overflow: "hidden",
+        }),
         paper: ({ theme }) => ({
           marginTop: theme.spacing(0.5),
         }),
