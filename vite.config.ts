@@ -24,7 +24,7 @@ const config: UserConfig = {
     },
     minify: "esbuild",
     rollupOptions: {
-      external,
+      external: ["exceljs", ...external],
       output: {
         globals: {
           "@mui/material": "material",
