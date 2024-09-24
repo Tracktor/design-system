@@ -113,7 +113,7 @@ const Logo = (
     const colorLogo = colorShape || palette.primary.main;
 
     return (
-      <Box component="svg" width="32px" height="32px" viewBox="0 0 32 32" fill="none" sx={sx}>
+      <Box component="svg" viewBox="0 0 32 32" fill="none" sx={{ height: logoHeight, width: logoWidth, ...sx }}>
         <path d="M17 0V15H32C32 6.71026 25.2897 0 17 0Z" fill={colorLogo} />
         <path d="M0 0V15H15C15 6.71026 8.27968 0 0 0Z" fill={colorLogo} />
         <path d="M14.9955 16C14.9955 16 15.0056 16 14.9955 16V32H0C0 23.1576 6.71832 16 14.9955 16Z" fill={colorLogo} />
@@ -126,11 +126,9 @@ const Logo = (
     return (
       <Box
         component="svg"
-        height={logoHeight}
-        width={logoWidth}
         viewBox="0 0 147 44"
         fill="none"
-        sx={sx}
+        sx={{ height: logoHeight, width: logoWidth, ...sx }}
         ref={ref as RefObject<SVGSVGElement>}
       >
         <g clipPath="url(#clip0_12018_69701)">
@@ -197,7 +195,13 @@ const Logo = (
 
   if (variant === "supplier") {
     return (
-      <Box component="svg" width="195" height="24" viewBox="0 0 195 24" fill="none" sx={sx} ref={ref as RefObject<SVGSVGElement>}>
+      <Box
+        component="svg"
+        viewBox="0 0 195 24"
+        fill="none"
+        sx={{ height: logoHeight, width: logoWidth, ...sx }}
+        ref={ref as RefObject<SVGSVGElement>}
+      >
         <path
           d="M0 3C0 1.34315 1.34315 0 3 0H21C22.6569 0 24 1.34315 24 3V21C24 22.6569 22.6569 24 21 24H3C1.34315 24 0 22.6569 0 21V3Z"
           fill={backgroundShape}
@@ -270,11 +274,9 @@ const Logo = (
   return (
     <Box
       component="svg"
-      height={logoHeight}
-      width={logoWidth}
       viewBox="0 0 105 24"
       fill="none"
-      sx={sx}
+      sx={{ height: logoHeight, width: logoWidth, ...sx }}
       ref={ref as RefObject<SVGSVGElement>}
     >
       <path
