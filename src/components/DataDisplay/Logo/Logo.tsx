@@ -1,8 +1,12 @@
-import { Skeleton, useTheme } from "@mui/material";
+import { Box, Skeleton, SxProps, useTheme } from "@mui/material";
 import { ForwardedRef, forwardRef, ReactElement, RefObject, useEffect, useState } from "react";
 import useLogo from "@/components/DataDisplay/Logo/useLogo";
 
 interface CommonLogoProps {
+  /**
+   * Style props
+   */
+  sx?: SxProps;
   /**
    * Logo height
    */
@@ -55,7 +59,7 @@ type ImgLogoProps = CommonLogoProps & {
 export type LogoProps = SvgLogoProps | ImgLogoProps;
 
 const Logo = (
-  { colorShape, shapeBackgroundColor, color, height, width, withoutText, mode, variant = "default", component = "img" }: LogoProps,
+  { colorShape, shapeBackgroundColor, color, height, width, withoutText, mode, sx, variant = "default", component = "img" }: LogoProps,
   ref: ForwardedRef<SVGSVGElement | HTMLImageElement | HTMLDivElement>,
 ): ReactElement => {
   const [logoSrc, setLogoSrc] = useState("");
@@ -80,7 +84,15 @@ const Logo = (
 
   if (component === "img") {
     return logoSrc ? (
-      <img src={logoSrc} alt="Tracktor" height={logoHeight} width={logoWidth} ref={ref as RefObject<HTMLImageElement>} />
+      <Box
+        component="img"
+        src={logoSrc}
+        alt="Tracktor"
+        height={logoHeight}
+        width={logoWidth}
+        ref={ref as RefObject<HTMLImageElement>}
+        sx={sx}
+      />
     ) : (
       <Skeleton
         variant="rounded"
@@ -101,18 +113,26 @@ const Logo = (
     const colorLogo = colorShape || palette.primary.main;
 
     return (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <Box component="svg" width="32px" height="32px" viewBox="0 0 32 32" fill="none" sx={sx}>
         <path d="M17 0V15H32C32 6.71026 25.2897 0 17 0Z" fill={colorLogo} />
         <path d="M0 0V15H15C15 6.71026 8.27968 0 0 0Z" fill={colorLogo} />
         <path d="M14.9955 16C14.9955 16 15.0056 16 14.9955 16V32H0C0 23.1576 6.71832 16 14.9955 16Z" fill={colorLogo} />
         <path d="M32 16V32H17C17 23.1576 23.7103 16 32 16Z" fill={colorLogo} />
-      </svg>
+      </Box>
     );
   }
 
   if (variant === "pricing") {
     return (
-      <svg height={logoHeight} width={logoWidth} viewBox="0 0 147 44" fill="none" ref={ref as RefObject<SVGSVGElement>}>
+      <Box
+        component="svg"
+        height={logoHeight}
+        width={logoWidth}
+        viewBox="0 0 147 44"
+        fill="none"
+        sx={sx}
+        ref={ref as RefObject<SVGSVGElement>}
+      >
         <g clipPath="url(#clip0_12018_69701)">
           <path
             d="M45.8141 9.78482V7.63522H41.6861V22.7089H45.8141V13.7401C46.8478 12.3908 50.2345 11.4185 52.0299 11.359L51.683 7.31774C49.3844 7.43679 47.1402 8.23711 45.8141 9.78482Z"
@@ -171,13 +191,13 @@ const Logo = (
             <rect width="147" height="44" fill="white" />
           </clipPath>
         </defs>
-      </svg>
+      </Box>
     );
   }
 
   if (variant === "supplier") {
     return (
-      <svg width="195" height="24" viewBox="0 0 195 24" fill="none" ref={ref as RefObject<SVGSVGElement>}>
+      <Box component="svg" width="195" height="24" viewBox="0 0 195 24" fill="none" sx={sx} ref={ref as RefObject<SVGSVGElement>}>
         <path
           d="M0 3C0 1.34315 1.34315 0 3 0H21C22.6569 0 24 1.34315 24 3V21C24 22.6569 22.6569 24 21 24H3C1.34315 24 0 22.6569 0 21V3Z"
           fill={backgroundShape}
@@ -243,12 +263,20 @@ const Logo = (
             <rect width="16" height="16" fill="white" transform="translate(4 4)" />
           </clipPath>
         </defs>
-      </svg>
+      </Box>
     );
   }
 
   return (
-    <svg height={logoHeight} width={logoWidth} ref={ref as RefObject<SVGSVGElement>} viewBox="0 0 105 24" fill="none">
+    <Box
+      component="svg"
+      height={logoHeight}
+      width={logoWidth}
+      viewBox="0 0 105 24"
+      fill="none"
+      sx={sx}
+      ref={ref as RefObject<SVGSVGElement>}
+    >
       <path
         d="M0 3C0 1.34315 1.34315 0 3 0H21C22.6569 0 24 1.34315 24 3V21C24 22.6569 22.6569 24 21 24H3C1.34315 24 0 22.6569 0 21V3Z"
         fill={backgroundShape}
@@ -310,7 +338,7 @@ const Logo = (
           <rect width="16" height="16" fill="white" transform="translate(4 4)" />
         </clipPath>
       </defs>
-    </svg>
+    </Box>
   );
 };
 
