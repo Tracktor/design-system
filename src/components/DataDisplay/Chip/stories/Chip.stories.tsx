@@ -41,6 +41,16 @@ const TemplateColor: StoryFn<typeof Chip> = (args) => (
       <Chip label="warning" color="warning" {...args} />
       <Chip label="error" color="error" {...args} />
     </Stack>
+
+    <Stack spacing={1}>
+      <Chip variant="outlined-rounded" label="outlined-rounded default" color="default" {...args} />
+      <Chip variant="outlined-rounded" label="outlined-rounded primary" color="primary" {...args} />
+      <Chip variant="outlined-rounded" label="outlined-rounded secondary" color="secondary" {...args} />
+      <Chip variant="outlined-rounded" label="outlined-rounded info" color="info" {...args} />
+      <Chip variant="outlined-rounded" label="outlined-rounded success" color="success" {...args} />
+      <Chip variant="outlined-rounded" label="outlined-rounded warning" color="warning" {...args} />
+      <Chip variant="outlined-rounded" label="outlined-rounded error" color="error" {...args} />
+    </Stack>
   </Stack>
 );
 
