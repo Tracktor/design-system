@@ -1,11 +1,12 @@
 import { Chip as ChipMui, ChipProps as ChipPropsMui, useTheme } from "@mui/material";
+import { forwardRef, Ref } from "react";
 import DotIcon from "@/components/DataDisplay/Icons/DotIcon";
 
 interface ChipProps extends ChipPropsMui {
   dot?: boolean;
 }
 
-const Chip = ({ dot, color, variant, ...props }: ChipProps) => {
+const Chip = ({ dot, color, variant, ...props }: ChipProps, ref: Ref<HTMLDivElement>) => {
   const { palette } = useTheme();
 
   const dotColor = {
@@ -20,6 +21,7 @@ const Chip = ({ dot, color, variant, ...props }: ChipProps) => {
 
   return (
     <ChipMui
+      ref={ref}
       variant={variant}
       color={color}
       icon={
@@ -40,4 +42,4 @@ const Chip = ({ dot, color, variant, ...props }: ChipProps) => {
   );
 };
 
-export default Chip;
+export default forwardRef(Chip);
