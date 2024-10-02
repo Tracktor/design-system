@@ -30,6 +30,7 @@ declare module "@mui/material/Button" {
 
 declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
+    outlinedRounded: true;
     rounded: true;
   }
   interface ChipPropsSizeOverrides {
@@ -421,41 +422,43 @@ const commonThemeOptions: MuiThemeOptions = {
         root: ({ theme, ownerState }) => {
           const color = ownerState.color || "default";
           const variant = ownerState.variant || "standard";
+          const isOutlinedVariant = ["outlined", "outlinedRounded"].includes(variant);
 
           return {
             ...(color === "default" && {
-              backgroundColor: variant === "outlined" ? theme.palette.grey[50] : theme.palette.grey[100],
-              borderColor: variant === "outlined" ? theme.palette.divider : "transparent",
+              backgroundColor: isOutlinedVariant ? theme.palette.grey[50] : theme.palette.grey[100],
+              border: isOutlinedVariant ? `1px solid ${theme.palette.divider}` : "transparent",
               color: theme.palette.text.primary,
             }),
             ...(color === "primary" && {
               backgroundColor: theme.palette.primary["4p"],
-              borderColor: variant === "outlined" ? theme.palette.divider : "transparent",
+              border: isOutlinedVariant ? `1px solid ${theme.palette.divider}` : "transparent",
               color: theme.palette.primary.black,
             }),
             ...(color === "secondary" && {
-              backgroundColor: variant === "outlined" ? theme.palette.secondary["8p"] : theme.palette.secondary["16p"],
-              color: variant === "outlined" ? theme.palette.secondary.dark : theme.palette.secondary.black,
+              backgroundColor: isOutlinedVariant ? theme.palette.secondary["8p"] : theme.palette.secondary["16p"],
+              border: isOutlinedVariant ? `1px solid ${theme.palette.secondary["30p"]}` : "transparent",
+              color: isOutlinedVariant ? theme.palette.secondary.dark : theme.palette.secondary.black,
             }),
             ...(color === "error" && {
-              backgroundColor: variant === "outlined" ? theme.palette.error["8p"] : theme.palette.error["30p"],
-              borderColor: variant === "outlined" ? theme.palette.error["30p"] : "transparent",
-              color: variant === "outlined" ? theme.palette.error.dark : theme.palette.error["160p"],
+              backgroundColor: isOutlinedVariant ? theme.palette.error["8p"] : theme.palette.error["30p"],
+              border: isOutlinedVariant ? `1px solid ${theme.palette.error["30p"]}` : "transparent",
+              color: isOutlinedVariant ? theme.palette.error.dark : theme.palette.error["160p"],
             }),
             ...(color === "info" && {
-              backgroundColor: variant === "outlined" ? theme.palette.info["8p"] : theme.palette.info["30p"],
-              borderColor: variant === "outlined" ? theme.palette.info["30p"] : "transparent",
-              color: variant === "outlined" ? theme.palette.info.dark : theme.palette.info["160p"],
+              backgroundColor: isOutlinedVariant ? theme.palette.info["8p"] : theme.palette.info["30p"],
+              border: isOutlinedVariant ? `1px solid ${theme.palette.info["30p"]}` : "transparent",
+              color: isOutlinedVariant ? theme.palette.info.dark : theme.palette.info["160p"],
             }),
             ...(color === "success" && {
-              backgroundColor: variant === "outlined" ? theme.palette.success["8p"] : theme.palette.success["30p"],
-              borderColor: variant === "outlined" ? theme.palette.success["30p"] : "transparent",
-              color: variant === "outlined" ? theme.palette.success.dark : theme.palette.success["160p"],
+              backgroundColor: isOutlinedVariant ? theme.palette.success["8p"] : theme.palette.success["30p"],
+              border: isOutlinedVariant ? `1px solid ${theme.palette.success["30p"]}` : "transparent",
+              color: isOutlinedVariant ? theme.palette.success.dark : theme.palette.success["160p"],
             }),
             ...(color === "warning" && {
-              backgroundColor: variant === "outlined" ? theme.palette.warning["8p"] : theme.palette.warning["30p"],
-              borderColor: variant === "outlined" ? theme.palette.warning["30p"] : "transparent",
-              color: variant === "outlined" ? theme.palette.warning.dark : theme.palette.warning["160p"],
+              backgroundColor: isOutlinedVariant ? theme.palette.warning["8p"] : theme.palette.warning["30p"],
+              border: isOutlinedVariant ? `1px solid ${theme.palette.warning["30p"]}` : "transparent",
+              color: isOutlinedVariant ? theme.palette.warning.dark : theme.palette.warning["160p"],
             }),
             fontWeight: 500,
           };
@@ -464,6 +467,12 @@ const commonThemeOptions: MuiThemeOptions = {
       variants: [
         {
           props: { variant: "rounded" },
+          style: ({ theme }) => ({
+            borderRadius: theme.shape.borderRadiusS,
+          }),
+        },
+        {
+          props: { variant: "outlinedRounded" },
           style: ({ theme }) => ({
             borderRadius: theme.shape.borderRadiusS,
           }),
