@@ -130,11 +130,14 @@ const AppBar = ({
               ? null
               : AvatarComponent || (
                   <AvatarAppBar
+                    {...avatarPropsWithoutItems}
                     sx={{
                       cursor: menuItems ? "pointer" : "default",
                     }}
-                    onClick={openMenu}
-                    {...avatarPropsWithoutItems}
+                    onClick={(e) => {
+                      openMenu(e);
+                      avatarProps?.onClick?.(e);
+                    }}
                   />
                 )}
           </Stack>

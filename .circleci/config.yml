@@ -54,7 +54,7 @@ jobs:
     executor: build-docker
     steps:
       - setup_remote_docker:
-          version: 20.10.14
+          version: default
       - checkout
       - sre/load-package-version
       - restore_cache:
