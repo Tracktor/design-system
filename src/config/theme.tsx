@@ -30,7 +30,7 @@ declare module "@mui/material/Button" {
 
 declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
-    outlinedRounded: true;
+    "outlined-rounded": true;
     rounded: true;
   }
   interface ChipPropsSizeOverrides {
@@ -422,7 +422,7 @@ const commonThemeOptions: MuiThemeOptions = {
         root: ({ theme, ownerState }) => {
           const color = ownerState.color || "default";
           const variant = ownerState.variant || "standard";
-          const isOutlinedVariant = ["outlined", "outlinedRounded"].includes(variant);
+          const isOutlinedVariant = ["outlined", "outlined-rounded"].includes(variant);
 
           return {
             ...(color === "default" && {
@@ -472,7 +472,7 @@ const commonThemeOptions: MuiThemeOptions = {
           }),
         },
         {
-          props: { variant: "outlinedRounded" },
+          props: { variant: "outlined-rounded" },
           style: ({ theme }) => ({
             borderRadius: theme.shape.borderRadiusS,
           }),
