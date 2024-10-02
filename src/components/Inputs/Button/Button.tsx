@@ -62,7 +62,7 @@ const WrapChildren = ({
     return (
       <Stack direction={loadingPosition === "start" ? "row" : "row-reverse"} alignItems="center">
         <Loader size={size} position="relative" loadingPosition={loadingPosition} />
-        {children}
+        <Box component="span">{children}</Box>
       </Stack>
     );
   }
@@ -71,7 +71,9 @@ const WrapChildren = ({
     return (
       <>
         {isLoading && !loadingIndicator && <Loader size={size} />}
-        <Box sx={{ opacity: 0 }}>{children}</Box>
+        <Box component="span" sx={{ opacity: 0 }}>
+          {children}
+        </Box>
       </>
     );
   }
@@ -80,7 +82,7 @@ const WrapChildren = ({
     return <> {loadingIndicator} </>;
   }
 
-  return <> {children} </>;
+  return <Box component="span">{children}</Box>;
 };
 
 const Button = <RootComponent extends ElementType>(props: ButtonProps<RootComponent>, ref: ForwardedRef<any>) => {
