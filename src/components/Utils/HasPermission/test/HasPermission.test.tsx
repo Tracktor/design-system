@@ -13,6 +13,16 @@ describe("Test <HasPermission/>", () => {
     expect(getByText("This should render")).toBeInTheDocument();
   });
 
+  it("with array name", () => {
+    const { getByText } = render(
+      <HasPermission name={["featureName"]} additionalPermissions={["featureName"]}>
+        This should render
+      </HasPermission>,
+    );
+
+    expect(getByText("This should render")).toBeInTheDocument();
+  });
+
   it("with string name and several features", () => {
     const { getByText } = render(
       <HasPermission name="featureName" additionalPermissions={["featureName", "featureName2"]}>
