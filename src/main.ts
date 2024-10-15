@@ -51,6 +51,8 @@ export { default as File } from "@/components/Inputs/File";
 export * from "@/components/Inputs/File";
 export { default as ListAvatars } from "@/components/DataDisplay/ListAvatar";
 export * from "@/components/DataDisplay/ListAvatar";
+export { default as SelectMultiple } from "@/components/Inputs/SelectMultiple";
+export * from "@/components/Inputs/SelectMultiple";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";

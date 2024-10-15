@@ -700,17 +700,23 @@ const commonThemeOptions: MuiThemeOptions = {
       },
       styleOverrides: {
         list: ({ theme }) => ({
-          "& .MuiMenuItem-root": {
-            ...theme.typography.body2,
-            borderRadius: theme.shape.borderRadiusS,
-            lineHeight: theme.typography.pxToRem(24),
-            padding: theme.spacing(1, 2),
-          },
           minWidth: 200,
           padding: theme.spacing(1),
         }),
         root: ({ theme }) => ({
           marginTop: theme.spacing(0.5),
+        }),
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: ({ theme, ownerState }) => ({
+          ...theme.typography.body2,
+          borderRadius: theme.shape.borderRadiusS,
+          lineHeight: theme.typography.pxToRem(24),
+          ...(!ownerState.dense && {
+            padding: theme.spacing(1, 2),
+          }),
         }),
       },
     },
