@@ -37,6 +37,17 @@ WithAvatar.args = {
   placeholder: "Select options...",
 };
 
+export const WithoutCheckbox = Template.bind({});
+WithoutCheckbox.args = {
+  disableCheckbox: true,
+  options: [
+    { id: "1", label: "Oliver Hansen", value: "oliver-hansen" },
+    { id: "2", label: "Van Henry", value: "van-henry" },
+    { id: "3", label: "April Tucker", value: "april-tucker" },
+  ],
+  placeholder: "Select options...",
+};
+
 export default {
   component: SelectMultiple,
   title: "Components/Inputs/SelectMultiple",

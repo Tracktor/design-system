@@ -27,6 +27,7 @@ export type SelectMultipleOption = {
 export type SelectMultipleProps<Value = SelectMultipleOption[]> = Omit<SelectProps<Value>, "onChange" | "multiple"> & {
   disableSelectAll?: boolean;
   disableReset?: boolean;
+  disableCheckbox?: boolean;
   options?: SelectMultipleOption[];
   width?: number | string;
   localeText?: {
@@ -79,6 +80,7 @@ const SelectMultiple = (
     placeholder,
     disabled,
     localeText,
+    disableCheckbox,
     displayEmpty = true,
     width = 300,
     size = "small",
@@ -162,8 +164,8 @@ const SelectMultiple = (
         const checked = Array.isArray(value) ? value?.map(({ value: optionValue }) => optionValue)?.includes(`${option?.value}`) : false;
 
         return (
-          <MenuItem dense disableGutters key={key} value={option as []}>
-            <Checkbox checked={checked} />
+          <MenuItem dense={!disableCheckbox} disableGutters={!disableCheckbox} key={key} value={option as []}>
+            {!disableCheckbox && <Checkbox checked={checked} />}
             {/* Image */}
             {option?.image && (
               <ListItemAvatar
