@@ -1,5 +1,19 @@
-import { Badge, Box, Checkbox, Divider, ListItemText, MenuItem, Select, SelectProps, Stack, useTheme } from "@mui/material";
-import { ReactNode } from "react";
+import {
+  Badge,
+  Box,
+  Checkbox,
+  Divider,
+  FormControl,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  SelectProps,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { forwardRef, ReactNode, Ref } from "react";
 
 export type SelectMultipleOption = {
   id?: string | number | null;
@@ -8,7 +22,9 @@ export type SelectMultipleOption = {
 };
 
 export type SelectMultipleProps<Value = SelectMultipleOption[]> = Omit<SelectProps<Value>, "onChange" | "multiple"> & {
+  disableSelectAll?: boolean;
   options?: SelectMultipleOption[];
+  width?: number | string;
   onChange?(value: Value, child: ReactNode): void;
 };
 
@@ -18,7 +34,7 @@ const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      maxHeight: ITEM_HEIGHT * 5.5 + ITEM_PADDING_TOP,
     },
   },
 };
@@ -45,50 +61,89 @@ const Count = ({ children }: { children?: number }) => {
   );
 };
 
-const SelectMultiple = ({ value, options, onChange, size = "small", ...props }: SelectMultipleProps) => (
-  <Select
-    multiple
-    size={size}
-    value={value}
-    MenuProps={MenuProps}
-    renderValue={(selected) => (
-      <Stack direction="row" spacing={1}>
-        <Box component="span" overflow="hidden" textOverflow="ellipsis">
-          {selected?.map(({ label }) => label).join(", ")}
-        </Box>
-        <Count>{selected?.length}</Count>
-      </Stack>
-    )}
-    onChange={(event, child) => {
-      const { target } = event || {};
+const SelectMultiple = (
+  {
+    disableSelectAll,
+    options,
+    onChange,
+    fullWidth,
+    placeholder,
+    disabled,
+    displayEmpty = true,
+    width = 300,
+    size = "small",
+    value = [],
+    ...props
+  }: SelectMultipleProps,
+  ref: Ref<HTMLDivElement>,
+) => (
+  <FormControl fullWidth={fullWidth} sx={{ ...(!fullWidth && { width }) }}>
+    <Select
+      multiple
+      fullWidth
+      displayEmpty={displayEmpty}
+      disabled={disabled || !options?.length}
+      MenuProps={MenuProps}
+      size={size}
+      value={value}
+      ref={ref}
+      input={<OutlinedInput placeholder="Allo" />}
+      placeholder="Cidade"
+      renderValue={(selected) => {
+        if (!selected?.length) {
+          return <Typography color="textSecondary">{placeholder}</Typography>;
+        }
 
-      if (typeof target.value === "string") {
-        return;
-      }
+        return (
+          <Stack direction="row" spacing={1}>
+            <Box component="span" overflow="hidden" textOverflow="ellipsis">
+              {selected?.map(({ label }) => label).join(", ")}
+            </Box>
+            <Count>{selected?.length}</Count>
+          </Stack>
+        );
+      }}
+      onChange={(event, child) => {
+        event.stopPropagation();
+        const { value: newValue } = event.target || {};
 
-      onChange?.(target.value, child);
-    }}
-    {...props}
-  >
-    <MenuItem dense value="SELECT">
-      <Checkbox checked={false} />
-      <ListItemText primary="Tout sélectionner" />
-    </MenuItem>
+        if (typeof newValue === "string") {
+          return;
+        }
 
-    <Divider component="li" />
+        // If select all is selected
+        if ((newValue as string[]).includes("SELECT_ALL")) {
+          onChange?.(value.length === options?.length ? [] : options || [], child);
+          return;
+        }
 
-    {options?.map((option, index) => {
-      const key = `select-multiple-${index}-${option?.id}-${value}`;
-      const checked = Array.isArray(value) ? value?.map(({ value: optionValue }) => optionValue)?.includes(`${option?.value}`) : false;
-
-      return (
-        <MenuItem key={key} value={option as []} dense>
-          <Checkbox checked={checked} />
-          <ListItemText primary={option?.label} />
+        onChange?.(newValue, child);
+      }}
+      {...props}
+    >
+      {/* Select all*/}
+      {!disableSelectAll && !!options?.length && (
+        <MenuItem dense disableGutters value="SELECT_ALL">
+          <Checkbox checked={value.length === options?.length} indeterminate={value.length > 0 && value.length < (options?.length || 0)} />
+          <ListItemText primary="Tout sélectionner" />
         </MenuItem>
-      );
-    })}
-  </Select>
+      )}
+
+      {!disableSelectAll && <Divider component="li" />}
+
+      {options?.map((option, index) => {
+        const key = `select-multiple-${index}-${option?.id}-${value}`;
+        const checked = Array.isArray(value) ? value?.map(({ value: optionValue }) => optionValue)?.includes(`${option?.value}`) : false;
+
+        return (
+          <MenuItem dense disableGutters key={key} value={option as []}>
+            <Checkbox checked={checked} />
+            <ListItemText primary={option?.label} />
+          </MenuItem>
+        );
+      })}
+    </Select>
+  </FormControl>
 );
 
-export default SelectMultiple;
+export default forwardRef(SelectMultiple);
