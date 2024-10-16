@@ -9,7 +9,6 @@ import {
   ListItemAvatar,
   ListItemText,
   MenuItem,
-  OutlinedInput,
   Select,
   SelectProps,
   Stack,
@@ -98,8 +97,6 @@ const SelectMultiple = (
       size={size}
       value={value}
       ref={ref}
-      input={<OutlinedInput placeholder="Allo" />}
-      placeholder="Cidade"
       renderValue={(selected) => {
         if (!selected?.length) {
           return <Typography color="textSecondary">{placeholder}</Typography>;
