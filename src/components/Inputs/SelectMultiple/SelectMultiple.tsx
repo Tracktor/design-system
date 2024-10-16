@@ -30,6 +30,10 @@ export type SelectMultipleProps<Value = SelectMultipleOption[]> = Omit<SelectPro
   disableReset?: boolean;
   options?: SelectMultipleOption[];
   width?: number | string;
+  localeText?: {
+    selectAll?: string;
+    reset?: string;
+  };
   onChange?(value: Value, child?: ReactNode): void;
 };
 
@@ -75,6 +79,7 @@ const SelectMultiple = (
     fullWidth,
     placeholder,
     disabled,
+    localeText,
     displayEmpty = true,
     width = 300,
     size = "small",
@@ -131,7 +136,7 @@ const SelectMultiple = (
       {!disableSelectAll && !!options?.length && (
         <MenuItem dense disableGutters value="SELECT_ALL">
           <Checkbox checked={value.length === options?.length} />
-          <ListItemText primary="Tout sélectionner" />
+          <ListItemText primary={localeText?.selectAll || "Select all"} />
           {/* Reset */}
           {!disableReset && (
             <Button
@@ -146,7 +151,7 @@ const SelectMultiple = (
                 onChange?.([]);
               }}
             >
-              Reset
+              {localeText?.reset || "Reset"}
             </Button>
           )}
         </MenuItem>
