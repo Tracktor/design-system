@@ -1,9 +1,12 @@
 import {
+  Avatar,
   Badge,
   Box,
+  Button,
   Checkbox,
   Divider,
   FormControl,
+  ListItemAvatar,
   ListItemText,
   MenuItem,
   OutlinedInput,
@@ -17,15 +20,17 @@ import { forwardRef, ReactNode, Ref } from "react";
 
 export type SelectMultipleOption = {
   id?: string | number | null;
-  label?: string | number | null;
+  label?: ReactNode;
+  image?: string;
   value?: string | number | null;
 };
 
 export type SelectMultipleProps<Value = SelectMultipleOption[]> = Omit<SelectProps<Value>, "onChange" | "multiple"> & {
   disableSelectAll?: boolean;
+  disableReset?: boolean;
   options?: SelectMultipleOption[];
   width?: number | string;
-  onChange?(value: Value, child: ReactNode): void;
+  onChange?(value: Value, child?: ReactNode): void;
 };
 
 const ITEM_HEIGHT = 48;
@@ -64,6 +69,7 @@ const Count = ({ children }: { children?: number }) => {
 const SelectMultiple = (
   {
     disableSelectAll,
+    disableReset,
     options,
     onChange,
     fullWidth,
@@ -121,15 +127,33 @@ const SelectMultiple = (
       }}
       {...props}
     >
-      {/* Select all*/}
+      {/* Select all */}
       {!disableSelectAll && !!options?.length && (
         <MenuItem dense disableGutters value="SELECT_ALL">
-          <Checkbox checked={value.length === options?.length} indeterminate={value.length > 0 && value.length < (options?.length || 0)} />
+          <Checkbox checked={value.length === options?.length} />
           <ListItemText primary="Tout sélectionner" />
+          {/* Reset */}
+          {!disableReset && (
+            <Button
+              variant="link"
+              size="small"
+              sx={{
+                marginX: 1,
+                textDecoration: "none",
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onChange?.([]);
+              }}
+            >
+              Reset
+            </Button>
+          )}
         </MenuItem>
       )}
 
-      {!disableSelectAll && <Divider component="li" />}
+      {/* Divider */}
+      {!disableSelectAll && !!options?.length && <Divider component="li" />}
 
       {options?.map((option, index) => {
         const key = `select-multiple-${index}-${option?.id}-${value}`;
@@ -138,6 +162,19 @@ const SelectMultiple = (
         return (
           <MenuItem dense disableGutters key={key} value={option as []}>
             <Checkbox checked={checked} />
+            {/* Image */}
+            {option?.image && (
+              <ListItemAvatar
+                sx={{
+                  height: 24,
+                  marginRight: 1,
+                  minWidth: "auto",
+                  width: 24,
+                }}
+              >
+                <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }} />
+              </ListItemAvatar>
+            )}
             <ListItemText primary={option?.label} />
           </MenuItem>
         );
