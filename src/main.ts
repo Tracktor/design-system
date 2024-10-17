@@ -53,6 +53,8 @@ export { default as ListAvatars } from "@/components/DataDisplay/ListAvatar";
 export * from "@/components/DataDisplay/ListAvatar";
 export { default as SelectMultiple } from "@/components/Inputs/SelectMultiple";
 export * from "@/components/Inputs/SelectMultiple";
+export { default as AutocompleteFilter } from "@/components/Inputs/AutocompleteFilter";
+export * from "@/components/Inputs/AutocompleteFilter";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
