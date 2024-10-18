@@ -31,6 +31,7 @@ const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
     </Stack>
   );
 };
+
 export const Basic = Template.bind({});
 Basic.args = {
   options: data,
@@ -40,6 +41,41 @@ Basic.args = {
 export const WithImage = Template.bind({});
 WithImage.args = {
   options: dataWithImage,
+  placeholder: "Search...",
+};
+
+export const DisableSelectAll = Template.bind({});
+DisableSelectAll.args = {
+  disableSelectAll: true,
+  options: dataWithImage,
+  placeholder: "Search...",
+};
+
+export const WithHeaderOptions = Template.bind({});
+WithHeaderOptions.args = {
+  options: [
+    ...data,
+    {
+      id: "my-worksite",
+      isHeader: true,
+      label: "Mes chantiers",
+      value: "my-worksite",
+    },
+  ],
+  placeholder: "Search...",
+};
+
+export const WithoutReset = Template.bind({});
+WithoutReset.args = {
+  disableReset: true,
+  options: data,
+  placeholder: "Search...",
+};
+
+export const CheckboxDisabled = Template.bind({});
+CheckboxDisabled.args = {
+  disableCheckbox: true,
+  options: data,
   placeholder: "Search...",
 };
 

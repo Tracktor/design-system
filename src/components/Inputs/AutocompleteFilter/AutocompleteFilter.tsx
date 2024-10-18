@@ -26,6 +26,7 @@ export type AutocompleteFilterOption = {
   id?: string | number | null;
   label?: ReactNode;
   image?: string;
+  isHeader?: boolean;
   value?: unknown;
 };
 
@@ -36,20 +37,28 @@ export interface AutocompleteFilterProps<
   ChipComponent extends ElementType = ChipTypeMap["defaultComponent"],
 > extends Omit<
     MuiAutocompleteProps<AutocompleteFilterOption, Multiple, DisableClearable, FreeSolo, ChipComponent>,
-    "renderInput" | "options" | "onChange" | "freeSolo"
+    "options" | "onChange" | "freeSolo"
   > {
+  /**
+   *  Options to display
+   */
+  options: AutocompleteFilterOption[];
+  /**
+   *  Placeholder
+   */
+  placeholder?: string;
+  /**
+   *  If true, the checkbox is disabled
+   */
+  disableCheckbox?: boolean;
+  disableSelectAll?: boolean;
+  disableReset?: boolean;
   onChange?: (
     event: SyntheticEvent,
     value: AutocompleteFilterOption[],
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<AutocompleteFilterOption>,
   ) => void;
-  renderInput: MuiAutocompleteProps<AutocompleteFilterOption, Multiple, DisableClearable, FreeSolo>["renderInput"];
-  options: AutocompleteFilterOption[];
-  placeholder?: string;
-  disableCheckbox?: boolean;
-  disableSelectAll?: boolean;
-  disableReset?: boolean;
   localeText?: {
     selectAll?: string;
     reset?: string;
@@ -92,52 +101,89 @@ const PaperComponent = <
   function RenderPaperComponent(paperProps: HTMLAttributes<HTMLElement>) {
     const { children, ...restPaperProps } = paperProps;
     const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
+    const headerOptions = options?.filter((option) => option?.isHeader);
 
     return (
       <Paper {...restPaperProps}>
-        <List role="listbox">
-          {!disableSelectAll && (
-            <ListItem
-              disablePadding
-              role="option"
-              onMouseDown={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
+        {(!disableSelectAll || !!headerOptions.length) && (
+          <>
+            <List role="listbox">
+              {!disableSelectAll && (
+                <ListItem
+                  disablePadding
+                  role="option"
+                  onMouseDown={(e) => {
+                    // prevent blur
+                    e.stopPropagation();
+                    e.preventDefault();
 
-                if (allChecked) {
-                  onChange?.(e, [], "removeOption");
-                  return;
-                }
+                    if (allChecked) {
+                      onChange?.(e, [], "removeOption");
+                      return;
+                    }
 
-                onChange?.(e, options, "selectOption");
-              }} // prevent blur
-            >
-              <ListItemButton>
-                <Checkbox id="select-all-checkbox" checked={allChecked} />
-                <ListItemText primary={localeText?.selectAll || "Select all"} />
-                {!disableReset && (
-                  <Button
-                    variant="link"
-                    size="small"
-                    sx={{
-                      marginX: 1,
-                      textDecoration: "none",
-                    }}
+                    onChange?.(e, options, "selectOption");
+                  }}
+                >
+                  <ListItemButton>
+                    <Checkbox id="select-all-checkbox" checked={allChecked} />
+                    <ListItemText primary={localeText?.selectAll || "Select all"} />
+                    {!disableReset && (
+                      <Button
+                        variant="link"
+                        size="small"
+                        sx={{
+                          marginX: 1,
+                          textDecoration: "none",
+                        }}
+                        onClick={(e) => {
+                          onChange?.(e, [], "removeOption");
+                        }}
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                        }}
+                      >
+                        {localeText?.reset || "Reset"}
+                      </Button>
+                    )}
+                  </ListItemButton>
+                </ListItem>
+              )}
+              {headerOptions?.map((option, index) => {
+                const key = `header-options-${option?.id}-${index}`;
+                const checked = Array.isArray(value) && value.some((val) => JSON.stringify(val) === JSON.stringify(option));
+
+                return (
+                  <ListItem
+                    key={key}
+                    disablePadding
                     onClick={(e) => {
+                      if (checked) {
+                        const newValue = Array.isArray(value) ? value?.filter((val) => JSON.stringify(val) !== JSON.stringify(option)) : [];
+
+                        onChange?.(e, newValue as AutocompleteFilterOption[], "removeOption");
+                        return;
+                      }
+
+                      onChange?.(e, [...(Array.isArray(value) ? value : []), option], "selectOption");
+                    }}
+                    onMouseDown={(e) => {
                       e.stopPropagation();
                       e.preventDefault();
-                      onChange?.(e, [], "removeOption");
                     }}
                   >
-                    {localeText?.reset || "Reset"}
-                  </Button>
-                )}
-              </ListItemButton>
-            </ListItem>
-          )}
-        </List>
-
-        <Divider />
+                    <ListItemButton>
+                      <Checkbox checked={checked} />
+                      <ListItemText primary={option?.label} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+            <Divider />
+          </>
+        )}
 
         {children}
       </Paper>
@@ -199,6 +245,10 @@ const AutocompleteFilter = <
       getLimitTagsText={Count(badgeColor)}
       PaperComponent={PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
       renderOption={(optionProps, option, { selected }) => {
+        if (option?.isHeader) {
+          return null;
+        }
+
         const key = `${option?.id}-${optionProps?.key}`;
 
         return (
@@ -251,7 +301,6 @@ const AutocompleteFilter = <
 
         return <TextField {...params} placeholder={getPlaceholder()} />;
       }}
-      slotProps={{}}
     />
   );
 };
