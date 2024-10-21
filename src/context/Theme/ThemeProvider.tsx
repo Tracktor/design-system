@@ -116,21 +116,19 @@ const ThemeProvider = ({
   const fontOptions = { ...defaultFont, ...font };
   const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
   const fontWeight = fontOptions?.fontWeight?.join(";");
-  const mode = theme === "dark" ? "dark" : "light";
+  const mode = typeof theme === "object" ? theme.palette?.mode || "light" : theme;
 
   const getTheme = () => {
-    const themeMode = typeof theme === "object" ? theme.palette?.mode : theme;
-
     const themeOptions: ThemeOptions = {
-      ...(typeof theme === "object" ? theme : {}),
-      ...(language === "fr" ? frFR : {}),
+      ...(typeof theme === "object" && theme),
+      ...(language === "fr" && frFR),
     };
 
-    if (themeMode === "dark") {
+    if (mode === "dark") {
       return createTheme(darkTheme, themeOptions);
     }
 
-    if (themeMode === "light") {
+    if (mode === "light") {
       return createTheme(lightTheme, themeOptions);
     }
 
