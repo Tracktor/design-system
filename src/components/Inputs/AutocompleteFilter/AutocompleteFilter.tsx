@@ -22,12 +22,12 @@ import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@mui/materi
 import * as React from "react";
 import { ElementType, forwardRef, HTMLAttributes, ReactNode, Ref, SyntheticEvent, useState } from "react";
 
-export type AutocompleteFilterOption = {
+export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
   label?: ReactNode;
   image?: string;
   isHeader?: boolean;
-  value?: unknown;
+  value?: T;
 };
 
 export interface AutocompleteFilterProps<
@@ -35,30 +35,56 @@ export interface AutocompleteFilterProps<
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType = ChipTypeMap["defaultComponent"],
+  OptionValue extends unknown = unknown,
 > extends Omit<
-    MuiAutocompleteProps<AutocompleteFilterOption, Multiple, DisableClearable, FreeSolo, ChipComponent>,
+    MuiAutocompleteProps<AutocompleteFilterOption<OptionValue>, Multiple, DisableClearable, FreeSolo, ChipComponent>,
     "options" | "onChange" | "freeSolo"
   > {
   /**
    *  Options to display
    */
-  options: AutocompleteFilterOption[];
+  options: AutocompleteFilterOption<OptionValue>[];
   /**
    *  Placeholder
    */
   placeholder?: string;
   /**
    *  If true, the checkbox is disabled
+   *  @default false
    */
   disableCheckbox?: boolean;
+  /**
+   *  If true, the select all option is disabled
+   *  @default false
+   */
   disableSelectAll?: boolean;
+  /**
+   *  If true, the reset option is disabled
+   *  @default false
+   */
   disableReset?: boolean;
+  /**
+   *  If true, the input value is reset when an option is selected
+   *  Works only with controlled input
+   *  @default false
+   */
+  resetInputValueOnSelectOption?: boolean;
+  /**
+   *  Callback when the value change
+   * @param event
+   * @param value
+   * @param reason
+   * @param details
+   */
   onChange?: (
     event: SyntheticEvent,
-    value: AutocompleteFilterOption[],
+    value: AutocompleteFilterOption<OptionValue>[],
     reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<AutocompleteFilterOption>,
+    details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
   ) => void;
+  /**
+   *  Locale text
+   */
   localeText?: {
     selectAll?: string;
     reset?: string;
@@ -87,6 +113,7 @@ const PaperComponent = <
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType,
+  OptionValue extends unknown,
 >({
   disableSelectAll,
   localeText,
@@ -95,7 +122,7 @@ const PaperComponent = <
   options,
   value,
 }: Pick<
-  AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent>,
+  AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
   "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value"
 >) =>
   function RenderPaperComponent(paperProps: HTMLAttributes<HTMLElement>) {
@@ -162,7 +189,7 @@ const PaperComponent = <
                       if (checked) {
                         const newValue = Array.isArray(value) ? value?.filter((val) => JSON.stringify(val) !== JSON.stringify(option)) : [];
 
-                        onChange?.(e, newValue as AutocompleteFilterOption[], "removeOption");
+                        onChange?.(e, newValue as AutocompleteFilterOption<OptionValue>[], "removeOption");
                         return;
                       }
 
@@ -195,6 +222,7 @@ const AutocompleteFilter = <
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType,
+  OptionValue extends unknown,
 >(
   {
     onChange,
@@ -205,29 +233,35 @@ const AutocompleteFilter = <
     disableReset,
     disableSelectAll,
     value,
+    onFocus,
+    onBlur,
+    onInputChange,
+    inputValue,
+    resetInputValueOnSelectOption,
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
     ...props
-  }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent>,
+  }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue> & { inputValue?: string },
   ref: Ref<HTMLDivElement>,
 ) => {
   const { palette } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
+  const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
 
   const handleChange = (
     event: SyntheticEvent,
-    newValue: AutocompleteValue<AutocompleteFilterOption, Multiple, DisableClearable, FreeSolo>,
+    newValue: AutocompleteValue<AutocompleteFilterOption<OptionValue>, Multiple, DisableClearable, FreeSolo>,
     reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<AutocompleteFilterOption>,
+    details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
   ) => {
     if (newValue === null) {
       onChange?.(event, [], reason, details);
       return;
     }
 
-    onChange?.(event, newValue as AutocompleteFilterOption[], reason, details);
+    onChange?.(event, newValue as AutocompleteFilterOption<OptionValue>[], reason, details);
   };
 
   return (
@@ -239,11 +273,29 @@ const AutocompleteFilter = <
       freeSolo={false as FreeSolo}
       multiple={multiple as Multiple}
       onChange={handleChange}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
       disableCloseOnSelect={disableCloseOnSelect}
       getLimitTagsText={Count(badgeColor)}
+      inputValue={inputValue || internalInputValue}
       PaperComponent={PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
+      onInputChange={(_, newInputValue, reason) => {
+        if (reason === "reset" && isFocused && !resetInputValueOnSelectOption) {
+          return;
+        }
+
+        if (!inputValue) {
+          setInternalInputValue(newInputValue);
+        }
+
+        onInputChange?.(_, newInputValue, reason);
+      }}
+      onFocus={(event) => {
+        setIsFocused(true);
+        onFocus?.(event);
+      }}
+      onBlur={(event) => {
+        setIsFocused(false);
+        onBlur?.(event);
+      }}
       renderOption={(optionProps, option, { selected }) => {
         if (option?.isHeader) {
           return null;
@@ -292,11 +344,7 @@ const AutocompleteFilter = <
             return undefined;
           }
 
-          if (value) {
-            return placeholder;
-          }
-
-          return undefined;
+          return placeholder;
         };
 
         return <TextField {...params} placeholder={getPlaceholder()} />;

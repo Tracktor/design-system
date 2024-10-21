@@ -17,17 +17,27 @@ const dataWithImage = [
 ];
 
 const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
-  const [selectedOptions, setSelectedOptions] = useState<AutocompleteFilterOption[]>([]);
+  const [selectedOptionsXSmall, setSelectedOptionsXSmall] = useState<AutocompleteFilterOption[]>([]);
+  const [selectedOptionsSmall, setSelectedOptionsSmall] = useState<AutocompleteFilterOption[]>([]);
+  const [selectedOptionsMedium, setSelectedOptionsMedium] = useState<AutocompleteFilterOption[]>([]);
 
-  const handleChange = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
-    setSelectedOptions(value);
+  const handleChangeXSmall = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    setSelectedOptionsXSmall(value);
+  };
+
+  const handleChangeSmall = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    setSelectedOptionsSmall(value);
+  };
+
+  const handleChangeMedium = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    setSelectedOptionsMedium(value);
   };
 
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-      <AutocompleteFilter {...args} size="xSmall" sx={{ width: 300 }} value={selectedOptions} onChange={handleChange} />
-      <AutocompleteFilter {...args} size="small" sx={{ width: 300 }} value={selectedOptions} onChange={handleChange} />
-      <AutocompleteFilter {...args} size="medium" sx={{ width: 300 }} value={selectedOptions} onChange={handleChange} />
+      <AutocompleteFilter {...args} size="xSmall" sx={{ width: 300 }} onChange={handleChangeXSmall} value={selectedOptionsXSmall} />
+      <AutocompleteFilter {...args} size="small" sx={{ width: 300 }} onChange={handleChangeSmall} value={selectedOptionsSmall} />
+      <AutocompleteFilter {...args} size="medium" sx={{ width: 300 }} onChange={handleChangeMedium} value={selectedOptionsMedium} />
     </Stack>
   );
 };
@@ -35,20 +45,17 @@ const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
 export const Basic = Template.bind({});
 Basic.args = {
   options: data,
-  placeholder: "Search...",
 };
 
 export const WithImage = Template.bind({});
 WithImage.args = {
   options: dataWithImage,
-  placeholder: "Search...",
 };
 
 export const DisableSelectAll = Template.bind({});
 DisableSelectAll.args = {
   disableSelectAll: true,
   options: dataWithImage,
-  placeholder: "Search...",
 };
 
 export const WithHeaderOptions = Template.bind({});
@@ -62,21 +69,30 @@ WithHeaderOptions.args = {
       value: "my-worksite",
     },
   ],
-  placeholder: "Search...",
 };
 
 export const WithoutReset = Template.bind({});
 WithoutReset.args = {
   disableReset: true,
   options: data,
-  placeholder: "Search...",
 };
 
 export const CheckboxDisabled = Template.bind({});
 CheckboxDisabled.args = {
   disableCheckbox: true,
   options: data,
+};
+
+export const WithPlaceholder = Template.bind({});
+WithPlaceholder.args = {
+  options: data,
   placeholder: "Search...",
+};
+
+export const ResetInputValueOnSelect = Template.bind({});
+ResetInputValueOnSelect.args = {
+  options: data,
+  resetInputValueOnSelectOption: true,
 };
 
 export default {
