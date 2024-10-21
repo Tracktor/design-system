@@ -17,9 +17,6 @@ const dataWithImage = [
 ];
 
 const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
-  const [inputValueXSmall, setInputValueXSmall] = useState("");
-  const [inputValueSmall, setInputValueSmall] = useState("");
-  const [inputValueMedium, setInputValueMedium] = useState("");
   const [selectedOptionsXSmall, setSelectedOptionsXSmall] = useState<AutocompleteFilterOption[]>([]);
   const [selectedOptionsSmall, setSelectedOptionsSmall] = useState<AutocompleteFilterOption[]>([]);
   const [selectedOptionsMedium, setSelectedOptionsMedium] = useState<AutocompleteFilterOption[]>([]);
@@ -38,39 +35,9 @@ const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
 
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-      <AutocompleteFilter
-        {...args}
-        size="xSmall"
-        sx={{ width: 300 }}
-        onChange={handleChangeXSmall}
-        value={selectedOptionsXSmall}
-        inputValue={inputValueXSmall}
-        onInputChange={(_, newInputValue) => {
-          setInputValueXSmall(newInputValue);
-        }}
-      />
-      <AutocompleteFilter
-        {...args}
-        size="small"
-        sx={{ width: 300 }}
-        onChange={handleChangeSmall}
-        value={selectedOptionsSmall}
-        inputValue={inputValueSmall}
-        onInputChange={(_, newInputValue) => {
-          setInputValueSmall(newInputValue);
-        }}
-      />
-      <AutocompleteFilter
-        {...args}
-        size="medium"
-        sx={{ width: 300 }}
-        onChange={handleChangeMedium}
-        value={selectedOptionsMedium}
-        inputValue={inputValueMedium}
-        onInputChange={(_, newInputValue) => {
-          setInputValueMedium(newInputValue);
-        }}
-      />
+      <AutocompleteFilter {...args} size="xSmall" sx={{ width: 300 }} onChange={handleChangeXSmall} value={selectedOptionsXSmall} />
+      <AutocompleteFilter {...args} size="small" sx={{ width: 300 }} onChange={handleChangeSmall} value={selectedOptionsSmall} />
+      <AutocompleteFilter {...args} size="medium" sx={{ width: 300 }} onChange={handleChangeMedium} value={selectedOptionsMedium} />
     </Stack>
   );
 };

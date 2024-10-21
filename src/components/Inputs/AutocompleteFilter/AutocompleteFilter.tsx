@@ -236,16 +236,18 @@ const AutocompleteFilter = <
     onFocus,
     onBlur,
     onInputChange,
+    inputValue,
     resetInputValueOnSelectOption,
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
     ...props
-  }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
+  }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue> & { inputValue?: string },
   ref: Ref<HTMLDivElement>,
 ) => {
   const { palette } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
+  const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
 
   const handleChange = (
@@ -273,10 +275,15 @@ const AutocompleteFilter = <
       onChange={handleChange}
       disableCloseOnSelect={disableCloseOnSelect}
       getLimitTagsText={Count(badgeColor)}
+      inputValue={inputValue || internalInputValue}
       PaperComponent={PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
       onInputChange={(_, newInputValue, reason) => {
         if (reason === "reset" && isFocused && !resetInputValueOnSelectOption) {
           return;
+        }
+
+        if (!inputValue) {
+          setInternalInputValue(newInputValue);
         }
 
         onInputChange?.(_, newInputValue, reason);
@@ -337,11 +344,7 @@ const AutocompleteFilter = <
             return undefined;
           }
 
-          if (value) {
-            return placeholder;
-          }
-
-          return undefined;
+          return placeholder;
         };
 
         return <TextField {...params} placeholder={getPlaceholder()} />;
