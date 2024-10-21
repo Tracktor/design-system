@@ -1,5 +1,6 @@
-import { createTheme, css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
+import { CssBaseline, GlobalStyles } from "@mui/material";
 import { frFR } from "@mui/material/locale";
+import { createTheme, css, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material/styles";
 import type { ReactNode } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
@@ -34,8 +35,10 @@ export interface ThemeProviderProps {
   enableColorScheme?: boolean;
   /**
    * Language to use
+   * @default "en"
+   * @supported "en" | "fr"
    */
-  language?: "fr" | "en";
+  language?: string;
   /**
    * Font options
    */
