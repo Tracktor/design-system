@@ -25,7 +25,7 @@ export interface ThemeProviderProps {
   /**
    * Theme options
    */
-  themeOptions?: ThemeOptions | Localization;
+  themeOptions?: ThemeOptions | Localization | object;
   /**
    * Theme mode
    */
