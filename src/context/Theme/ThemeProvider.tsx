@@ -1,8 +1,8 @@
-import { css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
+import { createTheme, css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
+import { frFR } from "@mui/material/locale";
 import type { ReactNode } from "react";
-import { commonTheme } from "@/config/theme";
+import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
-import useThemeProvider from "@/context/Theme/useThemeProvider";
 
 export interface ThemeProviderProps {
   /**
@@ -32,6 +32,10 @@ export interface ThemeProviderProps {
    * @default false
    */
   enableColorScheme?: boolean;
+  /**
+   * Language to use
+   */
+  language?: "fr" | "en";
   /**
    * Font options
    */
@@ -102,17 +106,36 @@ const ThemeProvider = ({
   includeCssBaseline = true,
   includeScrollBarStyle = true,
   fullHeight = true,
+  language,
   theme = "light",
   font = defaultFont,
 }: ThemeProviderProps) => {
-  const { getTheme } = useThemeProvider();
   const fontOptions = { ...defaultFont, ...font };
   const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
   const fontWeight = fontOptions?.fontWeight?.join(";");
   const mode = theme === "dark" ? "dark" : "light";
 
+  const getTheme = () => {
+    const themeMode = typeof theme === "object" ? theme.palette?.mode : theme;
+
+    const themeOptions: ThemeOptions = {
+      ...(typeof theme === "object" ? theme : {}),
+      ...(language === "fr" ? frFR : {}),
+    };
+
+    if (themeMode === "dark") {
+      return createTheme(darkTheme, themeOptions);
+    }
+
+    if (themeMode === "light") {
+      return createTheme(lightTheme, themeOptions);
+    }
+
+    return createTheme(commonTheme, themeOptions);
+  };
+
   return (
-    <ThemeProviderMUI theme={getTheme(theme)}>
+    <ThemeProviderMUI theme={getTheme()}>
       <GlobalStyles
         styles={css`
           ::-webkit-calendar-picker-indicator {
