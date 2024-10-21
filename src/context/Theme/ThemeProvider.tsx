@@ -1,5 +1,5 @@
 import { CssBaseline, GlobalStyles } from "@mui/material";
-import { frFR } from "@mui/material/locale";
+import { frFR, Localization } from "@mui/material/locale";
 import { createTheme, css, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material/styles";
 import { ReactNode } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
@@ -25,7 +25,7 @@ export interface ThemeProviderProps {
   /**
    * Theme options
    */
-  themeOptions?: ThemeOptions;
+  themeOptions?: ThemeOptions | Localization;
   /**
    * Theme mode
    */
@@ -126,7 +126,7 @@ const ThemeProvider = ({
     const languages: ThemeOptions = { ...(language === "fr" && frFR) };
 
     if (mode === "dark") {
-      return createTheme(darkTheme, languages);
+      return createTheme(darkTheme, themeOptions, languages);
     }
 
     if (mode === "light") {
