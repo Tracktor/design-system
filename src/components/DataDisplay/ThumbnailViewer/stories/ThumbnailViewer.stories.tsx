@@ -8,8 +8,8 @@ const Template: StoryFn<typeof ThumbnailViewer> = (args) => (
   </Stack>
 );
 
-export const PdfFile = Template.bind({});
-PdfFile.args = {
+export const PdfThumbnailViewer = Template.bind({});
+PdfThumbnailViewer.args = {
   height: "40%",
   src: "https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf",
   width: "40%",
