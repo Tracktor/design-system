@@ -13,24 +13,24 @@ const Template: StoryFn<typeof FileViewer> = (args) => (
 
 export const RenderPDFWithViewer = Template.bind({});
 RenderPDFWithViewer.args = {
-  srcFileViewer: testFilePDF,
-  srcThumbnail: testFilePDF,
+  src: testFilePDF,
+  srcViewer: testFilePDF,
 };
 
 export const RenderImageWithViewer = Template.bind({});
 RenderImageWithViewer.args = {
-  srcFileViewer: testImage,
-  srcThumbnail: testImage,
+  src: testImage,
+  srcViewer: testImage,
 };
 
 export const RenderPDFWithNoViewer = Template.bind({});
 RenderPDFWithNoViewer.args = {
-  srcThumbnail: testFilePDF,
+  src: testFilePDF,
 };
 
 export const RenderImageWithNoViewer = Template.bind({});
 RenderImageWithNoViewer.args = {
-  srcThumbnail: testImage,
+  src: testImage,
 };
 
 export default {
