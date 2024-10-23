@@ -76,7 +76,7 @@ CollapseItems.args = {
           title: "First Collapse Item clickable",
         },
         {
-          image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+          file: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
           subtitle: "Second Collapse Item Subtitle with very long subtitle that should be truncated",
           tag: {
             color: "error",
@@ -85,13 +85,13 @@ CollapseItems.args = {
           title: "Second Collapse Item with very long title that should be truncated",
         },
         {
-          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
-          subtitle: "Second Collapse Item Subtitle",
+          file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Third Collapse Item Subtitle",
           title: "Third Collapse Item",
         },
         {
-          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
-          subtitle: "Second Collapse Item Subtitle",
+          file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Fourth Collapse Item Subtitle",
           title: "Fourth Collapse Item",
         },
       ],
@@ -119,7 +119,7 @@ CollapseItemsDefaultOpen.args = {
           title: "First Collapse Item clickable",
         },
         {
-          image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+          file: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
           subtitle: "Second Collapse Item Subtitle with very long subtitle that should be truncated",
           tag: {
             color: "error",
@@ -128,13 +128,13 @@ CollapseItemsDefaultOpen.args = {
           title: "Second Collapse Item with very long title that should be truncated",
         },
         {
-          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
-          subtitle: "Second Collapse Item Subtitle",
+          file: ["https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf"],
+          subtitle: "Third Collapse Item Subtitle",
           title: "Third Collapse Item",
         },
         {
-          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
-          subtitle: "Second Collapse Item Subtitle",
+          file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Fourth Collapse Item Subtitle",
           title: "Fourth Collapse Item",
         },
       ],
@@ -180,7 +180,7 @@ VariantHover.args = {
           title: "First Collapse Item clickable",
         },
         {
-          image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+          file: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
           subtitle: "Second Collapse Item Subtitle with very long subtitle that should be truncated",
           tag: {
             color: "error",
@@ -189,12 +189,12 @@ VariantHover.args = {
           title: "Second Collapse Item with very long title that should be truncated",
         },
         {
-          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
-          subtitle: "Second Collapse Item Subtitle",
+          file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          subtitle: "Third Collapse Item Subtitle",
           title: "Third Collapse Item",
         },
         {
-          image: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
           subtitle: "Second Collapse Item Subtitle",
           title: "Fourth Collapse Item",
         },

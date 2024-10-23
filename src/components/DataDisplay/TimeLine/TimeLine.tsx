@@ -7,7 +7,7 @@ import Lightbox from "@/components/Feedback/Lightbox";
 export interface TimeLineCollapseItems {
   title?: string | null;
   subtitle?: string | null;
-  image?: string | string[] | null;
+  file?: string | string[] | null;
   onClick?(): void;
   tag?: {
     label?: string | null;
@@ -215,7 +215,6 @@ const TimeLine = ({
                 onClick={onClick}
                 tag={tag}
                 variant={variant}
-                onClickImage={(imageSrc) => setLightboxSrc(imageSrc)}
               />
             );
           },
