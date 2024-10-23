@@ -1,13 +1,13 @@
+import { PaletteMode } from "@mui/material";
 import {
   alpha,
   ComponentsPropsList,
   createTheme,
   getOverlayAlpha,
-  PaletteMode,
   responsiveFontSizes,
   Theme as MuiTheme,
   ThemeOptions as MuiThemeOptions,
-} from "@mui/material";
+} from "@mui/material/styles";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, CSSProperties, isValidElement } from "react";
 import { ButtonProps } from "@/components/Inputs/Button";

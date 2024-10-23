@@ -22,7 +22,7 @@ const ThemeWrapper = (props: any) => {
   }, [channel, setDark]);
 
   return (
-    <ThemeProvider theme={isDark ? "dark" : "light"}>
+    <ThemeProvider mode={isDark ? "dark" : "light"}>
       <SnackbarProvider>
       {props.children}
       </SnackbarProvider>
