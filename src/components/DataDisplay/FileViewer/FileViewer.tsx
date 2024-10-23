@@ -25,6 +25,15 @@ const styles = {
     overflow: "hidden",
     position: "relative",
   },
+  thumbFile: {
+    border: 0,
+    objectFit: "cover",
+    pointerEvents: "none",
+  },
+  thumbImage: {
+    border: 0,
+    objectFit: "cover",
+  },
   viewClickFile: {
     border: 0,
     height: "100vh",
@@ -34,15 +43,6 @@ const styles = {
     border: 0,
     height: "100%",
     width: "100%",
-  },
-  viewerFile: {
-    border: 0,
-    objectFit: "cover",
-    pointerEvents: "none",
-  },
-  viewerImage: {
-    border: 0,
-    objectFit: "cover",
   },
 };
 
@@ -105,16 +105,18 @@ const FileViewer = ({
           width="100%"
           src={data}
           ref={iframeRef}
-          sx={isImage ? styles.viewerImage : styles.viewerFile}
+          sx={isImage ? styles.thumbImage : styles.thumbFile}
         />
       </Box>
       {srcFileViewer && (
         <Lightbox open={isOpen} onClose={handleToggleOpen} src={srcFileViewer} title={fileName}>
-          {isPdf ? (
-            <Box component="iframe" width={fileViewWidth} height={fileViewHeight} src={srcFileViewer} sx={styles.viewClickFile} />
-          ) : (
-            <Box component="img" width={fileViewWidth} height={fileViewHeight} src={srcFileViewer} sx={styles.viewClickImage} />
-          )}
+          <Box
+            component={isPdf ? "iframe" : "img"}
+            width={fileViewWidth}
+            height={fileViewHeight}
+            src={srcFileViewer}
+            sx={isPdf ? styles.viewClickFile : styles.viewClickImage}
+          />
         </Lightbox>
       )}
     </>
