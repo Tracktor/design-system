@@ -5,10 +5,10 @@ import { Lightbox } from "@/main";
 
 interface FileViewerPros {
   src: string;
-  srcViewer?: string;
+  fileName?: string;
   sx?: SxProps;
   sxViewer?: SxProps;
-  fileName?: string;
+  isViewerActive?: boolean;
 }
 
 const styles = {
@@ -43,11 +43,11 @@ const styles = {
   },
 };
 
-const FileViewer = ({ src, srcViewer, fileName, sx, sxViewer }: FileViewerPros) => {
+const FileViewer = ({ src, fileName, sx, sxViewer, isViewerActive = true }: FileViewerPros) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const isImage = !src?.endsWith(".pdf") && !src.startsWith("blob:");
-  const isPdf = srcViewer && /\.pdf$/i.test(srcViewer.toLowerCase());
+  const isPdf = /\.pdf$/i.test(src.toLowerCase());
   const iframeRef = useRef<HTMLObjectElement>(null);
   const data = isError ? notFoundImage : src;
 
@@ -92,11 +92,11 @@ const FileViewer = ({ src, srcViewer, fileName, sx, sxViewer }: FileViewerPros) 
           sx={isImage ? styles.thumbImage : styles.thumbFile}
         />
       </Box>
-      {srcViewer && (
-        <Lightbox open={isOpen} onClose={handleToggleOpen} src={srcViewer} title={fileName}>
+      {isViewerActive && (
+        <Lightbox open={isOpen} onClose={handleToggleOpen} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
-            src={srcViewer}
+            src={src}
             sx={{
               ...(isPdf ? styles.viewFile : styles.viewImage),
               ...sxViewer,

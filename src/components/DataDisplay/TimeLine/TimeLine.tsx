@@ -8,7 +8,6 @@ export interface TimeLineCollapseItems {
   title?: string | null;
   subtitle?: string | null;
   file?: string | string[] | null;
-  fileViewer?: string | string[] | null;
   onClick?(): void;
   tag?: {
     label?: string | null;

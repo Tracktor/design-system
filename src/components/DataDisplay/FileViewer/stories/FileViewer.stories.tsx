@@ -6,7 +6,7 @@ import FileViewer from "@/components/DataDisplay/FileViewer";
 const testFilePDF = "https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf";
 
 const Template: StoryFn<typeof FileViewer> = (args) => (
-  <Stack height={200}>
+  <Stack height="100%">
     <FileViewer {...args} />
   </Stack>
 );
@@ -14,23 +14,25 @@ const Template: StoryFn<typeof FileViewer> = (args) => (
 export const RenderPDFWithViewer = Template.bind({});
 RenderPDFWithViewer.args = {
   src: testFilePDF,
-  srcViewer: testFilePDF,
 };
 
 export const RenderImageWithViewer = Template.bind({});
 RenderImageWithViewer.args = {
   src: testImage,
-  srcViewer: testImage,
+  sx: { height: 200 },
 };
 
-export const RenderPDFWithNoViewer = Template.bind({});
-RenderPDFWithNoViewer.args = {
+export const RenderPDFWithoutViewer = Template.bind({});
+RenderPDFWithoutViewer.args = {
+  isViewerActive: false,
   src: testFilePDF,
 };
 
-export const RenderImageWithNoViewer = Template.bind({});
-RenderImageWithNoViewer.args = {
+export const RenderImageWithoutViewer = Template.bind({});
+RenderImageWithoutViewer.args = {
+  isViewerActive: false,
   src: testImage,
+  sx: { height: 200 },
 };
 
 export default {

@@ -132,7 +132,6 @@ const TimeLineEventItem = ({
               {collapseItems?.map((item, index) => {
                 const key = `${item.title}-${index}`;
                 const fileItem = Array.isArray(item?.file) ? item?.file[0] : item?.file;
-                const fileItemViewer = Array.isArray(item?.fileViewer) ? item?.fileViewer[0] : item?.fileViewer;
 
                 return (
                   <Stack key={key} direction="row" spacing={1} minWidth={0} onClick={item?.onClick}>
@@ -179,7 +178,6 @@ const TimeLineEventItem = ({
                           {fileItem && (
                             <FileViewer
                               src={fileItem}
-                              srcViewer={fileItemViewer || fileItem}
                               sx={{
                                 borderRadius: 0.5,
                                 cursor: "pointer",
