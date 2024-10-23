@@ -7,15 +7,12 @@ interface FileViewerPros {
   src: string;
   fileName?: string;
   sx?: SxProps;
-  sxViewer?: SxProps;
-  isViewerActive?: boolean;
+  sxLightbox?: SxProps;
+  disableLightbox?: boolean;
 }
 
 const styles = {
   container: {
-    ":hover": {
-      opacity: 0.8,
-    },
     alignSelf: "center",
     backgroundColor: ({ palette }: Theme) => palette.background.paper,
     boxShadow: 4,
@@ -43,7 +40,7 @@ const styles = {
   },
 };
 
-const FileViewer = ({ src, fileName, sx, sxViewer, isViewerActive = true }: FileViewerPros) => {
+const FileViewer = ({ src, fileName, sx, sxLightbox, disableLightbox }: FileViewerPros) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const isImage = !src?.endsWith(".pdf") && !src.startsWith("blob:");
@@ -76,7 +73,10 @@ const FileViewer = ({ src, fileName, sx, sxViewer, isViewerActive = true }: File
         onClick={handleToggleOpen}
         sx={{
           ...styles.container,
-          cursor: "pointer",
+          ":hover": {
+            opacity: disableLightbox ? 1 : 0.8,
+          },
+          cursor: disableLightbox ? "default" : "pointer",
           display: "block",
           ...sx,
         }}
@@ -92,14 +92,14 @@ const FileViewer = ({ src, fileName, sx, sxViewer, isViewerActive = true }: File
           sx={isImage ? styles.thumbImage : styles.thumbFile}
         />
       </Box>
-      {isViewerActive && (
+      {!disableLightbox && (
         <Lightbox open={isOpen} onClose={handleToggleOpen} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
             src={src}
             sx={{
               ...(isPdf ? styles.viewFile : styles.viewImage),
-              ...sxViewer,
+              ...sxLightbox,
             }}
           />
         </Lightbox>
