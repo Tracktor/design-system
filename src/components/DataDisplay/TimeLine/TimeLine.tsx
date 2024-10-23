@@ -216,7 +216,6 @@ const TimeLine = ({
                 onClick={onClick}
                 tag={tag}
                 variant={variant}
-                // onClickImage={(imageSrc) => setLightboxSrc(imageSrc)}
               />
             );
           },
