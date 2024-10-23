@@ -1,6 +1,6 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
 ## v2.6.5
-- **[fix]** - allow display of PDF view in TimeLine component
-- **[feat]** - change 'image' props in TimeLineItem to 'file'
-- **[feat]** - add fileViewer component in DataDisplay
+- **[fix]** - Allow display of PDF files in the TimeLine component.
+- **[feat]** - Changed the image prop in TimeLineItem to file to support multiple file types.
+- **[feat]** - Added FileViewer component in the DataDisplay category.
