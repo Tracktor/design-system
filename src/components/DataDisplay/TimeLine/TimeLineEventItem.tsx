@@ -1,5 +1,6 @@
 import { Box, Chip, Collapse as CollapseMui, Divider, Stack, Tooltip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import FileViewer from "@/components/DataDisplay/FileViewer";
 import ArrowRightIcon from "@/components/DataDisplay/Icons/ArrowRightIcon";
 import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import StatusIcon from "@/components/DataDisplay/StatusIcon";
@@ -8,7 +9,6 @@ import { TimeLineProps } from "@/components/DataDisplay/TimeLine/TimeLine";
 type TimeLineEventItemProps = NonNullable<TimeLineProps["items"]>[number] & {
   isLastElement: boolean;
   variant?: TimeLineProps["variant"];
-  onClickImage?(imageSrc: string): void;
 };
 
 const IMAGE_SIZE = 64;
@@ -24,7 +24,6 @@ const TimeLineEventItem = ({
   tag,
   collapseItems,
   collapseDefaultOpen,
-  onClickImage,
   Action,
   Icon,
   Footer,
@@ -132,7 +131,8 @@ const TimeLineEventItem = ({
             <Stack marginTop={3} spacing={3}>
               {collapseItems?.map((item, index) => {
                 const key = `${item.title}-${index}`;
-                const image = Array.isArray(item?.image) ? item?.image[0] : item?.image;
+                const fileItem = Array.isArray(item?.file) ? item?.file[0] : item?.file;
+                const fileItemViewer = Array.isArray(item?.fileViewer) ? item?.fileViewer[0] : item?.fileViewer;
 
                 return (
                   <Stack key={key} direction="row" spacing={1} minWidth={0} onClick={item?.onClick}>
@@ -174,16 +174,12 @@ const TimeLineEventItem = ({
                           </Typography>
                         </Tooltip>
                       )}
-                      {item?.image && (
+                      {item?.file && (
                         <Stack direction="row" marginTop={1} spacing={0.5}>
-                          {image && (
-                            <Box
-                              onClick={(e) => {
-                                e?.stopPropagation();
-                                onClickImage?.(image);
-                              }}
-                              component="img"
-                              src={image}
+                          {fileItem && (
+                            <FileViewer
+                              src={fileItem}
+                              srcViewer={fileItemViewer || fileItem}
                               sx={{
                                 borderRadius: 0.5,
                                 cursor: "pointer",
@@ -192,7 +188,7 @@ const TimeLineEventItem = ({
                               }}
                             />
                           )}
-                          {Array.isArray(item?.image) && item?.image?.length > 1 && (
+                          {Array.isArray(item?.file) && item?.file?.length > 1 && (
                             <Box
                               sx={{
                                 alignItems: "center",
@@ -203,7 +199,7 @@ const TimeLineEventItem = ({
                                 justifyContent: "center",
                                 width: IMAGE_SIZE,
                               }}
-                            >{`${(item?.image?.length || 0) - 1}+`}</Box>
+                            >{`${(item?.file?.length || 0) - 1}+`}</Box>
                           )}
                         </Stack>
                       )}
