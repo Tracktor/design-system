@@ -42,7 +42,7 @@ const TemplateNoThumb: StoryFn<typeof FileViewer> = (args) => {
         <Button variant="contained" onClick={handleOpenLightBoxPDF}>
           Open PDF
         </Button>
-        <Button variant="contained" onClick={handleOpenLightBoxImage}>
+        <Button variant="outlined" onClick={handleOpenLightBoxImage}>
           Open Image
         </Button>
       </Stack>
