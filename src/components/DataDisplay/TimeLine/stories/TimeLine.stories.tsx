@@ -114,7 +114,10 @@ CollapseItemsDefaultOpen.args = {
       collapseDefaultOpen: true,
       collapseItems: [
         {
-          onClick: () => null,
+          onClick: () => {
+            // eslint-disable-next-line no-alert
+            alert("first Collapse Item clicked");
+          },
           subtitle: "First Collapse Item Subtitle",
           title: "First Collapse Item clickable",
         },
@@ -129,6 +132,10 @@ CollapseItemsDefaultOpen.args = {
         },
         {
           file: ["https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf"],
+          onClick: () => {
+            // eslint-disable-next-line no-alert
+            alert("Third Collapse Item clicked");
+          },
           subtitle: "Third Collapse Item Subtitle",
           title: "Third Collapse Item",
         },

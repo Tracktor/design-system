@@ -134,7 +134,7 @@ const TimeLineEventItem = ({
                 const fileItem = Array.isArray(item?.file) ? item?.file[0] : item?.file;
 
                 return (
-                  <Stack key={key} direction="row" spacing={1} minWidth={0} onClick={item?.onClick}>
+                  <Stack key={key} direction="row" spacing={1} minWidth={0}>
                     <ArrowRightIcon sx={{ height: 18, paddingTop: 0.5, width: 18 }} />
                     <Stack minWidth={0}>
                       <Stack direction="row" alignItems="center" spacing={1} overflow="hidden">
@@ -149,7 +149,14 @@ const TimeLineEventItem = ({
                               }),
                             }}
                           >
-                            <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" minWidth={0}>
+                            <Typography
+                              variant="h6"
+                              whiteSpace="nowrap"
+                              textOverflow="ellipsis"
+                              overflow="hidden"
+                              minWidth={0}
+                              onClick={item?.onClick}
+                            >
                               {item?.title}
                             </Typography>
                           </Tooltip>
