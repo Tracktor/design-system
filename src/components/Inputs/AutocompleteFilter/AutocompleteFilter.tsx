@@ -8,6 +8,8 @@ import {
   Checkbox,
   ChipTypeMap,
   Divider,
+  IconButton,
+  InputAdornment,
   List,
   ListItem,
   ListItemAvatar,
@@ -20,7 +22,8 @@ import {
 } from "@mui/material";
 import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@mui/material/useAutocomplete/useAutocomplete";
 import * as React from "react";
-import { ElementType, forwardRef, HTMLAttributes, ReactNode, Ref, SyntheticEvent, useState } from "react";
+import { ElementType, forwardRef, HTMLAttributes, isValidElement, ReactNode, Ref, SyntheticEvent, useState } from "react";
+import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
 export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
@@ -237,6 +240,7 @@ const AutocompleteFilter = <
     onBlur,
     onInputChange,
     inputValue,
+    disableClearable,
     resetInputValueOnSelectOption,
     size = "small",
     disableCloseOnSelect = true,
@@ -249,6 +253,7 @@ const AutocompleteFilter = <
   const [isFocused, setIsFocused] = useState(false);
   const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
+  const finalInputValue = inputValue || internalInputValue;
 
   const handleChange = (
     event: SyntheticEvent,
@@ -272,10 +277,11 @@ const AutocompleteFilter = <
       size={size}
       freeSolo={false as FreeSolo}
       multiple={multiple as Multiple}
+      disableClearable={disableClearable as DisableClearable}
       onChange={handleChange}
       disableCloseOnSelect={disableCloseOnSelect}
       getLimitTagsText={Count(badgeColor)}
-      inputValue={inputValue || internalInputValue}
+      inputValue={finalInputValue}
       PaperComponent={PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
       onInputChange={(_, newInputValue, reason) => {
         if (reason === "reset" && isFocused && !resetInputValueOnSelectOption) {
@@ -347,7 +353,35 @@ const AutocompleteFilter = <
           return placeholder;
         };
 
-        return <TextField {...params} placeholder={getPlaceholder()} />;
+        const EndAdornmentElement = isValidElement(params.InputProps?.endAdornment) ? params.InputProps?.endAdornment : null;
+
+        return (
+          <TextField
+            {...params}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: isFocused ? (
+                <InputAdornment
+                  position="end"
+                  sx={{
+                    position: "absolute",
+                    right: 9,
+                  }}
+                >
+                  {isFocused && finalInputValue && !disableClearable && (
+                    <IconButton size="small" onClick={() => setInternalInputValue("")}>
+                      <CloseIcon />
+                    </IconButton>
+                  )}
+                  {EndAdornmentElement?.props.children[1]}
+                </InputAdornment>
+              ) : (
+                EndAdornmentElement
+              ),
+            }}
+            placeholder={getPlaceholder()}
+          />
+        );
       }}
     />
   );

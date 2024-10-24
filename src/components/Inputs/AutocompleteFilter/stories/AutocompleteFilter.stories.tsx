@@ -95,6 +95,12 @@ ResetInputValueOnSelect.args = {
   resetInputValueOnSelectOption: true,
 };
 
+export const DisableClearable = Template.bind({});
+DisableClearable.args = {
+  disableClearable: true,
+  options: data,
+};
+
 export default {
   component: AutocompleteFilter,
   title: "Components/Inputs/AutocompleteFilter",

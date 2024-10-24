@@ -1,7 +1,5 @@
-import { CssBaseline, GlobalStyles } from "@mui/material";
+import { createTheme, css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import { frFR, Localization } from "@mui/material/locale";
-import { createTheme, css, ThemeProvider as ThemeProviderMUI } from "@mui/material/styles";
-import { ThemeOptions } from "@mui/material/styles/createTheme";
 import { ReactNode } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
@@ -24,13 +22,9 @@ export interface ThemeProviderProps {
    */
   includeScrollBarStyle?: boolean;
   /**
-   * Theme options
-   */
-  themeOptions?: ThemeOptions | Localization | object;
-  /**
    * Theme mode
    */
-  mode?: "light" | "dark";
+  theme?: "light" | "dark" | ThemeOptions | Localization;
   /**
    * Enable `color-scheme` CSS property to use `theme.palette.mode`.
    * For more details, check out https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme
@@ -59,11 +53,11 @@ const defaultFont: ThemeProviderProps["font"] = {
   import: true,
 };
 
-const ScrollBarStyle = ({ mode }: { mode: ThemeProviderProps["mode"] }) => (
+const ScrollBarStyle = ({ theme }: { theme: ThemeProviderProps["theme"] }) => (
   <GlobalStyles
     styles={css`
       * {
-        scrollbar-color: ${mode === "dark"
+        scrollbar-color: ${theme === "dark"
           ? "rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05)"
           : "rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05)"};
         scrollbar-width: thin;
@@ -115,8 +109,7 @@ const ThemeProvider = ({
   includeScrollBarStyle = true,
   fullHeight = true,
   language,
-  themeOptions = {},
-  mode = "light",
+  theme,
   font = defaultFont,
 }: ThemeProviderProps) => {
   const fontOptions = { ...defaultFont, ...font };
@@ -124,15 +117,16 @@ const ThemeProvider = ({
   const fontWeight = fontOptions?.fontWeight?.join(";");
 
   const getTheme = () => {
+    const themeOptions = typeof theme === "object" ? theme : {};
     const languages = {
       ...(language === "fr" && frFR),
     };
 
-    if (mode === "dark" || (themeOptions && "palette" in themeOptions && themeOptions?.palette?.mode === "dark")) {
+    if (theme === "dark" || (typeof theme === "object" && "palette" in theme && theme?.palette?.mode === "dark")) {
       return createTheme(darkTheme, themeOptions, languages);
     }
 
-    if (mode === "light" || (themeOptions && "palette" in themeOptions && themeOptions?.palette?.mode === "light")) {
+    if (theme === "light" || (typeof theme === "object" && "palette" in theme && theme?.palette?.mode === "light")) {
       return createTheme(lightTheme, themeOptions, languages);
     }
 
@@ -144,7 +138,7 @@ const ThemeProvider = ({
       <GlobalStyles
         styles={css`
           ::-webkit-calendar-picker-indicator {
-            filter: invert(${mode === "dark" ? 1 : 0});
+            filter: invert(${theme === "dark" ? 1 : 0});
           }
         `}
       />
@@ -157,7 +151,7 @@ const ThemeProvider = ({
       )}
       {includeCssBaseline && <CssBaseline enableColorScheme={enableColorScheme} />}
       {fullHeight && <FullHeightStyle />}
-      {includeScrollBarStyle && <ScrollBarStyle mode={mode} />}
+      {includeScrollBarStyle && <ScrollBarStyle theme={theme} />}
       {children}
     </ThemeProviderMUI>
   );
