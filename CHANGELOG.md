@@ -1,6 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.7.0
-- **[fix]** - Allow display of PDF files in the TimeLine component.
-- **[feat]** - Changed the image prop in TimeLineItem to file to support multiple file types.
-- **[feat]** - Added FileViewer component in the DataDisplay category.
+## v2.7.1
+- **[fix]** - Fix the onClick event on TimeLineEventItem. OnClick event is now on title not on the whole stack item.
