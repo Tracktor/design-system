@@ -114,7 +114,10 @@ CollapseItemsDefaultOpen.args = {
       collapseDefaultOpen: true,
       collapseItems: [
         {
-          onClick: () => null,
+          onClick: () => {
+            // eslint-disable-next-line no-alert
+            alert("first Collapse Item clicked");
+          },
           subtitle: "First Collapse Item Subtitle",
           title: "First Collapse Item clickable",
         },
@@ -129,6 +132,10 @@ CollapseItemsDefaultOpen.args = {
         },
         {
           file: ["https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf"],
+          onClick: () => {
+            // eslint-disable-next-line no-alert
+            alert("Third Collapse Item clicked");
+          },
           subtitle: "Third Collapse Item Subtitle",
           title: "Third Collapse Item",
         },
@@ -136,43 +143,6 @@ CollapseItemsDefaultOpen.args = {
           file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
           subtitle: "Fourth Collapse Item Subtitle",
           title: "Fourth Collapse Item",
-        },
-      ],
-      subtitle: "Second Event Subtitle",
-      tag: {
-        color: "warning",
-        label: "Second Tag",
-      },
-      title: "Collapse Event",
-    },
-    ...items,
-  ],
-};
-
-export const CollapseItemsWithActions = Template.bind({});
-CollapseItemsWithActions.args = {
-  items: [
-    {
-      active: true,
-      collapseDefaultOpen: true,
-      collapseItems: [
-        {
-          file: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-          onClick: () => {
-            // eslint-disable-next-line no-alert
-            alert("Third Collapse Item clicked");
-          },
-          subtitle: "Second Collapse Item Subtitle with very long subtitle that should be truncated",
-          tag: {
-            color: "error",
-            label: "Second Tag",
-          },
-          title: "Second Collapse Item with very long title that should be truncated",
-        },
-        {
-          file: ["https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf"],
-          subtitle: "Third Collapse Item Subtitle",
-          title: "Third Collapse Item",
         },
       ],
       subtitle: "Second Event Subtitle",
