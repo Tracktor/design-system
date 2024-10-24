@@ -1,6 +1,7 @@
-import { CssBaseline, GlobalStyles, ThemeProvider as ThemeProviderMUI } from "@mui/material";
+import { CssBaseline, GlobalStyles } from "@mui/material";
 import { frFR, Localization } from "@mui/material/locale";
-import { createTheme, css, ThemeOptions } from "@mui/material/styles";
+import { createTheme, css, ThemeProvider as ThemeProviderMUI } from "@mui/material/styles";
+import { ThemeOptions } from "@mui/material/styles/createTheme";
 import { ReactNode } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
@@ -123,15 +124,15 @@ const ThemeProvider = ({
   const fontWeight = fontOptions?.fontWeight?.join(";");
 
   const getTheme = () => {
-    const languages: ThemeOptions = {
+    const languages = {
       ...(language === "fr" && frFR),
     };
 
-    if (mode === "dark") {
+    if (mode === "dark" || (themeOptions && "palette" in themeOptions && themeOptions?.palette?.mode === "dark")) {
       return createTheme(darkTheme, themeOptions, languages);
     }
 
-    if (mode === "light") {
+    if (mode === "light" || (themeOptions && "palette" in themeOptions && themeOptions?.palette?.mode === "light")) {
       return createTheme(lightTheme, themeOptions, languages);
     }
 
