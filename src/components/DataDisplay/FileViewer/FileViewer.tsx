@@ -6,9 +6,16 @@ import { Lightbox } from "@/main";
 interface FileViewerPros {
   src: string;
   fileName?: string;
+  width?: number | string;
+  height?: number | string;
   sx?: SxProps;
+  widthLightbox?: number | string;
+  heightLightbox?: number | string;
   sxLightbox?: SxProps;
   disableLightbox?: boolean;
+  disableThumb?: boolean;
+  open?: boolean;
+  onClose?(): void;
 }
 
 const styles = {
@@ -40,7 +47,20 @@ const styles = {
   },
 };
 
-const FileViewer = ({ src, fileName, sx, sxLightbox, disableLightbox }: FileViewerPros) => {
+const FileViewer = ({
+  src,
+  fileName,
+  width,
+  height,
+  sx,
+  widthLightbox,
+  heightLightbox,
+  sxLightbox,
+  disableLightbox,
+  disableThumb,
+  open,
+  onClose,
+}: FileViewerPros) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const isImage = !src?.endsWith(".pdf") && !src.startsWith("blob:");
@@ -68,35 +88,42 @@ const FileViewer = ({ src, fileName, sx, sxLightbox, disableLightbox }: FileView
 
   return (
     <>
-      <Box
-        data-test="fileViewer"
-        onClick={handleToggleOpen}
-        sx={{
-          ...styles.container,
-          ":hover": {
-            opacity: disableLightbox ? 1 : 0.8,
-          },
-          cursor: disableLightbox ? "default" : "pointer",
-          display: "block",
-          ...sx,
-        }}
-      >
+      {!disableThumb && (
         <Box
-          component={isImage ? "img" : "iframe"}
-          key={data}
-          overflow="hidden"
-          height={isImage ? "100%" : "auto"}
-          width="100%"
-          src={data}
-          ref={iframeRef}
-          sx={isImage ? styles.thumbImage : styles.thumbFile}
-        />
-      </Box>
+          data-test="fileViewer"
+          onClick={handleToggleOpen}
+          width={width}
+          height={height}
+          sx={{
+            ...styles.container,
+            ":hover": {
+              opacity: disableLightbox ? 1 : 0.8,
+            },
+            cursor: disableLightbox ? "default" : "pointer",
+            display: "block",
+            ...sx,
+          }}
+        >
+          <Box
+            component={isImage ? "img" : "iframe"}
+            key={data}
+            overflow="hidden"
+            height={isImage ? "100%" : "auto"}
+            width="100%"
+            src={data}
+            ref={iframeRef}
+            sx={isImage ? styles.thumbImage : styles.thumbFile}
+          />
+        </Box>
+      )}
+
       {!disableLightbox && (
-        <Lightbox open={isOpen} onClose={handleToggleOpen} src={src} title={fileName}>
+        <Lightbox open={open || isOpen} onClose={onClose || handleToggleOpen} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
             src={src}
+            width={widthLightbox}
+            height={heightLightbox}
             sx={{
               ...(isPdf ? styles.viewFile : styles.viewImage),
               ...sxLightbox,
