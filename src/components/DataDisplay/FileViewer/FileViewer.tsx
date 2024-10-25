@@ -5,6 +5,7 @@ import { Lightbox } from "@/main";
 
 interface FileViewerPros {
   src: string;
+  srcLightbox?: string;
   fileName?: string;
   width?: number | string;
   height?: number | string;
@@ -49,6 +50,7 @@ const styles = {
 
 const FileViewer = ({
   src,
+  srcLightbox,
   fileName,
   width,
   height,
@@ -118,10 +120,10 @@ const FileViewer = ({
       )}
 
       {!disableLightbox && (
-        <Lightbox open={open || isOpen} onClose={onClose || handleToggleOpen} src={src} title={fileName}>
+        <Lightbox open={open || isOpen} onClose={onClose || handleToggleOpen} src={srcLightbox || src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
-            src={src}
+            src={srcLightbox || src}
             width={widthLightbox}
             height={heightLightbox}
             sx={{
