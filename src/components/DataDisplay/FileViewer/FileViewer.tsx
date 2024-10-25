@@ -5,6 +5,7 @@ import { Lightbox } from "@/main";
 
 interface FileViewerPros {
   src: string;
+  srcThumb?: string;
   fileName?: string;
   width?: number | string;
   height?: number | string;
@@ -49,6 +50,7 @@ const styles = {
 
 const FileViewer = ({
   src,
+  srcThumb,
   fileName,
   width,
   height,
@@ -66,7 +68,7 @@ const FileViewer = ({
   const isImage = !src?.endsWith(".pdf") && !src.startsWith("blob:");
   const isPdf = /\.pdf$/i.test(src.toLowerCase());
   const iframeRef = useRef<HTMLObjectElement>(null);
-  const data = isError ? notFoundImage : src;
+  const data = isError ? notFoundImage : srcThumb || src;
 
   const handleToggleOpen = () => {
     setIsOpen(!isOpen);
