@@ -251,7 +251,7 @@ const AutocompleteFilter = <
   ref: Ref<HTMLDivElement>,
 ) => {
   const { palette } = useTheme();
-  const [isFocused, setIsFocused] = useState(false);
+  const [open, setOpen] = useState(false);
   const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
@@ -285,8 +285,10 @@ const AutocompleteFilter = <
       getLimitTagsText={Count(badgeColor)}
       inputValue={finalInputValue}
       PaperComponent={loading ? undefined : PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
+      open={open}
+      onOpen={() => setOpen(true)}
       onInputChange={(_, newInputValue, reason) => {
-        if (reason === "reset" && isFocused && !resetInputValueOnSelectOption) {
+        if (reason === "reset" && open && !resetInputValueOnSelectOption) {
           return;
         }
 
@@ -297,11 +299,11 @@ const AutocompleteFilter = <
         onInputChange?.(_, newInputValue, reason);
       }}
       onFocus={(event) => {
-        setIsFocused(true);
+        setOpen(true);
         onFocus?.(event);
       }}
       onBlur={(event) => {
-        setIsFocused(false);
+        setOpen(false);
         onBlur?.(event);
       }}
       renderOption={(optionProps, option, { selected }) => {
@@ -352,7 +354,7 @@ const AutocompleteFilter = <
       {...props}
       renderInput={(params) => {
         const getPlaceholder = () => {
-          if (!isFocused && ((Array.isArray(value) && value.length) || (!Array.isArray(value) && value))) {
+          if (!open && ((Array.isArray(value) && value.length) || (!Array.isArray(value) && value))) {
             return undefined;
           }
 
@@ -363,10 +365,17 @@ const AutocompleteFilter = <
 
         return (
           <TextField
+            sx={{
+              ".MuiInputBase-root .MuiInputBase-input": {
+                flex: open ? 1 : 0,
+                minWidth: 0,
+                paddingX: open ? undefined : 0,
+              },
+            }}
             {...params}
             InputProps={{
               ...params.InputProps,
-              endAdornment: isFocused ? (
+              endAdornment: open ? (
                 <InputAdornment
                   position="end"
                   sx={{
@@ -374,7 +383,7 @@ const AutocompleteFilter = <
                     right: 9,
                   }}
                 >
-                  {isFocused && finalInputValue && !disableClearable && (
+                  {open && finalInputValue && !disableClearable && (
                     <IconButton size="small" onClick={() => setInternalInputValue("")}>
                       <CloseIcon />
                     </IconButton>
