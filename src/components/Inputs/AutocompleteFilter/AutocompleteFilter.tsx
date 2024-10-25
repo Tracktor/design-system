@@ -182,7 +182,13 @@ const PaperComponent = <
               )}
               {headerOptions?.map((option, index) => {
                 const key = `header-options-${option?.id}-${index}`;
-                const checked = Array.isArray(value) && value.some((val) => JSON.stringify(val) === JSON.stringify(option));
+                const checked =
+                  Array.isArray(value) &&
+                  value.some(
+                    (val) =>
+                      JSON.stringify(val) === JSON.stringify(option) ||
+                      (val && typeof val === "object" && "id" in val && val?.id === option?.id),
+                  );
 
                 return (
                   <ListItem
