@@ -41,12 +41,12 @@ export interface AutocompleteFilterProps<
   OptionValue extends unknown = unknown,
 > extends Omit<
     MuiAutocompleteProps<AutocompleteFilterOption<OptionValue>, Multiple, DisableClearable, FreeSolo, ChipComponent>,
-    "options" | "onChange" | "freeSolo"
+    "options" | "onChange" | "freeSolo" | "renderInput"
   > {
   /**
    *  Options to display
    */
-  options: AutocompleteFilterOption<OptionValue>[];
+  options?: AutocompleteFilterOption<OptionValue>[];
   /**
    *  Placeholder
    */
@@ -135,7 +135,7 @@ const PaperComponent = <
 
     return (
       <Paper {...restPaperProps}>
-        {(!disableSelectAll || !!headerOptions.length) && (
+        {(!disableSelectAll || !!headerOptions?.length) && (
           <>
             <List role="listbox">
               {!disableSelectAll && (
@@ -152,7 +152,7 @@ const PaperComponent = <
                       return;
                     }
 
-                    onChange?.(e, options, "selectOption");
+                    onChange?.(e, options || [], "selectOption");
                   }}
                 >
                   <ListItemButton>
@@ -241,6 +241,7 @@ const AutocompleteFilter = <
     onInputChange,
     inputValue,
     disableClearable,
+    loading,
     resetInputValueOnSelectOption,
     size = "small",
     disableCloseOnSelect = true,
@@ -272,7 +273,8 @@ const AutocompleteFilter = <
   return (
     <MuiAutocomplete
       value={value}
-      options={options}
+      loading={loading}
+      options={options || []}
       ref={ref}
       size={size}
       freeSolo={false as FreeSolo}
@@ -282,7 +284,7 @@ const AutocompleteFilter = <
       disableCloseOnSelect={disableCloseOnSelect}
       getLimitTagsText={Count(badgeColor)}
       inputValue={finalInputValue}
-      PaperComponent={PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
+      PaperComponent={loading ? undefined : PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
       onInputChange={(_, newInputValue, reason) => {
         if (reason === "reset" && isFocused && !resetInputValueOnSelectOption) {
           return;
@@ -303,6 +305,10 @@ const AutocompleteFilter = <
         onBlur?.(event);
       }}
       renderOption={(optionProps, option, { selected }) => {
+        if (loading) {
+          return null;
+        }
+
         if (option?.isHeader) {
           return null;
         }

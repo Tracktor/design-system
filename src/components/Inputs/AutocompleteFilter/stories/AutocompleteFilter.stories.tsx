@@ -101,6 +101,11 @@ DisableClearable.args = {
   options: data,
 };
 
+export const Loading = Template.bind({});
+Loading.args = {
+  loading: true,
+};
+
 export default {
   component: AutocompleteFilter,
   title: "Components/Inputs/AutocompleteFilter",
