@@ -82,7 +82,7 @@ export interface AutocompleteFilterProps<
   onChange?: (
     event: SyntheticEvent,
     value: AutocompleteFilterOption<OptionValue>[],
-    reason: AutocompleteChangeReason,
+    reason?: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
   ) => void;
   /**
@@ -343,7 +343,7 @@ const AutocompleteFilter = <
           }
 
           return (
-            <Typography key={key} marginX={1}>
+            <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
               {option?.label}
             </Typography>
           );
