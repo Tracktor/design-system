@@ -367,9 +367,8 @@ const AutocompleteFilter = <
           <TextField
             sx={{
               ".MuiInputBase-root .MuiInputBase-input": {
-                flex: open ? 1 : 0,
+                flex: (!open && !finalInputValue) || open ? 1 : 0,
                 minWidth: 0,
-                paddingX: open ? undefined : 0,
               },
             }}
             {...params}
