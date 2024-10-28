@@ -147,19 +147,22 @@ const PaperComponent = <
   localeText,
   disableReset,
   onChange,
+  loading,
   options,
   value,
   ...props
 }: PaperProps &
   Pick<
     AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
-    "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value"
+    "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value" | "loading"
   >) => {
   const { language } = useContext(ThemeContext);
   const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
   const headerOptions = options?.filter((option) => option?.isHeader);
   const selectAllLabel = localeText?.selectAll || locales[language || "en"].selectAll;
   const resetLabel = localeText?.reset || locales[language || "en"].reset;
+
+  console.log(loading);
 
   return (
     <Paper {...props}>
@@ -314,7 +317,7 @@ const AutocompleteFilter = <
 
   return (
     <MuiAutocomplete
-      PaperComponent={loading ? undefined : (PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>)} // TODO: when we upgrade to mui v6, we can remove this cast and replace with AutocompletePaperSlotPropsOverrides
+      PaperComponent={PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>} // TODO: when we upgrade to mui v6, we can remove this cast and replace with AutocompletePaperSlotPropsOverrides
       value={value}
       loading={loading}
       options={options || []}
@@ -334,6 +337,7 @@ const AutocompleteFilter = <
         paper: {
           disableReset,
           disableSelectAll,
+          loading,
           localeText,
           onChange,
           options,
