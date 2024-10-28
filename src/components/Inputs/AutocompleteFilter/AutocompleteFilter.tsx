@@ -202,8 +202,10 @@ const PaperComponent = <
                         const newValue = Array.isArray(value)
                           ? value?.filter(
                               (val) =>
-                                JSON.stringify(val) !== JSON.stringify(option) ||
-                                (val && typeof val === "object" && "id" in val && val?.id !== option?.id),
+                                !(
+                                  JSON.stringify(val) === JSON.stringify(option) ||
+                                  (val && typeof val === "object" && "id" in val && val?.id === option?.id)
+                                ),
                             )
                           : [];
 
