@@ -194,7 +194,10 @@ const PaperComponent = <
                   <ListItem
                     key={key}
                     disablePadding
-                    onClick={(e) => {
+                    onMouseDown={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+
                       if (checked) {
                         const newValue = Array.isArray(value)
                           ? value?.filter(
@@ -209,10 +212,6 @@ const PaperComponent = <
                       }
 
                       onChange?.(e, [...(Array.isArray(value) ? value : []), option], "selectOption");
-                    }}
-                    onMouseDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
                     }}
                   >
                     <ListItemButton>
