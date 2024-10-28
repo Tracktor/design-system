@@ -287,6 +287,7 @@ const AutocompleteFilter = <
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
+    slotProps,
     ...props
   }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue> & { inputValue?: string },
   ref: Ref<HTMLDivElement>,
@@ -313,6 +314,7 @@ const AutocompleteFilter = <
 
   return (
     <MuiAutocomplete
+      PaperComponent={loading ? undefined : (PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>)} // TODO: when we upgrade to mui v6, we can remove this cast and replace with AutocompletePaperSlotPropsOverrides
       value={value}
       loading={loading}
       options={options || []}
@@ -325,10 +327,20 @@ const AutocompleteFilter = <
       disableCloseOnSelect={disableCloseOnSelect}
       getLimitTagsText={Count(badgeColor)}
       inputValue={finalInputValue}
-      slotProps={{ paper: { disableReset, disableSelectAll, localeText, onChange, options, value } as PaperProps }}
-      PaperComponent={loading ? undefined : (PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>)} // TODO: when we upgrade to mui v6, we can remove this cast and replace with AutocompletePaperSlotPropsOverrides
       open={open}
       onOpen={() => setOpen(true)}
+      slotProps={{
+        ...slotProps,
+        paper: {
+          disableReset,
+          disableSelectAll,
+          localeText,
+          onChange,
+          options,
+          value,
+          ...slotProps?.paper,
+        } as PaperProps,
+      }}
       onInputChange={(_, newInputValue, reason) => {
         if (reason === "reset" && open && !resetInputValueOnSelectOption) {
           return;
