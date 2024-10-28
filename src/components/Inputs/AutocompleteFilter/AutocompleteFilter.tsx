@@ -200,7 +200,7 @@ const PaperComponent = <
                           ? value?.filter(
                               (val) =>
                                 JSON.stringify(val) !== JSON.stringify(option) ||
-                                (val && typeof val === "object" && "id" in val && val?.id === option?.id),
+                                (val && typeof val === "object" && "id" in val && val?.id !== option?.id),
                             )
                           : [];
 
