@@ -16,13 +16,25 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
+  PaperProps,
   TextField,
   Typography,
   useTheme,
 } from "@mui/material";
 import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@mui/material/useAutocomplete/useAutocomplete";
 import * as React from "react";
-import { ElementType, forwardRef, HTMLAttributes, isValidElement, ReactNode, Ref, SyntheticEvent, useContext, useState } from "react";
+import {
+  ElementType,
+  forwardRef,
+  HTMLAttributes,
+  isValidElement,
+  JSXElementConstructor,
+  ReactNode,
+  Ref,
+  SyntheticEvent,
+  useContext,
+  useState,
+} from "react";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import { ThemeContext } from "@/context/Theme/ThemeProvider";
 
@@ -130,123 +142,124 @@ const PaperComponent = <
   ChipComponent extends ElementType,
   OptionValue extends unknown,
 >({
+  children,
   disableSelectAll,
   localeText,
   disableReset,
   onChange,
   options,
   value,
-}: Pick<
-  AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
-  "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value"
->) =>
-  function RenderPaperComponent(paperProps: HTMLAttributes<HTMLElement>) {
-    const { language } = useContext(ThemeContext);
-    const { children, ...restPaperProps } = paperProps;
-    const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
-    const headerOptions = options?.filter((option) => option?.isHeader);
-    const selectAllLabel = localeText?.selectAll || locales[language || "en"].selectAll;
-    const resetLabel = localeText?.reset || locales[language || "en"].reset;
+  ...props
+}: PaperProps &
+  Pick<
+    AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
+    "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value"
+  >) => {
+  const { language } = useContext(ThemeContext);
+  const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
+  const headerOptions = options?.filter((option) => option?.isHeader);
+  const selectAllLabel = localeText?.selectAll || locales[language || "en"].selectAll;
+  const resetLabel = localeText?.reset || locales[language || "en"].reset;
 
-    return (
-      <Paper {...restPaperProps}>
-        {(!disableSelectAll || !!headerOptions?.length) && (
-          <>
-            <List role="listbox">
-              {!disableSelectAll && (
+  return (
+    <Paper {...props}>
+      {(!disableSelectAll || !!headerOptions?.length) && (
+        <>
+          <List role="listbox">
+            {!disableSelectAll && (
+              <ListItem
+                disablePadding
+                role="option"
+                onMouseDown={(e) => {
+                  // prevent blur
+                  e.stopPropagation();
+                  e.preventDefault();
+
+                  if (allChecked) {
+                    onChange?.(e, [], "removeOption");
+                    return;
+                  }
+
+                  onChange?.(e, options || [], "selectOption");
+                }}
+              >
+                <ListItemButton disableRipple>
+                  <Checkbox id="select-all-checkbox" checked={allChecked} />
+                  <ListItemText primary={selectAllLabel} />
+                  {!disableReset && (
+                    <Button
+                      variant="link"
+                      size="small"
+                      sx={{
+                        marginX: 1,
+                        textDecoration: "none",
+                      }}
+                      onClick={(e) => {
+                        onChange?.(e, [], "removeOption");
+                      }}
+                      onMouseDown={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                    >
+                      {resetLabel}
+                    </Button>
+                  )}
+                </ListItemButton>
+              </ListItem>
+            )}
+            {headerOptions?.map((option, index) => {
+              const key = `header-options-${option?.id}-${index}`;
+              const checked =
+                Array.isArray(value) &&
+                value.some(
+                  (val) =>
+                    JSON.stringify(val) === JSON.stringify(option) ||
+                    (val && typeof val === "object" && "id" in val && val?.id === option?.id),
+                );
+
+              return (
                 <ListItem
+                  key={key}
                   disablePadding
-                  role="option"
                   onMouseDown={(e) => {
-                    // prevent blur
                     e.stopPropagation();
                     e.preventDefault();
 
-                    if (allChecked) {
-                      onChange?.(e, [], "removeOption");
+                    if (checked) {
+                      const newValue = Array.isArray(value)
+                        ? value?.filter(
+                            (val) =>
+                              !(
+                                JSON.stringify(val) === JSON.stringify(option) ||
+                                (val && typeof val === "object" && "id" in val && val?.id === option?.id)
+                              ),
+                          )
+                        : [];
+
+                      onChange?.(e, newValue as AutocompleteFilterOption<OptionValue>[], "removeOption");
                       return;
                     }
 
-                    onChange?.(e, options || [], "selectOption");
+                    onChange?.(e, [...(Array.isArray(value) ? value : []), option], "selectOption");
                   }}
                 >
-                  <ListItemButton>
-                    <Checkbox id="select-all-checkbox" checked={allChecked} />
-                    <ListItemText primary={selectAllLabel} />
-                    {!disableReset && (
-                      <Button
-                        variant="link"
-                        size="small"
-                        sx={{
-                          marginX: 1,
-                          textDecoration: "none",
-                        }}
-                        onClick={(e) => {
-                          onChange?.(e, [], "removeOption");
-                        }}
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                        }}
-                      >
-                        {resetLabel}
-                      </Button>
-                    )}
+                  <ListItemButton disableRipple>
+                    <Checkbox checked={checked} />
+                    <ListItemText primary={option?.label} />
                   </ListItemButton>
                 </ListItem>
-              )}
-              {headerOptions?.map((option, index) => {
-                const key = `header-options-${option?.id}-${index}`;
-                const checked =
-                  Array.isArray(value) &&
-                  value.some(
-                    (val) =>
-                      JSON.stringify(val) === JSON.stringify(option) ||
-                      (val && typeof val === "object" && "id" in val && val?.id === option?.id),
-                  );
+              );
+            })}
+          </List>
+          <Divider />
+        </>
+      )}
 
-                return (
-                  <ListItem
-                    key={key}
-                    disablePadding
-                    onMouseDown={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-
-                      if (checked) {
-                        const newValue = Array.isArray(value)
-                          ? value?.filter(
-                              (val) =>
-                                !(
-                                  JSON.stringify(val) === JSON.stringify(option) ||
-                                  (val && typeof val === "object" && "id" in val && val?.id === option?.id)
-                                ),
-                            )
-                          : [];
-
-                        onChange?.(e, newValue as AutocompleteFilterOption<OptionValue>[], "removeOption");
-                        return;
-                      }
-
-                      onChange?.(e, [...(Array.isArray(value) ? value : []), option], "selectOption");
-                    }}
-                  >
-                    <ListItemButton>
-                      <Checkbox checked={checked} />
-                      <ListItemText primary={option?.label} />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
-            <Divider />
-          </>
-        )}
-
-        {children}
-      </Paper>
-    );
-  };
+      {children}
+    </Paper>
+  );
+};
 
 const AutocompleteFilter = <
   Multiple extends boolean | undefined,
@@ -312,7 +325,8 @@ const AutocompleteFilter = <
       disableCloseOnSelect={disableCloseOnSelect}
       getLimitTagsText={Count(badgeColor)}
       inputValue={finalInputValue}
-      PaperComponent={loading ? undefined : PaperComponent({ disableReset, disableSelectAll, localeText, onChange, options, value })}
+      slotProps={{ paper: { disableReset, disableSelectAll, localeText, onChange, options, value } as PaperProps }}
+      PaperComponent={loading ? undefined : (PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>)} // TODO: when we upgrade to mui v6, we can remove this cast and replace with AutocompletePaperSlotPropsOverrides
       open={open}
       onOpen={() => setOpen(true)}
       onInputChange={(_, newInputValue, reason) => {
