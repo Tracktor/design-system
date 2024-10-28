@@ -196,7 +196,13 @@ const PaperComponent = <
                     disablePadding
                     onClick={(e) => {
                       if (checked) {
-                        const newValue = Array.isArray(value) ? value?.filter((val) => JSON.stringify(val) !== JSON.stringify(option)) : [];
+                        const newValue = Array.isArray(value)
+                          ? value?.filter(
+                              (val) =>
+                                JSON.stringify(val) !== JSON.stringify(option) ||
+                                (val && typeof val === "object" && "id" in val && val?.id === option?.id),
+                            )
+                          : [];
 
                         onChange?.(e, newValue as AutocompleteFilterOption<OptionValue>[], "removeOption");
                         return;
