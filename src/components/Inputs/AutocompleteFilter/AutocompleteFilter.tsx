@@ -22,8 +22,9 @@ import {
 } from "@mui/material";
 import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@mui/material/useAutocomplete/useAutocomplete";
 import * as React from "react";
-import { ElementType, forwardRef, HTMLAttributes, isValidElement, ReactNode, Ref, SyntheticEvent, useState } from "react";
+import { ElementType, forwardRef, HTMLAttributes, isValidElement, ReactNode, Ref, SyntheticEvent, useContext, useState } from "react";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
+import { ThemeContext } from "@/context/Theme/ThemeProvider";
 
 export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
@@ -94,6 +95,17 @@ export interface AutocompleteFilterProps<
   };
 }
 
+const locales: Record<string, Record<string, string>> = {
+  en: {
+    reset: "Reset",
+    selectAll: "Select all",
+  },
+  fr: {
+    reset: "Réinitialiser",
+    selectAll: "Tout sélectionner",
+  },
+};
+
 const Count = (color?: "default" | "primary") =>
   function RenderCount(more: number) {
     return (
@@ -129,9 +141,12 @@ const PaperComponent = <
   "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value"
 >) =>
   function RenderPaperComponent(paperProps: HTMLAttributes<HTMLElement>) {
+    const { language } = useContext(ThemeContext);
     const { children, ...restPaperProps } = paperProps;
     const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
     const headerOptions = options?.filter((option) => option?.isHeader);
+    const selectAllLabel = localeText?.selectAll || locales[language || "en"].selectAll;
+    const resetLabel = localeText?.reset || locales[language || "en"].reset;
 
     return (
       <Paper {...restPaperProps}>
@@ -157,7 +172,7 @@ const PaperComponent = <
                 >
                   <ListItemButton>
                     <Checkbox id="select-all-checkbox" checked={allChecked} />
-                    <ListItemText primary={localeText?.selectAll || "Select all"} />
+                    <ListItemText primary={selectAllLabel} />
                     {!disableReset && (
                       <Button
                         variant="link"
@@ -174,7 +189,7 @@ const PaperComponent = <
                           e.preventDefault();
                         }}
                       >
-                        {localeText?.reset || "Reset"}
+                        {resetLabel}
                       </Button>
                     )}
                   </ListItemButton>

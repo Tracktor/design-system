@@ -1,6 +1,6 @@
 import { createTheme, css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import { frFR, Localization } from "@mui/material/locale";
-import { ReactNode } from "react";
+import { createContext, ReactNode, useMemo } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
 
@@ -52,6 +52,8 @@ const defaultFont: ThemeProviderProps["font"] = {
   fontWeight: defaultFontWeight,
   import: true,
 };
+
+export const ThemeContext = createContext<Pick<ThemeProviderProps, "language">>({});
 
 const ScrollBarStyle = ({ theme }: { theme: ThemeProviderProps["theme"] }) => (
   <GlobalStyles
@@ -115,6 +117,7 @@ const ThemeProvider = ({
   const fontOptions = { ...defaultFont, ...font };
   const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
   const fontWeight = fontOptions?.fontWeight?.join(";");
+  const themeContextValue = useMemo(() => ({ language }), [language]);
 
   const getTheme = () => {
     const themeOptions = typeof theme === "object" ? theme : {};
@@ -134,26 +137,28 @@ const ThemeProvider = ({
   };
 
   return (
-    <ThemeProviderMUI theme={getTheme()}>
-      <GlobalStyles
-        styles={css`
-          ::-webkit-calendar-picker-indicator {
-            filter: invert(${theme === "dark" ? 1 : 0});
-          }
-        `}
-      />
-      {fontOptions.import && (
+    <ThemeContext.Provider value={themeContextValue}>
+      <ThemeProviderMUI theme={getTheme()}>
         <GlobalStyles
           styles={css`
-            @import url("https://fonts.googleapis.com/css2?family=${fontName}:wght@${fontWeight}&display=swap");
+            ::-webkit-calendar-picker-indicator {
+              filter: invert(${theme === "dark" ? 1 : 0});
+            }
           `}
         />
-      )}
-      {includeCssBaseline && <CssBaseline enableColorScheme={enableColorScheme} />}
-      {fullHeight && <FullHeightStyle />}
-      {includeScrollBarStyle && <ScrollBarStyle theme={theme} />}
-      {children}
-    </ThemeProviderMUI>
+        {fontOptions.import && (
+          <GlobalStyles
+            styles={css`
+              @import url("https://fonts.googleapis.com/css2?family=${fontName}:wght@${fontWeight}&display=swap");
+            `}
+          />
+        )}
+        {includeCssBaseline && <CssBaseline enableColorScheme={enableColorScheme} />}
+        {fullHeight && <FullHeightStyle />}
+        {includeScrollBarStyle && <ScrollBarStyle theme={theme} />}
+        {children}
+      </ThemeProviderMUI>
+    </ThemeContext.Provider>
   );
 };
 
