@@ -162,11 +162,9 @@ const PaperComponent = <
   const selectAllLabel = localeText?.selectAll || locales[language || "en"].selectAll;
   const resetLabel = localeText?.reset || locales[language || "en"].reset;
 
-  console.log(loading);
-
   return (
     <Paper {...props}>
-      {(!disableSelectAll || !!headerOptions?.length) && (
+      {!loading && (!disableSelectAll || !!headerOptions?.length) && (
         <>
           <List role="listbox">
             {!disableSelectAll && (
@@ -258,7 +256,6 @@ const PaperComponent = <
           <Divider />
         </>
       )}
-
       {children}
     </Paper>
   );
