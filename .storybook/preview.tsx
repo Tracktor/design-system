@@ -10,32 +10,26 @@ import SnackbarProvider from "../src/context/Snackbar/SnackbarProvider";
 const channel = addons.getChannel();
 const brandTitle = `v${version}`;
 
-const ThemeWrapper = (props: any) => {
-  const isDarkMode = useDarkMode()
-  const [isDark, setDark] = useState(isDarkMode);
-
-  useEffect(() => {
-    channel.on(DARK_MODE_EVENT_NAME, setDark);
-    return () => {
-      channel.off(DARK_MODE_EVENT_NAME, setDark)
-    }
-  }, [channel, setDark]);
-
-  return (
-    <ThemeProvider theme={isDark ? "dark" : "light"} language={"fr"}>
-      <SnackbarProvider>
-      {props.children}
-      </SnackbarProvider>
-    </ThemeProvider>
-  );
-}
-
 const decorators = [
-  (Story: FunctionComponent) => (
-    <ThemeWrapper>
-      <Story/>
-    </ThemeWrapper>
-  ),
+  (Story: FunctionComponent) => {
+    const isDarkMode = useDarkMode()
+    const [isDark, setDark] = useState(isDarkMode);
+
+    useEffect(() => {
+      channel.on(DARK_MODE_EVENT_NAME, setDark);
+      return () => {
+        channel.off(DARK_MODE_EVENT_NAME, setDark)
+      }
+    }, [channel, setDark]);
+
+    return (
+      <ThemeProvider theme={isDark ? "dark" : "light"} language={"fr"}>
+        <SnackbarProvider>
+          <Story/>
+        </SnackbarProvider>
+      </ThemeProvider>
+    );
+  },
 ];
 
 const preview: Preview = {
