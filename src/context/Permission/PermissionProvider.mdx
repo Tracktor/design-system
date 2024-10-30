@@ -37,8 +37,39 @@ console.log(hasBill) // false
 
 ### Props
 
-| Name                  | Type     | Required | Description                       |
-|-----------------------|----------|----------|-----------------------------------|
-| `permissions`         | string[] | false    | Array of permissions name         |
-| `disabledPermissions` | string[] | false    | Array of disabledPermissions name |
-| `children`            | string   | false    | Children                          |
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Required</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>permissions</code></td>
+    <td>string[]</td>
+    <td>false</td>
+    <td>Array of permissions name</td>
+  </tr>
+  <tr>
+    <td><code>setPermissions</code></td>
+    <td>function</td>
+    <td>undefined</td>
+    <td>Permission setter function</td>
+  </tr>
+  <tr>
+    <td><code>disabledPermissions</code></td>
+    <td>string[]</td>
+    <td>false</td>
+    <td>Array of disabledPermissions name</td>
+  </tr>
+  <tr>
+    <td><code>children</code></td>
+    <td>string</td>
+    <td>false</td>
+    <td>Children</td>
+  </tr>
+  </tbody>
+</table>

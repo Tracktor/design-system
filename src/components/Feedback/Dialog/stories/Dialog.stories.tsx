@@ -187,7 +187,7 @@ const FullScreenTemplate: StoryFn<typeof Dialog> = (args) => {
             <ListItemText primary="Phone ringtone" secondary="Titania" />
           </ListItemButton>
           <Divider />
-          <ListItem button>
+          <ListItem>
             <ListItemText primary="Default notification ringtone" secondary="Tethys" />
           </ListItem>
         </List>

@@ -1,4 +1,4 @@
-import { Box, Paper } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
 import Grid from "./Grid";
 
@@ -8,145 +8,157 @@ const PaperStyle = {
 };
 
 const Template: StoryFn<typeof Grid> = (args) => (
-  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
-    <Grid container {...args}>
-      <Grid item xs={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=8
-        </Paper>
+  <Stack width="100%" alignItems="center" justifyContent="center" height="100%" flexDirection="row">
+    <Box flex={1}>
+      <Grid container {...args}>
+        <Grid size={{ xs: 8 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=8
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 4 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=4
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 4 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=4
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 8 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=8
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=4
-        </Paper>
-      </Grid>
-      <Grid item xs={4}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=4
-        </Paper>
-      </Grid>
-      <Grid item xs={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=8
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
+    </Box>
+  </Stack>
 );
 
 const MultipleBreakpointTemplate: StoryFn<typeof Grid> = (args) => (
-  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
-    <Grid container {...args}>
-      <Grid item xs={6} md={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=6 md=8
-        </Paper>
+  <Stack width="100%" alignItems="center" justifyContent="center" height="100%" flexDirection="row">
+    <Box flex={1}>
+      <Grid container {...args}>
+        <Grid size={{ md: 8, xs: 6 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=6 md=8
+          </Paper>
+        </Grid>
+        <Grid size={{ md: 4, xs: 6 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=6 md=4
+          </Paper>
+        </Grid>
+        <Grid size={{ md: 4, xs: 6 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            s=6 md=4
+          </Paper>
+        </Grid>
+        <Grid size={{ md: 8, xs: 6 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=6 md=8
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={6} md={4}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=6 md=4
-        </Paper>
-      </Grid>
-      <Grid item xs={6} md={4}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          s=6 md=4
-        </Paper>
-      </Grid>
-      <Grid item xs={6} md={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=6 md=8
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
+    </Box>
+  </Stack>
 );
 
 const RowAndColumnSpacingTemplate: StoryFn<typeof Grid> = (args) => (
-  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
-    <Grid container {...args}>
-      <Grid item xs={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=8
-        </Paper>
+  <Stack width="100%" alignItems="center" justifyContent="center" height="100%" flexDirection="row">
+    <Box flex={1}>
+      <Grid container {...args}>
+        <Grid size={{ xs: 8 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=8
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 4 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=4
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 4 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=4
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 8 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=8
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=4
-        </Paper>
-      </Grid>
-      <Grid item xs={4}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=4
-        </Paper>
-      </Grid>
-      <Grid item xs={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=8
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
+    </Box>
+  </Stack>
 );
 
 const AutoLayoutTemplate: StoryFn<typeof Grid> = (args) => (
-  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
-    <Grid container {...args}>
-      <Grid item xs>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs
-        </Paper>
+  <Stack width="100%" alignItems="center" justifyContent="center" height="100%" flexDirection="row">
+    <Box flex={1}>
+      <Grid container {...args}>
+        <Grid size="grow">
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 6 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=6
+          </Paper>
+        </Grid>
+        <Grid size="grow">
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=6
-        </Paper>
-      </Grid>
-      <Grid item xs>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
+    </Box>
+  </Stack>
 );
 
 const VariableWidthContentTemplate: StoryFn<typeof Grid> = (args) => (
-  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
-    <Grid container {...args}>
-      <Grid item xs="auto">
-        <Paper variant="outlined" sx={PaperStyle}>
-          variable width content
-        </Paper>
+  <Stack width="100%" alignItems="center" justifyContent="center" height="100%" flexDirection="row">
+    <Box flex={1}>
+      <Grid container {...args}>
+        <Grid size="auto">
+          <Paper variant="outlined" sx={PaperStyle}>
+            variable width content
+          </Paper>
+        </Grid>
+        <Grid size={6}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=6
+          </Paper>
+        </Grid>
+        <Grid size="grow">
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=6
-        </Paper>
-      </Grid>
-      <Grid item xs>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
+    </Box>
+  </Stack>
 );
 
 const CustomColumnsNumberTemplate: StoryFn<typeof Grid> = (args) => (
-  <Box width="100%" display="flex" alignItems="center" justifyContent="center" height="100%">
-    <Grid container {...args}>
-      <Grid item xs={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=8
-        </Paper>
+  <Stack width="100%" alignItems="center" justifyContent="center" height="100%" flexDirection="row">
+    <Box flex={1}>
+      <Grid container {...args}>
+        <Grid size={{ xs: 8 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=8
+          </Paper>
+        </Grid>
+        <Grid size={{ xs: 8 }}>
+          <Paper variant="outlined" sx={PaperStyle}>
+            xs=8
+          </Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={8}>
-        <Paper variant="outlined" sx={PaperStyle}>
-          xs=8
-        </Paper>
-      </Grid>
-    </Grid>
-  </Box>
+    </Box>
+  </Stack>
 );
 
 export const Basic = Template.bind({});

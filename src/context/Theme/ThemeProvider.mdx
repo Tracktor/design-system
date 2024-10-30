@@ -22,12 +22,65 @@ export default App;
 
 ### Props
 
-| Name                    | Type                              | Required | default            |   | Description                      |
-|-------------------------|-----------------------------------|----------|--------------------|:--|----------------------------------|
-| `fullHeight`            | boolean                           | false    | true               |   | Set html and body height to 100% |
-| `includeCssBaseline`    | boolean                           | false    | true               |   | Include CssBaseline              |
-| `includeScrollBarStyle` | boolean                           | false    | true               |   | Include scroll bar style         |
-| `theme`                 | "dark" or "light" or ThemeOptions | false    | light              |   | Theme to use                     |
-| `font`                  | object                            | false    | `{ import: true }` |   | Font options                     |
-| `enableColorScheme`     | boolean                           | false    | undefined          |   | Enable color scheme              |
-| `language`              | "fr"                              | "en"     | false              |   | Define locale text globally      |
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Required</th>
+    <th>Default</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>fullHeight</code></td>
+    <td>boolean</td>
+    <td>false</td>
+    <td>true</td>
+    <td>Set html and body height to 100%</td>
+  </tr>
+  <tr>
+    <td><code>includeCssBaseline</code></td>
+    <td>boolean</td>
+    <td>false</td>
+    <td>true</td>
+    <td>Include CssBaseline</td>
+  </tr>
+  <tr>
+    <td><code>includeScrollBarStyle</code></td>
+    <td>boolean</td>
+    <td>false</td>
+    <td>true</td>
+    <td>Include scroll bar style</td>
+  </tr>
+  <tr>
+    <td><code>theme</code></td>
+    <td>"dark" | "light" | ThemeOptions | Localization</td>
+    <td>false</td>
+    <td>light</td>
+    <td>Theme to use</td>
+  </tr>
+  <tr>
+    <td><code>font</code></td>
+    <td>object</td>
+    <td>false</td>
+    <td>import:true</td>
+    <td>Font options</td>
+  </tr>
+  <tr>
+    <td><code>enableColorScheme</code></td>
+    <td>boolean</td>
+    <td>false</td>
+    <td>undefined</td>
+    <td>Enable color scheme</td>
+  </tr>
+  <tr>
+    <td><code>language</code></td>
+    <td>"fr" or "en"</td>
+    <td>false</td>
+    <td>en</td>
+    <td>Define locale text globally</td>
+  </tr>
+  </tbody>
+</table>

@@ -12,7 +12,11 @@ const useSnackBar = () => {
     throw new Error("SnackbarProvider must be used within a useSnackBar hook");
   }
 
-  return { closeSnackbar, isOpen, openSnackbar };
+  return {
+    closeSnackbar,
+    isOpen,
+    openSnackbar,
+  };
 };
 
 export default useSnackBar;

@@ -1,5 +1,5 @@
-import { Grid as Component, GridProps } from "@mui/material";
+import { Grid2 as Component, Grid2Props } from "@mui/material";
 
-const Grid = (props: GridProps) => <Component {...props} />;
+const Grid = (props: Grid2Props) => <Component {...props} />;
 
 export default Grid;

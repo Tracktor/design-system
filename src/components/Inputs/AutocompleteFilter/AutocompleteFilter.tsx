@@ -1,5 +1,6 @@
 import {
   Autocomplete as MuiAutocomplete,
+  AutocompletePaperSlotPropsOverrides,
   AutocompleteProps as MuiAutocompleteProps,
   AutocompleteValue,
   Avatar,
@@ -314,7 +315,6 @@ const AutocompleteFilter = <
 
   return (
     <MuiAutocomplete
-      PaperComponent={PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>} // TODO: when we upgrade to mui v6, we can remove this cast and replace with AutocompletePaperSlotPropsOverrides
       value={value}
       loading={loading}
       options={options || []}
@@ -329,6 +329,9 @@ const AutocompleteFilter = <
       inputValue={finalInputValue}
       open={open}
       onOpen={() => setOpen(true)}
+      slots={{
+        paper: PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>,
+      }}
       slotProps={{
         ...slotProps,
         paper: {
@@ -340,7 +343,7 @@ const AutocompleteFilter = <
           options,
           value,
           ...slotProps?.paper,
-        } as PaperProps,
+        } as AutocompletePaperSlotPropsOverrides,
       }}
       onInputChange={(_, newInputValue, reason) => {
         if (reason === "reset" && open && !resetInputValueOnSelectOption) {

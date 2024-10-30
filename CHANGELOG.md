@@ -1,4 +1,7 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v2.7.16
-- **[fix]** - `AutocompleteFilter` onInputChange event
+## v3.0.0
+- **[chore]** - Upgrade to MUI v6
+- **[chore]** - Upgrade dependencies
+- **[feat]** - Drag and drop `File` component
+- **[docs]** - Improve table to mdx file

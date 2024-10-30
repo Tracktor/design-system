@@ -1,5 +1,5 @@
 import { InputLabel, Stack, Typography, useTheme } from "@mui/material";
-import { ChangeEvent, ElementRef, ReactNode, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, ElementRef, ReactNode, useRef, useState } from "react";
 import UploadIcon from "@/components/DataDisplay/Icons/UploadIcon";
 
 export interface FileUploadProps {
@@ -19,7 +19,7 @@ export interface FileUploadProps {
   localeText?: {
     files: string;
   };
-  onChange?(e: ChangeEvent<HTMLInputElement>): void;
+  onChange?(e: ChangeEvent<HTMLInputElement> | DragEvent<HTMLLabelElement>): void;
 }
 
 const MAX_FILE_NAME_TO_DISPLAY = 5;
@@ -41,9 +41,7 @@ const getFileNames = (files: FileList | null) => {
   const hasMultipleFiles = files.length > 1;
   const filesArray = [...(files || [])];
   const fileName = filesArray
-    // Limit the number of displayed files to 3
     .slice(0, 5)
-    // Truncate the file name if it's too long
     .map(({ name }) => {
       const extension = name.split(".").pop();
 
@@ -53,10 +51,8 @@ const getFileNames = (files: FileList | null) => {
 
       return name;
     })
-    // Separate the file names with a bullet
     .join(" • ");
 
-  // Add to fileName (xx mores) if there are more than 5
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
@@ -89,12 +85,27 @@ const File = ({
     setFiles(e.target.files);
   };
 
+  const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      setFiles(e.dataTransfer.files);
+      onChange?.(e as unknown as ChangeEvent<HTMLInputElement>);
+      e.dataTransfer.clearData();
+    }
+  };
+
   return (
     <InputLabel
       ref={labelRef}
       htmlFor={htmlId}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
       sx={{
-        "&:hover": {
+        "&:hover, &:focus": {
           borderColor: palette.primary.main,
         },
         border: `1px dashed ${error ? palette.error.main : palette.divider}`,
@@ -153,9 +164,6 @@ const File = ({
         id={htmlId}
         onChange={handleChange}
         style={{
-          // Hide the input element
-          // The input element is hidden
-          // But still clickable and focusable for accessibility and HTML validation
           left: "50%",
           opacity: 0,
           pointerEvents: "none",
