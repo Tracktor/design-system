@@ -15,7 +15,12 @@ const useMenu = <T = HTMLElement>() => {
     setAnchorMenu(currentTarget);
   }, []);
 
-  return { anchorMenu, closeMenu, isMenuOpen, openMenu };
+  return {
+    anchorMenu,
+    closeMenu,
+    isMenuOpen,
+    openMenu,
+  };
 };
 
 export default useMenu;

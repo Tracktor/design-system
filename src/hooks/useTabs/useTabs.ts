@@ -10,7 +10,10 @@ const useTabs = () => {
     setValue(newValue);
   }, []);
 
-  return { handleChange, value };
+  return {
+    handleChange,
+    value,
+  };
 };
 
 export default useTabs;
