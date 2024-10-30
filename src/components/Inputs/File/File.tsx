@@ -1,6 +1,7 @@
 import { InputLabel, Stack, Typography, useTheme } from "@mui/material";
 import { ChangeEvent, DragEvent, ElementRef, ReactNode, useRef, useState } from "react";
 import UploadIcon from "@/components/DataDisplay/Icons/UploadIcon";
+import useTranslation from "@/hooks/useTranslation";
 
 export interface FileUploadProps {
   size?: "small" | "medium";
@@ -19,7 +20,7 @@ export interface FileUploadProps {
   localeText?: {
     files: string;
   };
-  onChange?(e: ChangeEvent<HTMLInputElement> | DragEvent<HTMLLabelElement>): void;
+  onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
 
 const MAX_FILE_NAME_TO_DISPLAY = 5;
@@ -70,9 +71,10 @@ const File = ({
   fullWidth,
   icon,
   onChange,
-  label = "Click to upload",
+  label,
   variant = "vertical",
 }: FileUploadProps) => {
+  const { t } = useTranslation();
   const { palette } = useTheme();
   const isVertical = variant === "vertical";
   const htmlId = id || name;
@@ -91,9 +93,12 @@ const File = ({
 
   const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+    if (e.dataTransfer.files.length > 0) {
+      const target = { ...e.target, files: e.dataTransfer.files };
+      const event = { ...e, target } as unknown as ChangeEvent<HTMLInputElement>;
+
       setFiles(e.dataTransfer.files);
-      onChange?.(e as unknown as ChangeEvent<HTMLInputElement>);
+      onChange?.(event);
       e.dataTransfer.clearData();
     }
   };
@@ -131,7 +136,7 @@ const File = ({
         {fileName ? (
           <>
             <Typography variant="body2" color="textSecondary">
-              {files?.length} {localeText?.files || "Fichiers"}
+              {files?.length} {localeText?.files || t("files")}
             </Typography>
             <Typography
               variant="body2"
@@ -145,7 +150,7 @@ const File = ({
           </>
         ) : (
           <Typography variant="subtitle1" color={disabled ? "text.disabled" : "primary"}>
-            {label} {required && "*"}
+            {label || t("clickToUpload")} {required && "*"}
           </Typography>
         )}
         {helperText && (

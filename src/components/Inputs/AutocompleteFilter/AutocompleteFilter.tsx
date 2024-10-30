@@ -33,11 +33,10 @@ import {
   ReactNode,
   Ref,
   SyntheticEvent,
-  useContext,
   useState,
 } from "react";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
-import { ThemeContext } from "@/context/Theme/ThemeProvider";
+import useTranslation from "@/hooks/useTranslation";
 
 export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
@@ -108,17 +107,6 @@ export interface AutocompleteFilterProps<
   };
 }
 
-const locales: Record<string, Record<string, string>> = {
-  en: {
-    reset: "Reset",
-    selectAll: "Select all",
-  },
-  fr: {
-    reset: "Réinitialiser",
-    selectAll: "Tout sélectionner",
-  },
-};
-
 const Count = (color?: "default" | "primary") =>
   function RenderCount(more: number) {
     return (
@@ -157,11 +145,9 @@ const PaperComponent = <
     AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
     "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value" | "loading"
   >) => {
-  const { language } = useContext(ThemeContext);
+  const { t } = useTranslation();
   const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
   const headerOptions = options?.filter((option) => option?.isHeader);
-  const selectAllLabel = localeText?.selectAll || locales[language || "en"].selectAll;
-  const resetLabel = localeText?.reset || locales[language || "en"].reset;
 
   return (
     <Paper {...props}>
@@ -187,7 +173,7 @@ const PaperComponent = <
               >
                 <ListItemButton disableRipple>
                   <Checkbox id="select-all-checkbox" checked={allChecked} />
-                  <ListItemText primary={selectAllLabel} />
+                  <ListItemText primary={localeText?.selectAll || t("selectAll")} />
                   {!disableReset && (
                     <Button
                       variant="link"
@@ -204,7 +190,7 @@ const PaperComponent = <
                         e.preventDefault();
                       }}
                     >
-                      {resetLabel}
+                      {localeText?.reset || t("reset")}
                     </Button>
                   )}
                 </ListItemButton>
@@ -430,26 +416,28 @@ const AutocompleteFilter = <
               },
             }}
             {...params}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: open ? (
-                <InputAdornment
-                  position="end"
-                  sx={{
-                    position: "absolute",
-                    right: 9,
-                  }}
-                >
-                  {open && finalInputValue && !disableClearable && (
-                    <IconButton size="small" onClick={() => setInternalInputValue("")}>
-                      <CloseIcon />
-                    </IconButton>
-                  )}
-                  {EndAdornmentElement?.props.children[1]}
-                </InputAdornment>
-              ) : (
-                EndAdornmentElement
-              ),
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                endAdornment: open ? (
+                  <InputAdornment
+                    position="end"
+                    sx={{
+                      position: "absolute",
+                      right: 9,
+                    }}
+                  >
+                    {open && finalInputValue && !disableClearable && (
+                      <IconButton size="small" onClick={() => setInternalInputValue("")}>
+                        <CloseIcon />
+                      </IconButton>
+                    )}
+                    {EndAdornmentElement?.props.children[1]}
+                  </InputAdornment>
+                ) : (
+                  EndAdornmentElement
+                ),
+              },
             }}
             placeholder={getPlaceholder()}
           />

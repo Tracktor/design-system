@@ -4,6 +4,8 @@ import { createContext, ReactNode, useMemo } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
 
+type Language = "en" | "fr";
+
 export interface ThemeProviderProps {
   /**
    * Children to render
@@ -53,7 +55,9 @@ const defaultFont: ThemeProviderProps["font"] = {
   import: true,
 };
 
-export const ThemeContext = createContext<Pick<ThemeProviderProps, "language">>({});
+export const ThemeContext = createContext<{ language: Language }>({
+  language: "en",
+});
 
 const ScrollBarStyle = ({ theme }: { theme: ThemeProviderProps["theme"] }) => (
   <GlobalStyles
@@ -110,14 +114,14 @@ const ThemeProvider = ({
   includeCssBaseline = true,
   includeScrollBarStyle = true,
   fullHeight = true,
-  language,
   theme,
+  language = "en",
   font = defaultFont,
 }: ThemeProviderProps) => {
   const fontOptions = { ...defaultFont, ...font };
   const fontName = fontOptions?.googleFontName || commonTheme.typography.fontFamily?.split(",")[0];
   const fontWeight = fontOptions?.fontWeight?.join(";");
-  const themeContextValue = useMemo(() => ({ language }), [language]);
+  const themeContextValue = useMemo(() => ({ language: language as Language }), [language]);
 
   const getTheme = () => {
     const themeOptions = typeof theme === "object" ? theme : {};

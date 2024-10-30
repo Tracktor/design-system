@@ -12,6 +12,9 @@ const Template: StoryFn<typeof File> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = {
   label: "Ajouter une photo ou un fichier",
+  onChange: (e) => {
+    console.log(e.target.files);
+  },
 };
 
 export const FileMultiple = Template.bind({});

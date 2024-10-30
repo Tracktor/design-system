@@ -23,7 +23,7 @@ const decorators = [
     }, [channel, setDark]);
 
     return (
-      <ThemeProvider theme={isDark ? "dark" : "light"} language={"fr"}>
+      <ThemeProvider theme={isDark ? "dark" : "light"}>
         <SnackbarProvider>
           <Story/>
         </SnackbarProvider>
