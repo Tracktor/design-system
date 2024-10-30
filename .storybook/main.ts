@@ -22,7 +22,7 @@ const config: StorybookConfig = {
       }
     },
   },
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ["../src/**/*.mdx", "./**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   typescript: {
     reactDocgen: "react-docgen-typescript"
   },
