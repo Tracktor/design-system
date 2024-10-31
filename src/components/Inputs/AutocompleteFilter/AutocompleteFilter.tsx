@@ -266,6 +266,7 @@ const AutocompleteFilter = <
     value,
     onFocus,
     onBlur,
+    open,
     onInputChange,
     inputValue,
     disableClearable,
@@ -283,7 +284,7 @@ const AutocompleteFilter = <
   ref: Ref<HTMLDivElement>,
 ) => {
   const { palette } = useTheme();
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
@@ -302,7 +303,7 @@ const AutocompleteFilter = <
     onChange?.(event, newValue as AutocompleteFilterOption<OptionValue>[], reason, details);
 
     if (!disableCloseOnSelect || !multiple) {
-      setOpen(false);
+      setInternalOpen(false);
     }
   };
 
@@ -320,8 +321,8 @@ const AutocompleteFilter = <
       onChange={handleChange}
       getLimitTagsText={Count(badgeColor)}
       inputValue={finalInputValue}
-      open={open}
-      onOpen={() => setOpen(true)}
+      open={open || internalOpen}
+      onOpen={() => setInternalOpen(true)}
       slots={{
         paper: PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>,
       }}
@@ -340,7 +341,7 @@ const AutocompleteFilter = <
         } as AutocompletePaperSlotPropsOverrides,
       }}
       onInputChange={(_, newInputValue, reason) => {
-        if (reason === "reset" && open && !resetInputValueOnSelectOption) {
+        if (reason === "reset" && internalOpen && !resetInputValueOnSelectOption) {
           return;
         }
 
@@ -351,11 +352,11 @@ const AutocompleteFilter = <
         onInputChange?.(_, newInputValue, reason);
       }}
       onFocus={(event) => {
-        setOpen(true);
+        setInternalOpen(true);
         onFocus?.(event);
       }}
       onBlur={(event) => {
-        setOpen(false);
+        setInternalOpen(false);
         onBlur?.(event);
       }}
       renderOption={
@@ -411,7 +412,7 @@ const AutocompleteFilter = <
       {...props}
       renderInput={(params) => {
         const getPlaceholder = () => {
-          if (!open && ((Array.isArray(value) && value.length) || (!Array.isArray(value) && value))) {
+          if (!internalOpen && ((Array.isArray(value) && value.length) || (!Array.isArray(value) && value))) {
             return undefined;
           }
 
@@ -424,7 +425,7 @@ const AutocompleteFilter = <
           <TextField
             sx={{
               ".MuiInputBase-root .MuiInputBase-input": {
-                flex: (!open && !finalInputValue) || open ? 1 : 0,
+                flex: (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
                 minWidth: 0,
               },
             }}
@@ -432,7 +433,7 @@ const AutocompleteFilter = <
             slotProps={{
               input: {
                 ...params.InputProps,
-                endAdornment: open ? (
+                endAdornment: internalOpen ? (
                   <InputAdornment
                     position="end"
                     sx={{
@@ -440,7 +441,7 @@ const AutocompleteFilter = <
                       right: 9,
                     }}
                   >
-                    {open && finalInputValue && !disableClearable && (
+                    {internalOpen && finalInputValue && !disableClearable && (
                       <IconButton size="small" onClick={() => setInternalInputValue("")}>
                         <CloseIcon />
                       </IconButton>
