@@ -304,16 +304,16 @@ const AutocompleteFilter = <
 
   return (
     <MuiAutocomplete
+      freeSolo={false as FreeSolo}
+      multiple={multiple as Multiple}
+      disableClearable={disableClearable as DisableClearable}
       value={value}
       loading={loading}
       options={options}
       ref={ref}
       size={size}
-      freeSolo={false as FreeSolo}
-      multiple={multiple as Multiple}
-      disableClearable={disableClearable as DisableClearable}
-      onChange={handleChange}
       disableCloseOnSelect={disableCloseOnSelect}
+      onChange={handleChange}
       getLimitTagsText={Count(badgeColor)}
       inputValue={finalInputValue}
       open={open}
