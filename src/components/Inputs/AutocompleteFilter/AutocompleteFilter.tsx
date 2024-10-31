@@ -37,6 +37,7 @@ import {
 } from "react";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useTranslation from "@/hooks/useTranslation";
+import pxToRem from "@/utils/pxToRem";
 
 export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
@@ -425,7 +426,7 @@ const AutocompleteFilter = <
           <TextField
             sx={{
               ".MuiInputBase-root .MuiInputBase-input": {
-                flex: (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
+                flex: !multiple || (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
                 minWidth: 0,
               },
             }}
@@ -442,8 +443,8 @@ const AutocompleteFilter = <
                     }}
                   >
                     {internalOpen && finalInputValue && !disableClearable && (
-                      <IconButton size="small" onClick={() => setInternalInputValue("")}>
-                        <CloseIcon />
+                      <IconButton size="small" onClick={() => setInternalInputValue("")} sx={{ marginRight: "-3px" }}>
+                        <CloseIcon sx={{ fontSize: pxToRem(20) }} />
                       </IconButton>
                     )}
                     {EndAdornmentElement?.props.children[1]}
