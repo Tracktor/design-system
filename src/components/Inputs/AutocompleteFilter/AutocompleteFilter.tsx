@@ -95,7 +95,7 @@ export interface AutocompleteFilterProps<
    */
   onChange?: (
     event: SyntheticEvent,
-    value: AutocompleteFilterOption<OptionValue>[] | null,
+    value: any,
     reason?: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
   ) => void;
@@ -107,6 +107,8 @@ export interface AutocompleteFilterProps<
     reset?: string;
   };
 }
+
+const checkboxStyle = { padding: 0, paddingRight: 1 };
 
 const Count = (color?: "default" | "primary") =>
   function RenderCount(more: number) {
@@ -174,7 +176,7 @@ const PaperComponent = <
                 }}
               >
                 <ListItemButton disableRipple>
-                  <Checkbox disableRipple id="select-all-checkbox" checked={allChecked} />
+                  <Checkbox disableRipple id="select-all-checkbox" checked={allChecked} sx={checkboxStyle} />
                   <ListItemText primary={localeText?.selectAll || t("selectAll")} primaryTypographyProps={{ variant: "body2" }} />
                   {!disableReset && (
                     <Button
@@ -235,7 +237,7 @@ const PaperComponent = <
                   }}
                 >
                   <ListItemButton disableRipple>
-                    <Checkbox disableRipple checked={checked} />
+                    <Checkbox disableRipple checked={checked} sx={checkboxStyle} />
                     <ListItemText primary={option?.label} />
                   </ListItemButton>
                 </ListItem>
@@ -375,7 +377,7 @@ const AutocompleteFilter = <
 
           return (
             <ListItem {...optionProps} key={key}>
-              {!disableCheckbox && <Checkbox disableRipple checked={selected} sx={{ padding: 1 }} />}
+              {!disableCheckbox && <Checkbox disableRipple checked={selected} sx={checkboxStyle} />}
               {option?.image && (
                 <ListItemAvatar
                   sx={{
@@ -388,7 +390,13 @@ const AutocompleteFilter = <
                   <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }} />
                 </ListItemAvatar>
               )}
-              <Typography variant="body2">{option.label}</Typography>
+              {typeof option?.label === "string" ? (
+                <Typography variant="body2" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" title={option?.label}>
+                  {option.label}
+                </Typography>
+              ) : (
+                option?.label
+              )}
             </ListItem>
           );
         })

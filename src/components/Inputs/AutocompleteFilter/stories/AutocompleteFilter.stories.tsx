@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { SyntheticEvent, useState } from "react";
 import AutocompleteFilter, { AutocompleteFilterOption } from "@/components/Inputs/AutocompleteFilter";
 
@@ -7,7 +7,7 @@ const data = [
   { id: "1", label: "Oliver Hansen", value: "oliver-hansen" },
   { id: "2", label: "Van Henry", value: "van-henry" },
   { id: "3", label: "April Tucker", value: "april-tucker" },
-  { id: "4", label: "April Tucker with very long label", value: "april-tucker" },
+  { id: "4", label: "April Tucker with very long label already", value: "april-tucker" },
 ];
 
 const dataWithImage = [
