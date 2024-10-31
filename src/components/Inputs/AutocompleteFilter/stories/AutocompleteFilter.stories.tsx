@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { SyntheticEvent, useState } from "react";
 import AutocompleteFilter, { AutocompleteFilterOption } from "@/components/Inputs/AutocompleteFilter";
 
@@ -38,6 +38,53 @@ const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
       <AutocompleteFilter {...args} size="xSmall" sx={{ width: 300 }} onChange={handleChangeXSmall} value={selectedOptionsXSmall} />
       <AutocompleteFilter {...args} size="small" sx={{ width: 300 }} onChange={handleChangeSmall} value={selectedOptionsSmall} />
       <AutocompleteFilter {...args} size="medium" sx={{ width: 300 }} onChange={handleChangeMedium} value={selectedOptionsMedium} />
+    </Stack>
+  );
+};
+
+const TemplateUniqueSelection: StoryFn<typeof AutocompleteFilter> = (args) => {
+  const [selectedOptionsXSmall, setSelectedOptionsXSmall] = useState<AutocompleteFilterOption | null>(null);
+  const [selectedOptionsSmall, setSelectedOptionsSmall] = useState<AutocompleteFilterOption | null>(null);
+  const [selectedOptionsMedium, setSelectedOptionsMedium] = useState<AutocompleteFilterOption | null>(null);
+
+  const handleChangeXSmall = (_: SyntheticEvent, value: AutocompleteFilterOption | null) => {
+    setSelectedOptionsXSmall(value);
+  };
+
+  const handleChangeSmall = (_: SyntheticEvent, value: AutocompleteFilterOption | null) => {
+    setSelectedOptionsSmall(value);
+  };
+
+  const handleChangeMedium = (_: SyntheticEvent, value: AutocompleteFilterOption | null) => {
+    setSelectedOptionsMedium(value);
+  };
+
+  return (
+    <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+      <AutocompleteFilter
+        {...args}
+        size="xSmall"
+        sx={{ width: 300 }}
+        onChange={handleChangeXSmall}
+        value={selectedOptionsXSmall}
+        multiple={false}
+      />
+      <AutocompleteFilter
+        {...args}
+        size="small"
+        sx={{ width: 300 }}
+        onChange={handleChangeSmall}
+        value={selectedOptionsSmall}
+        multiple={false}
+      />
+      <AutocompleteFilter
+        {...args}
+        size="medium"
+        sx={{ width: 300 }}
+        onChange={handleChangeMedium}
+        value={selectedOptionsMedium}
+        multiple={false}
+      />
     </Stack>
   );
 };
@@ -106,7 +153,7 @@ Loading.args = {
   loading: true,
 };
 
-export const UniqueSelection = Template.bind({});
+export const UniqueSelection = TemplateUniqueSelection.bind({});
 UniqueSelection.args = {
   multiple: false,
   options: data,

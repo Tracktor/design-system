@@ -95,7 +95,7 @@ export interface AutocompleteFilterProps<
    */
   onChange?: (
     event: SyntheticEvent,
-    value: AutocompleteFilterOption<OptionValue>[],
+    value: AutocompleteFilterOption<OptionValue>[] | null,
     reason?: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
   ) => void;
@@ -297,7 +297,7 @@ const AutocompleteFilter = <
     details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
   ) => {
     if (newValue === null) {
-      onChange?.(event, [], reason, details);
+      onChange?.(event, multiple ? [] : null, reason, details);
       return;
     }
 
