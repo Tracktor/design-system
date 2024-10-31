@@ -139,11 +139,12 @@ const PaperComponent = <
   loading,
   options,
   value,
+  multiple,
   ...props
 }: PaperProps &
   Pick<
     AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
-    "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value" | "loading"
+    "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value" | "loading" | "multiple"
   >) => {
   const { t } = useTranslation();
   const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
@@ -151,7 +152,7 @@ const PaperComponent = <
 
   return (
     <Paper {...props}>
-      {!loading && (!disableSelectAll || !!headerOptions?.length) && (
+      {multiple && !loading && (!disableSelectAll || !!headerOptions?.length) && (
         <>
           <List role="listbox">
             {!disableSelectAll && (
@@ -172,8 +173,8 @@ const PaperComponent = <
                 }}
               >
                 <ListItemButton disableRipple>
-                  <Checkbox id="select-all-checkbox" checked={allChecked} />
-                  <ListItemText primary={localeText?.selectAll || t("selectAll")} />
+                  <Checkbox disableRipple id="select-all-checkbox" checked={allChecked} />
+                  <ListItemText primary={localeText?.selectAll || t("selectAll")} primaryTypographyProps={{ variant: "body2" }} />
                   {!disableReset && (
                     <Button
                       variant="link"
@@ -190,7 +191,7 @@ const PaperComponent = <
                         e.preventDefault();
                       }}
                     >
-                      {localeText?.reset || t("reset")}
+                      <Typography variant="body2">{localeText?.reset || t("reset")}</Typography>
                     </Button>
                   )}
                 </ListItemButton>
@@ -233,7 +234,7 @@ const PaperComponent = <
                   }}
                 >
                   <ListItemButton disableRipple>
-                    <Checkbox checked={checked} />
+                    <Checkbox disableRipple checked={checked} />
                     <ListItemText primary={option?.label} />
                   </ListItemButton>
                 </ListItem>
@@ -271,6 +272,8 @@ const AutocompleteFilter = <
     disableClearable,
     loading,
     resetInputValueOnSelectOption,
+    renderOption,
+    renderTags,
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
@@ -325,6 +328,7 @@ const AutocompleteFilter = <
           disableSelectAll,
           loading,
           localeText,
+          multiple,
           onChange,
           options,
           value,
@@ -350,50 +354,55 @@ const AutocompleteFilter = <
         setOpen(false);
         onBlur?.(event);
       }}
-      renderOption={(optionProps, option, { selected }) => {
-        if (loading) {
-          return null;
-        }
-
-        if (option?.isHeader) {
-          return null;
-        }
-
-        const key = `${option?.id}-${optionProps?.key}`;
-
-        return (
-          <ListItem {...optionProps} key={key}>
-            {!disableCheckbox && <Checkbox checked={selected} />}
-            {option?.image && (
-              <ListItemAvatar
-                sx={{
-                  height: 24,
-                  marginRight: 1,
-                  minWidth: "auto",
-                  width: 24,
-                }}
-              >
-                <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }} />
-              </ListItemAvatar>
-            )}
-            {option.label}
-          </ListItem>
-        );
-      }}
-      renderTags={(tagValue, getTagProps, ownerState) =>
-        tagValue.map((option, index) => {
-          const { key } = getTagProps({ index });
-
-          if (ownerState?.focused) {
+      renderOption={
+        renderOption ||
+        ((optionProps, option, { selected }) => {
+          if (loading) {
             return null;
           }
 
+          if (option?.isHeader) {
+            return null;
+          }
+
+          const key = `${option?.id}-${optionProps?.key}`;
+
           return (
-            <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-              {option?.label}
-            </Typography>
+            <ListItem {...optionProps} key={key}>
+              {!disableCheckbox && <Checkbox disableRipple checked={selected} sx={{ padding: 1 }} />}
+              {option?.image && (
+                <ListItemAvatar
+                  sx={{
+                    height: 24,
+                    marginRight: 1,
+                    minWidth: "auto",
+                    width: 24,
+                  }}
+                >
+                  <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }} />
+                </ListItemAvatar>
+              )}
+              <Typography variant="body2">{option.label}</Typography>
+            </ListItem>
           );
         })
+      }
+      renderTags={
+        renderTags ||
+        ((tagValue, getTagProps, ownerState) =>
+          tagValue.map((option, index) => {
+            const { key } = getTagProps({ index });
+
+            if (ownerState?.focused) {
+              return null;
+            }
+
+            return (
+              <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+                {option?.label}
+              </Typography>
+            );
+          }))
       }
       {...props}
       renderInput={(params) => {

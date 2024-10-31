@@ -22,6 +22,7 @@ const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
   const [selectedOptionsMedium, setSelectedOptionsMedium] = useState<AutocompleteFilterOption[]>([]);
 
   const handleChangeXSmall = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    console.log(value);
     setSelectedOptionsXSmall(value);
   };
 
@@ -104,6 +105,12 @@ DisableClearable.args = {
 export const Loading = Template.bind({});
 Loading.args = {
   loading: true,
+};
+
+export const UniqueSelection = Template.bind({});
+UniqueSelection.args = {
+  multiple: false,
+  options: data,
 };
 
 export default {
