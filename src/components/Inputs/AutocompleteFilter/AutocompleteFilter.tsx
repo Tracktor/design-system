@@ -300,6 +300,10 @@ const AutocompleteFilter = <
     }
 
     onChange?.(event, newValue as AutocompleteFilterOption<OptionValue>[], reason, details);
+
+    if (!disableCloseOnSelect || !multiple) {
+      setOpen(false);
+    }
   };
 
   return (
