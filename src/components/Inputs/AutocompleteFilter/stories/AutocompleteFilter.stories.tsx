@@ -22,7 +22,6 @@ const Template: StoryFn<typeof AutocompleteFilter> = (args) => {
   const [selectedOptionsMedium, setSelectedOptionsMedium] = useState<AutocompleteFilterOption[]>([]);
 
   const handleChangeXSmall = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
-    console.log(value);
     setSelectedOptionsXSmall(value);
   };
 
