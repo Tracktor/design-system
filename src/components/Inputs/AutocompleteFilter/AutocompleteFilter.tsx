@@ -260,7 +260,6 @@ const AutocompleteFilter = <
     onChange,
     disableCheckbox,
     placeholder,
-    options,
     localeText,
     disableReset,
     disableSelectAll,
@@ -277,6 +276,7 @@ const AutocompleteFilter = <
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
+    options = [],
     slotProps,
     ...props
   }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue> & { inputValue?: string },
@@ -306,7 +306,7 @@ const AutocompleteFilter = <
     <MuiAutocomplete
       value={value}
       loading={loading}
-      options={options || []}
+      options={options}
       ref={ref}
       size={size}
       freeSolo={false as FreeSolo}
