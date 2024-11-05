@@ -42,7 +42,7 @@ import pxToRem from "@/utils/pxToRem";
 export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
   label?: ReactNode;
-  image?: string;
+  image?: string | "letter" | "avatar";
   isHeader?: boolean;
   value?: T;
 };
@@ -383,7 +383,9 @@ const AutocompleteFilter = <
                     width: 24,
                   }}
                 >
-                  <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }} />
+                  <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }}>
+                    {option?.image === "letter" && typeof option?.label === "string" && option?.label?.charAt(0).toUpperCase()}
+                  </Avatar>
                 </ListItemAvatar>
               )}
               {typeof option?.label === "string" ? (

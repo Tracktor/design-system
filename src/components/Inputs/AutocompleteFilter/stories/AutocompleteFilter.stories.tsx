@@ -99,6 +99,24 @@ WithImage.args = {
   options: dataWithImage,
 };
 
+export const WithAvatar = Template.bind({});
+WithAvatar.args = {
+  options: [
+    { id: "1", image: "avatar", label: "Oliver Hansen", value: "oliver-hansen" },
+    { id: "2", image: "avatar", label: "Van Henry", value: "van-henry" },
+    { id: "3", image: "avatar", label: "April Tucker", value: "april-tucker" },
+  ],
+};
+
+export const WithAvatarLetter = Template.bind({});
+WithAvatarLetter.args = {
+  options: [
+    { id: "1", image: "letter", label: "Oliver Hansen", value: "oliver-hansen" },
+    { id: "2", image: "letter", label: "Van Henry", value: "van-henry" },
+    { id: "3", image: "letter", label: "April Tucker", value: "april-tucker" },
+  ],
+};
+
 export const DisableSelectAll = Template.bind({});
 DisableSelectAll.args = {
   disableSelectAll: true,
