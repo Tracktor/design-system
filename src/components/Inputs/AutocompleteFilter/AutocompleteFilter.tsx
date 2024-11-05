@@ -365,11 +365,7 @@ const AutocompleteFilter = <
       renderOption={
         renderOption ||
         ((optionProps, option, { selected }) => {
-          if (loading) {
-            return null;
-          }
-
-          if (option?.isHeader) {
+          if (loading || option?.isHeader) {
             return null;
           }
 
@@ -404,7 +400,7 @@ const AutocompleteFilter = <
       renderTags={
         renderTags ||
         ((tagValue, getTagProps, ownerState) =>
-          tagValue.map((option, index) => {
+          tagValue?.map((option, index) => {
             const { key } = getTagProps({ index });
 
             if (ownerState?.focused) {
