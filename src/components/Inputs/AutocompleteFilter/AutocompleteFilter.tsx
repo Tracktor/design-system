@@ -401,20 +401,25 @@ const AutocompleteFilter = <
       }
       renderTags={
         renderTags ||
-        ((tagValue, getTagProps, ownerState) =>
-          tagValue?.map((option, index) => {
-            const { key } = getTagProps({ index });
+        ((tagValue, getTagProps, ownerState) => {
+          if (Array.isArray(tagValue)) {
+            return tagValue.map((option, index) => {
+              const { key } = getTagProps({ index });
 
-            if (ownerState?.focused) {
-              return null;
-            }
+              if (ownerState?.focused) {
+                return null;
+              }
 
-            return (
-              <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-                {option?.label}
-              </Typography>
-            );
-          }))
+              return (
+                <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+                  {option?.label}
+                </Typography>
+              );
+            });
+          }
+
+          return null;
+        })
       }
       {...props}
       renderInput={(params) => {
