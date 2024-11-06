@@ -59,11 +59,12 @@ export interface AutocompleteFilterProps<
   > {
   /**
    *  Value
-   *  @default null | []
+   *  @default undefined
    */
-  value: AutocompleteFilterOption<Value>[] | AutocompleteFilterOption<Value> | null;
+  value?: AutocompleteFilterOption<Value>[] | AutocompleteFilterOption<Value> | null;
   /**
    *  Options to display
+   *  @default undefined
    */
   options?: AutocompleteFilterOption<Value>[];
   /**
@@ -106,6 +107,7 @@ export interface AutocompleteFilterProps<
   ) => void;
   /**
    *  Locale text
+   *  @default undefined
    */
   localeText?: {
     selectAll?: string;
