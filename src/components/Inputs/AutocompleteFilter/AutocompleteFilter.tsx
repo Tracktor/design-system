@@ -52,15 +52,20 @@ export interface AutocompleteFilterProps<
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType = ChipTypeMap["defaultComponent"],
-  OptionValue extends unknown = unknown,
+  Value extends unknown = unknown,
 > extends Omit<
-    MuiAutocompleteProps<AutocompleteFilterOption<OptionValue>, Multiple, DisableClearable, FreeSolo, ChipComponent>,
-    "options" | "onChange" | "freeSolo" | "renderInput"
+    MuiAutocompleteProps<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo, ChipComponent>,
+    "options" | "onChange" | "freeSolo" | "renderInput" | "value"
   > {
+  /**
+   *  Value
+   *  @default null | []
+   */
+  value: AutocompleteFilterOption<Value>[] | AutocompleteFilterOption<Value> | null;
   /**
    *  Options to display
    */
-  options?: AutocompleteFilterOption<OptionValue>[];
+  options?: AutocompleteFilterOption<Value>[];
   /**
    *  Placeholder
    */
@@ -97,7 +102,7 @@ export interface AutocompleteFilterProps<
     event: SyntheticEvent,
     value: any,
     reason?: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
+    details?: AutocompleteChangeDetails<AutocompleteFilterOption<Value>>,
   ) => void;
   /**
    *  Locale text
@@ -132,7 +137,7 @@ const PaperComponent = <
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType,
-  OptionValue extends unknown,
+  Value extends unknown,
 >({
   children,
   disableSelectAll,
@@ -146,7 +151,7 @@ const PaperComponent = <
   ...props
 }: PaperProps &
   Pick<
-    AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue>,
+    AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, Value>,
     "disableSelectAll" | "localeText" | "disableReset" | "onChange" | "options" | "value" | "loading" | "multiple"
   >) => {
   const { t } = useTranslation();
@@ -229,7 +234,7 @@ const PaperComponent = <
                           )
                         : [];
 
-                      onChange?.(e, newValue as AutocompleteFilterOption<OptionValue>[], "removeOption");
+                      onChange?.(e, newValue as AutocompleteFilterOption<Value>[], "removeOption");
                       return;
                     }
 
@@ -257,7 +262,7 @@ const AutocompleteFilter = <
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType,
-  OptionValue extends unknown,
+  Value extends unknown,
 >(
   {
     onChange,
@@ -283,7 +288,7 @@ const AutocompleteFilter = <
     options = [],
     slotProps,
     ...props
-  }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, OptionValue> & { inputValue?: string },
+  }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, Value> & { inputValue?: string },
   ref: Ref<HTMLDivElement>,
 ) => {
   const { palette } = useTheme();
@@ -291,19 +296,20 @@ const AutocompleteFilter = <
   const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
+  const finalValue = multiple ? value || [] : value || null;
 
   const handleChange = (
     event: SyntheticEvent,
-    newValue: AutocompleteValue<AutocompleteFilterOption<OptionValue>, Multiple, DisableClearable, FreeSolo>,
+    newValue: AutocompleteValue<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo>,
     reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<AutocompleteFilterOption<OptionValue>>,
+    details?: AutocompleteChangeDetails<AutocompleteFilterOption<Value>>,
   ) => {
     if (newValue === null) {
       onChange?.(event, multiple ? [] : null, reason, details);
       return;
     }
 
-    onChange?.(event, newValue as AutocompleteFilterOption<OptionValue>[], reason, details);
+    onChange?.(event, newValue as AutocompleteFilterOption<Value>[], reason, details);
 
     if (!disableCloseOnSelect || !multiple) {
       setInternalOpen(false);
@@ -315,7 +321,7 @@ const AutocompleteFilter = <
       freeSolo={false as FreeSolo}
       multiple={multiple as Multiple}
       disableClearable={disableClearable as DisableClearable}
-      value={value}
+      value={finalValue as AutocompleteValue<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo>}
       loading={loading}
       options={options}
       ref={ref}
