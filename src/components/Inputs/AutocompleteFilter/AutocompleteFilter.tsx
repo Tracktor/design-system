@@ -100,7 +100,7 @@ export interface AutocompleteFilterProps<
    */
   onChange?: (
     event: SyntheticEvent,
-    value: any,
+    value: AutocompleteFilterOption<Value>[] | AutocompleteFilterOption<Value> | null | [] | any,
     reason?: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<AutocompleteFilterOption<Value>>,
   ) => void;
