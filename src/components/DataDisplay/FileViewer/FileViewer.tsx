@@ -36,6 +36,7 @@ const styles = {
     },
     border: 0,
     cursor: "pointer",
+    display: "block",
     msOverflowStyle: "none",
     objectFit: "cover",
     overflow: "hidden",
@@ -144,7 +145,7 @@ const FileViewer = ({
         <Lightbox open={open !== undefined ? open : internalOpen} onClose={close} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
-            src={src}
+            src={src || srcThumb || undefined}
             width={widthLightbox}
             height={heightLightbox}
             sx={{

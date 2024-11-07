@@ -159,6 +159,26 @@ disabledLightBox.args = {
   ],
 };
 
+export const Thumbnail = Template.bind({});
+Thumbnail.args = {
+  items: [
+    {
+      id: 1,
+      image: "https://placehold.co/1000",
+      subtitle: "Lorem Ipsum",
+      thumbnail: "https://placehold.co/500",
+      title: "Basic",
+    },
+    {
+      id: 2,
+      image: "https://placehold.co/1000",
+      subtitle: "Lorem Ipsum",
+      thumbnail: "https://placehold.co/500",
+      title: "Basic",
+    },
+  ],
+};
+
 export default {
   component: ListAvatar,
   title: "Components/Data Display/ListAvatar",

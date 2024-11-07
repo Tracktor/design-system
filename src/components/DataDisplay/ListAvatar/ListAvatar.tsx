@@ -150,10 +150,14 @@ export const ListAvatar = ({
           const key = `key-${index}-${title}-${id}`;
           const isPDF = image?.toLowerCase()?.endsWith(".pdf");
           const isValidImage = image?.toLowerCase()?.startsWith("http");
+          const isValidThumbnail = thumbnail?.toLowerCase()?.startsWith("http");
           const userSelect = onClick ? "none" : undefined;
           const lightBoxDisabled = disableLightbox || !!icon || !isValidImage;
           const clickable = !!onClick || !!(!onClick && !disableLightbox && (thumbnail || image));
           const open = openElement === key;
+          const avatarThumb = isValidThumbnail ? thumbnail : "";
+          const avatarImage = isValidImage ? image : "";
+          const avatarSrc = avatarThumb || avatarImage || "";
 
           return (
             <ListItem
@@ -213,7 +217,7 @@ export const ListAvatar = ({
                   open={open}
                   onClose={() => setOpenElement("")}
                 >
-                  <Avatar src={image && isValidImage ? image : ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
+                  <Avatar src={avatarSrc} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
                     {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
                   </Avatar>
                 </FileViewer>

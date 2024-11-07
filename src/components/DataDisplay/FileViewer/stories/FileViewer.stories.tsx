@@ -74,6 +74,14 @@ RoundedVariant.args = {
   width: 220,
 };
 
+export const Thumbnail = Template.bind({});
+Thumbnail.args = {
+  src: "https://placehold.co/1000",
+  srcThumb: "https://placehold.co/500",
+  variant: "rounded",
+  width: 220,
+};
+
 export default {
   component: FileViewer,
   title: "Components/Data Display/FileViewer",
