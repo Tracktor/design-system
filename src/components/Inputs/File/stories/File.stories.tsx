@@ -1,20 +1,34 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
+import Button from "@/components/Inputs/Button";
 import File from "@/components/Inputs/File";
 
 const Template: StoryFn<typeof File> = (args) => (
-  <Stack spacing={2} height="100%" alignItems="center" justifyContent="center">
+  <Stack
+    spacing={2}
+    height="100%"
+    alignItems="center"
+    justifyContent="center"
+    component="form"
+    onSubmit={(e) => {
+      e.preventDefault();
+      // eslint-disable-next-line no-alert
+      alert("Submitted");
+    }}
+  >
     <File size="small" {...args} />
     <File size="medium" {...args} />
+    {args?.required && (
+      <Button type="submit" variant="contained">
+        Submit
+      </Button>
+    )}
   </Stack>
 );
 
 export const Basic = Template.bind({});
 Basic.args = {
   label: "Ajouter une photo ou un fichier",
-  onChange: (e) => {
-    console.log(e.target.files);
-  },
 };
 
 export const FileMultiple = Template.bind({});

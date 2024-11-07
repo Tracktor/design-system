@@ -79,6 +79,7 @@ const File = ({
   const isVertical = variant === "vertical";
   const htmlId = id || name;
   const labelRef = useRef<ElementRef<"label">>(null);
+  const inputRef = useRef<ElementRef<"input">>(null);
   const [files, setFiles] = useState<FileList | null>(null);
   const fileName = getFileNames(files);
 
@@ -94,11 +95,25 @@ const File = ({
   const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
     if (e.dataTransfer.files.length > 0) {
-      const target = { ...e.target, files: e.dataTransfer.files };
-      const event = { ...e, target } as unknown as ChangeEvent<HTMLInputElement>;
+      const inputElement = inputRef.current;
+      const newFiles = e.dataTransfer.files;
 
-      setFiles(e.dataTransfer.files);
-      onChange?.(event);
+      setFiles(newFiles);
+
+      // Manually update the input files
+      const dataTransfer = new DataTransfer();
+      Array.from(newFiles).forEach((file) => dataTransfer.items.add(file));
+
+      if (inputElement) {
+        inputElement.files = dataTransfer.files;
+      }
+
+      // Trigger focus and blur to update validity
+      inputElement?.focus();
+      inputElement?.blur();
+
+      onChange?.({ ...e, target: inputElement } as unknown as ChangeEvent<HTMLInputElement>);
+
       e.dataTransfer.clearData();
     }
   };
@@ -160,6 +175,7 @@ const File = ({
         )}
       </Stack>
       <input
+        ref={inputRef}
         type="file"
         disabled={disabled}
         required={required}
