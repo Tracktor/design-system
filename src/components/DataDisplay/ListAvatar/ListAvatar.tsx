@@ -15,21 +15,47 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import FileViewer from "@/components/DataDisplay/FileViewer";
 
 interface ListAvatarProps {
+  /**
+   * Empty message
+   */
   Empty?: ReactNode;
+  /**
+   * Custom style
+   */
   sx?: SxProps;
+  /**
+   * Full width
+   */
   fullWidth?: boolean;
+  /**
+   * Always display secondary action
+   */
   alwaysDisplaySecondaryAction?: boolean;
+  /**
+   * If true, the list is loading state
+   */
   isLoading?: boolean;
+  /**
+   * Number of items to display
+   */
   numberLoadingItems?: number;
+  /**
+   * Disable lightbox, only if image list item is provided
+   */
+  disableLightbox?: boolean;
+  /**
+   * List items
+   */
   items?: {
     id?: string | number | null;
     title?: ReactNode;
     subtitle?: ReactNode;
     image?: string | null;
+    thumbnail?: string | null;
     icon?: ReactNode;
     chipLabel?: ReactNode;
     chipColor?: ChipProps["color"] | string;
@@ -37,6 +63,9 @@ interface ListAvatarProps {
     onClick?: ListItemProps["onClick"];
     Avatar?: ReactNode;
   }[];
+  /**
+   * Action
+   */
   action?: {
     title?: string | null;
     subtitle?: string | null;
@@ -70,8 +99,11 @@ export const ListAvatar = ({
   sx,
   alwaysDisplaySecondaryAction,
   isLoading,
+  disableLightbox,
   numberLoadingItems = 3,
 }: ListAvatarProps) => {
+  const [openElement, setOpenElement] = useState("");
+
   if (!items?.length && !isLoading && !action) {
     return Empty || null;
   }
@@ -111,15 +143,29 @@ export const ListAvatar = ({
       }}
     >
       {items?.map(
-        ({ id, title, subtitle, image, secondaryAction, chipLabel, chipColor, onClick, icon, Avatar: AvatarComponent }, index) => {
-          const key = id || `id-${index}-${title}`;
+        (
+          { id, title, subtitle, image, thumbnail, secondaryAction, chipLabel, chipColor, onClick, icon, Avatar: AvatarComponent },
+          index,
+        ) => {
+          const key = `key-${index}-${title}-${id}`;
           const isPDF = image?.toLowerCase()?.endsWith(".pdf");
+          const isValidImage = image?.toLowerCase()?.startsWith("http");
+          const userSelect = onClick ? "none" : undefined;
+          const lightBoxDisabled = disableLightbox || !!icon || !isValidImage;
+          const clickable = !!onClick || !!(!onClick && !disableLightbox && (thumbnail || image));
+          const open = openElement === key;
 
           return (
             <ListItem
               key={key}
               secondaryAction={secondaryAction}
-              onClick={onClick}
+              onClick={(event) => {
+                onClick?.(event);
+
+                if (clickable && !open && !onClick) {
+                  setOpenElement(key);
+                }
+              }}
               sx={{
                 ...styles.listItem,
                 "& .MuiListItemSecondaryAction-root": {
@@ -135,19 +181,42 @@ export const ListAvatar = ({
                   "& .MuiListItemSecondaryAction-root": {
                     opacity: 1,
                   },
-                  backgroundColor: ({ palette }: Theme) => (onClick || secondaryAction ? palette.action.hover : "transparent"),
+                  backgroundColor: ({ palette }: Theme) => (clickable ? palette.action.hover : "transparent"),
                 },
-                cursor: onClick ? "pointer" : "default",
+                cursor: clickable ? "pointer" : "default",
               }}
             >
-              {AvatarComponent && <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>}
+              {/* Custom avatar */}
+              {AvatarComponent !== undefined && <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>}
+
+              {/* PDF Thumb */}
               {!AvatarComponent && isPDF && (
-                <FileViewer src={image} width={40} height={40} sx={{ borderRadius: 1, marginRight: AVATAR_MARGIN_RIGHT }} />
+                <FileViewer
+                  src={image}
+                  srcThumb={thumbnail}
+                  width={40}
+                  height={40}
+                  sx={{ borderRadius: 1, marginRight: AVATAR_MARGIN_RIGHT }}
+                  disableLightbox={disableLightbox}
+                  open={open}
+                  onClose={() => setOpenElement("")}
+                />
               )}
+
+              {/* Image or avatar */}
               {!AvatarComponent && !isPDF && (
-                <Avatar src={image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
-                  {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
-                </Avatar>
+                <FileViewer
+                  disableThumb
+                  src={image}
+                  srcThumb={thumbnail}
+                  disableLightbox={lightBoxDisabled}
+                  open={open}
+                  onClose={() => setOpenElement("")}
+                >
+                  <Avatar src={image && isValidImage ? image : ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
+                    {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
+                  </Avatar>
+                </FileViewer>
               )}
               <ListItemText
                 primary={
@@ -169,7 +238,7 @@ export const ListAvatar = ({
                 secondaryTypographyProps={{
                   component: "div",
                 }}
-                sx={{ marginY: 0 }}
+                sx={{ marginY: 0, userSelect }}
               />
             </ListItem>
           );

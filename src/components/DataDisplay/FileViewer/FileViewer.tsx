@@ -1,11 +1,11 @@
 import { Box, SxProps, Theme } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useCallback, useEffect, useRef, useState } from "react";
 import notFoundImage from "@/assets/img/not-found-img.svg";
 import Lightbox from "@/components/Feedback/Lightbox";
 
-interface FileViewerPros {
+interface FileViewerPros extends PropsWithChildren {
   src?: string | null;
-  srcThumb?: string;
+  srcThumb?: string | null;
   fileName?: string;
   width?: number | string;
   height?: number | string;
@@ -17,6 +17,7 @@ interface FileViewerPros {
   disableThumb?: boolean;
   open?: boolean;
   variant?: "default" | "rounded";
+  onClickThumb?: () => void;
   onClose?(): void;
 }
 
@@ -57,6 +58,7 @@ const FileViewer = ({
   src,
   srcThumb,
   fileName,
+  children,
   width,
   height,
   sx,
@@ -67,23 +69,25 @@ const FileViewer = ({
   disableThumb,
   open,
   onClose,
+  onClickThumb,
   variant,
 }: FileViewerPros) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const lowercaseSrc = src?.toLowerCase();
   const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:");
   const isPdf = lowercaseSrc?.endsWith(".pdf");
   const iframeRef = useRef<HTMLObjectElement>(null);
   const data = isError ? notFoundImage : srcThumb || src;
+  const opacity = disableLightbox ? 1 : 0.8;
 
-  const handleToggleOpen = () => {
-    setIsOpen((prevState) => !prevState);
+  const toggleOpen = () => {
+    setInternalOpen((prevState) => !prevState);
   };
 
-  const handleClose = () => {
+  const close = () => {
+    setInternalOpen(false);
     onClose?.();
-    setIsOpen(false);
   };
 
   const errorHandle = useCallback(() => {
@@ -102,26 +106,24 @@ const FileViewer = ({
     };
   }, [errorHandle, iframeRef]);
 
-  if (!src) {
-    return null;
-  }
-
   return (
     <>
-      {!disableThumb && (
+      {!disableThumb && !children && (
         <Box
           data-test="fileViewer"
-          onClick={handleToggleOpen}
+          onClick={() => {
+            onClickThumb?.();
+            toggleOpen();
+          }}
           width={width}
           height={height}
           sx={{
             ...styles.container,
-            ":hover": {
-              opacity: disableLightbox ? 1 : 0.8,
-            },
+            ":hover": { opacity },
             borderRadius: variant === "rounded" ? 1 : "0",
             cursor: disableLightbox ? "default" : "pointer",
             display: "block",
+            pointerEvents: disableLightbox ? "none" : "auto",
             ...sx,
           }}
         >
@@ -138,8 +140,8 @@ const FileViewer = ({
         </Box>
       )}
 
-      {!disableLightbox && (
-        <Lightbox open={open || isOpen} onClose={handleClose} src={src} title={fileName}>
+      {!disableLightbox && src && (
+        <Lightbox open={open !== undefined ? open : internalOpen} onClose={close} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
             src={src}
@@ -151,6 +153,17 @@ const FileViewer = ({
             }}
           />
         </Lightbox>
+      )}
+      {children && (
+        <Box
+          onClick={toggleOpen}
+          sx={{
+            ":hover": { opacity },
+            cursor: "pointer",
+          }}
+        >
+          {children}
+        </Box>
       )}
     </>
   );

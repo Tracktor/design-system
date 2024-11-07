@@ -8,7 +8,10 @@ import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 const data = [
   {
     id: 1,
-    onClick: () => {},
+    onClick: () => {
+      // eslint-disable-next-line no-alert
+      alert("Item clicked");
+    },
     subtitle: "With onClick",
     title: "Basic",
   },
@@ -21,8 +24,19 @@ const data = [
   },
   {
     id: 3,
+    image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+    onClick: () => {
+      // eslint-disable-next-line no-alert
+      alert("Primary item clicked");
+    },
     secondaryAction: (
-      <IconButton>
+      <IconButton
+        onClick={(e) => {
+          e.stopPropagation();
+          // eslint-disable-next-line no-alert
+          alert("Secondary action clicked");
+        }}
+      >
         <CloseIcon />
       </IconButton>
     ),
@@ -46,6 +60,18 @@ const data = [
     id: 6,
     subtitle: "Lorem Ipsum",
     title: "Title with a very long text that should be truncated",
+  },
+  {
+    id: 7,
+    image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+    subtitle: "Lorem Ipsum",
+    title: "Image",
+  },
+  {
+    id: 8,
+    image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
+    subtitle: "Lorem Ipsum",
+    title: "PDF",
   },
 ];
 
@@ -78,12 +104,49 @@ WithAction.args = {
   },
 };
 
-export const WithPdfImage = Template.bind({});
-WithPdfImage.args = {
+export const WithImage = Template.bind({});
+WithImage.args = {
+  items: [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+    {
+      id: 2,
+      image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+  ],
+};
+
+export const WithPdf = Template.bind({});
+WithPdf.args = {
   items: [
     {
       id: 1,
       image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+    {
+      id: 2,
+      image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+  ],
+};
+
+export const disabledLightBox = Template.bind({});
+disabledLightBox.args = {
+  disableLightbox: true,
+  items: [
+    {
+      id: 1,
+      image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
       subtitle: "Lorem Ipsum",
       title: "Basic",
     },
