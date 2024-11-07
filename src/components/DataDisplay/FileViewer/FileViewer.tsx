@@ -1,10 +1,10 @@
 import { Box, SxProps, Theme } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import notFoundImage from "@/assets/img/not-found-img.svg";
-import { Lightbox } from "@/main";
+import Lightbox from "@/components/Feedback/Lightbox";
 
 interface FileViewerPros {
-  src: string;
+  src?: string | null;
   srcThumb?: string;
   fileName?: string;
   width?: number | string;
@@ -16,6 +16,7 @@ interface FileViewerPros {
   disableLightbox?: boolean;
   disableThumb?: boolean;
   open?: boolean;
+  variant?: "default" | "rounded";
   onClose?(): void;
 }
 
@@ -27,14 +28,18 @@ const styles = {
     overflow: "hidden",
     position: "relative",
   },
-  thumbFile: {
+  thumb: {
+    "&::-webkit-scrollbar": {
+      display: "none !important",
+      width: "0 !important",
+    },
     border: 0,
+    cursor: "pointer",
+    msOverflowStyle: "none",
     objectFit: "cover",
-    pointerEvents: "none",
-  },
-  thumbImage: {
-    border: 0,
-    objectFit: "cover",
+    overflow: "hidden",
+    pointerEvents: "none !important",
+    scrollbarWidth: "none",
   },
   viewFile: {
     border: 0,
@@ -62,23 +67,32 @@ const FileViewer = ({
   disableThumb,
   open,
   onClose,
+  variant,
 }: FileViewerPros) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
-  const isImage = !src?.endsWith(".pdf") && !src.startsWith("blob:");
-  const isPdf = /\.pdf$/i.test(src.toLowerCase());
+  const lowercaseSrc = src?.toLowerCase();
+  const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:");
+  const isPdf = lowercaseSrc?.endsWith(".pdf");
   const iframeRef = useRef<HTMLObjectElement>(null);
   const data = isError ? notFoundImage : srcThumb || src;
 
   const handleToggleOpen = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prevState) => !prevState);
+  };
+
+  const handleClose = () => {
+    onClose?.();
+    setIsOpen(false);
   };
 
   const errorHandle = useCallback(() => {
     setIsError(true);
   }, []);
 
-  // Handle error
+  /**
+   * Handle error
+   */
   useEffect(() => {
     const object = iframeRef.current;
     object?.addEventListener("error", errorHandle);
@@ -87,6 +101,10 @@ const FileViewer = ({
       object?.removeEventListener("error", errorHandle);
     };
   }, [errorHandle, iframeRef]);
+
+  if (!src) {
+    return null;
+  }
 
   return (
     <>
@@ -101,6 +119,7 @@ const FileViewer = ({
             ":hover": {
               opacity: disableLightbox ? 1 : 0.8,
             },
+            borderRadius: variant === "rounded" ? 1 : "0",
             cursor: disableLightbox ? "default" : "pointer",
             display: "block",
             ...sx,
@@ -112,15 +131,15 @@ const FileViewer = ({
             overflow="hidden"
             height={isImage ? "100%" : "auto"}
             width="100%"
-            src={data}
+            src={data || undefined}
             ref={iframeRef}
-            sx={isImage ? styles.thumbImage : styles.thumbFile}
+            sx={styles.thumb}
           />
         </Box>
       )}
 
       {!disableLightbox && (
-        <Lightbox open={open || isOpen} onClose={onClose || handleToggleOpen} src={src} title={fileName}>
+        <Lightbox open={open || isOpen} onClose={handleClose} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
             src={src}

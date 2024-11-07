@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ReactNode } from "react";
+import FileViewer from "@/components/DataDisplay/FileViewer";
 
 interface ListAvatarProps {
   Empty?: ReactNode;
@@ -112,6 +113,7 @@ export const ListAvatar = ({
       {items?.map(
         ({ id, title, subtitle, image, secondaryAction, chipLabel, chipColor, onClick, icon, Avatar: AvatarComponent }, index) => {
           const key = id || `id-${index}-${title}`;
+          const isPDF = image?.toLowerCase()?.endsWith(".pdf");
 
           return (
             <ListItem
@@ -138,9 +140,11 @@ export const ListAvatar = ({
                 cursor: onClick ? "pointer" : "default",
               }}
             >
-              {AvatarComponent ? (
-                <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>
-              ) : (
+              {AvatarComponent && <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>}
+              {!AvatarComponent && isPDF && (
+                <FileViewer src={image} width={40} height={40} sx={{ borderRadius: 1, marginRight: AVATAR_MARGIN_RIGHT }} />
+              )}
+              {!AvatarComponent && !isPDF && (
                 <Avatar src={image || ""} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
                   {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
                 </Avatar>

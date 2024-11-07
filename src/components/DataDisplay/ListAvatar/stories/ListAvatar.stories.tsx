@@ -1,6 +1,6 @@
 import { Box, IconButton, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import { ListAvatar } from "../ListAvatar";
+import ListAvatar from "../ListAvatar";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import CheckIcon from "@/components/DataDisplay/Icons/CheckIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
@@ -76,6 +76,24 @@ WithAction.args = {
     icon: <CheckIcon />,
     title: "Action here !",
   },
+};
+
+export const WithPdfImage = Template.bind({});
+WithPdfImage.args = {
+  items: [
+    {
+      id: 1,
+      image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+    {
+      id: 2,
+      image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+  ],
 };
 
 export default {

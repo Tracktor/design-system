@@ -12,8 +12,8 @@ const Template: StoryFn<typeof FileViewer> = (args) => {
 
   return (
     <Stack direction="row" height="100%" alignItems="center" justifyContent="center" spacing={5}>
-      <FileViewer src={testImage} width={width} disableLightbox={disableLightbox} />
-      <FileViewer src={testFilePDF} width={width} disableLightbox={disableLightbox} />
+      <FileViewer src={testImage} width={width} disableLightbox={disableLightbox} {...args} />
+      <FileViewer src={testFilePDF} width={width} disableLightbox={disableLightbox} {...args} />
     </Stack>
   );
 };
@@ -65,6 +65,12 @@ DisableLightbox.args = {
 export const DisableThumb = TemplateNoThumb.bind({});
 DisableThumb.args = {
   disableThumb: true,
+  width: 220,
+};
+
+export const RoundedVariant = Template.bind({});
+RoundedVariant.args = {
+  variant: "rounded",
   width: 220,
 };
 
