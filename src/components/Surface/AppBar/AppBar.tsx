@@ -121,11 +121,12 @@ const AppBar = ({
           {isSmallScreen || LogoComponent === null ? null : (
             <Box sx={styles.logoContainer}>{LogoComponent || <Logo mode="dark" {...logoProps} />}</Box>
           )}
-          <Box sx={{ alignItems: "center", display: "flex", flex: 1, justifyContent: "center" }}>
+          <Stack alignItems="center" direction="row" justifyContent="center" spacing={1} flex={1}>
+            {isMobile && (ActionComponent === null ? null : ActionComponent || <ActionAppBar {...actionProps} />)}
             {SearchComponent === null ? null : SearchComponent || <TextFieldAppBar {...searchProps} />}
-          </Box>
+          </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
-            {ActionComponent === null ? null : ActionComponent || <ActionAppBar {...actionProps} />}
+            {!isMobile && (ActionComponent === null ? null : ActionComponent || <ActionAppBar {...actionProps} />)}
             {AvatarComponent === null
               ? null
               : AvatarComponent || (
