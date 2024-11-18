@@ -352,7 +352,11 @@ const AutocompleteFilter = <
         } as AutocompletePaperSlotPropsOverrides,
       }}
       onInputChange={(_, newInputValue, reason) => {
-        if (reason === "reset" && internalOpen && !resetInputValueOnSelectOption) {
+        if (
+          (reason === "reset" && internalOpen && !resetInputValueOnSelectOption) ||
+          (reason === "selectOption" && !resetInputValueOnSelectOption) ||
+          (reason === "removeOption" && !resetInputValueOnSelectOption)
+        ) {
           return;
         }
 
