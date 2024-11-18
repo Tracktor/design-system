@@ -13,6 +13,7 @@ const ActionAppBar = ({ sx, ...props }: ButtonProps) => (
       backgroundColor: dark?.palette?.grey?.["100"],
       borderColor: dark?.palette?.divider,
       color: dark?.palette?.text?.primary,
+      ...sx,
     }}
     {...props}
   />
