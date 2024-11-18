@@ -121,7 +121,7 @@ const AppBar = ({
           {isSmallScreen || LogoComponent === null ? null : (
             <Box sx={styles.logoContainer}>{LogoComponent || <Logo mode="dark" {...logoProps} />}</Box>
           )}
-          <Stack alignItems="center" direction="row" justifyContent="center" spacing={1} flex={1}>
+          <Stack alignItems="center" direction="row" justifyContent={isMobile ? "flex-end" : "center"} spacing={1} flex={1}>
             {isMobile && (ActionComponent === null ? null : ActionComponent || <ActionAppBar {...actionProps} />)}
             {SearchComponent === null ? null : SearchComponent || <TextFieldAppBar {...searchProps} />}
           </Stack>
