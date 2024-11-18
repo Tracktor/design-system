@@ -530,6 +530,20 @@ const commonThemeOptions: MuiThemeOptions = {
           elevation: 0,
         },
       },
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& .MuiDialog-container": {
+            [theme.breakpoints.between("xs", "sm")]: {
+              "& .MuiPaper-root": {
+                borderBottomLeftRadius: 0,
+                borderBottomRightRadius: 0,
+                margin: 0,
+              },
+              alignItems: "flex-end",
+            },
+          },
+        }),
+      },
     },
     MuiDialogActions: {
       styleOverrides: actionStyleOverrides,
