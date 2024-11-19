@@ -153,6 +153,38 @@ MobileWithIcon.parameters = {
   },
 };
 
+export const MobileWithHideItem = Template.bind({});
+MobileWithHideItem.args = {
+  items: [
+    {
+      active: true,
+      label: "Lien 1",
+      url: "#",
+    },
+    {
+      hideOnMobile: true,
+      label: "Lien 2",
+      url: "#",
+    },
+    {
+      count: 2,
+      label: "Lien 3",
+      url: "#",
+    },
+    {
+      disabled: true,
+      label: "Disabled link",
+    },
+  ],
+  Logo: <Logo colorShape="white" />,
+};
+MobileWithHideItem.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
+
 export const Tablet = Template.bind({});
 Tablet.args = {
   items: ITEMS,

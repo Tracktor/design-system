@@ -59,38 +59,40 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
   return (
     <Box px={2} component="nav">
       <List sx={{ ...styles.list }}>
-        {items?.map((item, index) => {
-          // Is React Element then return it
-          if (isValidElement(item)) {
-            return item;
-          }
+        {items
+          ?.filter((item) => (item && typeof item === "object" && "hideOnMobile" in item ? item.hideOnMobile !== true : true))
+          .map((item, index) => {
+            // Is React Element then return it
+            if (isValidElement(item)) {
+              return item;
+            }
 
-          // Is Object then return NavLinkItem
-          if (item && typeof item === "object" && "label" in item) {
-            const { count, url, label, icon, active, disabled } = item;
-            const key = `${url}-${label}-${index}`;
+            // Is Object then return NavLinkItem
+            if (item && typeof item === "object" && "label" in item) {
+              const { count, url, label, icon, active, disabled } = item;
+              const key = `${url}-${label}-${index}`;
 
-            return (
-              <ListItem key={key} disableGutters sx={{ paddingY: 0.5 }}>
-                <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled}>
-                  <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
-                    {icon && (
-                      <Box component="span" display="flex" alignItems="center">
-                        {icon}
-                      </Box>
-                    )}
-                    <Stack direction="row" justifyContent="space-between" flex={1}>
-                      {label}
-                      {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+              return (
+                <ListItem key={key} disableGutters sx={{ paddingY: 0.5 }}>
+                  <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled}>
+                    <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
+                      {icon && (
+                        <Box component="span" display="flex" alignItems="center">
+                          {icon}
+                        </Box>
+                      )}
+                      <Stack direction="row" justifyContent="space-between" flex={1}>
+                        {label}
+                        {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                      </Stack>
                     </Stack>
-                  </Stack>
-                </NavLinkItem>
-              </ListItem>
-            );
-          }
+                  </NavLinkItem>
+                </ListItem>
+              );
+            }
 
-          return null;
-        })}
+            return null;
+          })}
       </List>
     </Box>
   );
