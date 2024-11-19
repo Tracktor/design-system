@@ -55,6 +55,8 @@ export { default as AutocompleteFilter } from "@/components/Inputs/AutocompleteF
 export * from "@/components/Inputs/AutocompleteFilter";
 export { default as FileViewer } from "@/components/DataDisplay/FileViewer";
 export * from "@/components/DataDisplay/FileViewer";
+export { default as BottomFixedPaper } from "@/components/Surface/BottomFixedPaper";
+export * from "@/components/Surface/BottomFixedPaper";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
