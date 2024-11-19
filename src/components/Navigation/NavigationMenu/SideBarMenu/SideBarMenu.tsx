@@ -54,13 +54,13 @@ const styles = {
 };
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
-  const { NavLink = props.NavLink } = useContext(NavigationMenuContext);
+  const { NavLink = props.NavLink, isMobile } = useContext(NavigationMenuContext);
 
   return (
     <Box px={2} component="nav">
       <List sx={{ ...styles.list }}>
         {items
-          ?.filter((item) => (item && typeof item === "object" && "hideOnMobile" in item ? item.hideOnMobile !== true : true))
+          ?.filter((item) => !(item && typeof item === "object" && "hideOnMobile" in item && isMobile && item.hideOnMobile))
           .map((item, index) => {
             // Is React Element then return it
             if (isValidElement(item)) {
