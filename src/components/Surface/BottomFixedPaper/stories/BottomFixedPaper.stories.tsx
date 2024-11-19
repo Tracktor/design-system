@@ -43,6 +43,17 @@ Basic.parameters = {
   },
 };
 
+export const InFalse = Template.bind({});
+InFalse.args = {
+  in: false,
+};
+InFalse.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
+
 export default {
   component: BottomFixedPaper,
   title: "Components/Surface/BottomFixedPaper",
