@@ -14,6 +14,7 @@ export type ObjectNavigationItem = {
   end?: boolean;
   disabled?: boolean;
   hideOnMobile?: boolean;
+  hasAccess?: boolean;
 };
 
 export interface NavLinkProps {

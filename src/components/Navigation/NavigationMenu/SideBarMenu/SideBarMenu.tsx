@@ -60,7 +60,12 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
     <Box px={2} component="nav">
       <List sx={{ ...styles.list }}>
         {items
-          ?.filter((item) => !(item && typeof item === "object" && "hideOnMobile" in item && isMobile && item.hideOnMobile))
+          ?.filter((item) => {
+            const shouldRenderOnMobile = !(item && typeof item === "object" && "hideOnMobile" in item && isMobile && item.hideOnMobile);
+            const hasAccess = !(item && typeof item === "object" && "hasAccess" in item && !item.hasAccess);
+
+            return shouldRenderOnMobile && hasAccess;
+          })
           .map((item, index) => {
             // Is React Element then return it
             if (isValidElement(item)) {
