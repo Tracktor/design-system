@@ -539,6 +539,7 @@ const commonThemeOptions: MuiThemeOptions = {
                 borderBottomRightRadius: 0,
                 margin: 0,
                 maxWidth: "100%",
+                width: "100%",
               },
               alignItems: "flex-end",
               display: "flex",
