@@ -57,6 +57,8 @@ export { default as FileViewer } from "@/components/DataDisplay/FileViewer";
 export * from "@/components/DataDisplay/FileViewer";
 export { default as BottomFixedPaper } from "@/components/Surface/BottomFixedPaper";
 export * from "@/components/Surface/BottomFixedPaper";
+export { default as TextFieldPassword } from "@/components/Inputs/TextFieldPassword";
+export * from "@/components/Inputs/TextFieldPassword";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
