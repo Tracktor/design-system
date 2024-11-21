@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.1.5
-- **[fix]** -`NavigationMenu` add hasAccess props to items
+## v3.2.0
+- **[feat]** -`Textfield` add endAdornment to show/hide password
