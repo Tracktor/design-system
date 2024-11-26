@@ -28,7 +28,7 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
 
   return (
     <Modal open={open} onClose={handleClose} {...props}>
-      <>
+      <Box sx={{ "&:focus": { outline: "none" }, inset: 0, position: "absolute" }}>
         <IconButton
           size="small"
           aria-label="close"
@@ -69,7 +69,7 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
             </Fade>
           )}
         </Box>
-      </>
+      </Box>
     </Modal>
   );
 };
