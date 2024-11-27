@@ -41,8 +41,8 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
             fontSize: 35,
             height: 30,
             position: "absolute",
-            right: 15,
-            top: 15,
+            right: { sm: 15, xs: 10 },
+            top: { sm: 15, xs: 10 },
             width: 30,
             zIndex: 9999,
           }}
@@ -61,6 +61,7 @@ const Lightbox = ({ children, open, onClose, src, ...props }: LightboxProps) => 
             position: "absolute",
             top: "50%",
             transform: "translate(-50%, -50%)",
+            width: { lg: "auto", md: "90%", sm: "80%", xs: "100%" },
           }}
         >
           {children || (

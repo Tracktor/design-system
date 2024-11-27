@@ -46,7 +46,7 @@ const styles = {
   viewFile: {
     border: 0,
     height: "100vh",
-    width: "50vw",
+    width: "100%",
   },
   viewImage: {
     border: 0,
