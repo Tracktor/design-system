@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.2.2
-- **[fix]** -`Lightbox` focus and keyboard accessibility
+## v3.2.3
+- **[fix]** -`Lightbox` responsive
+- **[fix]** -`ListAvatar` flex shrink image
