@@ -26,6 +26,7 @@ const styles = {
     alignSelf: "center",
     backgroundColor: ({ palette }: Theme) => palette.background.paper,
     boxShadow: 4,
+    flexShrink: 0,
     overflow: "hidden",
     position: "relative",
   },
