@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.3.0
-- **[feat]** -`Avatar` add `secondarySrc` prop
+## v3.3.1
+- **[fix]** -`Avatar` props

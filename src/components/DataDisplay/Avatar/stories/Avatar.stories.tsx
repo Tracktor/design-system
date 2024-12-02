@@ -4,6 +4,28 @@ import Avatar from "../Avatar";
 
 const avatarSrc = "https://avatars.githubusercontent.com/u/16801167?s=200&v=4";
 
+const TemplateSize: StoryFn<typeof Avatar> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Avatar size="small" {...args}>
+      S
+    </Avatar>
+    <Avatar size="medium" {...args}>
+      M
+    </Avatar>
+    <Avatar size="large" {...args}>
+      L
+    </Avatar>
+  </Stack>
+);
+
+const TemplateDouble: StoryFn<typeof Avatar> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Avatar src={args?.src || avatarSrc} size="small" {...args} />
+    <Avatar src={args?.src || avatarSrc} size="medium" {...args} />
+    <Avatar src={args?.src || avatarSrc} size="large" {...args} />
+  </Stack>
+);
+
 const TemplateImage: StoryFn<typeof Avatar> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Avatar src={args?.src || avatarSrc} sx={{ height: 24, width: 24 }} {...args} />
@@ -51,6 +73,9 @@ const TemplateBadge: StoryFn<typeof Avatar> = (args) => (
 export const Image = TemplateImage.bind({});
 Image.args = {};
 
+export const Size = TemplateSize.bind({});
+Image.args = {};
+
 export const WithoutImage = TemplateImage.bind({});
 WithoutImage.args = {
   src: "null",
@@ -85,10 +110,27 @@ Grouped.args = {};
 export const WithBadge = TemplateBadge.bind({});
 WithBadge.args = {};
 
-export const Double = TemplateImage.bind({});
+export const Double = TemplateDouble.bind({});
 Double.args = {
   secondarySrc: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
   src: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+};
+
+export const DoubleRounded = TemplateDouble.bind({});
+DoubleRounded.args = {
+  secondaryAvatarProps: {
+    variant: "rounded",
+  },
+  secondarySrc: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+  src: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+  variant: "rounded",
+};
+
+export const DoubleMixed = TemplateDouble.bind({});
+DoubleMixed.args = {
+  secondarySrc: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+  src: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+  variant: "rounded",
 };
 
 export default {
