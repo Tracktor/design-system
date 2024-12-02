@@ -2,13 +2,19 @@ import { Avatar as MuiAvatar, AvatarProps as MuiAvatarProps, Box, SxProps, Theme
 
 export interface AvatarProps extends MuiAvatarProps {
   secondarySrc?: string;
-  secondaryProps?: MuiAvatarProps;
+  secondaryAvatarProps?: Omit<MuiAvatarProps, "src">;
 }
 
 const SECONDARY_SIZE = 32;
 const DIFF_SIZE = 8;
 
 type SizeValue = number | string;
+
+type SxWithSize = {
+  height?: SizeValue;
+  width?: SizeValue;
+  [key: string]: unknown;
+};
 
 const parseSize = (value: SizeValue | undefined): number => {
   if (value === undefined) return SECONDARY_SIZE;
@@ -29,18 +35,15 @@ const getSecondarySize = (sx?: SxProps<Theme>) => {
     };
   }
 
-  const sxObject = sx as { height?: SizeValue; width?: SizeValue };
-
-  const height = parseSize(sxObject.height);
-  const width = parseSize(sxObject.width);
+  const { height, width } = sx as SxWithSize;
 
   return {
-    height: Math.max(height - DIFF_SIZE, SECONDARY_SIZE / 2),
-    width: Math.max(width - DIFF_SIZE, SECONDARY_SIZE / 2),
+    height: Math.max(parseSize(height) - DIFF_SIZE, SECONDARY_SIZE / 2),
+    width: Math.max(parseSize(width) - DIFF_SIZE, SECONDARY_SIZE / 2),
   };
 };
 
-const Avatar = ({ secondarySrc, secondaryProps, ...props }: AvatarProps) => {
+const Avatar = ({ secondarySrc, secondaryAvatarProps, ...props }: AvatarProps) => {
   if (!secondarySrc) {
     return <MuiAvatar {...props} />;
   }
@@ -59,9 +62,9 @@ const Avatar = ({ secondarySrc, secondaryProps, ...props }: AvatarProps) => {
           position: "absolute",
           right: -(width / 3),
           width,
-          ...secondaryProps?.sx,
+          ...secondaryAvatarProps?.sx,
         }}
-        {...secondaryProps}
+        {...secondaryAvatarProps}
       />
     </Box>
   );
