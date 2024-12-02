@@ -59,6 +59,8 @@ export { default as BottomFixedPaper } from "@/components/Surface/BottomFixedPap
 export * from "@/components/Surface/BottomFixedPaper";
 export { default as TextFieldPassword } from "@/components/Inputs/TextFieldPassword";
 export * from "@/components/Inputs/TextFieldPassword";
+export { default as Avatar } from "@/components/DataDisplay/Avatar";
+export * from "@/components/DataDisplay/Avatar";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
