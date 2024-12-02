@@ -173,7 +173,7 @@ MultipleBreakpoints.args = {
 
 export const Spacing = Template.bind({});
 Spacing.args = {
-  spacing: 2,
+  spacing: 4,
 };
 Spacing.argTypes = {
   spacing: {
@@ -190,7 +190,7 @@ RowAndColumnSpacing.args = {
 
 export const AutoLayout = AutoLayoutTemplate.bind({});
 AutoLayout.args = {
-  spacing: 3,
+  spacing: 2,
 };
 
 export const VariableWidthContent = VariableWidthContentTemplate.bind({});
