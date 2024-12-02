@@ -1,6 +1,6 @@
 import { AvatarGroup, Badge, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react";
-import Avatar from "./Avatar";
+import Avatar from "../Avatar";
 
 const avatarSrc = "https://avatars.githubusercontent.com/u/16801167?s=200&v=4";
 
@@ -84,6 +84,12 @@ Grouped.args = {};
 
 export const WithBadge = TemplateBadge.bind({});
 WithBadge.args = {};
+
+export const Double = TemplateImage.bind({});
+Double.args = {
+  secondarySrc: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+  src: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+};
 
 export default {
   component: Avatar,
