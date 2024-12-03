@@ -23,11 +23,8 @@ const SIZES = {
 
 type SizeValue = number | string;
 
-type SxWithSize = {
-  height?: SizeValue;
-  width?: SizeValue;
-  [key: string]: unknown;
-};
+const isValidSx = (sx: SxProps<Theme> | undefined): sx is { height?: SizeValue; width?: SizeValue } =>
+  sx !== undefined && typeof sx === "object" && !Array.isArray(sx);
 
 const parseSize = (value: SizeValue | undefined): number => {
   if (value === undefined) return SIZES.medium.primary;
@@ -48,59 +45,59 @@ const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps["size"]) => {
     };
   }
 
-  if (!sx || typeof sx !== "object") {
+  if (isValidSx(sx)) {
+    const { height, width } = sx;
+
     return {
-      height: SIZES.medium.secondary,
-      width: SIZES.medium.secondary,
+      height: Math.max(parseSize(height) - (SIZES.medium.primary - SIZES.medium.secondary), SIZES.small.secondary),
+      width: Math.max(parseSize(width) - (SIZES.medium.primary - SIZES.medium.secondary), SIZES.small.secondary),
     };
   }
 
-  const { height, width } = sx as SxWithSize;
-
   return {
-    height: Math.max(parseSize(height) - (SIZES.medium.primary - SIZES.medium.secondary), SIZES.small.secondary),
-    width: Math.max(parseSize(width) - (SIZES.medium.primary - SIZES.medium.secondary), SIZES.small.secondary),
+    height: SIZES.medium.secondary,
+    width: SIZES.medium.secondary,
   };
 };
 
 const Avatar = ({ secondarySrc, secondaryAvatarProps, size, ...props }: AvatarProps) => {
-  if (!secondarySrc) {
+  if (secondarySrc) {
+    const { height, width } = getSecondarySize(props.sx, size);
+
     return (
-      <MuiAvatar
-        {...props}
-        sx={{
-          ...(size && { height: SIZES[size].primary, width: SIZES[size].primary }),
-          ...props.sx,
-        }}
-      />
+      <Box sx={{ display: "flex", position: "relative" }}>
+        <MuiAvatar
+          {...props}
+          sx={{
+            ...(size && { height: SIZES[size].primary, width: SIZES[size].primary }),
+            ...props.sx,
+          }}
+        />
+        <MuiAvatar
+          src={secondarySrc}
+          sx={{
+            bottom: -(height / 3),
+            height,
+            outline: ({ palette }) => `2px solid ${palette.common.white}`,
+            position: "absolute",
+            right: -(width / 3),
+            width,
+            ...secondaryAvatarProps?.sx,
+          }}
+          {...secondaryAvatarProps}
+        />
+      </Box>
     );
   }
 
-  const { height, width } = getSecondarySize(props.sx, size);
-
   return (
-    <Box sx={{ display: "flex", position: "relative" }}>
-      <MuiAvatar
-        {...props}
-        sx={{
-          ...(size && { height: SIZES[size].primary, width: SIZES[size].primary }),
-          ...props.sx,
-        }}
-      />
-      <MuiAvatar
-        src={secondarySrc}
-        sx={{
-          bottom: -(height / 3),
-          height,
-          outline: ({ palette }) => `2px solid ${palette.common.white}`,
-          position: "absolute",
-          right: -(width / 3),
-          width,
-          ...secondaryAvatarProps?.sx,
-        }}
-        {...secondaryAvatarProps}
-      />
-    </Box>
+    <MuiAvatar
+      {...props}
+      sx={{
+        ...(size && { height: SIZES[size].primary, width: SIZES[size].primary }),
+        ...props.sx,
+      }}
+    />
   );
 };
 
