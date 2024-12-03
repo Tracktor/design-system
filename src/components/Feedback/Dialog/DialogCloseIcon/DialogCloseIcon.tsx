@@ -1,8 +1,9 @@
 import { IconButton } from "@mui/material";
+import { MouseEvent } from "react";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
 export interface DialogCloseProps {
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
 }
 
 const DialogCloseIcon = ({ onClick }: DialogCloseProps) => (
