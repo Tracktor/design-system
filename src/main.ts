@@ -61,6 +61,8 @@ export { default as TextFieldPassword } from "@/components/Inputs/TextFieldPassw
 export * from "@/components/Inputs/TextFieldPassword";
 export { default as Avatar } from "@/components/DataDisplay/Avatar";
 export * from "@/components/DataDisplay/Avatar";
+export { default as DialogPopper } from "@/components/Feedback/Dialog/DialogPopper";
+export * from "@/components/Feedback/Dialog/DialogPopper";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
