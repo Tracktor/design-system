@@ -2,12 +2,30 @@ import { Backdrop, Paper, PaperProps, Popper, PopperProps } from "@mui/material"
 import { ReactNode } from "react";
 
 interface DialogPopperProps {
+  /**
+   * Open state
+   */
   open: boolean | undefined;
-  anchorEl?: HTMLElement | Element | null;
-  onClose: () => void;
-  children: ReactNode;
+  /**
+   * Anchor element
+   */
+  anchorEl: HTMLElement | Element | null | undefined;
+  /**
+   * Children
+   */
+  children?: ReactNode;
+  /**
+   * Popper placement
+   */
   placement?: PopperProps["placement"];
+  /**
+   * Paper variant
+   */
   variant?: PaperProps["variant"];
+  /**
+   * Callback fired when the backdrop is clicked.
+   */
+  onClose?(): void;
 }
 
 const DialogPopper = ({ open, anchorEl, onClose, children, placement, variant = "outlined" }: DialogPopperProps) => (
