@@ -60,6 +60,7 @@ export * from "@/components/Surface/BottomFixedPaper";
 export { default as TextFieldPassword } from "@/components/Inputs/TextFieldPassword";
 export * from "@/components/Inputs/TextFieldPassword";
 export { default as Avatar } from "@/components/DataDisplay/Avatar";
+export type { AvatarProps } from "@/components/DataDisplay/Avatar/Avatar";
 export * from "@/components/DataDisplay/Avatar";
 export { default as DialogPopper } from "@/components/Feedback/Dialog/DialogPopper";
 export * from "@/components/Feedback/Dialog/DialogPopper";

@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.4.2
-- **[feat]** -`DialogPopper` required props type
+## v3.4.3
+- **[fix]** -`Avatar` export type
