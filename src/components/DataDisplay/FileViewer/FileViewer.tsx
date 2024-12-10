@@ -46,8 +46,13 @@ const styles = {
   },
   viewFile: {
     border: 0,
+    display: "block",
     height: "100vh",
-    width: "100%",
+    margin: "auto",
+    width: {
+      md: "50vw",
+      xs: "100%",
+    },
   },
   viewImage: {
     border: 0,
