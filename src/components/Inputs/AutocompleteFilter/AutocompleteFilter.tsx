@@ -466,7 +466,14 @@ const AutocompleteFilter = <
                     }}
                   >
                     {internalOpen && finalInputValue && !disableClearable && (
-                      <IconButton size="small" onClick={() => setInternalInputValue("")} sx={{ marginRight: "-3px" }}>
+                      <IconButton
+                        size="small"
+                        onClick={(e) => {
+                          setInternalInputValue("");
+                          onInputChange?.(e, "", "clear");
+                        }}
+                        sx={{ marginRight: "-3px" }}
+                      >
                         <CloseIcon sx={{ fontSize: pxToRem(20) }} />
                       </IconButton>
                     )}
