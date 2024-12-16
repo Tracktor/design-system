@@ -16,6 +16,13 @@ import { defaultFontFamily } from "@/constants/fonts";
 import pxToRem from "@/utils/pxToRem";
 
 // Components module augmentation
+declare module "@mui/material/Alert" {
+  interface AlertPropsColorOverrides {
+    primary: true;
+    secondary: true;
+  }
+}
+
 declare module "@mui/material/Autocomplete" {
   interface AutocompletePropsSizeOverrides {
     xSmall: true;
@@ -169,6 +176,28 @@ const commonThemeOptions: MuiThemeOptions = {
         }),
       },
       variants: [
+        {
+          props: { severity: "secondary" },
+          style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
+            backgroundColor: `${theme.palette.grey[100]} !important`,
+            borderColor: theme.palette.divider,
+            color: `${theme.palette.primary.light} !important`,
+          }),
+        },
+        {
+          props: { severity: "secondary", variant: "outlined" },
+          style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
+            backgroundColor: "transparent !important",
+            borderColor: theme.palette.text.disabled,
+          }),
+        },
+        {
+          props: { severity: "secondary", variant: "filled" },
+          style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
+            backgroundColor: `${theme.palette.grey[100]} !important`,
+            borderColor: theme.palette.text.disabled,
+          }),
+        },
         {
           props: {
             variant: "filled",

@@ -19,6 +19,12 @@ const Template: StoryFn<typeof Alert> = (args) => (
     <Alert severity="success" {...args}>
       This is a <strong>success</strong> severity alert — check it out!
     </Alert>
+    <Alert severity="primary" {...args}>
+      This is a <strong>primary</strong> severity alert — check it out!
+    </Alert>
+    <Alert severity="secondary" {...args}>
+      This is a <strong>secondary</strong> severity alert — check it out!
+    </Alert>
   </Stack>
 );
 
@@ -43,6 +49,14 @@ const TemplateWithTitle: StoryFn<typeof Alert> = (args) => (
     <Alert severity="success" {...args}>
       <AlertTitle>Success</AlertTitle>
       This is a success alert — <strong>check it out!</strong>
+    </Alert>
+    <Alert severity="primary" {...args}>
+      <AlertTitle>Primary</AlertTitle>
+      This is a primary alert — <strong>check it out!</strong>
+    </Alert>
+    <Alert severity="secondary" {...args}>
+      <AlertTitle>Primary</AlertTitle>
+      This is a secondary alert — <strong>check it out!</strong>
     </Alert>
   </Stack>
 );
