@@ -31,6 +31,16 @@ export interface SimpleDialogProps {
   onClose: (value: string) => void;
 }
 
+const VIEWPORTS = {
+  mobile: {
+    name: "Mobile",
+    styles: {
+      height: "600px",
+      width: "480px",
+    },
+  },
+};
+
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
 // eslint-disable-next-line react/display-name
@@ -235,6 +245,15 @@ const WithCloseIconTemplate: StoryFn<typeof Dialog> = ({ ...args }, { parameters
 
 export const Basic = BasicTemplate.bind({});
 Basic.args = {};
+
+export const BasicMobile = BasicTemplate.bind({});
+BasicMobile.args = {};
+BasicMobile.parameters = {
+  viewport: {
+    defaultViewport: "mobile",
+    viewports: VIEWPORTS,
+  },
+};
 
 export const BasicWithTransition = BasicTemplate.bind({});
 BasicWithTransition.args = {
