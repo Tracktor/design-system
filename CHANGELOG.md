@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.4.5
-- **[fix]** -`AutocompleteFilter` clear input event
+## v3.5.0
+- **[feat]** -`Alert` add secondary variant
+- **[fix]** -`Paper` border radius mobile

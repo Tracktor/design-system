@@ -534,7 +534,7 @@ const commonThemeOptions: MuiThemeOptions = {
         root: ({ theme }) => ({
           "& .MuiDialog-container": {
             [theme.breakpoints.between("xs", "sm")]: {
-              "& .MuiPaper-root": {
+              "& > .MuiPaper-root": {
                 borderBottomLeftRadius: 0,
                 borderBottomRightRadius: 0,
                 margin: 0,
