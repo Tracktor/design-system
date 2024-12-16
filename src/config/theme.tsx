@@ -179,6 +179,9 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { severity: "secondary" },
           style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
+            "& .MuiAlert-icon": {
+              color: `${theme.palette.text.secondary} !important`,
+            },
             backgroundColor: `${theme.palette.grey[100]} !important`,
             borderColor: theme.palette.divider,
             color: `${theme.palette.primary.light} !important`,
@@ -187,6 +190,9 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { severity: "secondary", variant: "outlined" },
           style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
+            "& .MuiAlert-icon": {
+              color: `${theme.palette.text.primary} !important`,
+            },
             backgroundColor: "transparent !important",
             borderColor: theme.palette.text.disabled,
           }),
@@ -196,6 +202,12 @@ const commonThemeOptions: MuiThemeOptions = {
           style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
             backgroundColor: `${theme.palette.grey[100]} !important`,
             borderColor: theme.palette.text.disabled,
+          }),
+        },
+        {
+          props: { severity: "primary", variant: "filled" },
+          style: ({ theme }: { theme: MuiTheme } & ComponentsPropsList["MuiAlert"]) => ({
+            color: `${theme.palette.primary.contrastText} !important`,
           }),
         },
         {
