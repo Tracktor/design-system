@@ -298,7 +298,18 @@ const AutocompleteFilter = <
   const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
-  const finalValue = multiple ? value || [] : value || null;
+
+  const getFinalValue = () => {
+    if (multiple) {
+      if (!value) {
+        return [];
+      }
+      return Array.isArray(value) ? value : [value];
+    }
+    return value || null;
+  };
+
+  const finalValue = getFinalValue();
 
   const handleChange = (
     event: SyntheticEvent,

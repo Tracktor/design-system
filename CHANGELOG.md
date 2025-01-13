@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.5.1
-- **[fix]** -`Alert` icon color secondary severity
+## v3.5.2
+- **[fix]** -`AutocompleteFilter` error when using `multiple` prop
