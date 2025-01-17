@@ -8,7 +8,7 @@ interface ButtonProps {
   loading?: boolean;
 }
 
-interface DialogValidationProps extends Omit<DialogProps, "children"> {
+interface DialogValidationProps extends Omit<DialogProps, "children" | "onClose"> {
   /**
    * Title of the dialog
    */
@@ -30,9 +30,52 @@ interface DialogValidationProps extends Omit<DialogProps, "children"> {
    * Button secondary props
    */
   buttonSecondary?: ButtonProps;
+
+  /**
+   * Callback when modal is closed
+   */
+  onClose?: (event: {}, reason?: string) => void;
 }
 
 const BACKGROUND_ICON_SIZE = 86;
+
+const checkAnimation = {
+  "& svg": {
+    animation: "scaleIn 0.3s ease-out",
+  },
+  "& svg path:first-of-type": {
+    animation: "circleIn 0.6s ease-out",
+  },
+  "& svg path:last-child": {
+    animation: "checkIn 0.3s ease-out 0.4s both",
+    strokeDasharray: "30",
+    strokeDashoffset: "30",
+  },
+  "@keyframes checkIn": {
+    "0%": {
+      strokeDashoffset: "30",
+    },
+    "100%": {
+      strokeDashoffset: "0",
+    },
+  },
+  "@keyframes circleIn": {
+    "0%": {
+      opacity: 0,
+    },
+    "100%": {
+      opacity: 1,
+    },
+  },
+  "@keyframes scaleIn": {
+    "0%": {
+      transform: "scale(0)",
+    },
+    "100%": {
+      transform: "scale(1)",
+    },
+  },
+};
 
 const DialogValidation = ({
   title,
@@ -42,9 +85,10 @@ const DialogValidation = ({
   color = "secondary",
   fullWidth = true,
   maxWidth = "xs",
+  onClose,
   ...props
 }: DialogValidationProps) => (
-  <Dialog maxWidth={maxWidth} fullWidth={fullWidth} {...props}>
+  <Dialog maxWidth={maxWidth} fullWidth={fullWidth} onClose={onClose} {...props}>
     <DialogContent
       sx={{
         alignItems: "center",
@@ -54,7 +98,7 @@ const DialogValidation = ({
         textAlign: "center",
       }}
     >
-      <DialogCloseIcon />
+      <DialogCloseIcon onClick={(e) => onClose?.(e, "closeButton")} />
       <Box
         sx={{
           alignItems: "center",
@@ -66,6 +110,7 @@ const DialogValidation = ({
           justifyContent: "center",
           marginBottom: 4,
           width: BACKGROUND_ICON_SIZE,
+          ...checkAnimation,
         }}
       >
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
