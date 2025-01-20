@@ -41,19 +41,19 @@ const BACKGROUND_ICON_SIZE = 86;
 
 const checkAnimation = {
   "& svg": {
-    animation: "scaleIn 0.3s ease-out",
+    animation: "scaleIn 0.4s ease-out",
   },
   "& svg path:first-of-type": {
-    animation: "circleIn 0.6s ease-out",
+    animation: "circleIn 2s ease-out",
   },
   "& svg path:last-child": {
-    animation: "checkIn 0.3s ease-out 0.4s both",
+    animation: "checkIn 0.4s ease-out 0.4s both",
     strokeDasharray: "30",
-    strokeDashoffset: "30",
+    strokeDashoffset: "-30",
   },
   "@keyframes checkIn": {
     "0%": {
-      strokeDashoffset: "30",
+      strokeDashoffset: "-30",
     },
     "100%": {
       strokeDashoffset: "0",
@@ -92,6 +92,8 @@ const DialogValidation = ({
     <DialogContent
       sx={{
         alignItems: "center",
+        backgroundColor: ({ palette }) => palette[color]["4p"],
+        borderBottom: ({ palette }) => `1px solid ${palette.divider}`,
         display: "flex",
         flexDirection: "column",
         padding: 3,
