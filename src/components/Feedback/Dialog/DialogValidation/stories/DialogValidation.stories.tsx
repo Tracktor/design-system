@@ -25,8 +25,7 @@ const BasicTemplate: StoryFn<typeof DialogValidation> = ({ ...args }) => {
         open={open}
         onClose={handleClose}
         title="Your order has !"
-
-        // subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit sed non risus."
+        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit sed non risus."
       />
     </Stack>
   );
