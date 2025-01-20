@@ -21,7 +21,7 @@ interface DialogValidationProps extends Omit<DialogProps, "children" | "onClose"
    * Color of the dialog
    * @default "secondary"
    */
-  color?: "secondary" | "error" | "warning" | "info";
+  color?: "secondary" | "error" | "warning" | "info" | "success";
   /**
    * Button primary props
    */
@@ -106,6 +106,7 @@ const DialogValidation = ({
           borderRadius: "50%",
           color: ({ palette }) => palette[color].main,
           display: "flex",
+          flexShrink: 0,
           height: BACKGROUND_ICON_SIZE,
           justifyContent: "center",
           marginBottom: 4,

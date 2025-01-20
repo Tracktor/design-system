@@ -24,8 +24,9 @@ const BasicTemplate: StoryFn<typeof DialogValidation> = ({ ...args }) => {
         {...args}
         open={open}
         onClose={handleClose}
-        title="Your order has been validated !"
-        subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit sed non risus."
+        title="Your order has !"
+
+        // subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit sed non risus."
       />
     </Stack>
   );
@@ -77,6 +78,17 @@ Error.args = {
     text: "All my orders",
   },
   color: "error",
+};
+
+export const Success = BasicTemplate.bind({});
+Success.args = {
+  buttonPrimary: {
+    text: "Continue",
+  },
+  buttonSecondary: {
+    text: "All my orders",
+  },
+  color: "success",
 };
 
 export default {
