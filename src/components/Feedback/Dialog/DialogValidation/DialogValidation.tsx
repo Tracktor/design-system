@@ -88,7 +88,17 @@ const DialogValidation = ({
   onClose,
   ...props
 }: DialogValidationProps) => (
-  <Dialog maxWidth={maxWidth} fullWidth={fullWidth} onClose={onClose} {...props}>
+  <Dialog
+    maxWidth={maxWidth}
+    fullWidth={fullWidth}
+    onClose={onClose}
+    {...props}
+    sx={{
+      "& .MuiDialog-paper": {
+        borderColor: ({ palette }) => palette[color]["30p"],
+      },
+    }}
+  >
     <DialogContent
       sx={{
         alignItems: "center",
@@ -97,7 +107,7 @@ const DialogValidation = ({
         flexDirection: "column",
         padding: 3,
         textAlign: "center",
-        ...((buttonPrimary || buttonSecondary) && { borderBottom: ({ palette }) => `1px solid ${palette.divider}` }),
+        ...((buttonPrimary || buttonSecondary) && { borderBottom: ({ palette }) => `1px solid ${palette[color]["12p"]}` }),
       }}
     >
       <DialogCloseIcon onClick={(e) => onClose?.(e, "closeButton")} />
