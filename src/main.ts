@@ -64,6 +64,8 @@ export type { AvatarProps } from "@/components/DataDisplay/Avatar/Avatar";
 export * from "@/components/DataDisplay/Avatar";
 export { default as DialogPopper } from "@/components/Feedback/Dialog/DialogPopper";
 export * from "@/components/Feedback/Dialog/DialogPopper";
+export { default as DialogValidation } from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
+export * from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
