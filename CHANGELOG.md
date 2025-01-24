@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.6.5
-- **[fix]** -`DialogValidation` border color
+## v3.6.6
+- **[fix]** -`DialogValidation` content width

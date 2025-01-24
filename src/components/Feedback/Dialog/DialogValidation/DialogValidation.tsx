@@ -134,23 +134,10 @@ const DialogValidation = ({
           <path d="M28 14L17 25L12 20" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </Box>
-      <Typography
-        variant="h4"
-        sx={{
-          marginBottom: 1,
-          maxWidth: 180,
-        }}
-      >
+      <Typography variant="h4" sx={{ marginBottom: 1 }}>
         {title}
       </Typography>
-      <DialogContentText
-        variant="body2"
-        sx={{
-          maxWidth: 300,
-        }}
-      >
-        {subtitle}
-      </DialogContentText>
+      <DialogContentText variant="body2">{subtitle}</DialogContentText>
     </DialogContent>
     {(buttonPrimary || buttonSecondary) && (
       <DialogActions>
