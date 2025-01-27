@@ -118,12 +118,12 @@ const FileViewer = ({
       {!disableThumb && !children && (
         <Box
           data-test="fileViewer"
+          width={width}
+          height={height}
           onClick={() => {
             onClickThumb?.();
             toggleOpen();
           }}
-          width={width}
-          height={height}
           sx={{
             ...styles.container,
             ":hover": { opacity },
