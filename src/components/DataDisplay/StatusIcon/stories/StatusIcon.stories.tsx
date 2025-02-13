@@ -7,6 +7,7 @@ const Template: StoryFn<typeof StatusIcon> = (args) => (
     <StatusIcon {...args} />
     <StatusIcon color="primary" {...args} />
     <StatusIcon color="secondary" {...args} />
+    <StatusIcon color="success" {...args} />
     <StatusIcon color="info" {...args} />
     <StatusIcon color="error" {...args} />
     <StatusIcon color="warning" {...args} />
