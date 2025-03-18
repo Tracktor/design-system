@@ -1,5 +1,5 @@
 import { InputLabel, Stack, Typography, useTheme } from "@mui/material";
-import { ChangeEvent, DragEvent, ElementRef, ReactNode, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, ElementRef, forwardRef, ReactNode, useImperativeHandle, useRef, useState } from "react";
 import UploadIcon from "@/components/DataDisplay/Icons/UploadIcon";
 import useTranslation from "@/hooks/useTranslation";
 
@@ -17,6 +17,8 @@ export interface FileUploadProps {
   multiple?: boolean;
   fullWidth?: boolean;
   disabled?: boolean;
+  pattern?: string;
+  title?: string;
   localeText?: {
     files: string;
   };
@@ -57,145 +59,156 @@ const getFileNames = (files: FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
-const File = ({
-  accept,
-  name,
-  disabled,
-  required,
-  error,
-  localeText,
-  multiple,
-  id,
-  size,
-  helperText,
-  fullWidth,
-  icon,
-  onChange,
-  label,
-  variant = "vertical",
-}: FileUploadProps) => {
-  const { t } = useTranslation();
-  const { palette } = useTheme();
-  const isVertical = variant === "vertical";
-  const htmlId = id || name;
-  const labelRef = useRef<ElementRef<"label">>(null);
-  const inputRef = useRef<ElementRef<"input">>(null);
-  const [files, setFiles] = useState<FileList | null>(null);
-  const fileName = getFileNames(files);
+const File = forwardRef<HTMLInputElement, FileUploadProps>(
+  (
+    {
+      accept,
+      name,
+      disabled,
+      required,
+      error,
+      localeText,
+      multiple,
+      id,
+      size,
+      helperText,
+      fullWidth,
+      icon,
+      onChange,
+      label,
+      pattern,
+      title,
+      variant = "vertical",
+    },
+    ref,
+  ) => {
+    const { t } = useTranslation();
+    const { palette } = useTheme();
+    const isVertical = variant === "vertical";
+    const htmlId = id || name;
+    const labelRef = useRef<ElementRef<"label">>(null);
+    const inputRef = useRef<ElementRef<"input">>(null);
+    const [files, setFiles] = useState<FileList | null>(null);
+    const fileName = getFileNames(files);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e);
-    setFiles(e.target.files);
-  };
+    useImperativeHandle(ref, () => inputRef.current!);
 
-  const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-  };
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(e);
+      setFiles(e.target.files);
+    };
 
-  const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
-    e.preventDefault();
-    if (e.dataTransfer.files.length > 0) {
-      const inputElement = inputRef.current;
-      const newFiles = e.dataTransfer.files;
+    const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+    };
 
-      setFiles(newFiles);
+    const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+      e.preventDefault();
+      if (e.dataTransfer.files.length > 0) {
+        const inputElement = inputRef.current;
+        const newFiles = e.dataTransfer.files;
 
-      // Manually update the input files
-      const dataTransfer = new DataTransfer();
-      Array.from(newFiles).forEach((file) => dataTransfer.items.add(file));
+        setFiles(newFiles);
 
-      if (inputElement) {
-        inputElement.files = dataTransfer.files;
+        // Manually update the input files
+        const dataTransfer = new DataTransfer();
+        Array.from(newFiles).forEach((file) => dataTransfer.items.add(file));
+
+        if (inputElement) {
+          inputElement.files = dataTransfer.files;
+        }
+
+        // Trigger focus and blur to update validity
+        inputElement?.focus();
+        inputElement?.blur();
+
+        onChange?.({ ...e, target: inputElement } as unknown as ChangeEvent<HTMLInputElement>);
+
+        e.dataTransfer.clearData();
       }
+    };
 
-      // Trigger focus and blur to update validity
-      inputElement?.focus();
-      inputElement?.blur();
-
-      onChange?.({ ...e, target: inputElement } as unknown as ChangeEvent<HTMLInputElement>);
-
-      e.dataTransfer.clearData();
-    }
-  };
-
-  return (
-    <InputLabel
-      ref={labelRef}
-      htmlFor={htmlId}
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-      sx={{
-        "&:hover, &:focus": {
-          borderColor: palette.primary.main,
-        },
-        border: `1px dashed ${error ? palette.error.main : palette.divider}`,
-        borderRadius: 1,
-        cursor: "pointer",
-        height: getHeight(size, variant),
-        maxWidth: fullWidth ? "100%" : 400,
-        padding: 2,
-        position: "relative",
-        width: "100%",
-      }}
-    >
-      <Stack
-        alignItems="center"
-        height="100%"
-        direction={isVertical ? "column" : "row"}
-        justifyContent={isVertical ? "center" : "flex-start"}
-        textAlign={isVertical ? "center" : "left"}
-        spacing={0.5}
-        color={disabled ? "text.disabled" : "text.secondary"}
-      >
-        {icon || <UploadIcon sx={{ height: 40, width: 40 }} />}
-        {fileName ? (
-          <>
-            <Typography variant="body2" color="textSecondary">
-              {files?.length} {localeText?.files || t("files")}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="primary"
-              whiteSpace={isVertical ? "normal" : "nowrap"}
-              textOverflow="ellipsis"
-              overflow="hidden"
-            >
-              {fileName}
-            </Typography>
-          </>
-        ) : (
-          <Typography variant="subtitle1" color={disabled ? "text.disabled" : "primary"}>
-            {label || t("clickToUpload")} {required && "*"}
-          </Typography>
-        )}
-        {helperText && (
-          <Typography color={error ? "error" : "textSecondary"} variant="body2">
-            {helperText}
-          </Typography>
-        )}
-      </Stack>
-      <input
-        ref={inputRef}
-        type="file"
-        disabled={disabled}
-        required={required}
-        name={name}
-        multiple={multiple}
-        accept={accept}
-        id={htmlId}
-        onChange={handleChange}
-        style={{
-          left: "50%",
-          opacity: 0,
-          pointerEvents: "none",
-          position: "absolute",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          zIndex: -1,
+    return (
+      <InputLabel
+        ref={labelRef}
+        htmlFor={htmlId}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        sx={{
+          "&:hover, &:focus": {
+            borderColor: palette.primary.main,
+          },
+          border: `1px dashed ${error ? palette.error.main : palette.divider}`,
+          borderRadius: 1,
+          cursor: "pointer",
+          height: getHeight(size, variant),
+          maxWidth: fullWidth ? "100%" : 400,
+          padding: 2,
+          position: "relative",
+          width: "100%",
         }}
-      />
-    </InputLabel>
-  );
-};
+      >
+        <Stack
+          alignItems="center"
+          height="100%"
+          direction={isVertical ? "column" : "row"}
+          justifyContent={isVertical ? "center" : "flex-start"}
+          textAlign={isVertical ? "center" : "left"}
+          spacing={0.5}
+          color={disabled ? "text.disabled" : "text.secondary"}
+        >
+          {icon || <UploadIcon sx={{ height: 40, width: 40 }} />}
+          {fileName ? (
+            <>
+              <Typography variant="body2" color="textSecondary">
+                {files?.length} {localeText?.files || t("files")}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="primary"
+                whiteSpace={isVertical ? "normal" : "nowrap"}
+                textOverflow="ellipsis"
+                overflow="hidden"
+              >
+                {fileName}
+              </Typography>
+            </>
+          ) : (
+            <Typography variant="subtitle1" color={disabled ? "text.disabled" : "primary"}>
+              {label || t("clickToUpload")} {required && "*"}
+            </Typography>
+          )}
+          {helperText && (
+            <Typography color={error ? "error" : "textSecondary"} variant="body2">
+              {helperText}
+            </Typography>
+          )}
+        </Stack>
+        <input
+          id={htmlId}
+          ref={inputRef}
+          type="file"
+          title={title}
+          disabled={disabled}
+          required={required}
+          name={name}
+          multiple={multiple}
+          accept={accept}
+          pattern={pattern}
+          onChange={handleChange}
+          style={{
+            left: "50%",
+            opacity: 0,
+            pointerEvents: "none",
+            position: "absolute",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: -1,
+          }}
+        />
+      </InputLabel>
+    );
+  },
+);
 
 export default File;
