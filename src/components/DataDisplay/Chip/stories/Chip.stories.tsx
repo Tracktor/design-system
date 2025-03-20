@@ -10,6 +10,16 @@ const Template: StoryFn<typeof Chip> = (args) => (
   </Stack>
 );
 
+const TemplateDisabled: StoryFn<typeof Chip> = (args) => (
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Chip disabled label="Disabled" {...args} />
+    <Chip disabled label="Disabled outlined" variant="outlined" {...args} />
+    <Chip disabled label="Disabled rounded" variant="rounded" {...args} />
+    <Chip disabled label="Disabled rounded outlined" variant="outlined-rounded" {...args} />
+    <Chip disabled dot label="Disabled dot" variant="outlined-rounded" {...args} />
+  </Stack>
+);
+
 const TemplateColor: StoryFn<typeof Chip> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Stack spacing={1}>
@@ -86,6 +96,16 @@ export const Dot = TemplateColor.bind({});
 Dot.args = {
   dot: true,
   onDelete: undefined,
+};
+
+export const Disabled = TemplateDisabled.bind({});
+Disabled.args = {
+  disabled: true,
+};
+
+export const LineThrough = Template.bind({});
+LineThrough.args = {
+  lineThrough: true,
 };
 
 export default {

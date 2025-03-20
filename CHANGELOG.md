@@ -1,5 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.7.0
-- **[feat]** - Add pattern to `File` component
-- **[feat]** - Add forward ref to `File` component
+## v3.8.0
+- **[feat]** - Chip : Add props `disabled` 
+- **[feat]** - Chip : Add props `lineThrough`

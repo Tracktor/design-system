@@ -4,9 +4,10 @@ import DotIcon from "@/components/DataDisplay/Icons/DotIcon";
 
 interface ChipProps extends ChipPropsMui {
   dot?: boolean;
+  lineThrough?: boolean;
 }
 
-const Chip = ({ dot, color, variant, ...props }: ChipProps, ref: Ref<HTMLDivElement>) => {
+const Chip = ({ dot, color, variant, sx, lineThrough, ...props }: ChipProps, ref: Ref<HTMLDivElement>) => {
   const { palette } = useTheme();
 
   const dotColor = {
@@ -24,6 +25,9 @@ const Chip = ({ dot, color, variant, ...props }: ChipProps, ref: Ref<HTMLDivElem
       ref={ref}
       variant={variant}
       color={color}
+      sx={{
+        ...(lineThrough && { textDecoration: "line-through" }),
+      }}
       icon={
         dot ? (
           <DotIcon
