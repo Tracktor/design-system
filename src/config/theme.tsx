@@ -468,8 +468,7 @@ const commonThemeOptions: MuiThemeOptions = {
     MuiChip: {
       styleOverrides: {
         root: ({ theme, ownerState }) => {
-          const color = ownerState.color || "default";
-          const variant = ownerState.variant || "standard";
+          const { color = "default", variant = "standard" } = ownerState;
           const isOutlinedVariant = ["outlined", "outlined-rounded"].includes(variant);
 
           return {
