@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import usePermission from "@/hooks/usePermission";
+import usePermission, { DEFAULT_PERMISSION_CHECK_MODE, PermissionCheckMode } from "@/hooks/usePermission";
 
 export interface HasPermissionProps {
   /**
@@ -18,11 +18,23 @@ export interface HasPermissionProps {
    * Additional permissions to check with combined context permissions
    */
   additionalPermissions?: string[];
+  /**
+   * Operator to use when checking multiple permissions:
+   * - "or": User must have at least one of the permissions (default)
+   * - "and": User must have all permissions
+   */
+  permissionCheckMode?: PermissionCheckMode;
 }
 
-export const HasPermission = ({ children, fallback, name, additionalPermissions }: HasPermissionProps) => {
+export const HasPermission = ({
+  children,
+  fallback,
+  name,
+  additionalPermissions,
+  permissionCheckMode = DEFAULT_PERMISSION_CHECK_MODE,
+}: HasPermissionProps) => {
   const { hasPermission } = usePermission();
-  const hasAccess = hasPermission(name, additionalPermissions);
+  const hasAccess = hasPermission(name, additionalPermissions, permissionCheckMode);
 
   if (hasAccess) {
     return children;

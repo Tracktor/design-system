@@ -30,6 +30,20 @@ WithFallBack.args = {
   ),
 };
 
+export const OrPermissionCheckMode = Template.bind({});
+OrPermissionCheckMode.args = {
+  additionalPermissions: ["test"],
+  name: ["test", "another_feature"],
+  permissionCheckMode: "or",
+};
+
+export const AndPermissionCheckMode = Template.bind({});
+AndPermissionCheckMode.args = {
+  additionalPermissions: ["test", "another_feature"],
+  name: ["test", "another_feature"],
+  permissionCheckMode: "and",
+};
+
 export default {
   component: HasPermission,
   title: "Components/Utils/HasPermission",

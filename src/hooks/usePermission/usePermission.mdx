@@ -19,6 +19,20 @@ console.log(hasCheckout) // true
 console.log(hasBill) // false
 ```
 
+### With permission check mode
+
+```typescript jsx
+import { usePermission } from "@tracktor/design-system";
+
+const { hasPermission } = usePermission();
+
+// "or" mode (default) - User needs at least one of the permissions
+const hasAnyPermission = hasPermission(["order", "checkout"], ["order"], "or"); // true
+
+// "and" mode - User needs all of permissions
+const hasAllPermissions = hasPermission(["order", "checkout"], ["order"], "and"); // false
+```
+
 ### Provide permissions
 
 Put `<PermissionProvider>` to provide user `permissions`<br/>
@@ -50,6 +64,34 @@ console.log(hasCheckout) // true
 console.log(hasBill) // false
 ```
 
+### With HasPermission component
+
+The HasPermission component can be used to conditionally render content based on user permissions.
+
+```typescript jsx
+import { HasPermission } from "@tracktor/design-system";
+
+// Basic usage
+<HasPermission name="checkout">
+  <CheckoutButton />
+</HasPermission>
+
+// With fallback
+<HasPermission name="checkout" fallback={<RequestAccessButton />}>
+  <CheckoutButton />
+</HasPermission>
+
+// With array of permissions using OR mode (default)
+<HasPermission name={["checkout", "view_order"]} permissionCheckMode="or">
+  <OrderSection />
+</HasPermission>
+
+// With array of permissions using AND mode
+<HasPermission name={["checkout", "view_order"]} permissionCheckMode="and">
+  <CompleteOrderSection />
+</HasPermission>
+```
+
 ### Available function
 
 <table>
@@ -62,7 +104,7 @@ console.log(hasBill) // false
   <tbody>
   <tr>
     <td><code>hasPermission</code></td>
-    <td>Check if has permission</td>
+    <td>Check if has permission. Accepts an optional permissionCheckMode ("or" or "and")</td>
   </tr>
   <tr>
     <td><code>appendPermissions</code></td>
