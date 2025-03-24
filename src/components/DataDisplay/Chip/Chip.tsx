@@ -27,6 +27,7 @@ const Chip = ({ dot, color, variant, sx, lineThrough, ...props }: ChipProps, ref
       color={color}
       sx={{
         ...(lineThrough && { textDecoration: "line-through" }),
+        ...sx,
       }}
       icon={
         dot ? (
