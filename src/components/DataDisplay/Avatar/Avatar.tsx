@@ -65,30 +65,41 @@ const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps<any>["size"]) 
 const Avatar = forwardRef(
   <C extends ElementType = "div">({ secondarySrc, secondaryAvatarProps, size, ...props }: AvatarProps<C>, ref: MuiAvatarProps["ref"]) => {
     if (secondarySrc || secondaryAvatarProps) {
-      const { height, width } = getSecondarySize(props.sx, size);
+      const { height, width } = getSecondarySize(props?.sx, size);
+      const { sx: secondaryAvatarSx, ...restSecondaryAvatarProps } = secondaryAvatarProps || {};
 
       return (
-        <Box sx={{ display: "flex", position: "relative" }}>
+        <Box
+          sx={{
+            display: "flex",
+            height,
+            position: "relative",
+            width,
+          }}
+        >
           <MuiAvatar
             ref={ref}
             {...props}
             sx={{
-              ...(size && { height: SIZES[size].primary, width: SIZES[size].primary }),
+              ...(size && {
+                height: SIZES[size].primary,
+                width: SIZES[size].primary,
+              }),
               ...props.sx,
             }}
           />
           <MuiAvatar
             src={secondarySrc}
             sx={{
-              bottom: -(height / 3),
               height,
+              left: "70%",
               outline: ({ palette }) => `2px solid ${palette.common.white}`,
               position: "absolute",
-              right: -(width / 3),
+              top: "70%",
               width,
-              ...secondaryAvatarProps?.sx,
+              ...secondaryAvatarSx,
             }}
-            {...secondaryAvatarProps}
+            {...restSecondaryAvatarProps}
           />
         </Box>
       );
