@@ -66,7 +66,7 @@ const ArticleImage = ({
         onLoad={handleLoad}
         sx={{
           ...stylesBase,
-          background: ({ palette }: Theme) => (displayPlaceholder ? palette.background.paper : undefined),
+          background: ({ palette }: Theme) => (displayPlaceholder ? palette.grey[100] : "transparent"),
           height,
           padding: displayPlaceholder ? padding : 0,
           width,
