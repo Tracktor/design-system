@@ -10,8 +10,8 @@ const Template: StoryFn<typeof ArticleImage> = (args) => (
 
 export const Basic = Template.bind({});
 
-export const CustomWidth = Template.bind({});
-CustomWidth.args = {
+export const CustomSize = Template.bind({});
+CustomSize.args = {
   height: 30,
   width: 30,
 };
@@ -29,6 +29,24 @@ GoodImage.args = {
 export const WrongImage = Template.bind({});
 WrongImage.args = {
   src: "wrong-path.jpg",
+};
+
+export const DoubleImage = Template.bind({});
+DoubleImage.args = {
+  height: 40,
+  secondarySrc: "https://placehold.co/600x400?text=T",
+  src: "wrong-path.jpg",
+  width: 40,
+};
+
+export const DoubleImageInitial = Template.bind({});
+DoubleImageInitial.args = {
+  height: 40,
+  secondaryAvatarProps: {
+    children: "MA",
+  },
+  src: "wrong-path.jpg",
+  width: 40,
 };
 
 export default {

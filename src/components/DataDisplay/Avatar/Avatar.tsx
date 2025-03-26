@@ -64,7 +64,7 @@ const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps<any>["size"]) 
 
 const Avatar = forwardRef(
   <C extends ElementType = "div">({ secondarySrc, secondaryAvatarProps, size, ...props }: AvatarProps<C>, ref: MuiAvatarProps["ref"]) => {
-    if (secondarySrc) {
+    if (secondarySrc || secondaryAvatarProps) {
       const { height, width } = getSecondarySize(props.sx, size);
 
       return (
