@@ -56,8 +56,6 @@ const ArticleImage = ({
 
   return (
     <>
-      {/* Loading skeleton */}
-
       {/* Image */}
       <Avatar
         src={src}
@@ -68,7 +66,7 @@ const ArticleImage = ({
         onLoad={handleLoad}
         sx={{
           ...stylesBase,
-          background: ({ palette }: Theme) => palette.background.paper,
+          background: ({ palette }: Theme) => (displayPlaceholder ? palette.background.paper : undefined),
           height,
           padding: displayPlaceholder ? padding : 0,
           width,
