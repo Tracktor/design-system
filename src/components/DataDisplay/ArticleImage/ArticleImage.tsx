@@ -1,5 +1,6 @@
-import { Box, Skeleton, Stack, SxProps, Theme, useTheme } from "@mui/material";
+import { Skeleton, SxProps, Theme, useTheme } from "@mui/material";
 import { SyntheticEvent, useState } from "react";
+import Avatar, { AvatarProps } from "@/components/DataDisplay/Avatar/Avatar";
 
 export interface ArticleImageProps {
   src?: string;
@@ -7,6 +8,8 @@ export interface ArticleImageProps {
   isLoading?: boolean;
   width?: string | number;
   height?: string | number;
+  secondarySrc?: AvatarProps["secondarySrc"];
+  secondaryAvatarProps?: AvatarProps["secondaryAvatarProps"];
   sx?: SxProps;
 }
 
@@ -28,7 +31,16 @@ const ArticleImageSkeleton = ({ width, height, sx }: { width: number | string; h
   <Skeleton variant="rounded" width={width} height={height} sx={sx} />
 );
 
-const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Article" }: ArticleImageProps) => {
+const ArticleImage = ({
+  src,
+  isLoading,
+  secondarySrc,
+  secondaryAvatarProps,
+  sx,
+  width = 64,
+  height = 64,
+  alt = "Article",
+}: ArticleImageProps) => {
   const [loaded, setLoaded] = useState<SyntheticEvent>();
   const [error, setError] = useState<SyntheticEvent>();
   const { shape } = useTheme();
@@ -42,29 +54,32 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
     setLoaded(e);
   };
 
-  if (isLoading) {
-    return <ArticleImageSkeleton width={width} height={height} sx={stylesBase} />;
-  }
-
   return (
     <>
       {/* Loading skeleton */}
-      {displayLoader && <ArticleImageSkeleton width={width} height={height} sx={stylesBase} />}
 
-      {/* Placeholder image */}
-      {displayPlaceholder && (
-        <Stack
-          justifyContent="center"
-          alignItems="center"
-          width={width}
-          height={height}
-          sx={{
-            background: ({ palette }) => palette.background.paper,
-            padding,
-            ...stylesBase,
-            ...sx,
-          }}
-        >
+      {/* Image */}
+      <Avatar
+        src={src}
+        secondarySrc={secondarySrc}
+        secondaryAvatarProps={secondaryAvatarProps}
+        alt={alt}
+        onError={setError}
+        onLoad={handleLoad}
+        sx={{
+          ...stylesBase,
+          background: ({ palette }: Theme) => palette.background.paper,
+          height,
+          padding: displayPlaceholder ? padding : 0,
+          width,
+          ...sx,
+        }}
+      >
+        {/* Loading Skeleton */}
+        {(isLoading || displayLoader) && <ArticleImageSkeleton width={width} height={height} sx={stylesBase} />}
+
+        {/* Placeholder image */}
+        {displayPlaceholder && (
           <svg width="100%" height="100%" viewBox="0 0 39 38" fill="none">
             <path
               d="M31.2231 13.3867V20.5549C33.1243 20.5549 34.9475 19.7997 36.2918 18.4554C37.6361 17.1111 38.3913 15.2878 38.3913 13.3867H31.2231Z"
@@ -83,21 +98,8 @@ const ArticleImage = ({ src, isLoading, sx, width = 64, height = 64, alt = "Arti
               fill="#9DAAAB"
             />
           </svg>
-        </Stack>
-      )}
-
-      {/* Image */}
-      <Box
-        component="img"
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        sx={stylesBase}
-        onError={setError}
-        onLoad={handleLoad}
-        display={displayPlaceholder || !loaded ? "none" : "block"}
-      />
+        )}
+      </Avatar>
     </>
   );
 };
