@@ -12,8 +12,8 @@ export const Basic = Template.bind({});
 
 export const CustomSize = Template.bind({});
 CustomSize.args = {
-  height: 30,
-  width: 30,
+  height: 40,
+  width: 40,
 };
 
 export const Loading = Template.bind({});
