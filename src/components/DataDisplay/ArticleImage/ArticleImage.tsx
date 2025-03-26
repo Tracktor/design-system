@@ -1,5 +1,5 @@
 import { Skeleton, SxProps, Theme, useTheme } from "@mui/material";
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import Avatar, { AvatarProps } from "@/components/DataDisplay/Avatar/Avatar";
 
 export interface ArticleImageProps {
@@ -20,7 +20,7 @@ const geStyles = (width: number | string, height: number | string, shape: Theme[
     return { borderRadius: `${shape.borderRadiusS}px`, padding: 0.5 };
   }
 
-  if (w < 50 || h < 50) {
+  if (w < 40 || h < 40) {
     return { borderRadius: `${shape.borderRadius}px`, padding: 1 };
   }
 
@@ -41,17 +41,23 @@ const ArticleImage = ({
   height = 64,
   alt = "Article",
 }: ArticleImageProps) => {
-  const [loaded, setLoaded] = useState<SyntheticEvent>();
-  const [error, setError] = useState<SyntheticEvent>();
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
   const { shape } = useTheme();
   const { borderRadius, padding } = geStyles(width, height, shape);
   const stylesBase = { borderRadius, flexShrink: 0 };
   const displayLoader = src && !loaded && !error;
   const displayPlaceholder = !src || (error && !loaded) || (error && loaded);
+  const isTransparent = src?.endsWith(".png") || src?.endsWith(".svg") || src?.endsWith(".gif") || src?.endsWith(".webp") || false;
 
-  const handleLoad = (e: SyntheticEvent) => {
-    setError(undefined);
-    setLoaded(e);
+  const handleLoad = () => {
+    setError(false);
+    setLoaded(true);
+  };
+
+  const handleError = () => {
+    setError(true);
+    setLoaded(false);
   };
 
   return (
@@ -62,13 +68,13 @@ const ArticleImage = ({
         secondarySrc={secondarySrc}
         secondaryAvatarProps={secondaryAvatarProps}
         alt={alt}
-        onError={setError}
+        onError={handleError}
         onLoad={handleLoad}
         sx={{
           ...stylesBase,
-          background: ({ palette }: Theme) => (displayPlaceholder ? palette.grey[100] : "transparent"),
+          background: ({ palette }: Theme) => palette.grey[100],
           height,
-          padding: displayPlaceholder ? padding : 0,
+          padding: isTransparent || displayPlaceholder ? padding : 0,
           width,
           ...sx,
         }}

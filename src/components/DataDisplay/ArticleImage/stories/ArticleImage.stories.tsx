@@ -21,8 +21,8 @@ Loading.args = {
   isLoading: true,
 };
 
-export const GoodImage = Template.bind({});
-GoodImage.args = {
+export const WithImage = Template.bind({});
+WithImage.args = {
   src: "https://assets-global.website-files.com/62987134cee3f41ed59eeb9d/6374bbba4ceb743933e96083_62b5b7cfafa4af7c9b2acd06_4298-min-p-800.jpeg",
 };
 
