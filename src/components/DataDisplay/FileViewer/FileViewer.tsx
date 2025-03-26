@@ -82,13 +82,17 @@ const FileViewer = ({
   const [internalOpen, setInternalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const lowercaseSrc = src?.toLowerCase();
-  const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:");
+  const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:") && !lowercaseSrc?.endsWith(".eml");
   const isPdf = lowercaseSrc?.endsWith(".pdf");
   const iframeRef = useRef<HTMLObjectElement>(null);
   const data = isError ? notFoundImage : srcThumb || src;
   const opacity = disableLightbox ? 1 : 0.8;
 
   const toggleOpen = () => {
+    // prevent mixed content to be displayed.
+    if (!isImage && !isPdf) {
+      return;
+    }
     setInternalOpen((prevState) => !prevState);
   };
 
@@ -148,7 +152,7 @@ const FileViewer = ({
       )}
 
       {!disableLightbox && src && (
-        <Lightbox open={open !== undefined ? open : internalOpen} onClose={close} src={src} title={fileName}>
+        <Lightbox open={open !== undefined && (isPdf || isImage) ? open : internalOpen} onClose={close} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}
             src={src || srcThumb || undefined}
