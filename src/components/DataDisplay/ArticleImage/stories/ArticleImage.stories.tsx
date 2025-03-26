@@ -33,20 +33,16 @@ WrongImage.args = {
 
 export const DoubleImage = Template.bind({});
 DoubleImage.args = {
-  height: 40,
   secondarySrc: "https://placehold.co/600x400?text=T",
   src: "wrong-path.jpg",
-  width: 40,
 };
 
 export const DoubleImageInitial = Template.bind({});
 DoubleImageInitial.args = {
-  height: 40,
   secondaryAvatarProps: {
     children: "MA",
   },
   src: "wrong-path.jpg",
-  width: 40,
 };
 
 export default {
