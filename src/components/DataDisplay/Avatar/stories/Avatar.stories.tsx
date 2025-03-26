@@ -19,7 +19,7 @@ const TemplateSize: StoryFn<typeof Avatar> = (args) => (
 );
 
 const TemplateDouble: StoryFn<typeof Avatar> = (args) => (
-  <Stack direction="row" spacing={5} alignItems="center" justifyContent="center" height="100%">
+  <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
     <Avatar src={args?.src || avatarSrc} size="small" {...args} />
     <Avatar src={args?.src || avatarSrc} size="medium" {...args} />
     <Avatar src={args?.src || avatarSrc} size="large" {...args} />
