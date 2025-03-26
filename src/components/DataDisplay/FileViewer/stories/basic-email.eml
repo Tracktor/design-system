@@ -1,0 +1,44 @@
+From: "Expéditeur" <expediteur@example.com>
+To: "Destinataire" <destinataire@example.com>
+Subject: Exemple de fichier EML
+Date: Wed, 26 Mar 2025 10:30:00 +0100
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0000_01D5C8F3.11AA0F00"
+X-Mailer: Email Client
+Message-ID: <A1B2C3D4E5F6G7H8I9J0@example.com>
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01D5C8F3.11AA0F00
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Bonjour,
+
+Ceci est un exemple de fichier EML basique.
+Ce format est utilisé pour stocker des emails individuels.
+
+Cordialement,
+L'équipe Example
+
+------=_NextPart_000_0000_01D5C8F3.11AA0F00
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Email Example</title>
+</head>
+<body>
+    <p>Bonjour,</p>
+    <p>Ceci est un exemple de fichier EML basique.</p>
+    <p>Ce format est utilisé pour stocker des <strong>emails individuels</strong>.</p>
+    <p>Cordialement,<br />
+    L'équipe Example</p>
+</body>
+</html>
+
+------=_NextPart_000_0000_01D5C8F3.11AA0F00--

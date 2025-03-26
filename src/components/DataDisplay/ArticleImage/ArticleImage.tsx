@@ -1,4 +1,4 @@
-import { Skeleton, SxProps, Theme, useTheme } from "@mui/material";
+import { Skeleton, SxProps, Theme } from "@mui/material";
 import { useState } from "react";
 import Avatar, { AvatarProps } from "@/components/DataDisplay/Avatar/Avatar";
 
@@ -13,18 +13,11 @@ export interface ArticleImageProps {
   sx?: SxProps;
 }
 
-const geStyles = (width: number | string, height: number | string, shape: Theme["shape"]) => {
+const geStyles = (width: number | string, height: number | string) => {
   const { w, h } = { h: Number(height), w: Number(width) };
+  const radiusAndPadding = `${(w || h) / 10}px`;
 
-  if (w < 25 || h < 25) {
-    return { borderRadius: `${shape.borderRadiusS}px`, padding: 0.5 };
-  }
-
-  if (w < 40 || h < 40) {
-    return { borderRadius: `${shape.borderRadius}px`, padding: 1 };
-  }
-
-  return { borderRadius: `${shape.borderRadiusL}px`, padding: 1.5 };
+  return { borderRadius: radiusAndPadding, padding: radiusAndPadding };
 };
 
 const ArticleImageSkeleton = ({ width, height, sx }: { width: number | string; height: number | string; sx: SxProps }) => (
@@ -43,8 +36,7 @@ const ArticleImage = ({
 }: ArticleImageProps) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
-  const { shape } = useTheme();
-  const { borderRadius, padding } = geStyles(width, height, shape);
+  const { borderRadius, padding } = geStyles(width, height);
   const stylesBase = { borderRadius, flexShrink: 0 };
   const displayLoader = src && !loaded && !error;
   const displayPlaceholder = !src || (error && !loaded) || (error && loaded);
