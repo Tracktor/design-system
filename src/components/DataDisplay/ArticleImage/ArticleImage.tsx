@@ -60,14 +60,16 @@ const ArticleImage = ({
       <Avatar
         src={src}
         secondarySrc={secondarySrc}
-        secondaryAvatarProps={{
-          ...secondaryAvatarProps,
-          ...(secondaryTitle &&
-            !secondaryAvatarProps?.children && {
-              children: secondaryTitle,
-            }),
-          title: secondaryTitle,
-        }}
+        secondaryAvatarProps={
+          (secondaryAvatarProps || secondaryTitle) && {
+            ...secondaryAvatarProps,
+            ...(secondaryTitle &&
+              !secondaryAvatarProps?.children && {
+                children: secondaryTitle,
+              }),
+            title: secondaryTitle,
+          }
+        }
         alt={alt}
         onError={handleError}
         onLoad={handleLoad}
