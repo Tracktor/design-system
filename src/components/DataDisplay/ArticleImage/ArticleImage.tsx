@@ -10,6 +10,7 @@ export interface ArticleImageProps {
   height?: string | number;
   secondarySrc?: AvatarProps["secondarySrc"];
   secondaryAvatarProps?: AvatarProps["secondaryAvatarProps"];
+  secondaryTitle?: string;
   sx?: SxProps;
 }
 
@@ -30,6 +31,7 @@ const ArticleImage = ({
   secondarySrc,
   secondaryAvatarProps,
   sx,
+  secondaryTitle,
   width = 64,
   height = 64,
   alt = "Article",
@@ -58,7 +60,11 @@ const ArticleImage = ({
       <Avatar
         src={src}
         secondarySrc={secondarySrc}
-        secondaryAvatarProps={secondaryAvatarProps}
+        secondaryAvatarProps={{
+          ...secondaryAvatarProps,
+          children: secondaryTitle,
+          title: secondaryTitle,
+        }}
         alt={alt}
         onError={handleError}
         onLoad={handleLoad}

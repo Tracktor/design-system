@@ -39,9 +39,7 @@ DoubleImage.args = {
 
 export const DoubleImageInitial = Template.bind({});
 DoubleImageInitial.args = {
-  secondaryAvatarProps: {
-    children: "MA",
-  },
+  secondaryTitle: "MA",
   src: "wrong-path.jpg",
 };
 
