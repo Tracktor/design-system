@@ -62,7 +62,10 @@ const ArticleImage = ({
         secondarySrc={secondarySrc}
         secondaryAvatarProps={{
           ...secondaryAvatarProps,
-          children: secondaryTitle,
+          ...(secondaryTitle &&
+            !secondaryAvatarProps?.children && {
+              children: secondaryTitle,
+            }),
           title: secondaryTitle,
         }}
         alt={alt}
