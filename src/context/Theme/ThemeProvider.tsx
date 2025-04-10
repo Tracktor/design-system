@@ -123,7 +123,7 @@ const ThemeProvider = ({
   const fontWeight = fontOptions?.fontWeight?.join(";");
   const themeContextValue = useMemo(() => ({ language: language as Language }), [language]);
 
-  const getTheme = () => {
+  const memoizedTheme = useMemo(() => {
     const themeOptions = typeof theme === "object" ? theme : {};
     const languages = {
       ...(language === "fr" && frFR),
@@ -133,16 +133,16 @@ const ThemeProvider = ({
       return createTheme(darkTheme, themeOptions, languages);
     }
 
-    if (theme === "light" || (typeof theme === "object" && "palette" in theme && theme?.palette?.mode === "light")) {
+    if (!theme || theme === "light" || (typeof theme === "object" && "palette" in theme && theme?.palette?.mode === "light")) {
       return createTheme(lightTheme, themeOptions, languages);
     }
 
     return createTheme(commonTheme, themeOptions, languages);
-  };
+  }, [theme, language]);
 
   return (
     <ThemeContext.Provider value={themeContextValue}>
-      <ThemeProviderMUI theme={getTheme()}>
+      <ThemeProviderMUI theme={memoizedTheme}>
         <GlobalStyles
           styles={css`
             ::-webkit-calendar-picker-indicator {
