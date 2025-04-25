@@ -179,6 +179,30 @@ Thumbnail.args = {
   ],
 };
 
+export const File = Template.bind({});
+File.args = {
+  items: [
+    {
+      id: 1,
+      image: "https://www.test.com/test.csv",
+      subtitle: "Lorem Ipsum",
+      title: "CSV image path",
+    },
+    {
+      id: 2,
+      image: "https://www.test.com/test.csv",
+      subtitle: "Lorem Ipsum",
+      title: "XLS image path",
+    },
+    {
+      id: 3,
+      image: "https://www.test.com/test.csv",
+      subtitle: "Lorem Ipsum",
+      title: "XLSX image path",
+    },
+  ],
+};
+
 export default {
   component: ListAvatar,
   title: "Components/Data Display/ListAvatar",
