@@ -179,8 +179,8 @@ Thumbnail.args = {
   ],
 };
 
-export const File = Template.bind({});
-File.args = {
+export const Document = Template.bind({});
+Document.args = {
   items: [
     {
       id: 1,

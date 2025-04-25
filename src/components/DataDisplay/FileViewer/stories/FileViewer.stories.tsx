@@ -82,6 +82,16 @@ Thumbnail.args = {
   width: 220,
 };
 
+export const Document = Template.bind({});
+Document.args = {
+  src: "https://app.api.dev.tracktor.fr/files/bookings/000039906/15ce1b4d-3da4-9543-2640-f267cd668130.csv",
+};
+
+export const NotFound = Template.bind({});
+NotFound.args = {
+  src: "https://a.a/a.png",
+};
+
 export default {
   component: FileViewer,
   title: "Components/Data Display/FileViewer",
