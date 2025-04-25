@@ -18,7 +18,43 @@ import { MouseEvent, ReactNode, useState } from "react";
 import FileViewer from "@/components/DataDisplay/FileViewer";
 import SheetIcon from "@/components/DataDisplay/Icons/SheetIcon";
 
-interface ListAvatarProps {
+interface ListAvatarItemBase {
+  Avatar?: ReactNode;
+  id?: string | number | null;
+  title?: ReactNode;
+  subtitle?: ReactNode;
+  image?: string | null;
+  thumbnail?: string | null;
+  icon?: ReactNode;
+  chipLabel?: ReactNode;
+  chipColor?: ChipProps["color"] | string;
+  secondaryAction?: ReactNode;
+}
+
+export interface ListAvatarClickPayload {
+  id?: string | number | null;
+  image?: string | null;
+  thumbnail?: string | null;
+  subtitle?: ReactNode;
+  title?: ReactNode;
+  icon?: ReactNode;
+  isFile: boolean;
+  isPdf: boolean;
+}
+
+export interface ListAvatarAction {
+  title?: string | null;
+  subtitle?: string | null;
+  image?: string | null;
+  icon?: ReactNode;
+  onClick?: ListItemButtonProps["onClick"];
+}
+
+export interface ListAvatarItem extends ListAvatarItemBase {
+  onClick?: (event: MouseEvent<HTMLLIElement>, item: ListAvatarClickPayload) => void;
+}
+
+export interface ListAvatarProps {
   /**
    * Empty message
    */
@@ -50,41 +86,11 @@ interface ListAvatarProps {
   /**
    * List items
    */
-  items?: {
-    id?: string | number | null;
-    title?: ReactNode;
-    subtitle?: ReactNode;
-    image?: string | null;
-    thumbnail?: string | null;
-    icon?: ReactNode;
-    chipLabel?: ReactNode;
-    chipColor?: ChipProps["color"] | string;
-    secondaryAction?: ReactNode;
-    onClick?: (
-      event: MouseEvent<HTMLLIElement>,
-      item: {
-        id?: NonNullable<ListAvatarProps["items"]>[number]["id"];
-        image?: NonNullable<ListAvatarProps["items"]>[number]["image"];
-        thumbnail?: NonNullable<ListAvatarProps["items"]>[number]["thumbnail"];
-        subtitle?: NonNullable<ListAvatarProps["items"]>[number]["subtitle"];
-        title?: NonNullable<ListAvatarProps["items"]>[number]["title"];
-        icon?: NonNullable<ListAvatarProps["items"]>[number]["icon"];
-        isFile: boolean;
-        isPdf: boolean;
-      },
-    ) => void;
-    Avatar?: ReactNode;
-  }[];
+  items?: ListAvatarItem[];
   /**
    * Action
    */
-  action?: {
-    title?: string | null;
-    subtitle?: string | null;
-    image?: string | null;
-    icon?: ReactNode;
-    onClick?: ListItemButtonProps["onClick"];
-  };
+  action?: ListAvatarAction;
 }
 
 const AVATAR_MARGIN_RIGHT = 1;
