@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemButtonProps,
-  ListItemProps,
   ListItemText,
   Skeleton,
   Stack,
@@ -15,8 +14,9 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { MouseEvent, ReactNode, useState } from "react";
 import FileViewer from "@/components/DataDisplay/FileViewer";
+import SheetIcon from "@/components/DataDisplay/Icons/SheetIcon";
 
 interface ListAvatarProps {
   /**
@@ -44,7 +44,7 @@ interface ListAvatarProps {
    */
   numberLoadingItems?: number;
   /**
-   * Disable lightbox, only if image list item is provided
+   * Disable lightbox only if the image list item is provided
    */
   disableLightbox?: boolean;
   /**
@@ -60,7 +60,19 @@ interface ListAvatarProps {
     chipLabel?: ReactNode;
     chipColor?: ChipProps["color"] | string;
     secondaryAction?: ReactNode;
-    onClick?: ListItemProps["onClick"];
+    onClick?: (
+      event: MouseEvent<HTMLLIElement>,
+      item: {
+        id?: NonNullable<ListAvatarProps["items"]>[number]["id"];
+        image?: NonNullable<ListAvatarProps["items"]>[number]["image"];
+        thumbnail?: NonNullable<ListAvatarProps["items"]>[number]["thumbnail"];
+        subtitle?: NonNullable<ListAvatarProps["items"]>[number]["subtitle"];
+        title?: NonNullable<ListAvatarProps["items"]>[number]["title"];
+        icon?: NonNullable<ListAvatarProps["items"]>[number]["icon"];
+        isFile: boolean;
+        isPdf: boolean;
+      },
+    ) => void;
     Avatar?: ReactNode;
   }[];
   /**
@@ -77,8 +89,6 @@ interface ListAvatarProps {
 
 const AVATAR_MARGIN_RIGHT = 1;
 
-const isChipColor = (color: ChipProps["color"] | string): color is ChipProps["color"] => typeof color === "string";
-
 const styles = {
   list: {
     marginLeft: ({ spacing }: Theme) => `-${spacing(0.5)} !important`,
@@ -89,6 +99,53 @@ const styles = {
     borderRadius: 1,
     padding: 0.5,
   },
+};
+
+const isChipColor = (color: ChipProps["color"] | string): color is ChipProps["color"] => typeof color === "string";
+
+const isValidUrl = (url?: string | null) => {
+  if (!url) {
+    return false;
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    return Boolean(parsedUrl.protocol);
+  } catch (error) {
+    return false;
+  }
+};
+
+const isFileType = (url?: string | null) => {
+  if (!url) {
+    return false;
+  }
+
+  const documentExtensions = [
+    ".csv",
+    ".xls",
+    ".xlsx",
+    ".xlsm",
+    ".xlsb",
+    ".xltx",
+    ".xltm",
+    ".ods",
+    ".doc",
+    ".docx",
+    ".pages",
+    ".odt",
+    ".rtf",
+    ".txt",
+  ];
+
+  try {
+    const parsedUrl = new URL(url);
+    const path = parsedUrl.pathname.toLowerCase();
+
+    return documentExtensions.some((ext) => path.endsWith(ext));
+  } catch (error) {
+    return false;
+  }
 };
 
 export const ListAvatar = ({
@@ -148,15 +205,16 @@ export const ListAvatar = ({
           index,
         ) => {
           const key = `key-${index}-${title}-${id}`;
-          const isPDF = image?.toLowerCase()?.endsWith(".pdf");
-          const isValidImage = image?.toLowerCase()?.startsWith("http");
-          const isValidThumbnail = thumbnail?.toLowerCase()?.startsWith("http");
+          const isPdf = !!image?.toLowerCase()?.endsWith(".pdf");
+          const isValidImageUrl = isValidUrl(image);
+          const isValidThumbnailUrl = isValidUrl(thumbnail);
+          const isFile = isFileType(image);
           const userSelect = onClick ? "none" : undefined;
-          const lightBoxDisabled = disableLightbox || !!icon || !isValidImage;
+          const lightBoxDisabled = disableLightbox || !!icon || !isValidImageUrl || isFile;
           const clickable = !!onClick || !!(!onClick && !disableLightbox && (thumbnail || image));
           const open = openElement === key;
-          const avatarThumb = isValidThumbnail ? thumbnail : "";
-          const avatarImage = isValidImage ? image : "";
+          const avatarThumb = isValidThumbnailUrl ? thumbnail : "";
+          const avatarImage = isValidImageUrl ? image : "";
           const avatarSrc = avatarThumb || avatarImage || "";
 
           return (
@@ -164,7 +222,16 @@ export const ListAvatar = ({
               key={key}
               secondaryAction={secondaryAction}
               onClick={(event) => {
-                onClick?.(event);
+                onClick?.(event, {
+                  ...(icon && { icon }),
+                  ...(id && { id }),
+                  ...(image && { image }),
+                  ...(subtitle && { subtitle }),
+                  ...(thumbnail && { thumbnail }),
+                  ...(title && { thumbnail }),
+                  isFile,
+                  isPdf,
+                });
 
                 if (clickable && !open && !onClick) {
                   setOpenElement(key);
@@ -194,7 +261,7 @@ export const ListAvatar = ({
               {AvatarComponent !== undefined && <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>}
 
               {/* PDF Thumb */}
-              {!AvatarComponent && isPDF && (
+              {!AvatarComponent && isPdf && (
                 <FileViewer
                   src={image}
                   srcThumb={thumbnail}
@@ -208,7 +275,7 @@ export const ListAvatar = ({
               )}
 
               {/* Image or avatar */}
-              {!AvatarComponent && !isPDF && (
+              {!AvatarComponent && !isPdf && (
                 <FileViewer
                   disableThumb
                   src={image}
@@ -218,10 +285,12 @@ export const ListAvatar = ({
                   onClose={() => setOpenElement("")}
                 >
                   <Avatar src={avatarSrc} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
-                    {icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase())}
+                    {isFile && <SheetIcon />}
+                    {!isFile && (icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase()))}
                   </Avatar>
                 </FileViewer>
               )}
+
               <ListItemText
                 primary={
                   <Stack direction="row" alignItems="center" spacing={1}>
@@ -236,11 +305,13 @@ export const ListAvatar = ({
                   </Stack>
                 }
                 secondary={subtitle}
-                primaryTypographyProps={{
-                  component: "div",
-                }}
-                secondaryTypographyProps={{
-                  component: "div",
+                slotProps={{
+                  primary: {
+                    component: "div",
+                  },
+                  secondary: {
+                    component: "div",
+                  },
                 }}
                 sx={{ marginY: 0, userSelect }}
               />

@@ -1,5 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.11.4
-### Fix
-- Default theme provider 
+## v3.12.0
+### Feat
+- Add a sheet file compatible with `ListAvatar`
