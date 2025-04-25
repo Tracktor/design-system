@@ -140,7 +140,10 @@ CollapseItemsDefaultOpen.args = {
           title: "Third Collapse Item",
         },
         {
-          file: ["https://images.unsplash.com/photo-1551963831-b3b1ca40c98e", "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e"],
+          file: [
+            "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e.csv",
+            "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+          ],
           subtitle: "Fourth Collapse Item Subtitle",
           title: "Fourth Collapse Item",
         },

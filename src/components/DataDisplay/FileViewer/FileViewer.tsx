@@ -1,4 +1,4 @@
-import { Box, SxProps, Theme } from "@mui/material";
+import { Box, SxProps, Theme, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
 import sheetsImage from "@/assets/img/sheets.png";
@@ -31,6 +31,14 @@ const styles = {
     flexShrink: 0,
     overflow: "hidden",
     position: "relative",
+    userSelect: "none",
+  },
+  extension: {
+    backgroundColor: ({ palette }: Theme) => palette.common.white,
+    bottom: "10%",
+    paddingX: 0.8,
+    position: "absolute",
+    right: 0,
   },
   thumb: {
     "&::-webkit-scrollbar": {
@@ -41,7 +49,6 @@ const styles = {
     cursor: "pointer",
     display: "block",
     msOverflowStyle: "none",
-
     overflow: "hidden",
     pointerEvents: "none !important",
     scrollbarWidth: "none",
@@ -91,6 +98,7 @@ const FileViewer = ({
   const isThumbnailReady = disableThumb ? true : !isLoading;
   const isDocument = isDocumentType(src) || isDocumentType(srcThumb);
   const shouldDisplayLightbox = (isImage || isPdf) && !isDocument && isThumbnailReady && !isError && !disableLightbox && src;
+  const extension = src?.split(".").pop()?.toLowerCase();
 
   const getSrcThumb = () => {
     if (isDocument) {
@@ -117,6 +125,11 @@ const FileViewer = ({
     setIsLoading(false);
   };
 
+  const handleClick = () => {
+    onClickThumb?.();
+    toggleOpen();
+  };
+
   return (
     <>
       {!disableThumb && !children && (
@@ -124,10 +137,7 @@ const FileViewer = ({
           data-test="fileViewer"
           width={width}
           height={height}
-          onClick={() => {
-            onClickThumb?.();
-            toggleOpen();
-          }}
+          onClick={handleClick}
           sx={{
             ...styles.container,
             ":hover": { opacity },
@@ -153,6 +163,11 @@ const FileViewer = ({
               padding: isDocument ? "15%" : 0,
             }}
           />
+          {isDocument && (
+            <Typography sx={styles.extension} variant="body3" color="black">
+              {extension}
+            </Typography>
+          )}
         </Box>
       )}
 

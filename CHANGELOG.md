@@ -2,4 +2,4 @@
 
 ## v3.13.0
 ### Feat
-- Display doc file in file viewer and timeline
+- Display a doc file in the file viewer and timeline
