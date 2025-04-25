@@ -1,5 +1,5 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.12.1
-### Fix
-- Export type `ListAvatar`
+## v3.13.0
+### Feat
+- Display doc file in file viewer and timeline

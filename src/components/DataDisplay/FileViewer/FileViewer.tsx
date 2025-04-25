@@ -1,7 +1,9 @@
 import { Box, SxProps, Theme } from "@mui/material";
-import { PropsWithChildren, useCallback, useEffect, useRef, useState } from "react";
-import notFoundImage from "@/assets/img/not-found-img.svg";
+import { PropsWithChildren, useState } from "react";
+import notFoundImage from "@/assets/img/not-found-img.jpg";
+import sheetsImage from "@/assets/img/sheets.png";
 import Lightbox from "@/components/Feedback/Lightbox";
+import isDocumentType from "@/utils/isDocumentType";
 
 interface FileViewerPros extends PropsWithChildren {
   src?: string | null;
@@ -39,7 +41,7 @@ const styles = {
     cursor: "pointer",
     display: "block",
     msOverflowStyle: "none",
-    objectFit: "cover",
+
     overflow: "hidden",
     pointerEvents: "none !important",
     scrollbarWidth: "none",
@@ -66,8 +68,6 @@ const FileViewer = ({
   srcThumb,
   fileName,
   children,
-  width,
-  height,
   sx,
   widthLightbox,
   heightLightbox,
@@ -78,21 +78,29 @@ const FileViewer = ({
   onClose,
   onClickThumb,
   variant,
+  height = 152,
+  width = 220,
 }: FileViewerPros) => {
   const [internalOpen, setInternalOpen] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const lowercaseSrc = src?.toLowerCase();
   const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:") && !lowercaseSrc?.endsWith(".eml");
   const isPdf = lowercaseSrc?.endsWith(".pdf");
-  const iframeRef = useRef<HTMLObjectElement>(null);
-  const data = isError ? notFoundImage : srcThumb || src;
   const opacity = disableLightbox ? 1 : 0.8;
+  const isThumbnailReady = disableThumb ? true : !isLoading;
+  const isDocument = isDocumentType(src) || isDocumentType(srcThumb);
+  const shouldDisplayLightbox = (isImage || isPdf) && !isDocument && isThumbnailReady && !isError && !disableLightbox && src;
+
+  const getSrcThumb = () => {
+    if (isDocument) {
+      return sheetsImage;
+    }
+
+    return isError ? notFoundImage : srcThumb || src || undefined;
+  };
 
   const toggleOpen = () => {
-    // prevent mixed content to be displayed.
-    if (!isImage && !isPdf) {
-      return;
-    }
     setInternalOpen((prevState) => !prevState);
   };
 
@@ -101,21 +109,13 @@ const FileViewer = ({
     onClose?.();
   };
 
-  const errorHandle = useCallback(() => {
+  const handleError = () => {
     setIsError(true);
-  }, []);
+  };
 
-  /**
-   * Handle error
-   */
-  useEffect(() => {
-    const object = iframeRef.current;
-    object?.addEventListener("error", errorHandle);
-
-    return () => {
-      object?.removeEventListener("error", errorHandle);
-    };
-  }, [errorHandle, iframeRef]);
+  const handleLoad = () => {
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -139,19 +139,25 @@ const FileViewer = ({
           }}
         >
           <Box
-            component={isImage ? "img" : "iframe"}
-            key={data}
             overflow="hidden"
-            height={isImage ? "100%" : "auto"}
             width="100%"
-            src={data || undefined}
-            ref={iframeRef}
-            sx={styles.thumb}
+            component={isImage ? "img" : "iframe"}
+            height={isImage ? "100%" : "auto"}
+            key={getSrcThumb()}
+            src={getSrcThumb()}
+            onError={handleError}
+            onLoad={handleLoad}
+            sx={{
+              ...styles.thumb,
+              objectFit: isDocument ? "contain" : "cover",
+              padding: isDocument ? "15%" : 0,
+            }}
           />
         </Box>
       )}
 
-      {!disableLightbox && src && (
+      {/* Lightbox */}
+      {shouldDisplayLightbox && (
         <Lightbox open={open !== undefined && (isPdf || isImage) ? open : internalOpen} onClose={close} src={src} title={fileName}>
           <Box
             component={isPdf ? "iframe" : "img"}

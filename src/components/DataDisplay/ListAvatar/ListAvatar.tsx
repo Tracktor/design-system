@@ -15,8 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import { MouseEvent, ReactNode, useState } from "react";
+import sheetsImage from "@/assets/img/sheets.png";
 import FileViewer from "@/components/DataDisplay/FileViewer";
-import SheetIcon from "@/components/DataDisplay/Icons/SheetIcon";
+import isDocumentType from "@/utils/isDocumentType";
+import isValidUrl from "@/utils/isValidUrl";
 
 interface ListAvatarItemBase {
   Avatar?: ReactNode;
@@ -109,51 +111,6 @@ const styles = {
 
 const isChipColor = (color: ChipProps["color"] | string): color is ChipProps["color"] => typeof color === "string";
 
-const isValidUrl = (url?: string | null) => {
-  if (!url) {
-    return false;
-  }
-
-  try {
-    const parsedUrl = new URL(url);
-    return Boolean(parsedUrl.protocol);
-  } catch (error) {
-    return false;
-  }
-};
-
-const isFileType = (url?: string | null) => {
-  if (!url) {
-    return false;
-  }
-
-  const documentExtensions = [
-    ".csv",
-    ".xls",
-    ".xlsx",
-    ".xlsm",
-    ".xlsb",
-    ".xltx",
-    ".xltm",
-    ".ods",
-    ".doc",
-    ".docx",
-    ".pages",
-    ".odt",
-    ".rtf",
-    ".txt",
-  ];
-
-  try {
-    const parsedUrl = new URL(url);
-    const path = parsedUrl.pathname.toLowerCase();
-
-    return documentExtensions.some((ext) => path.endsWith(ext));
-  } catch (error) {
-    return false;
-  }
-};
-
 export const ListAvatar = ({
   Empty,
   action,
@@ -214,7 +171,7 @@ export const ListAvatar = ({
           const isPdf = !!image?.toLowerCase()?.endsWith(".pdf");
           const isValidImageUrl = isValidUrl(image);
           const isValidThumbnailUrl = isValidUrl(thumbnail);
-          const isFile = isFileType(image);
+          const isFile = isDocumentType(image);
           const userSelect = onClick ? "none" : undefined;
           const lightBoxDisabled = disableLightbox || !!icon || !isValidImageUrl || isFile;
           const clickable = !!onClick || !!(!onClick && !disableLightbox && (thumbnail || image));
@@ -290,8 +247,18 @@ export const ListAvatar = ({
                   open={open}
                   onClose={() => setOpenElement("")}
                 >
-                  <Avatar src={avatarSrc} variant="rounded" sx={{ marginRight: AVATAR_MARGIN_RIGHT }}>
-                    {isFile && <SheetIcon />}
+                  <Avatar
+                    src={isFile ? sheetsImage : avatarSrc}
+                    variant="rounded"
+                    sx={{ marginRight: AVATAR_MARGIN_RIGHT }}
+                    slotProps={{
+                      img: {
+                        sx: {
+                          ...(isFile && { padding: "15%" }),
+                        },
+                      },
+                    }}
+                  >
                     {!isFile && (icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase()))}
                   </Avatar>
                 </FileViewer>

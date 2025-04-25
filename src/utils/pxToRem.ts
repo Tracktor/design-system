@@ -4,7 +4,7 @@
  * @param htmlFontSize
  * @param fontSize
  */
-const pxToRem = (size: number, htmlFontSize = 16, fontSize = 14) => {
+export const pxToRem = (size: number, htmlFontSize = 16, fontSize = 14) => {
   const coefficient = fontSize / 14;
 
   return `${(size / htmlFontSize) * coefficient}rem`;
