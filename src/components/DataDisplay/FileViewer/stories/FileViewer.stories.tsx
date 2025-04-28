@@ -84,7 +84,10 @@ Thumbnail.args = {
 
 export const Document = Template.bind({});
 Document.args = {
+  fileName: "Document CSV",
+  height: 115,
   src: "https://app.api.dev.tracktor.fr/files/bookings/000039906/15ce1b4d-3da4-9543-2640-f267cd668130.csv",
+  width: 174,
 };
 
 export const NotFound = Template.bind({});

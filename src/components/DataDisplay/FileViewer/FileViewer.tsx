@@ -1,4 +1,4 @@
-import { Box, SxProps, Theme, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
 import sheetsImage from "@/assets/img/sheets.png";
@@ -28,6 +28,7 @@ const styles = {
     alignSelf: "center",
     backgroundColor: ({ palette }: Theme) => palette.background.paper,
     boxShadow: 4,
+    display: "block",
     flexShrink: 0,
     overflow: "hidden",
     position: "relative",
@@ -35,10 +36,10 @@ const styles = {
   },
   extension: {
     backgroundColor: ({ palette }: Theme) => palette.common.white,
-    bottom: "10%",
+    bottom: "15%",
+    left: "50%",
     paddingX: 0.8,
     position: "absolute",
-    right: 0,
   },
   thumb: {
     "&::-webkit-scrollbar": {
@@ -99,6 +100,7 @@ const FileViewer = ({
   const isDocument = isDocumentType(src) || isDocumentType(srcThumb);
   const shouldDisplayLightbox = (isImage || isPdf) && !isDocument && isThumbnailReady && !isError && !disableLightbox && src;
   const extension = src?.split(".").pop()?.toLowerCase();
+  const fileNameWithExtension = fileName || src?.split("/").pop()?.split("?")[0] || "";
 
   const getSrcThumb = () => {
     if (isDocument) {
@@ -133,7 +135,7 @@ const FileViewer = ({
       const link = document.createElement("a");
 
       link.href = url;
-      link.download = fileName || "document";
+      link.download = fileNameWithExtension;
       link.target = "_blank";
       document.body.appendChild(link);
       link.click();
@@ -157,12 +159,13 @@ const FileViewer = ({
           width={width}
           height={height}
           onClick={handleClick}
+          component={isDocument ? Tooltip : "div"}
+          title={isDocument ? fileNameWithExtension : ""}
           sx={{
             ...styles.container,
             ":hover": { opacity },
             borderRadius: variant === "rounded" ? 1 : "0",
             cursor: disableLightbox ? "default" : "pointer",
-            display: "block",
             pointerEvents: disableLightbox ? "none" : "auto",
             ...sx,
           }}
