@@ -131,7 +131,8 @@ const TimeLineEventItem = ({
             <Stack marginTop={3} spacing={3}>
               {collapseItems?.map((item, index) => {
                 const key = `${item.title}-${index}`;
-                const fileItem = Array.isArray(item?.file) ? item?.file[0] : item?.file;
+                const files = Array.isArray(item?.file) ? item?.file : [item?.file];
+                const firstFile = files.length > 0 ? files[0] : null;
 
                 return (
                   <Stack key={key} direction="row" spacing={1} minWidth={0}>
@@ -182,18 +183,31 @@ const TimeLineEventItem = ({
                       )}
                       {item?.file && (
                         <Stack direction="row" marginTop={1} spacing={0.5}>
-                          {fileItem && (
-                            <FileViewer
-                              src={fileItem}
-                              sx={{
-                                borderRadius: 0.5,
-                                cursor: "pointer",
-                                height: IMAGE_SIZE,
-                                width: IMAGE_SIZE,
-                              }}
-                            />
-                          )}
-                          {Array.isArray(item?.file) && item?.file?.length > 1 && (
+                          {firstFile &&
+                            (typeof firstFile === "string" ? (
+                              <FileViewer
+                                src={firstFile}
+                                sx={{
+                                  borderRadius: 0.5,
+                                  cursor: "pointer",
+                                  height: IMAGE_SIZE,
+                                  width: IMAGE_SIZE,
+                                }}
+                              />
+                            ) : (
+                              <FileViewer
+                                src={firstFile.src || ""}
+                                srcThumb={firstFile.srcThumb}
+                                fileName={firstFile.fileName}
+                                sx={{
+                                  borderRadius: 0.5,
+                                  cursor: "pointer",
+                                  height: IMAGE_SIZE,
+                                  width: IMAGE_SIZE,
+                                }}
+                              />
+                            ))}
+                          {files.length > 1 && (
                             <Box
                               sx={{
                                 alignItems: "center",
@@ -204,7 +218,7 @@ const TimeLineEventItem = ({
                                 justifyContent: "center",
                                 width: IMAGE_SIZE,
                               }}
-                            >{`${(item?.file?.length || 0) - 1}+`}</Box>
+                            >{`${files.length - 1}+`}</Box>
                           )}
                         </Stack>
                       )}

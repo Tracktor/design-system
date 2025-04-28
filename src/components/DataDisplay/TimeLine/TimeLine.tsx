@@ -7,7 +7,13 @@ import Lightbox from "@/components/Feedback/Lightbox";
 export interface TimeLineCollapseItems {
   title?: string | null;
   subtitle?: string | null;
-  file?: string | string[] | null;
+  file?:
+    | string
+    | string[]
+    | null
+    | { src?: string; srcThumb?: string; fileName?: string }
+    | { src?: string; srcThumb?: string; fileName?: string }[];
+  icon?: ReactNode;
   onClick?(): void;
   tag?: {
     label?: string | null;
@@ -81,7 +87,7 @@ export interface TimeLineProps {
    */
   containerStyle?: SxProps;
   /**
-   * If true, skeleton loading will be displayed.
+   * If true, the skeleton loading will be displayed.
    */
   isLoading?: boolean;
   /**

@@ -1,5 +1,6 @@
 # [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v3.13.2
+## v3.13.3
 ### Fixe
-- Tooltip filename `FileViewer`
+- FileViewer - Tooltip valid children error
+- FileViewer — Possibility to pass `file name` to `TimeLine` component

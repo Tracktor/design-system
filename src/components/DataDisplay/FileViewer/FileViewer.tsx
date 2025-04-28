@@ -154,43 +154,43 @@ const FileViewer = ({
   return (
     <>
       {!disableThumb && !children && (
-        <Box
-          data-test="fileViewer"
-          width={width}
-          height={height}
-          onClick={handleClick}
-          component={isDocument ? Tooltip : "div"}
-          title={isDocument ? fileNameWithExtension : ""}
-          sx={{
-            ...styles.container,
-            ":hover": { opacity },
-            borderRadius: variant === "rounded" ? 1 : "0",
-            cursor: disableLightbox ? "default" : "pointer",
-            pointerEvents: disableLightbox ? "none" : "auto",
-            ...sx,
-          }}
-        >
+        <Tooltip title={isDocument ? fileNameWithExtension : ""}>
           <Box
-            overflow="hidden"
-            width="100%"
-            component={isImage ? "img" : "iframe"}
-            height={isImage ? "100%" : "auto"}
-            key={getSrcThumb()}
-            src={getSrcThumb()}
-            onError={handleError}
-            onLoad={handleLoad}
+            data-test="fileViewer"
+            width={width}
+            height={height}
+            onClick={handleClick}
             sx={{
-              ...styles.thumb,
-              objectFit: isDocument ? "contain" : "cover",
-              padding: isDocument ? "15%" : 0,
+              ...styles.container,
+              ":hover": { opacity },
+              borderRadius: variant === "rounded" ? 1 : "0",
+              cursor: disableLightbox ? "default" : "pointer",
+              pointerEvents: disableLightbox ? "none" : "auto",
+              ...sx,
             }}
-          />
-          {isDocument && (
-            <Typography sx={styles.extension} variant="body3" color="black">
-              {extension}
-            </Typography>
-          )}
-        </Box>
+          >
+            <Box
+              overflow="hidden"
+              width="100%"
+              component={isImage ? "img" : "iframe"}
+              height={isImage ? "100%" : "auto"}
+              key={getSrcThumb()}
+              src={getSrcThumb()}
+              onError={handleError}
+              onLoad={handleLoad}
+              sx={{
+                ...styles.thumb,
+                objectFit: isDocument ? "contain" : "cover",
+                padding: isDocument ? "15%" : 0,
+              }}
+            />
+            {isDocument && (
+              <Typography sx={styles.extension} variant="body3" color="black">
+                {extension}
+              </Typography>
+            )}
+          </Box>
+        </Tooltip>
       )}
 
       {/* Lightbox */}
