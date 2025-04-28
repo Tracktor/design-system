@@ -125,7 +125,26 @@ const FileViewer = ({
     setIsLoading(false);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (isDocument && src) {
+      const response = await fetch(src);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = fileName || "document";
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      setTimeout(() => {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      }, 100);
+    }
+
     onClickThumb?.();
     toggleOpen();
   };

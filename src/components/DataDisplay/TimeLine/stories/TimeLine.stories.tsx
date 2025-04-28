@@ -141,7 +141,7 @@ CollapseItemsDefaultOpen.args = {
         },
         {
           file: [
-            "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e.csv",
+            "https://app.api.dev.tracktor.fr/files/bookings/000039906/15ce1b4d-3da4-9543-2640-f267cd668130.csv",
             "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
           ],
           subtitle: "Fourth Collapse Item Subtitle",
