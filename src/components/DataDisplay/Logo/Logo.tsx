@@ -78,7 +78,9 @@ const Logo = (
 
     (async () => {
       const module = await getImageModule(variant, mode || palette.mode, withoutText);
-      setLogoSrc(module.default);
+      if (module?.default && typeof module.default === "string") {
+        setLogoSrc(module.default);
+      }
     })();
   }, [component, getImageModule, mode, palette.mode, variant, withoutText]);
 
