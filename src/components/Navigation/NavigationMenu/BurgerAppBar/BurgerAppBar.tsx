@@ -1,13 +1,16 @@
 import { AppBar, IconButton, Stack, Toolbar, useTheme } from "@mui/material";
-import { cloneElement, useContext } from "react";
+import { cloneElement, ReactElement, useContext } from "react";
 import MenuIcon from "@/components/DataDisplay/Icons/MenuIcon";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+
+const cloneElementWithProps = <T extends Record<string, unknown>>(element: ReactElement, props: T): ReactElement =>
+  cloneElement(element, props as any);
 
 const BurgerAppBar = () => {
   const { openDrawerMenu, AppBar: AppBarComponent } = useContext(NavigationMenuContext);
   const { palette } = useTheme();
   const background = palette.mode === "dark" ? palette.background.default : palette.primary.black;
-  const AppBarWithTrigger = AppBarComponent ? cloneElement(AppBarComponent, { onClickBurger: openDrawerMenu }) : AppBarComponent;
+  const AppBarWithTrigger = AppBarComponent ? cloneElementWithProps(AppBarComponent, { onClickBurger: openDrawerMenu }) : AppBarComponent;
 
   if (AppBarComponent) {
     return AppBarWithTrigger;

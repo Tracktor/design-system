@@ -145,14 +145,16 @@ const actionStyleOverrides: Partial<
     const children = Children.toArray(ownerState.children);
     const lastChild = children[children.length - 1];
 
-    if (isValidElement(lastChild)) {
-      if (lastChild.props.variant === "contained" || lastChild.props.variant === "outlined") {
+    if (isValidElement(lastChild) && typeof lastChild.props === "object" && lastChild.props !== null) {
+      const { variant, size } = lastChild.props as { variant?: string; size?: string };
+
+      if (variant === "contained" || variant === "outlined") {
         return {
           padding: theme.spacing(3),
         };
       }
 
-      if (lastChild.props.size === "small") {
+      if (size === "small") {
         return {
           paddingLeft: theme.spacing(2),
           paddingRight: theme.spacing(2),
