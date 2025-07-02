@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { SyntheticEvent, useState } from "react";
 import AutocompleteFilter, { AutocompleteFilterOption } from "@/components/Inputs/AutocompleteFilter";
 

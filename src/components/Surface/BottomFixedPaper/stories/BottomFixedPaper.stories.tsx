@@ -1,5 +1,5 @@
 import { Button, Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import BottomFixedPaper from "@/components/Surface/BottomFixedPaper";
 
 const VIEWPORTS = {

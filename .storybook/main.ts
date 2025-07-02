@@ -2,17 +2,10 @@ import type { StorybookConfig } from "@storybook/react-vite";
 import path from "path";
 
 const config: StorybookConfig = {
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/addon-storysource",
-    "storybook-dark-mode",
-    "@storybook/addon-docs",
-  ],
+  addons: ["@storybook/addon-links", "@storybook/addon-docs"],
   core: {
     disableTelemetry: true,
-    builder: "@storybook/builder-vite", // 👈 The builder enabled here.
+    builder: "@storybook/builder-vite",
   },
   framework: {
     name: "@storybook/react-vite",
@@ -30,10 +23,6 @@ const config: StorybookConfig = {
     const { mergeConfig } = await import("vite");
 
     return mergeConfig(config, {
-      // Add dependencies to pre-optimization
-      optimizeDeps: {
-        include: ["storybook-dark-mode"],
-      },
       resolve: {
         alias: [{find: "@", replacement: path.resolve(__dirname, "../src")}],
       }

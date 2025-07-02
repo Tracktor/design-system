@@ -1,5 +1,5 @@
 import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, SelectChangeEvent, Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import Select from "./Select";
 

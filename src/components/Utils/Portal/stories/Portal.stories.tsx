@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useRef, useState } from "react";
 import Portal from "./Portal";
 

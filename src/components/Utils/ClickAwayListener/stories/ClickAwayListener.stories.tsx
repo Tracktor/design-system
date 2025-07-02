@@ -1,5 +1,5 @@
 import { Box, Button, Stack, SxProps } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import ClickAwayListener from "./ClickAwayListener";
 

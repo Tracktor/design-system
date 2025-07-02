@@ -1,5 +1,5 @@
 import { Box, FormControl, FormControlLabel, FormLabel, RadioGroup, Stack, Typography } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Radio from "./Radio";
 
 const TemplateVertical: StoryFn<typeof Radio> = (args) => (

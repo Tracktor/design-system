@@ -1,5 +1,5 @@
 import { AlertTitle, Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Alert from "./Alert";
 
 const Template: StoryFn<typeof Alert> = (args) => (

@@ -1,5 +1,5 @@
 import { Button, Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { ElementRef, useRef, useState } from "react";
 import DialogValidation from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
 

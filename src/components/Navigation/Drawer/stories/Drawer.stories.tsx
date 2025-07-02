@@ -1,5 +1,5 @@
 import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack, SvgIcon } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { Fragment, KeyboardEvent, MouseEvent, useState } from "react";
 import Drawer from "./Drawer";
 

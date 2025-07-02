@@ -1,5 +1,5 @@
 import { Box, Chip, Grid, Stack, Typography } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Divider from "./Divider";
 
 const content = (

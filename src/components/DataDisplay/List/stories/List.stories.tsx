@@ -10,7 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import List from "./List";
 import ListItemCard from "@/components/DataDisplay/ListItemCard";

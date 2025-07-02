@@ -1,5 +1,5 @@
 import { Box, SvgIcon, Tab, useTheme } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { SyntheticEvent, useState } from "react";
 import Tabs from "./Tabs";
 import TabPanel from "@/components/Navigation/TabPanel";
