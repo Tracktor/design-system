@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Button from "@/components/Inputs/Button";
 import File from "@/components/Inputs/File";
 

@@ -1,66 +1,51 @@
 import { ColorItem, Meta } from '@storybook/blocks';
 import { GlobalStyles, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
-import { addons } from "@storybook/preview-api";
 import ThemeProvider from "@/context/Theme/ThemeProvider";
-import { DARK_MODE_EVENT_NAME, useDarkMode } from "storybook-dark-mode";
 
-# Colors
+# Colors 
 
-export const ColorsComposition = () => {
+export const ColorsComposition = ({ title }) => {
   const { palette } = useTheme();
 
-  return Object.keys(palette).map((colorCategory) => {
-    const colors = palette[colorCategory];
+  return (
+    <>
+      <h2>{title}</h2>
+      {Object.keys(palette).map((colorCategory) => {
+        const colors = palette[colorCategory];
 
-    if (typeof colors === 'object' && !Array.isArray(colors)) {
-      return (
-        <ColorItem
-          key={colorCategory}
-          title={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)}`}
-          subtitle={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)} color palette`}
-          colors={Object.fromEntries(
-            Object.entries(colors).map(([shade, value]) => [shade.charAt(0).toUpperCase() + shade.slice(1), value])
-          )}
-        />
-      );
-    }
+        if (typeof colors === 'object' && !Array.isArray(colors)) {
+          return (
+            <ColorItem
+              key={colorCategory}
+              title={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)}`}
+              subtitle={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)} color palette`}
+              colors={Object.fromEntries(
+                Object.entries(colors).map(([shade, value]) => [shade.charAt(0).toUpperCase() + shade.slice(1), value])
+              )}
+            />
+          );
+        }
 
-    // If hex color or rgb color
-    if(typeof colors === "string" && (colors.charAt(0) === "#" || colors.includes("rgb"))) {
-      return (
-        <ColorItem
-          key={colorCategory}
-          title={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)}`}
-          subtitle={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)} color palette`}
-          colors={{
-            "": colors,
-          }}
-        />
-      );
+        if(typeof colors === "string" && (colors.charAt(0) === "#" || colors.includes("rgb"))) {
+          return (
+            <ColorItem
+              key={colorCategory}
+              title={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)}`}
+              subtitle={`${colorCategory.charAt(0).toUpperCase() + colorCategory.slice(1)} color palette`}
+              colors={{
+                "": colors,
+              }}
+            />
+          );
+        }
 
-    }
-
-    return null;
-
-  })
-
+        return null;
+      })}
+    </>
+  )
 };
 
 export const Colors = () => {
-  const channel = addons.getChannel();
-  const isDarkMode = useDarkMode()
-  const [isDark, setDark] = useState(isDarkMode);
-
-
-  useEffect(() => {
-    channel.on(DARK_MODE_EVENT_NAME, setDark);
-    return () => {
-      channel.off(DARK_MODE_EVENT_NAME, setDark)
-    }
-  }, [channel, setDark]);
-
-
   return (
     <>
       <GlobalStyles styles={{
@@ -73,15 +58,21 @@ export const Colors = () => {
           },
         }
       }} />
-      <ThemeProvider theme={isDark ? "dark" : "light"}>
-        <ColorsComposition />
-      </ThemeProvider>
+
+      <div style={{ marginBottom: '40px' }}>
+        <ThemeProvider theme="light">
+          <ColorsComposition title="Light Theme Colors" />
+        </ThemeProvider>
+      </div>
+
+      <div>
+        <ThemeProvider theme="dark">
+          <ColorsComposition title="Dark Theme Colors" />
+        </ThemeProvider>
+      </div>
     </>
   )
-
 };
 
 <Meta title="Colors"/>
 <Colors/>
-
-

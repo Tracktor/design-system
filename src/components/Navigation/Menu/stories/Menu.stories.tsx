@@ -1,5 +1,5 @@
 import { Button, List, ListItem, ListItemIcon, ListItemText, MenuItem, Stack, SvgIcon, Typography } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
 

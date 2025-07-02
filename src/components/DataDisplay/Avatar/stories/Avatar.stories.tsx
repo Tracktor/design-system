@@ -1,5 +1,5 @@
 import { AvatarGroup, Badge, Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Avatar from "../Avatar";
 
 const avatarSrc = "https://avatars.githubusercontent.com/u/16801167?s=200&v=4";

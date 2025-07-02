@@ -7,11 +7,14 @@ interface BackofficeProps {
   Sidebar?: ReactElement;
 }
 
+const cloneElementWithProps = <T extends Record<string, unknown>>(element: ReactElement, props: T): ReactElement =>
+  cloneElement(element, props);
+
 const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
   const { breakpoints } = useTheme();
   const gridRef = useRef<HTMLDivElement>(null);
   const isSmallScreen = useMediaQuery(breakpoints.down("md"));
-  const SideBarAppBar = Sidebar ? cloneElement(Sidebar, { AppBar }) : Sidebar;
+  const SideBarAppBar = Sidebar ? cloneElementWithProps(Sidebar, { AppBar }) : Sidebar;
 
   return (
     <Stack height="100%">

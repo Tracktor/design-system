@@ -1,5 +1,5 @@
 import { Chip, Stack, ToggleButtonGroup } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { MouseEvent, useState } from "react";
 import ToggleButton from "./ToggleButton";
 

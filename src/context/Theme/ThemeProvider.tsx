@@ -12,7 +12,7 @@ export interface ThemeProviderProps {
    */
   children: ReactNode;
   /**
-   * Set html and body height to 100%
+   * Set HTML and body height to 100%
    */
   fullHeight?: boolean;
   /**

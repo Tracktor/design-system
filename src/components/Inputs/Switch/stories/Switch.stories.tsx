@@ -1,5 +1,5 @@
 import { FormControlLabel, FormGroup, Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Switch from "./Switch";
 
 const Template: StoryFn<typeof Switch> = (args) => (

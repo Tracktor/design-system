@@ -13,7 +13,7 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { ReactElement, ReactNode, useState } from "react";
 import Stepper from "./Stepper";
 

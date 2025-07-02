@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Badge from "./Badge";
 
 const Template: StoryFn<typeof Badge> = (args) => (

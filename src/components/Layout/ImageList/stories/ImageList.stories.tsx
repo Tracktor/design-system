@@ -1,5 +1,5 @@
 import { Box, IconButton, ImageListItem, ImageListItemBar, ListSubheader, SvgIcon } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import ImageList from "./ImageList";
 
 const itemData = [

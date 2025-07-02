@@ -1,5 +1,5 @@
 import { Stack, TextField } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Autocomplete from "./Autocomplete";
 
 const topFilms = [

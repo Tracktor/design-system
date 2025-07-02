@@ -1,5 +1,5 @@
 import { Box, SpeedDialAction, SpeedDialIcon, SvgIcon } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import SpeedDial from "./SpeedDial";
 
 const actions = [

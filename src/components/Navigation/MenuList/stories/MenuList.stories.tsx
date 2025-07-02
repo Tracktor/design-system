@@ -1,5 +1,5 @@
 import { Divider, ListItemIcon, ListItemText, MenuItem, Paper, Stack, SvgIcon, Typography } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import MenuList from "./MenuList";
 
 const BasicTemplate: StoryFn<typeof MenuList> = (args) => (

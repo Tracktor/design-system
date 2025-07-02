@@ -1,5 +1,5 @@
 import { Box, Chip, Grid, Stack, Typography } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Divider from "./Divider";
 
 const content = (
@@ -43,15 +43,11 @@ const TemplateVertical: StoryFn<typeof Divider> = (args) => (
   <Box display="flex" justifyContent="center" alignItems="center" height="100%">
     <Box maxWidth={500} sx={{ border: "solid 1px", borderColor: "divider", borderRadius: 2, p: 2 }}>
       <Grid container>
-        <Grid item xs>
-          {content}
-        </Grid>
+        <Grid size="grow">{content}</Grid>
         <Divider orientation="vertical" flexItem {...args}>
           VERTICAL
         </Divider>
-        <Grid item xs>
-          {content}
-        </Grid>
+        <Grid size="grow">{content}</Grid>
       </Grid>
     </Box>
   </Box>

@@ -69,7 +69,7 @@ export * from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
-export * from "@/context/Theme/ThemeProvider";
+export type { ThemeProviderProps } from "@/context/Theme/ThemeProvider";
 export { default as PermissionProvider } from "@/context/Permission/PermissionProvider";
 export * from "@/context/Permission/PermissionProvider";
 export { default as SnackbarProvider } from "@/context/Snackbar/SnackbarProvider";

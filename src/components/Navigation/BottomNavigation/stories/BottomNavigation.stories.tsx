@@ -1,5 +1,5 @@
 import { BottomNavigationAction, Box, SvgIcon } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import BottomNavigation from "./BottomNavigation";
 

@@ -39,6 +39,15 @@ import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useTranslation from "@/hooks/useTranslation";
 import pxToRem from "@/utils/pxToRem";
 
+type ItemPropsWithKey = {
+  key: string | number;
+  className: string;
+  disabled: boolean;
+  "data-item-index": number;
+  tabIndex: -1;
+  onDelete: (event: any) => void;
+};
+
 export type AutocompleteFilterOption<T = unknown> = {
   id?: string | number | null;
   label?: ReactNode;
@@ -77,7 +86,7 @@ export interface AutocompleteFilterProps<
    */
   disableCheckbox?: boolean;
   /**
-   *  If true, the select all option is disabled
+   *  If true, the select all options are disabled
    *  @default false
    */
   disableSelectAll?: boolean;
@@ -184,7 +193,7 @@ const PaperComponent = <
               >
                 <ListItemButton disableRipple>
                   <Checkbox disableRipple id="select-all-checkbox" checked={allChecked} sx={checkboxStyle} />
-                  <ListItemText primary={localeText?.selectAll || t("selectAll")} primaryTypographyProps={{ variant: "body2" }} />
+                  <ListItemText primary={localeText?.selectAll || t("selectAll")} slotProps={{ primary: { variant: "body2" } }} />
                   {!disableReset && (
                     <Button
                       variant="link"
@@ -283,7 +292,7 @@ const AutocompleteFilter = <
     loading,
     resetInputValueOnSelectOption,
     renderOption,
-    renderTags,
+    renderValue,
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
@@ -422,27 +431,30 @@ const AutocompleteFilter = <
           );
         })
       }
-      renderTags={
-        renderTags ||
-        ((tagValue, getTagProps, ownerState) => {
-          if (Array.isArray(tagValue)) {
-            return tagValue.map((option, index) => {
-              const { key } = getTagProps({ index });
+      renderValue={
+        renderValue ||
+        (multiple
+          ? (selectedValue, getItemProps, ownerState) => {
+              if (Array.isArray(selectedValue)) {
+                return selectedValue.map((option, index) => {
+                  if (ownerState?.focused) {
+                    return null;
+                  }
 
-              if (ownerState?.focused) {
-                return null;
+                  const filterOption = option as AutocompleteFilterOption<Value>;
+                  const { key } = getItemProps({ index }) as ItemPropsWithKey;
+
+                  return (
+                    <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+                      {filterOption?.label}
+                    </Typography>
+                  );
+                });
               }
 
-              return (
-                <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-                  {option?.label}
-                </Typography>
-              );
-            });
-          }
-
-          return null;
-        })
+              return null;
+            }
+          : undefined)
       }
       {...props}
       renderInput={(params) => {
@@ -488,7 +500,14 @@ const AutocompleteFilter = <
                         <CloseIcon sx={{ fontSize: pxToRem(20) }} />
                       </IconButton>
                     )}
-                    {EndAdornmentElement?.props.children[1]}
+                    {EndAdornmentElement &&
+                      typeof EndAdornmentElement === "object" &&
+                      "props" in EndAdornmentElement &&
+                      EndAdornmentElement.props &&
+                      typeof EndAdornmentElement.props === "object" &&
+                      "children" in EndAdornmentElement.props &&
+                      Array.isArray(EndAdornmentElement.props.children) &&
+                      EndAdornmentElement.props.children[1]}
                   </InputAdornment>
                 ) : (
                   EndAdornmentElement

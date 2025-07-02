@@ -1,5 +1,5 @@
 import { Box, Button, Fade, Stack, styled, tooltipClasses, TooltipProps, Typography, Zoom } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Tooltip from "./Tooltip";
 
 const CustomWidthTooltip = styled(({ children, className, ...props }: TooltipProps) => (

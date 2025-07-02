@@ -2,6 +2,12 @@ name: GitHub Task List Checker
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  statuses: write
+  pull-requests: read
+
 jobs:
   task-list-checker:
     runs-on: ubuntu-latest

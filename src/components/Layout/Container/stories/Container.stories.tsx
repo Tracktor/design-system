@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import Container from "./Container";
 
 const Template: StoryFn<typeof Container> = (args) => (
