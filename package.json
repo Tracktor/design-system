@@ -82,22 +82,22 @@
     "sass": "^1.80.5",
     "storybook": "^8.3.6",
     "storybook-dark-mode": "^4.0.1",
-    "typescript": "^5.2.2",
-    "vite": "5.4.10",
-    "vite-plugin-dts": "^4.3.0",
-    "vitest": "^1.6.0"
+    "typescript": "^5.8.3",
+    "vite": "7.0.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^1.6.1"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/material": "~6.2.0"
+    "@mui/material": "~7.2.0"
   },
   "peerDependencies": {
     "@emotion/react": ">=11.0.0",
     "@emotion/styled": ">=11.0.0",
     "@mui/material": ">=6.0.0",
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "readme": "ERROR: No README data found!",
   "resolutions": {
