@@ -13,13 +13,13 @@ references:
 executors:
   build-docker:
     docker:
-      - image: cimg/node:20.11.0
+      - image: cimg/node:22.15.1
   publish-npm:
     docker:
-      - image: cimg/node:20.11.0
+      - image: cimg/node:22.15.1
   tests:
     docker:
-      - image: cimg/node:20.11.0
+      - image: cimg/node:22.15.1
 
 jobs:
   run-unit-tests:
