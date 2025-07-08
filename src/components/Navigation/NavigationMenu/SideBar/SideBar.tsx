@@ -1,5 +1,6 @@
-import { Box, IconButton, Stack, Theme, useTheme } from "@mui/material";
+import { Box, Divider, IconButton, Stack, Theme, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
+import ChevronLeftDoubleIcon from "@/components/DataDisplay/Icons/ChevronLeftDoubleIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
@@ -75,6 +76,8 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
     isMobile,
     isTablet,
     isDrawerOpen,
+    isCollapsed,
+    toggleCollapse,
     sideBarWidth,
     bottomLink,
     NavLink,
@@ -88,6 +91,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.divider}`;
   const isDesktop = !isMobile && !isTablet;
   const displaySearch = hideSearchDesktop ? !isDesktop : true;
+  const largeWidth = isCollapsed ? 85 : sideBarWidth || "auto";
 
   return (
     <Box
@@ -95,7 +99,8 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
         ...styles.container,
         borderRight,
         overflowX: "auto",
-        width: isMobile ? "100%" : sideBarWidth || "auto",
+        transition: "width 0.3s ease-in-out",
+        width: isMobile ? "100%" : largeWidth,
       }}
       component="aside"
     >
@@ -137,7 +142,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           <NavLinkItem component={NavLink} {...bottomLink}>
             <Stack alignItems="center" justifyContent="center" spacing={1} direction="row">
               {bottomLink?.icon && (
-                <Box component="span" display="flex">
+                <Box component="span" display="flex" whiteSpace="nowrap" alignItems="center">
                   {bottomLink?.icon}
                 </Box>
               )}
@@ -150,6 +155,12 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           </NavLinkItem>
         </Box>
       )}
+      <Divider />
+      <Box display="flex" p={3} justifyContent="flex-end">
+        <IconButton onClick={toggleCollapse}>
+          <ChevronLeftDoubleIcon sx={{ transform: isCollapsed ? "rotate(180deg)" : "rotate(0deg)" }} />
+        </IconButton>
+      </Box>
       {Footer}
     </Box>
   );
