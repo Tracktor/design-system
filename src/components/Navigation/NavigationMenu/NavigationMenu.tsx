@@ -1,5 +1,5 @@
 import { SwipeableDrawer, useMediaQuery, useTheme } from "@mui/material";
-import { createContext, memo, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
+import { createContext, memo, MouseEvent, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import BurgerAppBar from "@/components/Navigation/NavigationMenu/BurgerAppBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
 import SideBarMenu from "@/components/Navigation/NavigationMenu/SideBarMenu";
@@ -16,6 +16,17 @@ export type ObjectNavigationItem = {
   hideOnMobile?: boolean;
   hasAccess?: boolean;
 };
+
+export interface BottomLinkProps {
+  url?: string;
+  state?: any;
+  end?: boolean;
+  label?: ReactNode;
+  active?: boolean;
+  icon?: ReactNode;
+  disabled?: boolean;
+  onClick?: (e?: MouseEvent) => void;
+}
 
 export interface NavLinkProps {
   className?: string | ((props: { isActive: boolean; isPending: boolean }) => string | undefined);
@@ -56,17 +67,7 @@ export interface NavigationMenuProps {
   /**
    * Component to render the bottom link
    */
-  bottomLink?:
-    | {
-        url?: string;
-        state?: any;
-        end?: boolean;
-        label?: ReactNode;
-        active?: boolean;
-        icon?: ReactNode;
-      }
-    | null
-    | false;
+  bottomLink?: BottomLinkProps | BottomLinkProps[] | null | false;
   /**
    * Component to router nav links.
    * This component is used to render the links in the main menu &  mobile bottom navigation

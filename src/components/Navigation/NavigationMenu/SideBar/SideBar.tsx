@@ -1,8 +1,8 @@
-import { Box, Divider, IconButton, Stack, Theme, useTheme } from "@mui/material";
+import { Box, Divider, Fade, IconButton, Stack, Theme, useTheme } from "@mui/material";
 import { ReactNode, useContext } from "react";
 import ChevronLeftDoubleIcon from "@/components/DataDisplay/Icons/ChevronLeftDoubleIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
-import { NavigationMenuContext } from "@/components/Navigation/NavigationMenu";
+import { BottomLinkProps, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
 
 export interface SideBarProps {
@@ -15,7 +15,7 @@ export interface SideBarProps {
 
 const styles = {
   bottomLink: {
-    "& a": {
+    "& > a, & > div": {
       "& svg": {
         color: "text.secondary",
       },
@@ -30,6 +30,12 @@ const styles = {
       "&:hover": {
         background: ({ palette }: Theme) => palette.grey[50],
       },
+      "&[aria-disabled='true']": {
+        "& svg": {
+          color: "text.disabled",
+        },
+        color: "text.disabled",
+      },
       alignItems: "center",
       borderColor: "transparent",
       borderRadius: ({ shape }: Theme) => `${shape.borderRadius}px`,
@@ -39,12 +45,14 @@ const styles = {
       display: "flex",
       fontSize: 16,
       justifyContent: "flex-start",
-      paddingX: 1.5,
+      paddingX: 1.25,
       paddingY: 1,
       textAlign: "left",
       textDecoration: "none",
       width: "100%",
     },
+  },
+  bottomLinkWrapper: {
     p: 2,
   },
   container: {
@@ -52,6 +60,13 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     height: "100%",
+  },
+  iconWrapper: {
+    alignItems: "center",
+    display: "flex",
+    height: 24,
+    justifyContent: "center",
+    minWidth: 24,
   },
   logo: {
     "& svg, & img": {
@@ -68,6 +83,37 @@ const styles = {
     paddingY: 2,
   },
 };
+
+const BottomNavLink = ({
+  link,
+  NavLink,
+  isCollapsed,
+  sx,
+}: {
+  link: BottomLinkProps;
+  NavLink: ((props: NavLinkProps) => ReactNode) | undefined;
+  isCollapsed: boolean;
+  sx: typeof styles;
+}) => (
+  <Box sx={sx?.bottomLink}>
+    <NavLinkItem component={NavLink} {...link}>
+      <Stack alignItems="center" spacing={1} direction="row">
+        {link?.icon && (
+          <Box component="span" sx={sx.iconWrapper}>
+            {link.icon}
+          </Box>
+        )}
+        {link?.label && (
+          <Fade in={!isCollapsed}>
+            <Box component="span" display="flex">
+              {link.label}
+            </Box>
+          </Fade>
+        )}
+      </Stack>
+    </NavLinkItem>
+  </Box>
+);
 
 const SideBar = ({ children, ...props }: SideBarProps) => {
   const {
@@ -94,15 +140,16 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
 
   return (
     <Box
+      component="aside"
       sx={{
         ...styles.container,
         borderRight,
         overflowX: "hidden",
         transition: "width 0.3s ease-in-out",
-        width: isCollapsed ? 85 : sideBarWidth || "auto",
+        width: isCollapsed ? 80 : sideBarWidth || "auto",
       }}
-      component="aside"
     >
+      {/* Logo */}
       {Logo && (
         <Stack
           sx={{
@@ -134,29 +181,33 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           )}
         </Stack>
       )}
+
+      {/* Search */}
       {Search && displaySearch && <Box p={2}>{Search}</Box>}
+
+      {/* Menu Item */}
       <Box flex={1}>{children}</Box>
+
+      {/* Bottom Link */}
       {bottomLink && (
-        <Box sx={styles.bottomLink}>
-          <NavLinkItem component={NavLink} {...bottomLink}>
-            <Stack alignItems="center" justifyContent="center" spacing={1} direction="row">
-              {bottomLink?.icon && (
-                <Box component="span" display="flex" whiteSpace="nowrap" alignItems="center">
-                  {bottomLink?.icon}
-                </Box>
-              )}
-              {bottomLink?.label && !isCollapsed && (
-                <Box component="span" display="flex">
-                  {bottomLink?.label}
-                </Box>
-              )}
-            </Stack>
-          </NavLinkItem>
-        </Box>
+        <Stack sx={styles.bottomLinkWrapper} spacing={1}>
+          {Array.isArray(bottomLink) ? (
+            bottomLink.map((link, index) => {
+              const key = typeof link === "object" && "url" in link ? `$${link.url}-${index}` : index;
+
+              return <BottomNavLink key={key} link={link} NavLink={NavLink} isCollapsed={isCollapsed} sx={styles} />;
+            })
+          ) : (
+            <BottomNavLink link={bottomLink} NavLink={NavLink} isCollapsed={isCollapsed} sx={styles} />
+          )}
+        </Stack>
       )}
+
       <Divider />
-      <Box display="flex" p={3} justifyContent="flex-end">
-        <IconButton onClick={toggleCollapse}>
+
+      {/* Collapse button */}
+      <Box display="flex" p={2} justifyContent="flex-end">
+        <IconButton onClick={toggleCollapse} sx={{ marginX: "2px", paddingX: 1.25 }}>
           <ChevronLeftDoubleIcon sx={{ transform: isCollapsed ? "rotate(180deg)" : "rotate(0deg)" }} />
         </IconButton>
       </Box>

@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.1.0
+## v4.2.0
 
 ###  features
-- Add a collapsed menu in backoffice layout
+- Add multiple bottom links in the Navigation Menu (Backoffice Layout)

@@ -1,4 +1,4 @@
-import { Box, Chip, List, ListItem, Stack, Theme } from "@mui/material";
+import { Box, Chip, Fade, List, ListItem, Stack, Theme } from "@mui/material";
 import { isValidElement, ReactElement, useContext } from "react";
 import { NavigationItem, NavigationMenuContext, NavLinkProps } from "@/components/Navigation/NavigationMenu";
 import NavLinkItem from "@/components/Navigation/NavigationMenu/NavLinkItem";
@@ -10,6 +10,13 @@ export interface SideBarMenuProps {
 }
 
 const styles = {
+  iconWrapper: {
+    alignItems: "center",
+    display: "flex",
+    height: 24,
+    justifyContent: "center",
+    minWidth: 24,
+  },
   list: {
     "& [aria-disabled='true']": {
       cursor: "default",
@@ -43,7 +50,8 @@ const styles = {
       display: "flex",
       fontSize: 16,
       justifyContent: "flex-start",
-      paddingX: 1.5,
+      minHeight: 42,
+      paddingX: 1.25,
       paddingY: 1,
       textAlign: "left",
       textDecoration: "none",
@@ -82,16 +90,16 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
                   <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled}>
                     <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
                       {icon && (
-                        <Box component="span" display="flex" alignItems="center">
+                        <Box component="div" sx={styles.iconWrapper}>
                           {icon}
                         </Box>
                       )}
-                      {!isCollapsed && (
+                      <Fade in={!isCollapsed}>
                         <Stack direction="row" justifyContent="space-between" flex={1} whiteSpace="nowrap">
                           {label}
                           {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
                         </Stack>
-                      )}
+                      </Fade>
                     </Stack>
                   </NavLinkItem>
                 </ListItem>
