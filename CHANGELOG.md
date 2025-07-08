@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.0.1
+## v4.1.0
 
-###  fix
-- build external dependencies**
+###  features
+- Add a collapsed menu in backoffice layout
