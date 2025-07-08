@@ -172,9 +172,7 @@ const AppBar = ({
                 }
 
                 const key = `${menuItems}-${index}`;
-
-                // Add key to element
-                return cloneElement(item, { key });
+                return cloneElement(item, { key }); // Add key to the element
               }
 
               // Is Object then return NavLinkItem

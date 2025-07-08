@@ -125,7 +125,7 @@ WithIcon.args = {
 
 export const WithLogo = Template.bind({});
 WithLogo.args = {
-  items: ITEMS,
+  items: ITEMS_WITH_ICON,
   Logo: <Logo colorShape="white" />,
 };
 

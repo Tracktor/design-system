@@ -95,10 +95,12 @@ export interface NavigationMenuProps {
 
 const DEFAULT_CONTEXT_VALUE = {
   closeDrawerMenu: () => {},
+  isCollapsed: false,
   isDrawerOpen: false,
   isMobile: false,
   isTablet: false,
   openDrawerMenu: () => {},
+  toggleCollapse: () => {},
 };
 
 type NavigationMenuContextValue = NavigationMenuProps & typeof DEFAULT_CONTEXT_VALUE;
@@ -146,6 +148,7 @@ const NavigationMenu = ({
   const isMobile = useMediaQuery(breakpoints.down("sm"));
   const isTablet = useMediaQuery(breakpoints.between("sm", "md"));
   const [isDrawerOpen, setIsDrawerOpen] = useState(DEFAULT_CONTEXT_VALUE.isDrawerOpen);
+  const [isCollapsed, setIsCollapsed] = useState(DEFAULT_CONTEXT_VALUE.isCollapsed);
 
   const closeDrawerMenu = useCallback(() => {
     setIsDrawerOpen(false);
@@ -153,6 +156,10 @@ const NavigationMenu = ({
 
   const openDrawerMenu = useCallback(() => {
     setIsDrawerOpen(true);
+  }, []);
+
+  const toggleCollapse = useCallback(() => {
+    setIsCollapsed((prev) => !prev);
   }, []);
 
   const value = useMemo(
@@ -164,6 +171,7 @@ const NavigationMenu = ({
       enableSearchFocusShortcut,
       Footer,
       hideSearchDesktop,
+      isCollapsed,
       isDrawerOpen,
       isMobile,
       isTablet,
@@ -173,6 +181,7 @@ const NavigationMenu = ({
       openDrawerMenu,
       Search,
       sideBarWidth,
+      toggleCollapse,
     }),
     [
       closeDrawerMenu,
@@ -191,6 +200,8 @@ const NavigationMenu = ({
       bottomLink,
       AppBar,
       Footer,
+      isCollapsed,
+      toggleCollapse,
     ],
   );
 
