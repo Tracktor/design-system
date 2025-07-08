@@ -145,8 +145,10 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
         ...styles.container,
         borderRight,
         overflowX: "hidden",
+        transform: "translateZ(0)",
         transition: "width 0.3s ease-in-out",
         width: isCollapsed ? 80 : sideBarWidth || "auto",
+        willChange: "width",
       }}
     >
       {/* Logo */}
