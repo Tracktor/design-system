@@ -43,7 +43,7 @@ const styles = {
       display: "flex",
       fontSize: 16,
       justifyContent: "flex-start",
-      paddingX: 3,
+      paddingX: 1.5,
       paddingY: 1,
       textAlign: "left",
       textDecoration: "none",
@@ -54,7 +54,7 @@ const styles = {
 };
 
 const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
-  const { NavLink = props.NavLink, isMobile } = useContext(NavigationMenuContext);
+  const { NavLink = props.NavLink, isMobile, isCollapsed } = useContext(NavigationMenuContext);
 
   return (
     <Box px={2} component="nav">
@@ -86,10 +86,12 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
                           {icon}
                         </Box>
                       )}
-                      <Stack direction="row" justifyContent="space-between" flex={1}>
-                        {label}
-                        {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
-                      </Stack>
+                      {!isCollapsed && (
+                        <Stack direction="row" justifyContent="space-between" flex={1} whiteSpace="nowrap">
+                          {label}
+                          {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                        </Stack>
+                      )}
                     </Stack>
                   </NavLinkItem>
                 </ListItem>

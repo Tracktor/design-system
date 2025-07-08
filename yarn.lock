@@ -2444,12 +2444,12 @@
   resolved "https://registry.yarnpkg.com/@storybook/addon-onboarding/-/addon-onboarding-9.0.15.tgz#daa7522f364d9a795e7a5ebd08e6ad709212126d"
   integrity sha512-g2FqO0aS6vvjMZdY+0xjV1C7YGcDE0GkuPAv1JqejNYGyX2Z8nuLHy2zqhLIBpfoap4S9PZO+obqEKVeo70Q0Q==
 
-"@storybook/blocks@^8.6.14":
-  version "8.6.14"
-  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-8.6.14.tgz#9d39e64f4fd0a446d96f1f5d6b220d4812fc05fa"
-  integrity sha512-rBMHAfA39AGHgkrDze4RmsnQTMw1ND5fGWobr9pDcJdnDKWQWNRD7Nrlxj0gFlN3n4D9lEZhWGdFrCbku7FVAQ==
+"@storybook/blocks@^9.0.0-alpha.17":
+  version "9.0.0-alpha.17"
+  resolved "https://registry.yarnpkg.com/@storybook/blocks/-/blocks-9.0.0-alpha.17.tgz#396bfb8972e2cd981e15150a9dc8eee32eff5ec9"
+  integrity sha512-gP2aISvvl98K8B7T9qKWv0rUx3ZaT5oGlBDtfjtn4ZZtdj1XXLvdK1gOmjzTJX2GksOTUWMnwAumMHqbtvsFLQ==
   dependencies:
-    "@storybook/icons" "^1.2.12"
+    "@storybook/icons" "^1.4.0"
     ts-dedent "^2.0.0"
 
 "@storybook/builder-vite@9.0.15", "@storybook/builder-vite@^9.0.15":
@@ -2472,7 +2472,7 @@
   resolved "https://registry.yarnpkg.com/@storybook/global/-/global-5.0.0.tgz#b793d34b94f572c1d7d9e0f44fac4e0dbc9572ed"
   integrity sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==
 
-"@storybook/icons@^1.2.12":
+"@storybook/icons@^1.2.12", "@storybook/icons@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@storybook/icons/-/icons-1.4.0.tgz#7cf7ab3dfb41943930954c4ef493a73798d8b31d"
   integrity sha512-Td73IeJxOyalzvjQL+JXx72jlIYHgs+REaHiREOqfpo3A2AYYG71AUbcv+lg7mEDIweKVCxsMQ0UKo634c8XeA==
