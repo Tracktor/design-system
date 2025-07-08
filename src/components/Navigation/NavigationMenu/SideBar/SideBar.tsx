@@ -39,7 +39,7 @@ const styles = {
       display: "flex",
       fontSize: 16,
       justifyContent: "flex-start",
-      paddingX: 3,
+      paddingX: 1.5,
       paddingY: 1,
       textAlign: "left",
       textDecoration: "none",
@@ -91,16 +91,15 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.divider}`;
   const isDesktop = !isMobile && !isTablet;
   const displaySearch = hideSearchDesktop ? !isDesktop : true;
-  const largeWidth = isCollapsed ? 85 : sideBarWidth || "auto";
 
   return (
     <Box
       sx={{
         ...styles.container,
         borderRight,
-        overflowX: "auto",
+        overflowX: "hidden",
         transition: "width 0.3s ease-in-out",
-        width: isMobile ? "100%" : largeWidth,
+        width: isCollapsed ? 85 : sideBarWidth || "auto",
       }}
       component="aside"
     >
@@ -146,7 +145,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
                   {bottomLink?.icon}
                 </Box>
               )}
-              {bottomLink?.label && (
+              {bottomLink?.label && !isCollapsed && (
                 <Box component="span" display="flex">
                   {bottomLink?.label}
                 </Box>
