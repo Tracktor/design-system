@@ -37,6 +37,7 @@ export interface NavLinkProps {
   end?: boolean;
   children?: ReactNode | ((props: { isActive: boolean; isPending: boolean }) => ReactNode);
   state?: any;
+  target?: string;
 }
 
 export type NavigationItem = ObjectNavigationItem | ReactNode;

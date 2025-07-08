@@ -4,7 +4,7 @@ import { NavigationMenuContext, NavLinkProps, ObjectNavigationItem } from "@/com
 
 interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
-  component?: (props: NavLinkProps & { onClick?: (event?: MouseEvent) => void }) => ReactNode;
+  component?: (props: NavLinkProps) => ReactNode;
   onClick?: (event?: MouseEvent) => void;
   target?: string;
 }
@@ -25,10 +25,10 @@ const NavLinkItem = ({ url, end, children, active, state, component, disabled, o
     );
   }
 
-  if (component) {
+  if (component && url) {
     const Component = component;
     return (
-      <Component onClick={handleClick} to={url || "#"} end={end} state={state}>
+      <Component onClick={handleClick} to={url} end={end} state={state} target={target}>
         {children}
       </Component>
     );

@@ -1,6 +1,7 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.3.0
+## v4.3.1
 
-###  features
-- Add possibility open nav link link in blank tab
+###  fix
+- Nav link with target="_blank" with given component `Link`
+- Active link with given component `Link`
