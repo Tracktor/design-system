@@ -82,12 +82,12 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
 
             // Is Object then return NavLinkItem
             if (item && typeof item === "object" && "label" in item) {
-              const { count, url, label, icon, active, disabled } = item;
+              const { count, url, label, icon, active, disabled, target } = item;
               const key = `${url}-${label}-${index}`;
 
               return (
                 <ListItem key={key} disableGutters sx={{ paddingY: 0.5 }}>
-                  <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled}>
+                  <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled} target={target}>
                     <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
                       {icon && (
                         <Box component="div" sx={styles.iconWrapper}>

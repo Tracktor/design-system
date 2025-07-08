@@ -6,9 +6,10 @@ interface NavLinkItemProps extends Omit<ObjectNavigationItem, "label"> {
   children?: ReactNode;
   component?: (props: NavLinkProps & { onClick?: (event?: MouseEvent) => void }) => ReactNode;
   onClick?: (event?: MouseEvent) => void;
+  target?: string;
 }
 
-const NavLinkItem = ({ url, end, children, active, state, component, disabled, onClick }: NavLinkItemProps) => {
+const NavLinkItem = ({ url, end, children, active, state, component, disabled, onClick, target }: NavLinkItemProps) => {
   const { closeDrawerMenu } = useContext(NavigationMenuContext);
 
   const handleClick = (event?: MouseEvent) => {
@@ -42,6 +43,7 @@ const NavLinkItem = ({ url, end, children, active, state, component, disabled, o
       data-end={end}
       data-state={state}
       sx={{ cursor: "pointer" }}
+      target={target}
     >
       {children}
     </Box>

@@ -190,7 +190,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
 
       {/* Bottom Link */}
       {bottomLink && (
-        <Stack sx={styles.bottomLinkWrapper} spacing={1}>
+        <Stack sx={styles.bottomLinkWrapper} spacing={1} whiteSpace="nowrap">
           {Array.isArray(bottomLink) ? (
             bottomLink.map((link, index) => {
               const key = typeof link === "object" && "url" in link ? `$${link.url}-${index}` : index;

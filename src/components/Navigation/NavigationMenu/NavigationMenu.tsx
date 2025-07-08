@@ -15,6 +15,7 @@ export type ObjectNavigationItem = {
   disabled?: boolean;
   hideOnMobile?: boolean;
   hasAccess?: boolean;
+  target?: string;
 };
 
 export interface BottomLinkProps {
@@ -26,6 +27,7 @@ export interface BottomLinkProps {
   icon?: ReactNode;
   disabled?: boolean;
   onClick?: (e?: MouseEvent) => void;
+  target?: string;
 }
 
 export interface NavLinkProps {
