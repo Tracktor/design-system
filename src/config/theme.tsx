@@ -411,7 +411,6 @@ const commonThemeOptions: MuiThemeOptions = {
                 textDecorationColor: alpha(color || theme.palette.primary.main, 0.4),
               },
               color,
-              fontSize: "inherit",
               fontWeight: "inherit",
               lineHeight: "inherit",
               minHeight: "auto",
