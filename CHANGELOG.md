@@ -1,7 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.3.1
+## v4.3.2
 
 ###  fix
-- Nav link with target="_blank" with given component `Link`
-- Active link with given component `Link`
+- font size button variant link
