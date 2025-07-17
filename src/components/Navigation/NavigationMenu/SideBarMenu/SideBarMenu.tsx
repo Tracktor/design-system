@@ -89,10 +89,16 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
                 <ListItem key={key} disableGutters sx={{ paddingY: 0.5 }}>
                   <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled} target={target}>
                     <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
-                      {icon && (
+                      {icon ? (
                         <Box component="div" sx={styles.iconWrapper}>
                           {icon}
                         </Box>
+                      ) : (
+                        isCollapsed && (
+                          <Box component="div" sx={styles.iconWrapper}>
+                            {typeof label === "string" ? label.charAt(0) : ""}
+                          </Box>
+                        )
                       )}
                       <Fade in={!isCollapsed}>
                         <Stack direction="row" justifyContent="space-between" flex={1} whiteSpace="nowrap">
