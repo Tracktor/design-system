@@ -208,8 +208,19 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
       <Divider />
 
       {/* Collapse button */}
-      <Box display="flex" p={2} justifyContent="flex-end">
-        <IconButton onClick={toggleCollapse} sx={{ marginX: "2px", paddingX: 1.25 }}>
+      <Box display="flex" justifyContent="flex-end">
+        <IconButton
+          onClick={toggleCollapse}
+          disableFocusRipple
+          disableTouchRipple
+          sx={{
+            borderRadius: 0,
+            justifyContent: "flex-end",
+            paddingX: 3,
+            paddingY: 3,
+            width: "100%",
+          }}
+        >
           <ChevronLeftDoubleIcon sx={{ transform: isCollapsed ? "rotate(180deg)" : "rotate(0deg)" }} />
         </IconButton>
       </Box>
