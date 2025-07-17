@@ -216,12 +216,17 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
           sx={{
             borderRadius: 0,
             justifyContent: "flex-end",
+
             paddingX: 3,
             paddingY: 3,
             width: "100%",
           }}
         >
-          <ChevronLeftDoubleIcon sx={{ transform: isCollapsed ? "rotate(180deg)" : "rotate(0deg)" }} />
+          <ChevronLeftDoubleIcon
+            sx={{
+              transform: isCollapsed ? "rotate(180deg) translateX(2px)" : "rotate(0deg)",
+            }}
+          />
         </IconButton>
       </Box>
       {Footer}
