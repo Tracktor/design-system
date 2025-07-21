@@ -1,83 +1,140 @@
-import { Button, Chip, ChipProps, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Radio, Stack } from "@mui/material";
+import { Button, Checkbox, Chip, ChipProps, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Radio, Stack } from "@mui/material";
 import { MouseEvent, useState } from "react";
 import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useMenu from "@/hooks/useMenu";
 import useTranslation from "@/hooks/useTranslation";
 
-type Value = string | undefined;
-
 type Option = {
   id?: string | number;
   label: string;
-  value: Value;
+  value: string;
 };
 
-export interface ChipFilterProps {
-  /**
-   * Label of the chip filter
-   */
+export interface ChipFilterSingleProps {
+  multiple?: false;
+  value?: string;
+  onChange?: (value?: string) => void;
   label?: ChipProps["label"];
-  /**
-   * Label for the menu
-   */
   labelMenu?: string;
-  /**
-   * Size of the chip filter
-   * @default "medium"
-   */
   size?: ChipProps["size"];
-  /**
-   * Variant of the chip filter
-   */
   variant?: ChipProps["variant"];
-  /**
-   * Disabled state of the chip filter
-   */
   disabled?: ChipProps["disabled"];
-  /**
-   * Value of the chip filter
-   */
-  value?: Option["value"];
-  /**
-   * Function to handle change event
-   * @param value
-   */
-  onChange?: (value: Value) => void;
-  /**
-   * Options for the chip filter
-   */
   options?: Option | Option[];
 }
 
-const ChipFilter = ({ label, value, onChange, options, variant, disabled, labelMenu, size = "medium" }: ChipFilterProps) => {
-  const [internalValue, setInternalValue] = useState<Option["value"]>(value);
+export interface ChipFilterMultipleProps {
+  multiple: true;
+  value?: string[];
+  onChange?: (value: string[]) => void;
+  label?: ChipProps["label"];
+  labelMenu?: string;
+  size?: ChipProps["size"];
+  variant?: ChipProps["variant"];
+  disabled?: ChipProps["disabled"];
+  options?: Option | Option[];
+}
+
+export type ChipFilterProps = ChipFilterSingleProps | ChipFilterMultipleProps;
+
+const ChipFilter = ({
+  label,
+  value: propValue,
+  onChange,
+  options,
+  variant,
+  disabled,
+  labelMenu,
+  multiple = false,
+  size = "medium",
+}: ChipFilterProps) => {
+  const [internalValue, setInternalValue] = useState(() => {
+    if (multiple) {
+      return (propValue as string[]) || [];
+    }
+    return propValue as string | undefined;
+  });
+
   const { anchorMenu, openMenu, isMenuOpen, closeMenu } = useMenu();
   const { t } = useTranslation();
   const isArrayOfOptions = Array.isArray(options);
 
   const handleApply = () => {
-    if (internalValue) {
-      onChange?.(internalValue);
+    if (multiple) {
+      (onChange as (value: string[]) => void)?.(internalValue as string[]);
+    } else if (internalValue !== undefined) {
+      (onChange as (value?: string) => void)?.(internalValue as string);
     }
     closeMenu();
   };
 
   const handleReset = () => {
-    setInternalValue(undefined);
-    onChange?.(undefined);
+    if (multiple) {
+      const resetValue: string[] = [];
+      setInternalValue(resetValue);
+      (onChange as (value: string[]) => void)?.(resetValue);
+    } else {
+      const resetValue: string | undefined = undefined;
+      setInternalValue(resetValue);
+      (onChange as (value?: string) => void)?.(resetValue);
+    }
     closeMenu();
   };
 
-  const HandleClickChip = (event: MouseEvent<HTMLDivElement>) => {
+  const handleClickChip = (event: MouseEvent<HTMLDivElement>) => {
     if (isArrayOfOptions) {
       openMenu(event);
       return;
     }
 
     if (!isArrayOfOptions) {
-      onChange?.(value ? undefined : options?.value);
+      const newValue = propValue ? undefined : (options as Option)?.value;
+      if (multiple) {
+        (onChange as (value: string[]) => void)?.(newValue ? [newValue] : []);
+      } else {
+        (onChange as (value?: string) => void)?.(newValue);
+      }
     }
+  };
+
+  const handleOptionClick = (optionValue: string) => {
+    if (multiple) {
+      const currentValues = (internalValue as string[]) || [];
+      const newValues = currentValues.includes(optionValue)
+        ? currentValues.filter((v) => v !== optionValue)
+        : [...currentValues, optionValue];
+      setInternalValue(newValues);
+    } else {
+      setInternalValue(optionValue);
+    }
+  };
+
+  const isOptionSelected = (optionValue: string): boolean => {
+    if (multiple) {
+      return (internalValue as string[])?.includes(optionValue) || false;
+    }
+    return internalValue === optionValue;
+  };
+
+  const hasValue = (): boolean => {
+    if (multiple) {
+      return (propValue as string[])?.length > 0;
+    }
+    return !!propValue;
+  };
+
+  const getSelectedCount = (): number => {
+    if (multiple && Array.isArray(internalValue)) {
+      return internalValue.length;
+    }
+    return 0;
+  };
+
+  const getChipLabel = (): string => {
+    if (multiple && getSelectedCount() > 0) {
+      return `${label} (${getSelectedCount()})`;
+    }
+    return label as string;
   };
 
   return (
@@ -86,16 +143,16 @@ const ChipFilter = ({ label, value, onChange, options, variant, disabled, labelM
       <Chip
         disabled={disabled}
         size={size}
-        label={label}
+        label={getChipLabel()}
         variant={variant}
         deleteIcon={isArrayOfOptions ? <ChevronIcon fontSize={size === "medium" ? "medium" : "small"} /> : undefined}
-        onClick={HandleClickChip}
+        onClick={handleClickChip}
         onDelete={isArrayOfOptions ? () => {} : undefined}
-        color={value ? "active" : "default"}
+        color={hasValue() ? "active" : "default"}
       />
 
       {/* Menu */}
-      {isArrayOfOptions && (
+      {isArrayOfOptions && Array.isArray(options) && (
         <Menu
           anchorEl={anchorMenu}
           open={isMenuOpen}
@@ -117,18 +174,18 @@ const ChipFilter = ({ label, value, onChange, options, variant, disabled, labelM
           </Stack>
 
           {/* Options */}
-          {options?.map((option, index) => {
+          {options.map((option, index) => {
             const key = `${option.id || option.value}-${index}`;
+            const isSelected = isOptionSelected(option.value);
 
             return (
-              <MenuItem
-                key={key}
-                onClick={() => {
-                  setInternalValue(option.value);
-                }}
-              >
+              <MenuItem key={key} onClick={() => handleOptionClick(option.value)}>
                 <ListItemIcon>
-                  <Radio disableRipple checked={internalValue === option.value} sx={{ padding: 0 }} />
+                  {multiple ? (
+                    <Checkbox disableRipple checked={isSelected} sx={{ padding: 0 }} />
+                  ) : (
+                    <Radio disableRipple checked={isSelected} sx={{ padding: 0 }} />
+                  )}
                 </ListItemIcon>
                 <ListItemText sx={{ color: "text.secondary" }}>{option.label}</ListItemText>
               </MenuItem>
