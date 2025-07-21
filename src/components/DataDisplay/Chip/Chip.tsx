@@ -11,6 +11,7 @@ const Chip = ({ dot, color, variant, sx, lineThrough, ...props }: ChipProps, ref
   const { palette } = useTheme();
 
   const dotColor = {
+    active: palette.text.contrast,
     default: palette.text.secondary,
     error: palette.error.main,
     info: palette.info.main,

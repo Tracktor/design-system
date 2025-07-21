@@ -43,6 +43,9 @@ declare module "@mui/material/Chip" {
   interface ChipPropsSizeOverrides {
     xSmall: true;
   }
+  interface ChipPropsColorOverrides {
+    active: true;
+  }
 }
 
 declare module "@mui/material/FormControlLabel" {
@@ -479,34 +482,57 @@ const commonThemeOptions: MuiThemeOptions = {
               color: theme.palette.text.primary,
             }),
             ...(color === "primary" && {
+              "&:hover": {
+                backgroundColor: `${theme.palette.grey[200]} !important`,
+              },
               backgroundColor: theme.palette.primary["4p"],
               border: isOutlinedVariant ? `1px solid ${theme.palette.divider}` : "transparent",
               color: theme.palette.primary.black,
             }),
             ...(color === "secondary" && {
+              "&:hover": {
+                backgroundColor: `${isOutlinedVariant ? theme.palette.secondary["30p"] : theme.palette.secondary["50p"]} !important`,
+              },
               backgroundColor: isOutlinedVariant ? theme.palette.secondary["8p"] : theme.palette.secondary["16p"],
               border: isOutlinedVariant ? `1px solid ${theme.palette.secondary["30p"]}` : "transparent",
               color: isOutlinedVariant ? theme.palette.secondary.dark : theme.palette.secondary.black,
             }),
             ...(color === "error" && {
+              "&:hover": {
+                backgroundColor: `${isOutlinedVariant ? theme.palette.error["30p"] : theme.palette.error["50p"]} !important`,
+              },
               backgroundColor: isOutlinedVariant ? theme.palette.error["8p"] : theme.palette.error["30p"],
               border: isOutlinedVariant ? `1px solid ${theme.palette.error["30p"]}` : "transparent",
               color: isOutlinedVariant ? theme.palette.error.dark : theme.palette.error["160p"],
             }),
             ...(color === "info" && {
+              "&:hover": {
+                backgroundColor: `${isOutlinedVariant ? theme.palette.info["30p"] : theme.palette.info["50p"]} !important`,
+              },
               backgroundColor: isOutlinedVariant ? theme.palette.info["8p"] : theme.palette.info["30p"],
               border: isOutlinedVariant ? `1px solid ${theme.palette.info["30p"]}` : "transparent",
               color: isOutlinedVariant ? theme.palette.info.dark : theme.palette.info["160p"],
             }),
             ...(color === "success" && {
+              "&:hover": {
+                backgroundColor: `${isOutlinedVariant ? theme.palette.success["30p"] : theme.palette.success["50p"]} !important`,
+              },
               backgroundColor: isOutlinedVariant ? theme.palette.success["8p"] : theme.palette.success["30p"],
               border: isOutlinedVariant ? `1px solid ${theme.palette.success["30p"]}` : "transparent",
               color: isOutlinedVariant ? theme.palette.success.dark : theme.palette.success["160p"],
             }),
             ...(color === "warning" && {
+              "&:hover": {
+                backgroundColor: `${isOutlinedVariant ? theme.palette.warning["30p"] : theme.palette.warning["50p"]} !important`,
+              },
               backgroundColor: isOutlinedVariant ? theme.palette.warning["8p"] : theme.palette.warning["30p"],
               border: isOutlinedVariant ? `1px solid ${theme.palette.warning["30p"]}` : "transparent",
               color: isOutlinedVariant ? theme.palette.warning.dark : theme.palette.warning["160p"],
+            }),
+            ...(color === "active" && {
+              backgroundColor: `${theme.palette.text.primary} !important`,
+              border: isOutlinedVariant ? `1px solid ${theme.palette.divider}` : "transparent",
+              color: theme.palette.text.contrast,
             }),
             fontWeight: 500,
           };
