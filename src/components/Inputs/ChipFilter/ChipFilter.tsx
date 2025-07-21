@@ -123,17 +123,38 @@ const ChipFilter = ({
     return !!propValue;
   };
 
-  const getSelectedCount = (): number => {
-    if (multiple && Array.isArray(internalValue)) {
-      return internalValue.length;
+  const getSelectedOptionLabel = (value: string): string | undefined => {
+    if (!isArrayOfOptions || !Array.isArray(options)) {
+      return (options as Option)?.label;
     }
-    return 0;
+    return options.find((option) => option.value === value)?.label;
   };
 
   const getChipLabel = (): string => {
-    if (multiple && getSelectedCount() > 0) {
-      return `${label} (${getSelectedCount()})`;
+    // Mode multiple selection
+    if (multiple && hasValue()) {
+      const currentValues = (propValue as string[]) || [];
+      const selectedCount = currentValues.length;
+
+      if (selectedCount === 1) {
+        const selectedLabel = getSelectedOptionLabel(currentValues[0]);
+        return selectedLabel || (label as string);
+      }
+
+      if (selectedCount > 1) {
+        const firstSelectedLabel = getSelectedOptionLabel(currentValues[0]);
+        const additionalCount = selectedCount - 1;
+        return `${firstSelectedLabel || currentValues[0]}... (+${additionalCount})`;
+      }
     }
+
+    // Mode single selection
+    if (!multiple && propValue) {
+      const selectedLabel = getSelectedOptionLabel(propValue as string);
+      return selectedLabel || (label as string);
+    }
+
+    // No value selected
     return label as string;
   };
 
