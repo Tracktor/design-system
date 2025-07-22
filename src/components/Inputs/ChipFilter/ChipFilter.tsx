@@ -1,5 +1,5 @@
 import { Button, Checkbox, Chip, ChipProps, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Radio, Stack } from "@mui/material";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, ReactNode, useState } from "react";
 import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useMenu from "@/hooks/useMenu";
@@ -11,59 +11,102 @@ type Option = {
   value: string;
 };
 
-export interface ChipFilterSingleProps {
-  multiple?: false;
-  value?: string;
-  onChange?: (value?: string) => void;
+interface ChipFilterBaseProps {
+  /**
+   * The label of the chip filter.
+   */
   label?: ChipProps["label"];
+  /**
+   * The label displayed in the menu for the chip filter, only with multiple options.
+   */
   labelMenu?: string;
+  /**
+   * The size of the chip filter.
+   */
   size?: ChipProps["size"];
+  /**
+   * The variant of the chip filter.
+   */
   variant?: ChipProps["variant"];
+  /**
+   * Indicates if the chip filter is disabled.
+   */
   disabled?: ChipProps["disabled"];
+  /**
+   * The options available for selection in the chip filter.
+   * If "options" is not an array, it is considered a single option (toggle behavior).
+   */
   options?: Option | Option[];
+  /**
+   * Indicates if there should be a separator between the label menu and the options selected in the menu.
+   * Defaults to ":"
+   */
+  separatorBetweenLabelMenuAndOptionSelected?: string;
 }
 
-export interface ChipFilterMultipleProps {
+export interface ChipFilterSingleProps extends ChipFilterBaseProps {
+  /**
+   * Indicates if the chip filter allows multiple selections.
+   */
+  multiple?: false;
+  /**
+   * The value of the chip filter.
+   */
+  value?: string;
+  /**
+   * Callback function triggered when the value of the chip filter changes.
+   * @param value
+   */
+  onChange?: (value?: string) => void;
+}
+
+export interface ChipFilterMultipleProps extends ChipFilterBaseProps {
+  /**
+   * Indicates if the chip filter allows multiple selections.
+   */
   multiple: true;
+  /**
+   * The value of the chip filter.
+   */
   value?: string[];
+  /**
+   * Callback function triggered when the value of the chip filter changes.
+   * @param value
+   */
   onChange?: (value: string[]) => void;
-  label?: ChipProps["label"];
-  labelMenu?: string;
-  size?: ChipProps["size"];
-  variant?: ChipProps["variant"];
-  disabled?: ChipProps["disabled"];
-  options?: Option | Option[];
 }
 
 export type ChipFilterProps = ChipFilterSingleProps | ChipFilterMultipleProps;
 
 const ChipFilter = ({
   label,
-  value: propValue,
+  value,
   onChange,
   options,
   variant,
   disabled,
   labelMenu,
+  separatorBetweenLabelMenuAndOptionSelected = ":",
   multiple = false,
   size = "medium",
 }: ChipFilterProps) => {
   const [internalValue, setInternalValue] = useState(() => {
     if (multiple) {
-      return (propValue as string[]) || [];
+      return value || [];
     }
-    return propValue as string | undefined;
+    return value as string | undefined;
   });
 
+  const hasValue = multiple ? (value as string[])?.length > 0 : !!value;
   const { anchorMenu, openMenu, isMenuOpen, closeMenu } = useMenu();
   const { t } = useTranslation();
   const isArrayOfOptions = Array.isArray(options);
 
   const handleApply = () => {
     if (multiple) {
-      (onChange as (value: string[]) => void)?.(internalValue as string[]);
+      (onChange as (val: string[]) => void)?.(internalValue as string[]);
     } else if (internalValue !== undefined) {
-      (onChange as (value?: string) => void)?.(internalValue as string);
+      (onChange as (val?: string) => void)?.(internalValue as string);
     }
     closeMenu();
   };
@@ -72,11 +115,11 @@ const ChipFilter = ({
     if (multiple) {
       const resetValue: string[] = [];
       setInternalValue(resetValue);
-      (onChange as (value: string[]) => void)?.(resetValue);
+      (onChange as (val: string[]) => void)?.(resetValue);
     } else {
       const resetValue: string | undefined = undefined;
       setInternalValue(resetValue);
-      (onChange as (value?: string) => void)?.(resetValue);
+      (onChange as (val?: string) => void)?.(resetValue);
     }
     closeMenu();
   };
@@ -88,11 +131,12 @@ const ChipFilter = ({
     }
 
     if (!isArrayOfOptions) {
-      const newValue = propValue ? undefined : (options as Option)?.value;
+      const newValue = value ? undefined : options?.value;
+
       if (multiple) {
-        (onChange as (value: string[]) => void)?.(newValue ? [newValue] : []);
+        (onChange as (val: string[]) => void)?.(newValue ? [newValue] : []);
       } else {
-        (onChange as (value?: string) => void)?.(newValue);
+        (onChange as (val?: string) => void)?.(newValue);
       }
     }
   };
@@ -103,6 +147,7 @@ const ChipFilter = ({
       const newValues = currentValues.includes(optionValue)
         ? currentValues.filter((v) => v !== optionValue)
         : [...currentValues, optionValue];
+
       setInternalValue(newValues);
     } else {
       setInternalValue(optionValue);
@@ -111,34 +156,30 @@ const ChipFilter = ({
 
   const isOptionSelected = (optionValue: string): boolean => {
     if (multiple) {
-      return (internalValue as string[])?.includes(optionValue) || false;
+      return internalValue?.includes(optionValue) || false;
     }
     return internalValue === optionValue;
   };
 
-  const hasValue = (): boolean => {
-    if (multiple) {
-      return (propValue as string[])?.length > 0;
+  const getSelectedOptionLabel = (val: string | string[]): string | undefined => {
+    if (!isArrayOfOptions) {
+      return options?.label;
     }
-    return !!propValue;
+
+    return `${labelMenu ? `${labelMenu} ${separatorBetweenLabelMenuAndOptionSelected} ` : ""}${
+      options.find((option) => option.value === val)?.label || ""
+    }`;
   };
 
-  const getSelectedOptionLabel = (value: string): string | undefined => {
-    if (!isArrayOfOptions || !Array.isArray(options)) {
-      return (options as Option)?.label;
-    }
-    return options.find((option) => option.value === value)?.label;
-  };
-
-  const getChipLabel = (): string => {
+  const getChipLabel = (): ReactNode => {
     // Mode multiple selection
-    if (multiple && hasValue()) {
-      const currentValues = (propValue as string[]) || [];
+    if (multiple && hasValue) {
+      const currentValues = value || [];
       const selectedCount = currentValues.length;
 
       if (selectedCount === 1) {
         const selectedLabel = getSelectedOptionLabel(currentValues[0]);
-        return selectedLabel || (label as string);
+        return selectedLabel || label;
       }
 
       if (selectedCount > 1) {
@@ -148,14 +189,13 @@ const ChipFilter = ({
       }
     }
 
-    // Mode single selection
-    if (!multiple && propValue) {
-      const selectedLabel = getSelectedOptionLabel(propValue as string);
-      return selectedLabel || (label as string);
+    if (!multiple && value && isArrayOfOptions) {
+      const selectedLabel = getSelectedOptionLabel(value);
+      return selectedLabel || label;
     }
 
     // No value selected
-    return label as string;
+    return label;
   };
 
   return (
@@ -169,7 +209,7 @@ const ChipFilter = ({
         deleteIcon={isArrayOfOptions ? <ChevronIcon fontSize={size === "medium" ? "medium" : "small"} /> : undefined}
         onClick={handleClickChip}
         onDelete={isArrayOfOptions ? () => {} : undefined}
-        color={hasValue() ? "active" : "default"}
+        color={hasValue ? "active" : "default"}
       />
 
       {/* Menu */}
@@ -214,7 +254,7 @@ const ChipFilter = ({
           })}
 
           {/* Actions */}
-          <Stack component="li" direction="row" justifyContent="flex-end" spacing={1}>
+          <Stack component="li" direction="row" justifyContent="flex-end" spacing={1} marginTop={1}>
             <Button size="small" onClick={handleReset}>
               {t("reset")}
             </Button>
