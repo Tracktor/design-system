@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.3.3
+## v4.4.0
 
-###  fix
-- collapse nav menu pressable zone
+###  features
+- Add chips filter component
