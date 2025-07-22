@@ -41,7 +41,11 @@ interface ChipFilterBaseProps {
    * Indicates if there should be a separator between the label menu and the options selected in the menu.
    * Defaults to ":"
    */
-  separatorBetweenLabelMenuAndOptionSelected?: string;
+  separatorBetweenLabelAndOptionSelected?: string;
+  /**
+   * Indicates if the label should only be displayed after a selection is made.
+   */
+  labelOnlyAfterSelection?: boolean;
 }
 
 export interface ChipFilterSingleProps extends ChipFilterBaseProps {
@@ -86,7 +90,8 @@ const ChipFilter = ({
   variant,
   disabled,
   labelMenu,
-  separatorBetweenLabelMenuAndOptionSelected = ":",
+  labelOnlyAfterSelection,
+  separatorBetweenLabelAndOptionSelected = ":",
   multiple = false,
   size = "medium",
 }: ChipFilterProps) => {
@@ -166,12 +171,20 @@ const ChipFilter = ({
       return options?.label;
     }
 
-    return `${labelMenu ? `${labelMenu} ${separatorBetweenLabelMenuAndOptionSelected} ` : ""}${
+    return `${labelMenu ? `${labelMenu} ${separatorBetweenLabelAndOptionSelected} ` : ""}${
       options.find((option) => option.value === val)?.label || ""
     }`;
   };
 
   const getChipLabel = (): ReactNode => {
+    // If hide selected value
+    if (labelOnlyAfterSelection && hasValue) {
+      const currentValues = value || [];
+      const selectedCount = currentValues.length;
+
+      return `${label || labelMenu}${multiple && selectedCount > 1 ? ` (${selectedCount})` : ""}`;
+    }
+
     // Mode multiple selection
     if (multiple && hasValue) {
       const currentValues = value || [];
