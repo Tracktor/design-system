@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.4.0
+## v4.5.0
 
 ###  features
-- Add chips filter component
+- Add `labelOnlyAfterSelection` to `ChipFilter` component to control label visibility

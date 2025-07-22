@@ -32,6 +32,8 @@ const Template: StoryFn<typeof ChipFilter> = (args) => {
         options={options}
         labelMenu="Make your choice"
         disabled={args?.disabled}
+        labelOnlyAfterSelection={args?.labelOnlyAfterSelection}
+        separatorBetweenLabelAndOptionSelected={args?.separatorBetweenLabelAndOptionSelected}
       />
       <ChipFilter
         size="medium"
@@ -41,6 +43,8 @@ const Template: StoryFn<typeof ChipFilter> = (args) => {
         options={options}
         labelMenu="Make your choice"
         disabled={args?.disabled}
+        labelOnlyAfterSelection={args?.labelOnlyAfterSelection}
+        separatorBetweenLabelAndOptionSelected={args?.separatorBetweenLabelAndOptionSelected}
       />
     </Stack>
   );
@@ -69,6 +73,8 @@ const MultipleTemplate: StoryFn<typeof ChipFilter> = (args) => {
         options={options}
         labelMenu="Select multiple options"
         disabled={args?.disabled}
+        labelOnlyAfterSelection={args?.labelOnlyAfterSelection}
+        separatorBetweenLabelAndOptionSelected={args?.separatorBetweenLabelAndOptionSelected}
       />
       <ChipFilter
         multiple
@@ -79,6 +85,8 @@ const MultipleTemplate: StoryFn<typeof ChipFilter> = (args) => {
         options={options}
         labelMenu="Select multiple options"
         disabled={args?.disabled}
+        labelOnlyAfterSelection={args?.labelOnlyAfterSelection}
+        separatorBetweenLabelAndOptionSelected={args?.separatorBetweenLabelAndOptionSelected}
       />
     </Stack>
   );
@@ -136,6 +144,21 @@ MultipleDisabled.args = {
 
 export const Toggle = ToggleTemplate.bind({});
 Toggle.args = {};
+
+export const LabelOnlyAfterSelection = Template.bind({});
+LabelOnlyAfterSelection.args = {
+  labelOnlyAfterSelection: true,
+};
+
+export const MultipleLabelOnlyAfterSelection = MultipleTemplate.bind({});
+MultipleLabelOnlyAfterSelection.args = {
+  labelOnlyAfterSelection: true,
+};
+
+export const CustomSeparator = Template.bind({});
+CustomSeparator.args = {
+  separatorBetweenLabelAndOptionSelected: "/",
+};
 
 export default {
   component: ChipFilter,
