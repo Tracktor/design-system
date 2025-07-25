@@ -502,7 +502,7 @@ const AutocompleteFilter = <
                 position="end"
                 sx={{
                   position: "absolute",
-                  right: 8,
+                  right: 5,
                   transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                 }}
               >
@@ -517,7 +517,7 @@ const AutocompleteFilter = <
                 position="end"
                 sx={{
                   position: "absolute",
-                  right: 9,
+                  right: 8,
                 }}
               >
                 {finalInputValue && !finalDisableClearable && (
