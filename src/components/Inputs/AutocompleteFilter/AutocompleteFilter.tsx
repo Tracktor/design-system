@@ -23,7 +23,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@mui/material/useAutocomplete/useAutocomplete";
-import * as React from "react";
 import {
   ElementType,
   forwardRef,
@@ -35,6 +34,7 @@ import {
   SyntheticEvent,
   useState,
 } from "react";
+import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useTranslation from "@/hooks/useTranslation";
 import pxToRem from "@/utils/pxToRem";
@@ -66,6 +66,10 @@ export interface AutocompleteFilterProps<
     MuiAutocompleteProps<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo, ChipComponent>,
     "options" | "onChange" | "freeSolo" | "renderInput" | "value"
   > {
+  /**
+   * Variant of the Autocomplete
+   */
+  variant?: "standard" | "chip";
   /**
    *  Value
    *  @default undefined
@@ -126,14 +130,43 @@ export interface AutocompleteFilterProps<
 
 const checkboxStyle = { padding: 0, paddingRight: 1 };
 
-const Count = (color?: "default" | "primary") =>
-  function RenderCount(more: number) {
+const getChipStyle = (size: "xSmall" | "small" | "medium") => {
+  if (size === "xSmall") {
+    return {
+      fontSize: pxToRem(12),
+      height: 20,
+    };
+  }
+
+  if (size === "small") {
+    return {
+      fontSize: pxToRem(13),
+      height: 24,
+    };
+  }
+
+  return {
+    fontSize: pxToRem(14),
+    height: 32,
+  };
+};
+
+const Count = (variant?: "standard" | "chip") => {
+  const { palette } = useTheme();
+  const color = palette.mode === "light" ? "default" : "primary";
+  const isChipVariant = variant === "chip";
+
+  return function RenderCount(more: number) {
     return (
       <Badge
         badgeContent={`+${more}`}
         color={color}
         sx={{
           "& .MuiBadge-badge": {
+            ...(isChipVariant && {
+              backgroundColor: "grey.100",
+              color: "text.primary",
+            }),
             position: "relative",
             transform: "none",
           },
@@ -142,6 +175,7 @@ const Count = (color?: "default" | "primary") =>
       />
     );
   };
+};
 
 const PaperComponent = <
   Multiple extends boolean | undefined,
@@ -150,6 +184,7 @@ const PaperComponent = <
   ChipComponent extends ElementType,
   Value extends unknown,
 >({
+  variant,
   children,
   disableSelectAll,
   localeText,
@@ -170,7 +205,7 @@ const PaperComponent = <
   const headerOptions = options?.filter((option) => option?.isHeader);
 
   return (
-    <Paper {...props}>
+    <Paper sx={{ minWidth: 250 }} {...props}>
       {multiple && !loading && (!disableSelectAll || !!headerOptions?.length) && (
         <>
           <List role="listbox">
@@ -276,6 +311,7 @@ const AutocompleteFilter = <
   Value extends unknown,
 >(
   {
+    variant,
     onChange,
     disableCheckbox,
     placeholder,
@@ -302,11 +338,12 @@ const AutocompleteFilter = <
   }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, Value> & { inputValue?: string },
   ref: Ref<HTMLDivElement>,
 ) => {
-  const { palette } = useTheme();
   const [internalOpen, setInternalOpen] = useState(false);
   const [internalInputValue, setInternalInputValue] = useState("");
-  const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
+  const isChipVariant = variant === "chip";
+  const finalDisableClearable = isChipVariant ? true : disableClearable;
+  const hasValue = Array.isArray(value) ? !!value.length : value !== undefined && value !== null;
 
   const getFinalValue = () => {
     if (multiple) {
@@ -342,7 +379,7 @@ const AutocompleteFilter = <
     <MuiAutocomplete
       freeSolo={false as FreeSolo}
       multiple={multiple as Multiple}
-      disableClearable={disableClearable as DisableClearable}
+      disableClearable={finalDisableClearable as DisableClearable}
       value={finalValue as AutocompleteValue<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo>}
       loading={loading}
       options={options}
@@ -350,7 +387,7 @@ const AutocompleteFilter = <
       size={size}
       disableCloseOnSelect={disableCloseOnSelect}
       onChange={handleChange}
-      getLimitTagsText={Count(badgeColor)}
+      getLimitTagsText={Count(variant)}
       inputValue={finalInputValue}
       open={open || internalOpen}
       onOpen={() => setInternalOpen(true)}
@@ -368,6 +405,7 @@ const AutocompleteFilter = <
           onChange,
           options,
           value,
+          variant,
           ...slotProps?.paper,
         } as AutocompletePaperSlotPropsOverrides,
       }}
@@ -466,52 +504,97 @@ const AutocompleteFilter = <
           return placeholder;
         };
 
-        const EndAdornmentElement = isValidElement(params.InputProps?.endAdornment) ? params.InputProps?.endAdornment : null;
+        const getAdornmentElement = () => {
+          if (isChipVariant) {
+            return (
+              <InputAdornment
+                position="end"
+                sx={{
+                  color: hasValue ? "text.contrast" : "text.primary",
+                  position: "absolute",
+                  right: 5,
+                  transform: internalOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              >
+                <ChevronIcon fontSize="small" />
+              </InputAdornment>
+            );
+          }
 
+          if (internalOpen) {
+            return (
+              <InputAdornment
+                position="end"
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                }}
+              >
+                {finalInputValue && !finalDisableClearable && (
+                  <IconButton
+                    size="small"
+                    onClick={(e) => {
+                      setInternalInputValue("");
+                      onInputChange?.(e, "", "clear");
+                    }}
+                    sx={{ marginRight: "-3px" }}
+                  >
+                    <CloseIcon sx={{ fontSize: pxToRem(20) }} />
+                  </IconButton>
+                )}
+                {isValidElement(params.InputProps?.endAdornment) &&
+                  typeof params.InputProps.endAdornment === "object" &&
+                  "props" in params.InputProps.endAdornment &&
+                  params.InputProps.endAdornment.props &&
+                  typeof params.InputProps.endAdornment.props === "object" &&
+                  "children" in params.InputProps.endAdornment.props &&
+                  Array.isArray(params.InputProps.endAdornment.props.children) &&
+                  params.InputProps.endAdornment.props.children[1]}
+              </InputAdornment>
+            );
+          }
+
+          if (isValidElement(params.InputProps?.endAdornment)) {
+            return params.InputProps.endAdornment;
+          }
+
+          return null;
+        };
         return (
           <TextField
             sx={{
-              ".MuiInputBase-root .MuiInputBase-input": {
+              "& .MuiInputBase-root .MuiInputBase-input": {
                 flex: !multiple || (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
                 minWidth: 0,
               },
+              ...(isChipVariant && {
+                "& .MuiInputBase-root": {
+                  backgroundColor: hasValue ? "text.primary" : "grey.100",
+                  borderRadius: 20,
+                  color: hasValue ? "text.contrast" : "text.primary",
+                  fieldset: {
+                    borderColor: "transparent !important",
+                  },
+                  fontSize: getChipStyle(size).fontSize,
+                  height: getChipStyle(size).height,
+                  input: {
+                    padding: "0 !important",
+                  },
+                  minWidth: 90,
+                  "p.MuiTypography-root": {
+                    fontSize: getChipStyle(size).fontSize,
+                    margin: 0,
+                  },
+                  paddingRight: "30px !important",
+                  paddingY: "0 !important",
+                },
+              }),
             }}
             {...params}
             slotProps={{
               input: {
                 ...params.InputProps,
-                endAdornment: internalOpen ? (
-                  <InputAdornment
-                    position="end"
-                    sx={{
-                      position: "absolute",
-                      right: 9,
-                    }}
-                  >
-                    {internalOpen && finalInputValue && !disableClearable && (
-                      <IconButton
-                        size="small"
-                        onClick={(e) => {
-                          setInternalInputValue("");
-                          onInputChange?.(e, "", "clear");
-                        }}
-                        sx={{ marginRight: "-3px" }}
-                      >
-                        <CloseIcon sx={{ fontSize: pxToRem(20) }} />
-                      </IconButton>
-                    )}
-                    {EndAdornmentElement &&
-                      typeof EndAdornmentElement === "object" &&
-                      "props" in EndAdornmentElement &&
-                      EndAdornmentElement.props &&
-                      typeof EndAdornmentElement.props === "object" &&
-                      "children" in EndAdornmentElement.props &&
-                      Array.isArray(EndAdornmentElement.props.children) &&
-                      EndAdornmentElement.props.children[1]}
-                  </InputAdornment>
-                ) : (
-                  EndAdornmentElement
-                ),
+                endAdornment: getAdornmentElement(),
               },
             }}
             placeholder={getPlaceholder()}

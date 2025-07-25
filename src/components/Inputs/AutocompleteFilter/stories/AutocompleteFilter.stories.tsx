@@ -89,6 +89,32 @@ const TemplateUniqueSelection: StoryFn<typeof AutocompleteFilter> = (args) => {
   );
 };
 
+const TemplateChip: StoryFn<typeof AutocompleteFilter> = (args) => {
+  const [selectedOptionsXSmall, setSelectedOptionsXSmall] = useState<AutocompleteFilterOption[]>([]);
+  const [selectedOptionsSmall, setSelectedOptionsSmall] = useState<AutocompleteFilterOption[]>([]);
+  const [selectedOptionsMedium, setSelectedOptionsMedium] = useState<AutocompleteFilterOption[]>([]);
+
+  const handleChangeXSmall = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    setSelectedOptionsXSmall(value);
+  };
+
+  const handleChangeSmall = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    setSelectedOptionsSmall(value);
+  };
+
+  const handleChangeMedium = (_: SyntheticEvent, value: AutocompleteFilterOption[]) => {
+    setSelectedOptionsMedium(value);
+  };
+
+  return (
+    <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+      <AutocompleteFilter {...args} size="xSmall" onChange={handleChangeXSmall} value={selectedOptionsXSmall} />
+      <AutocompleteFilter {...args} size="small" onChange={handleChangeSmall} value={selectedOptionsSmall} />
+      <AutocompleteFilter {...args} size="medium" onChange={handleChangeMedium} value={selectedOptionsMedium} />
+    </Stack>
+  );
+};
+
 export const Basic = Template.bind({});
 Basic.args = {
   options: data,
@@ -175,6 +201,13 @@ export const UniqueSelection = TemplateUniqueSelection.bind({});
 UniqueSelection.args = {
   multiple: false,
   options: data,
+};
+
+export const ChipVariant = TemplateChip.bind({});
+ChipVariant.args = {
+  options: data,
+  placeholder: "Search",
+  variant: "chip",
 };
 
 export default {
