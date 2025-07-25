@@ -23,7 +23,6 @@ import {
   useTheme,
 } from "@mui/material";
 import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@mui/material/useAutocomplete/useAutocomplete";
-import * as React from "react";
 import {
   ElementType,
   forwardRef,
@@ -35,6 +34,7 @@ import {
   SyntheticEvent,
   useState,
 } from "react";
+import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useTranslation from "@/hooks/useTranslation";
 import pxToRem from "@/utils/pxToRem";
@@ -495,8 +495,61 @@ const AutocompleteFilter = <
           return placeholder;
         };
 
-        const EndAdornmentElement = isValidElement(params.InputProps?.endAdornment) ? params.InputProps?.endAdornment : null;
+        const getAdornmentElement = (isOpen: boolean) => {
+          if (variant === "chip") {
+            return (
+              <InputAdornment
+                position="end"
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              >
+                <ChevronIcon fontSize="small" />
+              </InputAdornment>
+            );
+          }
 
+          if (isOpen) {
+            return (
+              <InputAdornment
+                position="end"
+                sx={{
+                  position: "absolute",
+                  right: 9,
+                }}
+              >
+                {finalInputValue && !finalDisableClearable && (
+                  <IconButton
+                    size="small"
+                    onClick={(e) => {
+                      setInternalInputValue("");
+                      onInputChange?.(e, "", "clear");
+                    }}
+                    sx={{ marginRight: "-3px" }}
+                  >
+                    <CloseIcon sx={{ fontSize: pxToRem(20) }} />
+                  </IconButton>
+                )}
+                {isValidElement(params.InputProps?.endAdornment) &&
+                  typeof params.InputProps.endAdornment === "object" &&
+                  "props" in params.InputProps.endAdornment &&
+                  params.InputProps.endAdornment.props &&
+                  typeof params.InputProps.endAdornment.props === "object" &&
+                  "children" in params.InputProps.endAdornment.props &&
+                  Array.isArray(params.InputProps.endAdornment.props.children) &&
+                  params.InputProps.endAdornment.props.children[1]}
+              </InputAdornment>
+            );
+          }
+
+          if (isValidElement(params.InputProps?.endAdornment)) {
+            return params.InputProps.endAdornment;
+          }
+
+          return null;
+        };
         return (
           <TextField
             sx={{
@@ -516,10 +569,11 @@ const AutocompleteFilter = <
                   input: {
                     padding: "0 !important",
                   },
-                  minWidth: 100,
+                  minWidth: 90,
                   "p.MuiTypography-root": {
                     fontSize: getChipStyle(size).fontSize,
                   },
+                  paddingRight: "30px !important",
                   paddingY: "0 !important",
                 },
               }),
@@ -528,38 +582,7 @@ const AutocompleteFilter = <
             slotProps={{
               input: {
                 ...params.InputProps,
-                endAdornment: internalOpen ? (
-                  <InputAdornment
-                    position="end"
-                    sx={{
-                      position: "absolute",
-                      right: 9,
-                    }}
-                  >
-                    {internalOpen && finalInputValue && !finalDisableClearable && (
-                      <IconButton
-                        size="small"
-                        onClick={(e) => {
-                          setInternalInputValue("");
-                          onInputChange?.(e, "", "clear");
-                        }}
-                        sx={{ marginRight: "-3px" }}
-                      >
-                        <CloseIcon sx={{ fontSize: pxToRem(20) }} />
-                      </IconButton>
-                    )}
-                    {EndAdornmentElement &&
-                      typeof EndAdornmentElement === "object" &&
-                      "props" in EndAdornmentElement &&
-                      EndAdornmentElement.props &&
-                      typeof EndAdornmentElement.props === "object" &&
-                      "children" in EndAdornmentElement.props &&
-                      Array.isArray(EndAdornmentElement.props.children) &&
-                      EndAdornmentElement.props.children[1]}
-                  </InputAdornment>
-                ) : (
-                  EndAdornmentElement
-                ),
+                endAdornment: getAdornmentElement(internalOpen),
               },
             }}
             placeholder={getPlaceholder()}

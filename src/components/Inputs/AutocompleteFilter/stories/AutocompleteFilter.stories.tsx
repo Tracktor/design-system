@@ -206,7 +206,7 @@ UniqueSelection.args = {
 export const ChipVariant = TemplateChip.bind({});
 ChipVariant.args = {
   options: data,
-  placeholder: "Search...",
+  placeholder: "Search",
   variant: "chip",
 };
 

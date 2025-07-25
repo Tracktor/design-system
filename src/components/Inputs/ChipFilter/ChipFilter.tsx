@@ -219,7 +219,18 @@ const ChipFilter = ({
         size={size}
         label={getChipLabel()}
         variant={variant}
-        deleteIcon={isArrayOfOptions ? <ChevronIcon fontSize={size === "medium" ? "medium" : "small"} /> : undefined}
+        deleteIcon={
+          isArrayOfOptions ? (
+            <ChevronIcon
+              fontSize="small"
+              sx={{
+                marginLeft: -0.5,
+                marginRight: 0.5,
+                transform: isMenuOpen ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
+          ) : undefined
+        }
         onClick={handleClickChip}
         onDelete={isArrayOfOptions ? () => {} : undefined}
         color={hasValue ? "active" : "default"}
