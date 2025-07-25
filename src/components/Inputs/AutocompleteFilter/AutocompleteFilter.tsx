@@ -67,6 +67,10 @@ export interface AutocompleteFilterProps<
     "options" | "onChange" | "freeSolo" | "renderInput" | "value"
   > {
   /**
+   * Variant of the Autocomplete
+   */
+  variant?: "standard" | "chip";
+  /**
    *  Value
    *  @default undefined
    */
@@ -126,6 +130,27 @@ export interface AutocompleteFilterProps<
 
 const checkboxStyle = { padding: 0, paddingRight: 1 };
 
+const getChipStyle = (size: "xSmall" | "small" | "medium") => {
+  if (size === "xSmall") {
+    return {
+      fontSize: pxToRem(12),
+      height: 20,
+    };
+  }
+
+  if (size === "small") {
+    return {
+      fontSize: pxToRem(13),
+      height: 24,
+    };
+  }
+
+  return {
+    fontSize: pxToRem(14),
+    height: 32,
+  };
+};
+
 const Count = (color?: "default" | "primary") =>
   function RenderCount(more: number) {
     return (
@@ -150,6 +175,7 @@ const PaperComponent = <
   ChipComponent extends ElementType,
   Value extends unknown,
 >({
+  variant,
   children,
   disableSelectAll,
   localeText,
@@ -170,7 +196,7 @@ const PaperComponent = <
   const headerOptions = options?.filter((option) => option?.isHeader);
 
   return (
-    <Paper {...props}>
+    <Paper sx={{ minWidth: 250 }} {...props}>
       {multiple && !loading && (!disableSelectAll || !!headerOptions?.length) && (
         <>
           <List role="listbox">
@@ -276,6 +302,7 @@ const AutocompleteFilter = <
   Value extends unknown,
 >(
   {
+    variant,
     onChange,
     disableCheckbox,
     placeholder,
@@ -307,6 +334,7 @@ const AutocompleteFilter = <
   const [internalInputValue, setInternalInputValue] = useState("");
   const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
+  const finalDisableClearable = variant === "chip" ? true : disableClearable;
 
   const getFinalValue = () => {
     if (multiple) {
@@ -342,7 +370,7 @@ const AutocompleteFilter = <
     <MuiAutocomplete
       freeSolo={false as FreeSolo}
       multiple={multiple as Multiple}
-      disableClearable={disableClearable as DisableClearable}
+      disableClearable={finalDisableClearable as DisableClearable}
       value={finalValue as AutocompleteValue<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo>}
       loading={loading}
       options={options}
@@ -368,6 +396,7 @@ const AutocompleteFilter = <
           onChange,
           options,
           value,
+          variant,
           ...slotProps?.paper,
         } as AutocompletePaperSlotPropsOverrides,
       }}
@@ -471,10 +500,29 @@ const AutocompleteFilter = <
         return (
           <TextField
             sx={{
-              ".MuiInputBase-root .MuiInputBase-input": {
+              "& .MuiInputBase-root .MuiInputBase-input": {
                 flex: !multiple || (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
                 minWidth: 0,
               },
+              ...(variant === "chip" && {
+                "& .MuiInputBase-root": {
+                  backgroundColor: "grey.100",
+                  borderRadius: 20,
+                  fieldset: {
+                    borderColor: "transparent !important",
+                  },
+                  fontSize: getChipStyle(size).fontSize,
+                  height: getChipStyle(size).height,
+                  input: {
+                    padding: "0 !important",
+                  },
+                  minWidth: 100,
+                  "p.MuiTypography-root": {
+                    fontSize: getChipStyle(size).fontSize,
+                  },
+                  paddingY: "0 !important",
+                },
+              }),
             }}
             {...params}
             slotProps={{
@@ -488,7 +536,7 @@ const AutocompleteFilter = <
                       right: 9,
                     }}
                   >
-                    {internalOpen && finalInputValue && !disableClearable && (
+                    {internalOpen && finalInputValue && !finalDisableClearable && (
                       <IconButton
                         size="small"
                         onClick={(e) => {
