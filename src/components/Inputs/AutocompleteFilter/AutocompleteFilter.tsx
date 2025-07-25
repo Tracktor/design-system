@@ -151,14 +151,22 @@ const getChipStyle = (size: "xSmall" | "small" | "medium") => {
   };
 };
 
-const Count = (color?: "default" | "primary") =>
-  function RenderCount(more: number) {
+const Count = (variant?: "standard" | "chip") => {
+  const { palette } = useTheme();
+  const color = palette.mode === "light" ? "default" : "primary";
+  const isChipVariant = variant === "chip";
+
+  return function RenderCount(more: number) {
     return (
       <Badge
         badgeContent={`+${more}`}
         color={color}
         sx={{
           "& .MuiBadge-badge": {
+            ...(isChipVariant && {
+              backgroundColor: "grey.100",
+              color: "text.primary",
+            }),
             position: "relative",
             transform: "none",
           },
@@ -167,6 +175,7 @@ const Count = (color?: "default" | "primary") =>
       />
     );
   };
+};
 
 const PaperComponent = <
   Multiple extends boolean | undefined,
@@ -329,12 +338,12 @@ const AutocompleteFilter = <
   }: AutocompleteFilterProps<Multiple, DisableClearable, FreeSolo, ChipComponent, Value> & { inputValue?: string },
   ref: Ref<HTMLDivElement>,
 ) => {
-  const { palette } = useTheme();
   const [internalOpen, setInternalOpen] = useState(false);
   const [internalInputValue, setInternalInputValue] = useState("");
-  const badgeColor = palette.mode === "light" ? "default" : "primary";
   const finalInputValue = inputValue || internalInputValue;
-  const finalDisableClearable = variant === "chip" ? true : disableClearable;
+  const isChipVariant = variant === "chip";
+  const finalDisableClearable = isChipVariant ? true : disableClearable;
+  const hasValue = Array.isArray(value) ? !!value.length : value !== undefined && value !== null;
 
   const getFinalValue = () => {
     if (multiple) {
@@ -378,7 +387,7 @@ const AutocompleteFilter = <
       size={size}
       disableCloseOnSelect={disableCloseOnSelect}
       onChange={handleChange}
-      getLimitTagsText={Count(badgeColor)}
+      getLimitTagsText={Count(variant)}
       inputValue={finalInputValue}
       open={open || internalOpen}
       onOpen={() => setInternalOpen(true)}
@@ -495,15 +504,16 @@ const AutocompleteFilter = <
           return placeholder;
         };
 
-        const getAdornmentElement = (isOpen: boolean) => {
-          if (variant === "chip") {
+        const getAdornmentElement = () => {
+          if (isChipVariant) {
             return (
               <InputAdornment
                 position="end"
                 sx={{
+                  color: hasValue ? "text.contrast" : "text.primary",
                   position: "absolute",
                   right: 5,
-                  transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transform: internalOpen ? "rotate(180deg)" : "rotate(0deg)",
                 }}
               >
                 <ChevronIcon fontSize="small" />
@@ -511,7 +521,7 @@ const AutocompleteFilter = <
             );
           }
 
-          if (isOpen) {
+          if (internalOpen) {
             return (
               <InputAdornment
                 position="end"
@@ -557,10 +567,11 @@ const AutocompleteFilter = <
                 flex: !multiple || (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
                 minWidth: 0,
               },
-              ...(variant === "chip" && {
+              ...(isChipVariant && {
                 "& .MuiInputBase-root": {
-                  backgroundColor: "grey.100",
+                  backgroundColor: hasValue ? "text.primary" : "grey.100",
                   borderRadius: 20,
+                  color: hasValue ? "text.contrast" : "text.primary",
                   fieldset: {
                     borderColor: "transparent !important",
                   },
@@ -572,6 +583,7 @@ const AutocompleteFilter = <
                   minWidth: 90,
                   "p.MuiTypography-root": {
                     fontSize: getChipStyle(size).fontSize,
+                    margin: 0,
                   },
                   paddingRight: "30px !important",
                   paddingY: "0 !important",
@@ -582,7 +594,7 @@ const AutocompleteFilter = <
             slotProps={{
               input: {
                 ...params.InputProps,
-                endAdornment: getAdornmentElement(internalOpen),
+                endAdornment: getAdornmentElement(),
               },
             }}
             placeholder={getPlaceholder()}
