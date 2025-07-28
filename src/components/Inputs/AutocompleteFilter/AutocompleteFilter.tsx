@@ -74,12 +74,12 @@ export interface AutocompleteFilterProps<
    *  Value
    *  @default undefined
    */
-  value?: AutocompleteFilterOption<Value>[] | AutocompleteFilterOption<Value> | null;
+  value?: AutocompleteFilterOption<Value>[] | AutocompleteFilterOption<Value> | string | null;
   /**
    *  Options to display
    *  @default undefined
    */
-  options?: AutocompleteFilterOption<Value>[];
+  options?: string[] | AutocompleteFilterOption<Value>[];
   /**
    *  Placeholder
    */
@@ -151,6 +151,33 @@ const getChipStyle = (size: "xSmall" | "small" | "medium") => {
   };
 };
 
+const normalizeOptions = <Value extends unknown>(
+  options: string[] | AutocompleteFilterOption<Value>[] | undefined,
+): AutocompleteFilterOption<Value>[] => {
+  if (!options) return [];
+
+  return options.map((option) => {
+    if (typeof option === "string") {
+      return {
+        id: option,
+        label: option,
+        value: option as Value,
+      };
+    }
+    return option;
+  });
+};
+
+const getFinalValue = (value: string | AutocompleteFilterOption | AutocompleteFilterOption[] | null | undefined, multiple?: boolean) => {
+  if (multiple) {
+    if (!value) {
+      return [];
+    }
+    return Array.isArray(value) ? value : [value];
+  }
+  return value || null;
+};
+
 const Count = (variant?: "standard" | "chip") => {
   const { palette } = useTheme();
   const color = palette.mode === "light" ? "default" : "primary";
@@ -202,7 +229,8 @@ const PaperComponent = <
   >) => {
   const { t } = useTranslation();
   const allChecked = Array.isArray(value) ? value?.length === options?.length : false;
-  const headerOptions = options?.filter((option) => option?.isHeader);
+  const optionsIsArrayOfStrings = Array.isArray(options) && options.every((option) => typeof option === "string");
+  const headerOptions = (!optionsIsArrayOfStrings && options?.filter((option) => option?.isHeader)) || [];
 
   return (
     <Paper sx={{ minWidth: 250 }} {...props}>
@@ -251,49 +279,50 @@ const PaperComponent = <
                 </ListItemButton>
               </ListItem>
             )}
-            {headerOptions?.map((option, index) => {
-              const key = `header-options-${option?.id}-${index}`;
-              const checked =
-                Array.isArray(value) &&
-                value.some(
-                  (val) =>
-                    JSON.stringify(val) === JSON.stringify(option) ||
-                    (val && typeof val === "object" && "id" in val && val?.id === option?.id),
+            {!optionsIsArrayOfStrings &&
+              headerOptions?.map((option, index) => {
+                const key = `header-options-${index}`;
+                const checked =
+                  Array.isArray(value) &&
+                  value.some(
+                    (val) =>
+                      JSON.stringify(val) === JSON.stringify(option) ||
+                      (val && typeof val === "object" && "id" in val && val?.id === option?.id),
+                  );
+
+                return (
+                  <ListItem
+                    key={key}
+                    disablePadding
+                    onMouseDown={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+
+                      if (checked) {
+                        const newValue = Array.isArray(value)
+                          ? value?.filter(
+                              (val) =>
+                                !(
+                                  JSON.stringify(val) === JSON.stringify(option) ||
+                                  (val && typeof val === "object" && "id" in val && val?.id === option?.id)
+                                ),
+                            )
+                          : [];
+
+                        onChange?.(e, newValue as AutocompleteFilterOption<Value>[], "removeOption");
+                        return;
+                      }
+
+                      onChange?.(e, [...(Array.isArray(value) ? value : []), option], "selectOption");
+                    }}
+                  >
+                    <ListItemButton disableRipple>
+                      <Checkbox disableRipple checked={checked} sx={checkboxStyle} />
+                      <ListItemText primary={option?.label} />
+                    </ListItemButton>
+                  </ListItem>
                 );
-
-              return (
-                <ListItem
-                  key={key}
-                  disablePadding
-                  onMouseDown={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-
-                    if (checked) {
-                      const newValue = Array.isArray(value)
-                        ? value?.filter(
-                            (val) =>
-                              !(
-                                JSON.stringify(val) === JSON.stringify(option) ||
-                                (val && typeof val === "object" && "id" in val && val?.id === option?.id)
-                              ),
-                          )
-                        : [];
-
-                      onChange?.(e, newValue as AutocompleteFilterOption<Value>[], "removeOption");
-                      return;
-                    }
-
-                    onChange?.(e, [...(Array.isArray(value) ? value : []), option], "selectOption");
-                  }}
-                >
-                  <ListItemButton disableRipple>
-                    <Checkbox disableRipple checked={checked} sx={checkboxStyle} />
-                    <ListItemText primary={option?.label} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
+              })}
           </List>
           <Divider />
         </>
@@ -342,20 +371,9 @@ const AutocompleteFilter = <
   const [internalInputValue, setInternalInputValue] = useState("");
   const finalInputValue = inputValue || internalInputValue;
   const isChipVariant = variant === "chip";
-  const finalDisableClearable = isChipVariant ? true : disableClearable;
   const hasValue = Array.isArray(value) ? !!value.length : value !== undefined && value !== null;
-
-  const getFinalValue = () => {
-    if (multiple) {
-      if (!value) {
-        return [];
-      }
-      return Array.isArray(value) ? value : [value];
-    }
-    return value || null;
-  };
-
-  const finalValue = getFinalValue();
+  const normalizedOptions = normalizeOptions(options);
+  const finalValue = getFinalValue(value, multiple);
 
   const handleChange = (
     event: SyntheticEvent,
@@ -379,10 +397,10 @@ const AutocompleteFilter = <
     <MuiAutocomplete
       freeSolo={false as FreeSolo}
       multiple={multiple as Multiple}
-      disableClearable={finalDisableClearable as DisableClearable}
+      disableClearable={disableClearable as DisableClearable}
       value={finalValue as AutocompleteValue<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo>}
       loading={loading}
-      options={options}
+      options={normalizedOptions}
       ref={ref}
       size={size}
       disableCloseOnSelect={disableCloseOnSelect}
@@ -530,7 +548,7 @@ const AutocompleteFilter = <
                   right: 8,
                 }}
               >
-                {finalInputValue && !finalDisableClearable && (
+                {finalInputValue && !disableClearable && (
                   <IconButton
                     size="small"
                     onClick={(e) => {
