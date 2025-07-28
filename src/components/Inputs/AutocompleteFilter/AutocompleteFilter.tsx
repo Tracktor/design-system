@@ -71,6 +71,10 @@ export interface AutocompleteFilterProps<
    */
   variant?: "standard" | "chip";
   /**
+   * Width of the Autocomplete
+   */
+  width?: string | number;
+  /**
    *  Value
    *  @default undefined
    */
@@ -358,6 +362,8 @@ const AutocompleteFilter = <
     resetInputValueOnSelectOption,
     renderOption,
     renderValue,
+    width,
+    sx,
     size = "small",
     disableCloseOnSelect = true,
     multiple = true,
@@ -409,6 +415,10 @@ const AutocompleteFilter = <
       inputValue={finalInputValue}
       open={open || internalOpen}
       onOpen={() => setInternalOpen(true)}
+      sx={{
+        width,
+        ...sx,
+      }}
       slots={{
         paper: PaperComponent as JSXElementConstructor<HTMLAttributes<HTMLElement>>,
       }}
