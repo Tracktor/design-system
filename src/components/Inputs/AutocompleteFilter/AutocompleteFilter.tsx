@@ -246,7 +246,7 @@ const PaperComponent = <
                 disablePadding
                 role="option"
                 onMouseDown={(e) => {
-                  // prevent blur
+                  // Prevent blur
                   e.stopPropagation();
                   e.preventDefault();
 
@@ -590,7 +590,7 @@ const AutocompleteFilter = <
                 <ChevronIcon
                   fontSize="small"
                   sx={{
-                    cursor: "pointer", // Cursor pointer pour la chevron aussi
+                    cursor: "pointer",
                     transition: "opacity 0.2s ease-in-out",
                     ...((finalInputValue || hasValue) &&
                       !disableClearable && {
