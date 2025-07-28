@@ -542,9 +542,64 @@ const AutocompleteFilter = <
                   position: "absolute",
                   right: 5,
                   transform: internalOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform 0.2s ease-in-out",
                 }}
               >
-                <ChevronIcon fontSize="small" />
+                {(finalInputValue || hasValue) && !disableClearable && (
+                  <IconButton
+                    size="small"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setInternalInputValue("");
+                      onInputChange?.(e, "", "clear");
+                      // Clear the value only if there is a value
+                      if (hasValue) {
+                        onChange?.(e, multiple ? [] : null, "clear");
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                    sx={{
+                      "& .MuiSvgIcon-root": {
+                        fontSize: pxToRem(16),
+                        pointerEvents: "none",
+                      },
+                      ".MuiTextField-root:hover &": {
+                        opacity: 1,
+                      },
+                      color: hasValue ? "text.contrast" : "text.primary",
+                      cursor: "pointer",
+                      left: "50%",
+                      opacity: 0,
+                      padding: "2px",
+                      pointerEvents: "auto",
+                      position: "absolute",
+                      top: "50%",
+                      transform: "translate(-50%, -50%)",
+                      transition: "opacity 0.2s ease-in-out",
+                      zIndex: 1,
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                )}
+
+                <ChevronIcon
+                  fontSize="small"
+                  sx={{
+                    cursor: "pointer", // Cursor pointer pour la chevron aussi
+                    transition: "opacity 0.2s ease-in-out",
+                    ...((finalInputValue || hasValue) &&
+                      !disableClearable && {
+                        ".MuiTextField-root:hover &": {
+                          opacity: 0,
+                        },
+                      }),
+                  }}
+                />
               </InputAdornment>
             );
           }
@@ -588,6 +643,7 @@ const AutocompleteFilter = <
 
           return null;
         };
+
         return (
           <TextField
             sx={{
