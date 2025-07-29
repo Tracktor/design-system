@@ -155,23 +155,6 @@ const getChipStyle = (size: "xSmall" | "small" | "medium") => {
   };
 };
 
-const normalizeOptions = <Value extends unknown>(
-  options: string[] | AutocompleteFilterOption<Value>[] | undefined,
-): AutocompleteFilterOption<Value>[] => {
-  if (!options) return [];
-
-  return options.map((option) => {
-    if (typeof option === "string") {
-      return {
-        id: option,
-        label: option,
-        value: option as Value,
-      };
-    }
-    return option;
-  });
-};
-
 const getFinalValue = (value: string | AutocompleteFilterOption | AutocompleteFilterOption[] | null | undefined, multiple?: boolean) => {
   if (multiple) {
     if (!value) {
@@ -378,7 +361,6 @@ const AutocompleteFilter = <
   const finalInputValue = inputValue || internalInputValue;
   const isChipVariant = variant === "chip";
   const hasValue = Array.isArray(value) ? !!value.length : value !== undefined && value !== null;
-  const normalizedOptions = normalizeOptions(options);
   const finalValue = getFinalValue(value, multiple);
 
   const handleChange = (
@@ -405,8 +387,8 @@ const AutocompleteFilter = <
       multiple={multiple as Multiple}
       disableClearable={disableClearable as DisableClearable}
       value={finalValue as AutocompleteValue<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo>}
+      options={options as AutocompleteFilterOption<Value>[]}
       loading={loading}
-      options={normalizedOptions}
       ref={ref}
       size={size}
       disableCloseOnSelect={disableCloseOnSelect}
@@ -462,17 +444,22 @@ const AutocompleteFilter = <
       }}
       renderOption={
         renderOption ||
-        ((optionProps, option, { selected }) => {
-          if (loading || option?.isHeader) {
+        ((optionProps, option: AutocompleteFilterOption<Value> | string, { selected }) => {
+          const isHeader = typeof option !== "string" && option.isHeader;
+
+          if (loading || isHeader) {
             return null;
           }
 
-          const key = `${option?.id}-${optionProps?.key}`;
+          const id = typeof option === "string" ? option : option?.id || option?.value || "";
+          const label = typeof option === "string" ? option : option?.label;
+          const image = typeof option === "string" ? undefined : option?.image;
+          const key = `${id}-${optionProps?.key}`;
 
           return (
             <ListItem {...optionProps} key={key}>
               {!disableCheckbox && <Checkbox disableRipple checked={selected} sx={checkboxStyle} />}
-              {option?.image && (
+              {image && (
                 <ListItemAvatar
                   sx={{
                     height: 24,
@@ -481,17 +468,17 @@ const AutocompleteFilter = <
                     width: 24,
                   }}
                 >
-                  <Avatar variant="rounded" src={option?.image} sx={{ height: 24, width: 24 }}>
-                    {option?.image === "letter" && typeof option?.label === "string" && option?.label?.charAt(0).toUpperCase()}
+                  <Avatar variant="rounded" src={image} sx={{ height: 24, width: 24 }}>
+                    {image === "letter" && typeof label === "string" && label?.charAt(0).toUpperCase()}
                   </Avatar>
                 </ListItemAvatar>
               )}
-              {typeof option?.label === "string" ? (
-                <Typography variant="body2" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" title={option?.label}>
-                  {option.label}
+              {typeof label === "string" ? (
+                <Typography variant="body2" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden" title={label}>
+                  {label}
                 </Typography>
               ) : (
-                option?.label
+                label
               )}
             </ListItem>
           );
@@ -507,12 +494,11 @@ const AutocompleteFilter = <
                     return null;
                   }
 
-                  const filterOption = option as AutocompleteFilterOption<Value>;
                   const { key } = getItemProps({ index }) as ItemPropsWithKey;
 
                   return (
                     <Typography key={key} marginX={1} whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-                      {filterOption?.label}
+                      {typeof option === "object" && "label" in option && option?.label ? option.label : option.toString()}
                     </Typography>
                   );
                 });
