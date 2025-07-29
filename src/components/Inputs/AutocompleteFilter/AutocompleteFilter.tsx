@@ -338,6 +338,7 @@ const AutocompleteFilter = <
     onFocus,
     onBlur,
     open,
+    getOptionLabel,
     onInputChange,
     inputValue,
     disableClearable,
@@ -442,6 +443,13 @@ const AutocompleteFilter = <
         setInternalOpen(false);
         onBlur?.(event);
       }}
+      getOptionLabel={
+        getOptionLabel ||
+        ((option) => {
+          const label = typeof option === "object" && "label" in option ? option.label : option;
+          return String(label);
+        })
+      }
       renderOption={
         renderOption ||
         ((optionProps, option: AutocompleteFilterOption<Value> | string, { selected }) => {
@@ -508,7 +516,6 @@ const AutocompleteFilter = <
             }
           : undefined)
       }
-      {...props}
       renderInput={(params) => {
         const getPlaceholder = () => {
           if (!internalOpen && ((Array.isArray(value) && value.length) || (!Array.isArray(value) && value))) {
@@ -671,6 +678,7 @@ const AutocompleteFilter = <
           />
         );
       }}
+      {...props}
     />
   );
 };

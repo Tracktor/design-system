@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.6.1
+## v4.6.2
 
-###  features
-- Fix `AutocompleteFilter` clearable with variant `chip`
+###  fix
+-  `AutocompleteFilter` improvements
