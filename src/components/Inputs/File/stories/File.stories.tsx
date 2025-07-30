@@ -1,31 +1,44 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "@/components/Inputs/Button";
-import File from "@/components/Inputs/File";
+import File, { FileInputRef } from "@/components/Inputs/File";
 
-const Template: StoryFn<typeof File> = (args) => (
-  <Stack
-    spacing={2}
-    height="100%"
-    alignItems="center"
-    justifyContent="center"
-    component="form"
-    onSubmit={(e) => {
-      e.preventDefault();
-      // eslint-disable-next-line no-alert
-      alert("Submitted");
-    }}
-  >
-    <File size="small" {...args} />
-    <File size="medium" {...args} />
-    {args?.required && (
-      <Button type="submit" variant="contained">
-        Submit
-      </Button>
-    )}
-  </Stack>
-);
+const Template: StoryFn<typeof File> = (args) => {
+  const inputRef = useRef<FileInputRef>(null);
+  const inputMediumRef = useRef<FileInputRef>(null);
+
+  return (
+    <Stack
+      spacing={2}
+      height="100%"
+      alignItems="center"
+      justifyContent="center"
+      component="form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        // eslint-disable-next-line no-alert
+        alert("Submitted");
+      }}
+    >
+      <File size="small" {...args} ref={inputRef} />
+      <File size="medium" {...args} ref={inputMediumRef} />
+      <Stack direction="row" spacing={1}>
+        <Button onClick={() => inputRef.current?.reset()} color="error" variant="outlined">
+          Reset
+        </Button>
+        <Button onClick={() => inputMediumRef.current?.reset()} color="error" variant="outlined">
+          Reset medium
+        </Button>
+        {args?.required && (
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
+        )}
+      </Stack>
+    </Stack>
+  );
+};
 
 const ControlledTemplate: StoryFn<typeof File> = (args) => {
   const [files, setFiles] = useState<null | FileList>(null);

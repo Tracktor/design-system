@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.7.2
+## v4.7.3
 
 ###  feat
--  `File` - fix uncontrolled input value
+-  `File` - fix uncontrolled reset from exposed `reset` method

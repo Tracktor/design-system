@@ -104,7 +104,12 @@ const File = forwardRef<FileInputRef, FileUploadProps>(
      */
     useImperativeHandle(ref, () => ({
       input: inputRef.current!,
-      reset: () => setInternalFiles(null),
+      reset: () => {
+        setInternalFiles(null);
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
+      },
     }));
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
