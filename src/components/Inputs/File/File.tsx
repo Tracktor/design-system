@@ -199,7 +199,7 @@ const File = forwardRef<FileInputRef, FileUploadProps>(
           )}
         </Stack>
         <input
-          key={files ? "has-files" : "no-files"}
+          key={value ? "has-files" : "no-files"}
           id={htmlId}
           ref={inputRef}
           type="file"

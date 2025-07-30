@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.7.1
+## v4.7.2
 
 ###  feat
--  `File` add support `File[]` type
+-  `File` - fix uncontrolled input value
