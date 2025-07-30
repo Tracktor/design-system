@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.6.2
+## v4.7.0
 
-###  fix
--  `AutocompleteFilter` improvements
+###  feat
+-  `File` add controlled behavior

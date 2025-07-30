@@ -1,5 +1,6 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
+import { useState } from "react";
 import Button from "@/components/Inputs/Button";
 import File from "@/components/Inputs/File";
 
@@ -25,6 +26,19 @@ const Template: StoryFn<typeof File> = (args) => (
     )}
   </Stack>
 );
+
+const ControlledTemplate: StoryFn<typeof File> = (args) => {
+  const [files, setFiles] = useState<null | FileList>(null);
+
+  return (
+    <Stack spacing={2} height="100%" alignItems="center" justifyContent="center">
+      <File {...args} size="small" value={files} onChange={({ target }) => setFiles(target.files)} />
+      <Button variant="contained" onClick={() => setFiles(null)} disabled={!files?.length}>
+        Remove files
+      </Button>
+    </Stack>
+  );
+};
 
 export const Basic = Template.bind({});
 Basic.args = {
@@ -74,6 +88,11 @@ Disabled.args = {
   disabled: true,
   helperText: "SVG, PNG, JPG or GIF (max. 3MB)",
   label: "Ajouter une photo ou un fichier",
+};
+
+export const Controlled = ControlledTemplate.bind({});
+Controlled.args = {
+  label: "Controlled File Input",
 };
 
 export default {

@@ -1,5 +1,5 @@
 import { InputLabel, Stack, Typography, useTheme } from "@mui/material";
-import { ChangeEvent, DragEvent, ElementRef, forwardRef, ReactNode, useImperativeHandle, useRef, useState } from "react";
+import { ChangeEvent, ComponentRef, DragEvent, forwardRef, ReactNode, useImperativeHandle, useRef, useState } from "react";
 import UploadIcon from "@/components/DataDisplay/Icons/UploadIcon";
 import useTranslation from "@/hooks/useTranslation";
 
@@ -19,6 +19,7 @@ export interface FileUploadProps {
   disabled?: boolean;
   pattern?: string;
   title?: string;
+  value?: FileList | null;
   localeText?: {
     files: string;
   };
@@ -78,24 +79,28 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
       label,
       pattern,
       title,
+      value,
       variant = "vertical",
     },
     ref,
   ) => {
+    const [internalFiles, setInternalFiles] = useState<FileList | null>(null);
     const { t } = useTranslation();
     const { palette } = useTheme();
     const isVertical = variant === "vertical";
     const htmlId = id || name;
-    const labelRef = useRef<ElementRef<"label">>(null);
-    const inputRef = useRef<ElementRef<"input">>(null);
-    const [files, setFiles] = useState<FileList | null>(null);
+    const labelRef = useRef<ComponentRef<"label">>(null);
+    const inputRef = useRef<ComponentRef<"input">>(null);
+    const files = value !== undefined ? value : internalFiles;
     const fileName = getFileNames(files);
 
     useImperativeHandle(ref, () => inputRef.current!);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      console.log("handleChange");
+
       onChange?.(e);
-      setFiles(e.target.files);
+      setInternalFiles(e.target.files);
     };
 
     const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
@@ -108,7 +113,7 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
         const inputElement = inputRef.current;
         const newFiles = e.dataTransfer.files;
 
-        setFiles(newFiles);
+        setInternalFiles(newFiles);
 
         // Manually update the input files
         const dataTransfer = new DataTransfer();
@@ -185,6 +190,7 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
           )}
         </Stack>
         <input
+          key={files ? "has-files" : "no-files"}
           id={htmlId}
           ref={inputRef}
           type="file"
