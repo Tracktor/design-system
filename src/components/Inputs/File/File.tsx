@@ -19,11 +19,16 @@ export interface FileUploadProps {
   disabled?: boolean;
   pattern?: string;
   title?: string;
-  value?: FileList | null;
+  value?: File[] | FileList | null;
   localeText?: {
     files: string;
   };
   onChange?(e: ChangeEvent<HTMLInputElement>): void;
+}
+
+export interface FileInputRef {
+  input: HTMLInputElement | null;
+  reset: () => void;
 }
 
 const MAX_FILE_NAME_TO_DISPLAY = 5;
@@ -37,7 +42,7 @@ const getHeight = (size: FileUploadProps["size"], variant: FileUploadProps["vari
   return isVertical ? 150 : 80;
 };
 
-const getFileNames = (files: FileList | null) => {
+const getFileNames = (files: File[] | FileList | null) => {
   if (!files) {
     return "";
   }
@@ -60,7 +65,7 @@ const getFileNames = (files: FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
-const File = forwardRef<HTMLInputElement, FileUploadProps>(
+const File = forwardRef<FileInputRef, FileUploadProps>(
   (
     {
       accept,
@@ -84,7 +89,7 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
     },
     ref,
   ) => {
-    const [internalFiles, setInternalFiles] = useState<FileList | null>(null);
+    const [internalFiles, setInternalFiles] = useState<File[] | FileList | null>(null);
     const { t } = useTranslation();
     const { palette } = useTheme();
     const isVertical = variant === "vertical";
@@ -94,7 +99,13 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
     const files = value !== undefined ? value : internalFiles;
     const fileName = getFileNames(files);
 
-    useImperativeHandle(ref, () => inputRef.current!);
+    /**
+     * Expose the input and reset method to the parent component
+     */
+    useImperativeHandle(ref, () => ({
+      input: inputRef.current!,
+      reset: () => setInternalFiles(null),
+    }));
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(e);

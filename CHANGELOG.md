@@ -1,6 +1,6 @@
 **# [Versions](https://github.com/Tracktor/design-system/releases)
 
-## v4.7.0
+## v4.7.1
 
 ###  feat
--  `File` add controlled behavior
+-  `File` add support `File[]` type
