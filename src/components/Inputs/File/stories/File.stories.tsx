@@ -2,11 +2,11 @@ import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useRef, useState } from "react";
 import Button from "@/components/Inputs/Button";
-import File, { FileInputRef } from "@/components/Inputs/File";
+import File, { HTMLInputElementFile } from "@/components/Inputs/File";
 
 const Template: StoryFn<typeof File> = (args) => {
-  const inputRef = useRef<FileInputRef>(null);
-  const inputMediumRef = useRef<FileInputRef>(null);
+  const inputRef = useRef<HTMLInputElementFile>(null);
+  const inputMediumRef = useRef<HTMLInputElementFile>(null);
 
   return (
     <Stack
@@ -24,10 +24,10 @@ const Template: StoryFn<typeof File> = (args) => {
       <File size="small" {...args} ref={inputRef} />
       <File size="medium" {...args} ref={inputMediumRef} />
       <Stack direction="row" spacing={1}>
-        <Button onClick={() => inputRef.current?.reset()} color="error" variant="outlined">
+        <Button onClick={() => inputRef?.current?.reset?.()} color="error" variant="outlined">
           Reset
         </Button>
-        <Button onClick={() => inputMediumRef.current?.reset()} color="error" variant="outlined">
+        <Button onClick={() => inputMediumRef?.current?.reset?.()} color="error" variant="outlined">
           Reset medium
         </Button>
         {args?.required && (

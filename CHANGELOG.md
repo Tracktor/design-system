@@ -1,6 +1,8 @@
-**# [Versions](https://github.com/Tracktor/design-system/releases)
+# [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.7.3
+## v4.7.4
 
-###  feat
--  `File` - fix uncontrolled reset from exposed `reset` method
+###  fix
+#### File
+- **Fixed controlled component structure** with proper `value` prop and internal state management
+- **Fixed ref structure** by extending HTMLInputElement with `reset()` method for better compatibility

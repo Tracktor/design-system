@@ -26,9 +26,8 @@ export interface FileUploadProps {
   onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
 
-export interface FileInputRef {
-  input: HTMLInputElement | null;
-  reset: () => void;
+export interface HTMLInputElementFile extends HTMLInputElement {
+  reset?: () => void;
 }
 
 const MAX_FILE_NAME_TO_DISPLAY = 5;
@@ -65,7 +64,7 @@ const getFileNames = (files: File[] | FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
-const File = forwardRef<FileInputRef, FileUploadProps>(
+const File = forwardRef<HTMLInputElementFile, FileUploadProps>(
   (
     {
       accept,
@@ -95,22 +94,26 @@ const File = forwardRef<FileInputRef, FileUploadProps>(
     const isVertical = variant === "vertical";
     const htmlId = id || name;
     const labelRef = useRef<ComponentRef<"label">>(null);
-    const inputRef = useRef<ComponentRef<"input">>(null);
+    const inputRef = useRef<HTMLInputElementFile>(null);
     const files = value !== undefined ? value : internalFiles;
     const fileName = getFileNames(files);
 
     /**
-     * Expose the input and reset method to the parent component
+     * Expose the reset method to the parent component
+     * This allows the parent to reset the file input programmatically.
      */
-    useImperativeHandle(ref, () => ({
-      input: inputRef.current!,
-      reset: () => {
+    useImperativeHandle(ref, () => {
+      const inputElement = inputRef.current!;
+
+      inputElement.reset = () => {
         setInternalFiles(null);
         if (inputRef.current) {
           inputRef.current.value = "";
         }
-      },
-    }));
+      };
+
+      return inputElement;
+    });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       onChange?.(e);
