@@ -27,7 +27,7 @@ export interface FileUploadProps {
 }
 
 export interface HTMLInputElementFile extends HTMLInputElement {
-  reset?: () => void;
+  reset: () => void;
 }
 
 const MAX_FILE_NAME_TO_DISPLAY = 5;
@@ -64,7 +64,7 @@ const getFileNames = (files: File[] | FileList | null) => {
   return files.length > MAX_FILE_NAME_TO_DISPLAY ? `${fileName} + ${files.length - MAX_FILE_NAME_TO_DISPLAY}` : fileName;
 };
 
-const File = forwardRef<HTMLInputElementFile, FileUploadProps>(
+const File = forwardRef<HTMLInputElement, FileUploadProps>(
   (
     {
       accept,
@@ -105,7 +105,7 @@ const File = forwardRef<HTMLInputElementFile, FileUploadProps>(
     useImperativeHandle(ref, () => {
       const inputElement = inputRef.current!;
 
-      inputElement.reset = () => {
+      (inputElement as HTMLInputElementFile).reset = () => {
         setInternalFiles(null);
         if (inputRef.current) {
           inputRef.current.value = "";

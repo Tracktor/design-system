@@ -24,10 +24,10 @@ const Template: StoryFn<typeof File> = (args) => {
       <File size="small" {...args} ref={inputRef} />
       <File size="medium" {...args} ref={inputMediumRef} />
       <Stack direction="row" spacing={1}>
-        <Button onClick={() => inputRef?.current?.reset?.()} color="error" variant="outlined">
+        <Button onClick={() => inputRef?.current?.reset()} color="error" variant="outlined">
           Reset
         </Button>
-        <Button onClick={() => inputMediumRef?.current?.reset?.()} color="error" variant="outlined">
+        <Button onClick={() => inputMediumRef?.current?.reset()} color="error" variant="outlined">
           Reset medium
         </Button>
         {args?.required && (
