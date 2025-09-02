@@ -4,14 +4,16 @@ import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 
 export interface DialogCloseProps {
   onClick?: (e: MouseEvent) => void;
+  position?: "absolute" | "relative";
 }
 
-const DialogCloseIcon = ({ onClick }: DialogCloseProps) => (
+const DialogCloseIcon = ({ onClick, position = "absolute" }: DialogCloseProps) => (
   <IconButton
     aria-label="close"
     onClick={onClick}
     sx={{
-      position: "absolute",
+      marginLeft: position === "absolute" ? undefined : "auto",
+      position,
       right: ({ spacing }) => spacing(2),
       top: ({ spacing }) => spacing(1),
     }}
