@@ -66,6 +66,8 @@ export { default as DialogPopper } from "@/components/Feedback/Dialog/DialogPopp
 export * from "@/components/Feedback/Dialog/DialogPopper";
 export { default as DialogValidation } from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
 export * from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
+export { default as ChipFilter } from "@/components/Inputs/ChipFilter/ChipFilter";
+export * from "@/components/Inputs/ChipFilter/ChipFilter";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
