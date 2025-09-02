@@ -93,35 +93,21 @@ const MultipleTemplate: StoryFn<typeof ChipFilter> = (args) => {
 };
 
 const ToggleTemplate: StoryFn<typeof ChipFilter> = () => {
-  const [valueSmallToggle, setValueSmallToggle] = useState<string>();
-  const [valueMediumToggle, setValueMediumToggle] = useState<string>();
+  const [valueSmallToggle, setValueSmallToggle] = useState<boolean>(false);
+  const [valueMediumToggle, setValueMediumToggle] = useState<boolean>(false);
 
-  const handleChangeSmallToggle = (newValue?: string) => {
+  const handleChangeSmallToggle = (newValue: boolean) => {
     setValueSmallToggle(newValue);
   };
 
-  const handleChangeMediumToggle = (newValue?: string) => {
+  const handleChangeMediumToggle = (newValue: boolean) => {
     setValueMediumToggle(newValue);
   };
 
   return (
     <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
-      <ChipFilter
-        size="small"
-        label="Small"
-        onChange={handleChangeSmallToggle}
-        value={valueSmallToggle}
-        labelMenu="Make your choice"
-        options={{ id: "1", label: "Filter 1", value: "filter-1" }}
-      />
-      <ChipFilter
-        size="medium"
-        label="Medium"
-        onChange={handleChangeMediumToggle}
-        value={valueMediumToggle}
-        labelMenu="Make your choice"
-        options={{ id: "1", label: "Filter 1", value: "filter-1" }}
-      />
+      <ChipFilter size="small" label="Small" onCheckedChange={handleChangeSmallToggle} checked={valueSmallToggle} />
+      <ChipFilter size="medium" label="Medium" onCheckedChange={handleChangeMediumToggle} checked={valueMediumToggle} />
     </Stack>
   );
 };

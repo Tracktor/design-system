@@ -36,7 +36,7 @@ interface ChipFilterBaseProps<T = OptionValue> {
   disabled?: ChipProps["disabled"];
   /**
    * The options available for selection in the chip filter.
-   * If "options" is not an array, it is considered a single option (toggle behavior).
+   * If "options" is not provided, it acts as a simple toggle.
    */
   options?: Option<T> | Option<T>[];
   /**
@@ -48,6 +48,31 @@ interface ChipFilterBaseProps<T = OptionValue> {
    * Indicates if the label should only be displayed after a selection is made.
    */
   labelOnlyAfterSelection?: boolean;
+}
+
+// Toggle mode interface (boolean) - inferred from presence of 'checked'
+export interface ChipFilterToggleProps extends ChipFilterBaseProps<boolean> {
+  /**
+   * The checked state of the toggle. When provided, the component acts as a toggle.
+   */
+  checked?: boolean;
+  /**
+   * Callback function triggered when the checked state changes.
+   * @param checked
+   */
+  onCheckedChange?: (checked: boolean) => void;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  multiple?: never;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  value?: never;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  onChange?: never;
 }
 
 // Single selection interface
@@ -65,6 +90,14 @@ export interface ChipFilterSingleProps<T = OptionValue> extends ChipFilterBasePr
    * @param value
    */
   onChange?: (value?: T) => void;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  checked?: never;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  onCheckedChange?: never;
 }
 
 // Multiple selection interface
@@ -82,18 +115,49 @@ export interface ChipFilterMultipleProps<T = OptionValue> extends ChipFilterBase
    * @param value
    */
   onChange?: (value: T[]) => void;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  checked?: never;
+  /**
+   *  Exclude these props for toggle mode
+   */
+  onCheckedChange?: never;
 }
 
-export type ChipFilterProps<T = OptionValue> = ChipFilterSingleProps<T> | ChipFilterMultipleProps<T>;
+export type ChipFilterProps<T = OptionValue> = ChipFilterToggleProps | ChipFilterSingleProps<T> | ChipFilterMultipleProps<T>;
 
+// Overloaded function signatures
+function ChipFilter(props: ChipFilterToggleProps): ReactNode;
+// eslint-disable-next-line no-redeclare
 function ChipFilter<T = OptionValue>(props: ChipFilterSingleProps<T>): ReactNode;
 // eslint-disable-next-line no-redeclare
 function ChipFilter<T = OptionValue>(props: ChipFilterMultipleProps<T>): ReactNode;
+
+/**
+ * ChipFilter component that can function as a toggle, single selection, or multiple selection filter.
+ * @param label
+ * @param value
+ * @param onChange
+ * @param checked
+ * @param onCheckedChange
+ * @param options
+ * @param variant
+ * @param disabled
+ * @param labelMenu
+ * @param labelOnlyAfterSelection
+ * @param separatorBetweenLabelAndOptionSelected
+ * @param multiple
+ * @param size
+ * @constructor
+ */
 // eslint-disable-next-line no-redeclare,react/function-component-definition
 function ChipFilter<T = OptionValue>({
   label,
   value,
   onChange,
+  checked,
+  onCheckedChange,
   options,
   variant,
   disabled,
@@ -103,20 +167,39 @@ function ChipFilter<T = OptionValue>({
   multiple = false,
   size = "medium",
 }: ChipFilterProps<T>): ReactNode {
+  // Detect toggle mode from presence of 'checked' prop
+  const isToggleMode = checked !== undefined;
+
   const [internalValue, setInternalValue] = useState(() => {
+    if (isToggleMode) {
+      return checked || false;
+    }
     if (multiple) {
       return value || [];
     }
     return value as T | undefined;
   });
 
-  const hasValue = multiple ? (value as T[])?.length > 0 : value !== undefined && value !== null;
+  // Determine if component has a value
+  const hasValue = (() => {
+    if (isToggleMode) {
+      return checked === true;
+    }
+    if (multiple) {
+      return (value as T[])?.length > 0;
+    }
+    return value !== undefined && value !== null;
+  })();
+
   const { anchorMenu, openMenu, isMenuOpen, closeMenu } = useMenu();
   const { t } = useTranslation();
   const isArrayOfOptions = Array.isArray(options);
+  const hasOptions = options !== undefined;
 
   const handleApply = () => {
-    if (multiple) {
+    if (isToggleMode) {
+      onCheckedChange?.(internalValue as boolean);
+    } else if (multiple) {
       (onChange as (val: T[]) => void)?.(internalValue as T[]);
     } else if (internalValue !== undefined) {
       (onChange as (val?: T) => void)?.(internalValue as T);
@@ -125,7 +208,11 @@ function ChipFilter<T = OptionValue>({
   };
 
   const handleReset = () => {
-    if (multiple) {
+    if (isToggleMode) {
+      const resetValue = false;
+      setInternalValue(resetValue);
+      onCheckedChange?.(resetValue);
+    } else if (multiple) {
       const resetValue: T[] = [];
       setInternalValue(resetValue);
       (onChange as (val: T[]) => void)?.(resetValue);
@@ -138,29 +225,45 @@ function ChipFilter<T = OptionValue>({
   };
 
   const handleClickChip = (event: MouseEvent<HTMLDivElement>) => {
-    if (isArrayOfOptions) {
+    // Toggle mode without options - simple toggle
+    if (isToggleMode && !hasOptions) {
+      const newChecked = !checked;
+      onCheckedChange?.(newChecked);
+      return;
+    }
+
+    // If has options, open menu
+    if (hasOptions && isArrayOfOptions) {
       openMenu(event);
       return;
     }
 
-    if (!isArrayOfOptions) {
-      const newValue = value !== undefined && value !== null ? undefined : (options as Option<T>)?.value;
-
-      if (multiple) {
-        (onChange as (val: T[]) => void)?.(newValue !== undefined ? [newValue] : []);
+    // Single option toggle behavior
+    if (hasOptions && !isArrayOfOptions) {
+      if (isToggleMode) {
+        const newChecked = !checked;
+        onCheckedChange?.(newChecked);
       } else {
-        (onChange as (val?: T) => void)?.(newValue);
+        const newValue = value !== undefined && value !== null ? undefined : (options as Option<T>)?.value;
+
+        if (multiple) {
+          (onChange as (val: T[]) => void)?.(newValue !== undefined ? [newValue] : []);
+        } else {
+          (onChange as (val?: T) => void)?.(newValue);
+        }
       }
     }
   };
 
   const handleOptionClick = (optionValue: T) => {
-    if (multiple) {
+    if (isToggleMode) {
+      // For toggle mode, clicking an option sets it as checked
+      setInternalValue(true);
+    } else if (multiple) {
       const currentValues = (internalValue as T[]) || [];
       const newValues = currentValues.includes(optionValue)
         ? currentValues.filter((v) => v !== optionValue)
         : [...currentValues, optionValue];
-
       setInternalValue(newValues);
     } else {
       setInternalValue(optionValue);
@@ -168,6 +271,9 @@ function ChipFilter<T = OptionValue>({
   };
 
   const isOptionSelected = (optionValue: T): boolean => {
+    if (isToggleMode) {
+      return checked === true;
+    }
     if (multiple) {
       return (internalValue as T[])?.includes(optionValue) || false;
     }
@@ -185,6 +291,15 @@ function ChipFilter<T = OptionValue>({
   };
 
   const getChipLabel = (): ReactNode => {
+    // Toggle mode
+    if (isToggleMode) {
+      if (labelOnlyAfterSelection && hasValue) {
+        return label;
+      }
+      // Show label with checked indicator if needed
+      return label;
+    }
+
     // If hide selected value
     if (labelOnlyAfterSelection && hasValue) {
       const currentValues = value || [];
@@ -210,7 +325,7 @@ function ChipFilter<T = OptionValue>({
       }
     }
 
-    if (!multiple && value !== undefined && value !== null && isArrayOfOptions) {
+    if (!multiple && !isToggleMode && value !== undefined && value !== null && isArrayOfOptions) {
       const selectedLabel = getSelectedOptionLabel(value);
       return selectedLabel || label;
     }
@@ -228,7 +343,7 @@ function ChipFilter<T = OptionValue>({
         label={getChipLabel()}
         variant={variant}
         deleteIcon={
-          isArrayOfOptions ? (
+          hasOptions && isArrayOfOptions ? (
             <ChevronIcon
               fontSize="small"
               sx={{
@@ -240,12 +355,12 @@ function ChipFilter<T = OptionValue>({
           ) : undefined
         }
         onClick={handleClickChip}
-        onDelete={isArrayOfOptions ? () => {} : undefined}
+        onDelete={hasOptions && isArrayOfOptions ? () => {} : undefined}
         color={hasValue ? "active" : "default"}
       />
 
       {/* Menu */}
-      {isArrayOfOptions && Array.isArray(options) && (
+      {hasOptions && isArrayOfOptions && (
         <Menu
           anchorEl={anchorMenu}
           open={isMenuOpen}
@@ -274,7 +389,7 @@ function ChipFilter<T = OptionValue>({
             return (
               <MenuItem key={key} onClick={() => handleOptionClick(option.value)}>
                 <ListItemIcon>
-                  {multiple ? (
+                  {multiple || isToggleMode ? (
                     <Checkbox disableRipple checked={isSelected} sx={{ padding: 0 }} />
                   ) : (
                     <Radio disableRipple checked={isSelected} sx={{ padding: 0 }} />
