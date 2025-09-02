@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.8.1
+## v4.8.2
 
 ###  Fix
 #### ChipFilter
-- default export
+- compatible with number values

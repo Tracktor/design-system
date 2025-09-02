@@ -5,13 +5,15 @@ import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useMenu from "@/hooks/useMenu";
 import useTranslation from "@/hooks/useTranslation";
 
-type Option = {
+export type OptionValue = string | number;
+
+type Option<T = OptionValue> = {
   id?: string | number;
   label: string;
-  value: string;
+  value: T;
 };
 
-interface ChipFilterBaseProps {
+interface ChipFilterBaseProps<T = OptionValue> {
   /**
    * The label of the chip filter.
    */
@@ -36,7 +38,7 @@ interface ChipFilterBaseProps {
    * The options available for selection in the chip filter.
    * If "options" is not an array, it is considered a single option (toggle behavior).
    */
-  options?: Option | Option[];
+  options?: Option<T> | Option<T>[];
   /**
    * Indicates if there should be a separator between the label menu and the options selected in the menu.
    * Defaults to ":"
@@ -48,7 +50,8 @@ interface ChipFilterBaseProps {
   labelOnlyAfterSelection?: boolean;
 }
 
-export interface ChipFilterSingleProps extends ChipFilterBaseProps {
+// Single selection interface
+export interface ChipFilterSingleProps<T = OptionValue> extends ChipFilterBaseProps<T> {
   /**
    * Indicates if the chip filter allows multiple selections.
    */
@@ -56,15 +59,16 @@ export interface ChipFilterSingleProps extends ChipFilterBaseProps {
   /**
    * The value of the chip filter.
    */
-  value?: string;
+  value?: T;
   /**
    * Callback function triggered when the value of the chip filter changes.
    * @param value
    */
-  onChange?: (value?: string) => void;
+  onChange?: (value?: T) => void;
 }
 
-export interface ChipFilterMultipleProps extends ChipFilterBaseProps {
+// Multiple selection interface
+export interface ChipFilterMultipleProps<T = OptionValue> extends ChipFilterBaseProps<T> {
   /**
    * Indicates if the chip filter allows multiple selections.
    */
@@ -72,17 +76,21 @@ export interface ChipFilterMultipleProps extends ChipFilterBaseProps {
   /**
    * The value of the chip filter.
    */
-  value?: string[];
+  value?: T[];
   /**
    * Callback function triggered when the value of the chip filter changes.
    * @param value
    */
-  onChange?: (value: string[]) => void;
+  onChange?: (value: T[]) => void;
 }
 
-export type ChipFilterProps = ChipFilterSingleProps | ChipFilterMultipleProps;
+export type ChipFilterProps<T = OptionValue> = ChipFilterSingleProps<T> | ChipFilterMultipleProps<T>;
 
-const ChipFilter = ({
+function ChipFilter<T = OptionValue>(props: ChipFilterSingleProps<T>): ReactNode;
+// eslint-disable-next-line no-redeclare
+function ChipFilter<T = OptionValue>(props: ChipFilterMultipleProps<T>): ReactNode;
+// eslint-disable-next-line no-redeclare,react/function-component-definition
+function ChipFilter<T = OptionValue>({
   label,
   value,
   onChange,
@@ -94,37 +102,37 @@ const ChipFilter = ({
   separatorBetweenLabelAndOptionSelected = ":",
   multiple = false,
   size = "medium",
-}: ChipFilterProps) => {
+}: ChipFilterProps<T>): ReactNode {
   const [internalValue, setInternalValue] = useState(() => {
     if (multiple) {
       return value || [];
     }
-    return value as string | undefined;
+    return value as T | undefined;
   });
 
-  const hasValue = multiple ? (value as string[])?.length > 0 : !!value;
+  const hasValue = multiple ? (value as T[])?.length > 0 : value !== undefined && value !== null;
   const { anchorMenu, openMenu, isMenuOpen, closeMenu } = useMenu();
   const { t } = useTranslation();
   const isArrayOfOptions = Array.isArray(options);
 
   const handleApply = () => {
     if (multiple) {
-      (onChange as (val: string[]) => void)?.(internalValue as string[]);
+      (onChange as (val: T[]) => void)?.(internalValue as T[]);
     } else if (internalValue !== undefined) {
-      (onChange as (val?: string) => void)?.(internalValue as string);
+      (onChange as (val?: T) => void)?.(internalValue as T);
     }
     closeMenu();
   };
 
   const handleReset = () => {
     if (multiple) {
-      const resetValue: string[] = [];
+      const resetValue: T[] = [];
       setInternalValue(resetValue);
-      (onChange as (val: string[]) => void)?.(resetValue);
+      (onChange as (val: T[]) => void)?.(resetValue);
     } else {
-      const resetValue: string | undefined = undefined;
+      const resetValue: T | undefined = undefined;
       setInternalValue(resetValue);
-      (onChange as (val?: string) => void)?.(resetValue);
+      (onChange as (val?: T) => void)?.(resetValue);
     }
     closeMenu();
   };
@@ -136,19 +144,19 @@ const ChipFilter = ({
     }
 
     if (!isArrayOfOptions) {
-      const newValue = value ? undefined : options?.value;
+      const newValue = value !== undefined && value !== null ? undefined : (options as Option<T>)?.value;
 
       if (multiple) {
-        (onChange as (val: string[]) => void)?.(newValue ? [newValue] : []);
+        (onChange as (val: T[]) => void)?.(newValue !== undefined ? [newValue] : []);
       } else {
-        (onChange as (val?: string) => void)?.(newValue);
+        (onChange as (val?: T) => void)?.(newValue);
       }
     }
   };
 
-  const handleOptionClick = (optionValue: string) => {
+  const handleOptionClick = (optionValue: T) => {
     if (multiple) {
-      const currentValues = (internalValue as string[]) || [];
+      const currentValues = (internalValue as T[]) || [];
       const newValues = currentValues.includes(optionValue)
         ? currentValues.filter((v) => v !== optionValue)
         : [...currentValues, optionValue];
@@ -159,20 +167,20 @@ const ChipFilter = ({
     }
   };
 
-  const isOptionSelected = (optionValue: string): boolean => {
+  const isOptionSelected = (optionValue: T): boolean => {
     if (multiple) {
-      return internalValue?.includes(optionValue) || false;
+      return (internalValue as T[])?.includes(optionValue) || false;
     }
     return internalValue === optionValue;
   };
 
-  const getSelectedOptionLabel = (val: string | string[]): string | undefined => {
+  const getSelectedOptionLabel = (val: T | T[]): string | undefined => {
     if (!isArrayOfOptions) {
-      return options?.label;
+      return (options as Option<T>)?.label;
     }
 
     return `${labelMenu ? `${labelMenu} ${separatorBetweenLabelAndOptionSelected} ` : ""}${
-      options.find((option) => option.value === val)?.label || ""
+      (options as Option<T>[]).find((option) => option.value === val)?.label || ""
     }`;
   };
 
@@ -180,14 +188,14 @@ const ChipFilter = ({
     // If hide selected value
     if (labelOnlyAfterSelection && hasValue) {
       const currentValues = value || [];
-      const selectedCount = currentValues.length;
+      const selectedCount = Array.isArray(currentValues) ? currentValues.length : 1;
 
       return `${label || labelMenu}${multiple && selectedCount > 1 ? ` (${selectedCount})` : ""}`;
     }
 
     // Mode multiple selection
     if (multiple && hasValue) {
-      const currentValues = value || [];
+      const currentValues = (value as T[]) || [];
       const selectedCount = currentValues.length;
 
       if (selectedCount === 1) {
@@ -198,11 +206,11 @@ const ChipFilter = ({
       if (selectedCount > 1) {
         const firstSelectedLabel = getSelectedOptionLabel(currentValues[0]);
         const additionalCount = selectedCount - 1;
-        return `${firstSelectedLabel || currentValues[0]}... (+${additionalCount})`;
+        return `${firstSelectedLabel || String(currentValues[0])}... (+${additionalCount})`;
       }
     }
 
-    if (!multiple && value && isArrayOfOptions) {
+    if (!multiple && value !== undefined && value !== null && isArrayOfOptions) {
       const selectedLabel = getSelectedOptionLabel(value);
       return selectedLabel || label;
     }
@@ -259,7 +267,7 @@ const ChipFilter = ({
           </Stack>
 
           {/* Options */}
-          {options.map((option, index) => {
+          {(options as Option<T>[]).map((option, index) => {
             const key = `${option.id || option.value}-${index}`;
             const isSelected = isOptionSelected(option.value);
 
@@ -290,6 +298,6 @@ const ChipFilter = ({
       )}
     </>
   );
-};
+}
 
 export default ChipFilter;
