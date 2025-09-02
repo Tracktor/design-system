@@ -286,6 +286,11 @@ SmallActionsButton.parameters = {
 export const WithDialogCloseIcon = WithCloseIconTemplate.bind({});
 WithDialogCloseIcon.args = {};
 
+export const BackgroundSecondary = BasicTemplate.bind({});
+BackgroundSecondary.args = {
+  backgroundColor: "secondary",
+};
+
 export default {
   component: Dialog,
   title: "Components/Feedback/Dialog",

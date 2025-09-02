@@ -48,6 +48,12 @@ declare module "@mui/material/Chip" {
   }
 }
 
+declare module "@mui/material/Dialog" {
+  interface DialogProps {
+    backgroundColor?: "primary" | "secondary" | string;
+  }
+}
+
 declare module "@mui/material/FormControlLabel" {
   interface FormControlLabelProps {
     variant?: "card";
@@ -593,11 +599,30 @@ const commonThemeOptions: MuiThemeOptions = {
     },
     MuiDialog: {
       defaultProps: {
-        PaperProps: {
-          elevation: 0,
+        slotProps: {
+          paper: {
+            elevation: 0,
+          },
         },
       },
       styleOverrides: {
+        paper: ({ ownerState, theme }) => {
+          const getBackgroundColor = () => {
+            if (ownerState.backgroundColor === "primary") {
+              return theme.palette.background.default;
+            }
+
+            if (ownerState.backgroundColor === "secondary") {
+              return theme.palette.background.default;
+            }
+
+            return ownerState.backgroundColor;
+          };
+
+          return {
+            backgroundColor: getBackgroundColor(),
+          };
+        },
         root: ({ theme }) => ({
           "& .MuiDialog-container": {
             [theme.breakpoints.between("xs", "sm")]: {
