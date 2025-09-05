@@ -1,9 +1,11 @@
 import { Box, SxProps, Theme, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
+import notFoundIcon from "@/assets/img/file-not-found-icon.png";
 import JPGIcon from "@/assets/img/jpg-icon.png";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
 import PDFIcon from "@/assets/img/pdf-icon.png";
 import PNGIcon from "@/assets/img/png-icon.png";
+import sheetIcon from "@/assets/img/sheet-icon.png";
 import sheetsImage from "@/assets/img/sheets.png";
 import Lightbox from "@/components/Feedback/Lightbox";
 import isDocumentType from "@/utils/isDocumentType";
@@ -108,18 +110,23 @@ const FileViewer = ({
   const fileNameWithExtension = fileName || src?.split("/").pop()?.split("?")[0] || "";
 
   const getSrcThumb = () => {
-    if (isDocument) return sheetsImage;
-
     if (iconOnly) {
       const iconMap: Record<string, string> = {
+        csv: sheetIcon,
         jpeg: JPGIcon,
         jpg: JPGIcon,
         pdf: PDFIcon,
         png: PNGIcon,
+        xls: sheetIcon,
+        xlsx: sheetIcon,
       };
-      return iconMap[extension ?? ""] || notFoundImage;
+
+      if (isError) return notFoundIcon;
+
+      return iconMap[extension ?? ""] || notFoundIcon;
     }
 
+    if (isDocument) return sheetsImage;
     if (isError) return notFoundImage;
 
     return srcThumb || src || undefined;
@@ -201,7 +208,7 @@ const FileViewer = ({
                 padding: isDocument || iconOnly ? "15%" : 0,
               }}
             />
-            {isDocument && (
+            {isDocument && !iconOnly && (
               <Typography sx={styles.extension} variant="body3" color="black">
                 {extension}
               </Typography>

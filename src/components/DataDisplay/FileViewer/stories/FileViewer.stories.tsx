@@ -172,9 +172,9 @@ NotFound.args = {
 
 export const IconOnly = TemplateMultiIcon.bind({});
 IconOnly.args = {
-  height: 115,
+  height: 150,
   iconOnly: true,
-  width: 174,
+  width: 150,
 };
 
 export default {
