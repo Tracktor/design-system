@@ -204,8 +204,8 @@ const FileViewer = ({
               onLoad={handleLoad}
               sx={{
                 ...styles.thumb,
-                objectFit: isDocument || iconOnly ? "contain" : "cover",
-                padding: isDocument || iconOnly ? "15%" : 0,
+                objectFit: isDocument ? "contain" : "cover",
+                padding: isDocument && !iconOnly ? "15%" : 0,
               }}
             />
             {isDocument && !iconOnly && (
