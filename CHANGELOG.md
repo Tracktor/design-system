@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.10.0
+## v4.11.0
 
 ###  Feat
-#### Dialog
-- add `backgroundColor` props
+#### FileViewer
+- add `iconOnly` variant props
