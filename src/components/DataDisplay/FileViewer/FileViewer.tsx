@@ -1,9 +1,9 @@
 import { Box, SxProps, Theme, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
-import JPGIcon from "@/assets/img/jpg_icon.png";
+import JPGIcon from "@/assets/img/jpg-icon.png";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
-import PDFIcon from "@/assets/img/PDF_icon.png";
-import PNGIcon from "@/assets/img/png_icon.png";
+import PDFIcon from "@/assets/img/pdf-icon.png";
+import PNGIcon from "@/assets/img/png-icon.png";
 import sheetsImage from "@/assets/img/sheets.png";
 import Lightbox from "@/components/Feedback/Lightbox";
 import isDocumentType from "@/utils/isDocumentType";
