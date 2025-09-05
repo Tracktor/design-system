@@ -169,7 +169,7 @@ const FileViewer = ({
   return (
     <>
       {!disableThumb && !children && (
-        <Tooltip title={isDocument || iconOnly ? fileNameWithExtension : ""}>
+        <Tooltip arrow title={isDocument || iconOnly ? fileNameWithExtension : ""}>
           <Box
             data-test="fileViewer"
             width={width}
@@ -178,7 +178,9 @@ const FileViewer = ({
             sx={{
               ...styles.container,
               ":hover": { opacity },
+              bgcolor: "transparent",
               borderRadius: variant === "rounded" ? 1 : "0",
+              boxShadow: "none",
               cursor: disableLightbox ? "default" : "pointer",
               pointerEvents: disableLightbox ? "none" : "auto",
               ...sx,
