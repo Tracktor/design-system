@@ -178,9 +178,9 @@ const FileViewer = ({
             sx={{
               ...styles.container,
               ":hover": { opacity },
-              bgcolor: "transparent",
+              bgcolor: iconOnly ? "transparent" : undefined,
               borderRadius: variant === "rounded" ? 1 : "0",
-              boxShadow: "none",
+              boxShadow: iconOnly ? "none" : undefined,
               cursor: disableLightbox ? "default" : "pointer",
               pointerEvents: disableLightbox ? "none" : "auto",
               ...sx,

@@ -4,4 +4,4 @@
 
 ###  Fix
 #### FileViewer
-- Standardize icons
+- Standardize icons & inherit icon bgcolor from parent
