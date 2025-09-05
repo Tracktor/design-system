@@ -1,9 +1,11 @@
 import { Box, SxProps, Theme, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
+import notFoundIcon from "@/assets/img/file-not-found-icon.png";
 import JPGIcon from "@/assets/img/jpg-icon.png";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
 import PDFIcon from "@/assets/img/pdf-icon.png";
 import PNGIcon from "@/assets/img/png-icon.png";
+import sheetIcon from "@/assets/img/sheet-icon.png";
 import sheetsImage from "@/assets/img/sheets.png";
 import Lightbox from "@/components/Feedback/Lightbox";
 import isDocumentType from "@/utils/isDocumentType";
@@ -108,18 +110,23 @@ const FileViewer = ({
   const fileNameWithExtension = fileName || src?.split("/").pop()?.split("?")[0] || "";
 
   const getSrcThumb = () => {
-    if (isDocument) return sheetsImage;
-
     if (iconOnly) {
       const iconMap: Record<string, string> = {
+        csv: sheetIcon,
         jpeg: JPGIcon,
         jpg: JPGIcon,
         pdf: PDFIcon,
         png: PNGIcon,
+        xls: sheetIcon,
+        xlsx: sheetIcon,
       };
-      return iconMap[extension ?? ""] || notFoundImage;
+
+      if (isError) return notFoundIcon;
+
+      return iconMap[extension ?? ""] || notFoundIcon;
     }
 
+    if (isDocument) return sheetsImage;
     if (isError) return notFoundImage;
 
     return srcThumb || src || undefined;
@@ -169,7 +176,7 @@ const FileViewer = ({
   return (
     <>
       {!disableThumb && !children && (
-        <Tooltip title={isDocument || iconOnly ? fileNameWithExtension : ""}>
+        <Tooltip arrow title={isDocument || iconOnly ? fileNameWithExtension : ""}>
           <Box
             data-test="fileViewer"
             width={width}
@@ -178,7 +185,9 @@ const FileViewer = ({
             sx={{
               ...styles.container,
               ":hover": { opacity },
+              bgcolor: iconOnly ? "transparent" : undefined,
               borderRadius: variant === "rounded" ? 1 : "0",
+              boxShadow: iconOnly ? "none" : undefined,
               cursor: disableLightbox ? "default" : "pointer",
               pointerEvents: disableLightbox ? "none" : "auto",
               ...sx,
@@ -195,11 +204,11 @@ const FileViewer = ({
               onLoad={handleLoad}
               sx={{
                 ...styles.thumb,
-                objectFit: isDocument || iconOnly ? "contain" : "cover",
-                padding: isDocument || iconOnly ? "15%" : 0,
+                objectFit: isDocument ? "contain" : "cover",
+                padding: isDocument && !iconOnly ? "15%" : 0,
               }}
             />
-            {isDocument && (
+            {isDocument && !iconOnly && (
               <Typography sx={styles.extension} variant="body3" color="black">
                 {extension}
               </Typography>

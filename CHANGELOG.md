@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.11.0
+## v4.11.1
 
-###  Feat
+###  Fix
 #### FileViewer
-- add `iconOnly` variant props
+- Standardize icons & inherit icon bgcolor from parent
