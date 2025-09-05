@@ -130,7 +130,7 @@ const FileViewer = ({
       return notFoundImage;
     }
 
-    return isError ? notFoundImage : srcThumb || src || undefined;
+    return srcThumb || src || undefined;
   };
 
   const toggleOpen = () => {
@@ -195,16 +195,16 @@ const FileViewer = ({
             <Box
               overflow="hidden"
               width="100%"
-              component={isImage ? "img" : "iframe"}
-              height={isImage ? "100%" : "auto"}
+              component={isImage || iconOnly ? "img" : "iframe"}
+              height={isImage || iconOnly ? "100%" : "auto"}
               key={getSrcThumb()}
               src={getSrcThumb()}
               onError={handleError}
               onLoad={handleLoad}
               sx={{
                 ...styles.thumb,
-                objectFit: isDocument ? "contain" : "cover",
-                padding: isDocument ? "15%" : 0,
+                objectFit: isDocument || iconOnly ? "contain" : "cover",
+                padding: isDocument || iconOnly ? "15%" : 0,
               }}
             />
             {isDocument && (
