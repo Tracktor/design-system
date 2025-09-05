@@ -1,6 +1,9 @@
 import { Box, SxProps, Theme, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
+import JPGIcon from "@/assets/img/jpg-icon.png";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
+import PDFIcon from "@/assets/img/pdf-icon.png";
+import PNGIcon from "@/assets/img/png-icon.png";
 import sheetsImage from "@/assets/img/sheets.png";
 import Lightbox from "@/components/Feedback/Lightbox";
 import isDocumentType from "@/utils/isDocumentType";
@@ -21,6 +24,7 @@ interface FileViewerPros extends PropsWithChildren {
   variant?: "default" | "rounded";
   onClickThumb?: () => void;
   onClose?(): void;
+  iconOnly?: boolean;
 }
 
 const styles = {
@@ -86,6 +90,7 @@ const FileViewer = ({
   onClose,
   onClickThumb,
   variant,
+  iconOnly,
   height = 152,
   width = 220,
 }: FileViewerPros) => {
@@ -103,11 +108,21 @@ const FileViewer = ({
   const fileNameWithExtension = fileName || src?.split("/").pop()?.split("?")[0] || "";
 
   const getSrcThumb = () => {
-    if (isDocument) {
-      return sheetsImage;
+    if (isDocument) return sheetsImage;
+
+    if (iconOnly) {
+      const iconMap: Record<string, string> = {
+        jpeg: JPGIcon,
+        jpg: JPGIcon,
+        pdf: PDFIcon,
+        png: PNGIcon,
+      };
+      return iconMap[extension ?? ""] || notFoundImage;
     }
 
-    return isError ? notFoundImage : srcThumb || src || undefined;
+    if (isError) return notFoundImage;
+
+    return srcThumb || src || undefined;
   };
 
   const toggleOpen = () => {
@@ -154,7 +169,7 @@ const FileViewer = ({
   return (
     <>
       {!disableThumb && !children && (
-        <Tooltip title={isDocument ? fileNameWithExtension : ""}>
+        <Tooltip title={isDocument || iconOnly ? fileNameWithExtension : ""}>
           <Box
             data-test="fileViewer"
             width={width}
@@ -172,16 +187,16 @@ const FileViewer = ({
             <Box
               overflow="hidden"
               width="100%"
-              component={isImage ? "img" : "iframe"}
-              height={isImage ? "100%" : "auto"}
+              component={isImage || iconOnly ? "img" : "iframe"}
+              height={isImage || iconOnly ? "100%" : "auto"}
               key={getSrcThumb()}
               src={getSrcThumb()}
               onError={handleError}
               onLoad={handleLoad}
               sx={{
                 ...styles.thumb,
-                objectFit: isDocument ? "contain" : "cover",
-                padding: isDocument ? "15%" : 0,
+                objectFit: isDocument || iconOnly ? "contain" : "cover",
+                padding: isDocument || iconOnly ? "15%" : 0,
               }}
             />
             {isDocument && (
