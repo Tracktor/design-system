@@ -1,6 +1,9 @@
 import { Box, SxProps, Theme, Tooltip, Typography } from "@mui/material";
 import { PropsWithChildren, useState } from "react";
+import JPGIcon from "@/assets/img/jpg_icon.png";
 import notFoundImage from "@/assets/img/not-found-img.jpg";
+import PDFIcon from "@/assets/img/PDF_icon.png";
+import PNGIcon from "@/assets/img/png_icon.png";
 import sheetsImage from "@/assets/img/sheets.png";
 import Lightbox from "@/components/Feedback/Lightbox";
 import isDocumentType from "@/utils/isDocumentType";
@@ -21,6 +24,7 @@ interface FileViewerPros extends PropsWithChildren {
   variant?: "default" | "rounded";
   onClickThumb?: () => void;
   onClose?(): void;
+  iconOnly?: boolean;
 }
 
 const styles = {
@@ -86,6 +90,7 @@ const FileViewer = ({
   onClose,
   onClickThumb,
   variant,
+  iconOnly,
   height = 152,
   width = 220,
 }: FileViewerPros) => {
@@ -95,6 +100,8 @@ const FileViewer = ({
   const lowercaseSrc = src?.toLowerCase();
   const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:") && !lowercaseSrc?.endsWith(".eml");
   const isPdf = lowercaseSrc?.endsWith(".pdf");
+  const isPNG = lowercaseSrc?.endsWith(".png");
+  const isJPG = lowercaseSrc?.endsWith(".jpg") || lowercaseSrc?.endsWith(".jpeg");
   const opacity = disableLightbox ? 1 : 0.8;
   const isThumbnailReady = disableThumb ? true : !isLoading;
   const isDocument = isDocumentType(src) || isDocumentType(srcThumb);
@@ -105,6 +112,22 @@ const FileViewer = ({
   const getSrcThumb = () => {
     if (isDocument) {
       return sheetsImage;
+    }
+
+    if (iconOnly && isPdf) {
+      return PDFIcon;
+    }
+
+    if (iconOnly && isPNG) {
+      return PNGIcon;
+    }
+
+    if (iconOnly && isJPG) {
+      return JPGIcon;
+    }
+
+    if (iconOnly || isError) {
+      return notFoundImage;
     }
 
     return isError ? notFoundImage : srcThumb || src || undefined;
