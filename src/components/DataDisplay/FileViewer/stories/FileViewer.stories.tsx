@@ -41,23 +41,51 @@ const TemplateMultiIcon: StoryFn<typeof FileViewer> = (args) => {
         {/* Ligne du haut avec 3 icônes */}
         <Grid size={12} container justifyContent="center" spacing={5}>
           <Grid>
-            <FileViewer iconOnly={iconOnly} src={csvFile} width={width} disableLightbox={disableLightbox} fileName="abcd" {...args} />
+            <FileViewer
+              iconOnly={iconOnly}
+              src={csvFile}
+              width={width}
+              disableLightbox={disableLightbox}
+              fileName="Document CSV"
+              {...args}
+            />
           </Grid>
           <Grid>
-            <FileViewer iconOnly={iconOnly} src={testFilePDF} width={width} disableLightbox={disableLightbox} fileName="abcd" {...args} />
+            <FileViewer
+              iconOnly={iconOnly}
+              src={testFilePDF}
+              width={width}
+              disableLightbox={disableLightbox}
+              fileName="Document PDF"
+              {...args}
+            />
           </Grid>
           <Grid>
-            <FileViewer iconOnly={iconOnly} src={testFilePNG} width={width} disableLightbox={disableLightbox} fileName="abcd" {...args} />
+            <FileViewer
+              iconOnly={iconOnly}
+              src={testFilePNG}
+              width={width}
+              disableLightbox={disableLightbox}
+              fileName="Image PNG"
+              {...args}
+            />
           </Grid>
         </Grid>
 
         {/* Ligne du bas avec 2 icônes */}
         <Grid size={12} container justifyContent="center" spacing={5}>
           <Grid>
-            <FileViewer iconOnly={iconOnly} src={svgFile} width={width} disableLightbox={disableLightbox} fileName="abcd" {...args} />
+            <FileViewer
+              iconOnly={iconOnly}
+              src={svgFile}
+              width={width}
+              disableLightbox={disableLightbox}
+              fileName="No reconize extension"
+              {...args}
+            />
           </Grid>
           <Grid>
-            <FileViewer iconOnly={iconOnly} src={jpgFile} width={width} disableLightbox={disableLightbox} fileName="abcd" {...args} />
+            <FileViewer iconOnly={iconOnly} src={jpgFile} width={width} disableLightbox={disableLightbox} fileName="Image JPG" {...args} />
           </Grid>
         </Grid>
       </Grid>
@@ -144,7 +172,6 @@ NotFound.args = {
 
 export const IconOnly = TemplateMultiIcon.bind({});
 IconOnly.args = {
-  disableLightbox: true,
   height: 115,
   iconOnly: true,
   width: 174,

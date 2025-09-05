@@ -100,8 +100,6 @@ const FileViewer = ({
   const lowercaseSrc = src?.toLowerCase();
   const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:") && !lowercaseSrc?.endsWith(".eml");
   const isPdf = lowercaseSrc?.endsWith(".pdf");
-  const isPNG = lowercaseSrc?.endsWith(".png");
-  const isJPG = lowercaseSrc?.endsWith(".jpg") || lowercaseSrc?.endsWith(".jpeg");
   const opacity = disableLightbox ? 1 : 0.8;
   const isThumbnailReady = disableThumb ? true : !isLoading;
   const isDocument = isDocumentType(src) || isDocumentType(srcThumb);
@@ -110,25 +108,19 @@ const FileViewer = ({
   const fileNameWithExtension = fileName || src?.split("/").pop()?.split("?")[0] || "";
 
   const getSrcThumb = () => {
-    if (isDocument) {
-      return sheetsImage;
+    if (isDocument) return sheetsImage;
+
+    if (iconOnly) {
+      const iconMap: Record<string, string> = {
+        jpeg: JPGIcon,
+        jpg: JPGIcon,
+        pdf: PDFIcon,
+        png: PNGIcon,
+      };
+      return iconMap[extension ?? ""] || notFoundImage;
     }
 
-    if (iconOnly && isPdf) {
-      return PDFIcon;
-    }
-
-    if (iconOnly && isPNG) {
-      return PNGIcon;
-    }
-
-    if (iconOnly && isJPG) {
-      return JPGIcon;
-    }
-
-    if (iconOnly || isError) {
-      return notFoundImage;
-    }
+    if (isError) return notFoundImage;
 
     return srcThumb || src || undefined;
   };
@@ -177,7 +169,7 @@ const FileViewer = ({
   return (
     <>
       {!disableThumb && !children && (
-        <Tooltip title={isDocument ? fileNameWithExtension : ""}>
+        <Tooltip title={isDocument || iconOnly ? fileNameWithExtension : ""}>
           <Box
             data-test="fileViewer"
             width={width}
