@@ -34,6 +34,7 @@ const Template: StoryFn<typeof ChipFilter> = (args) => {
         disabled={args?.disabled}
         labelOnlyAfterSelection={args?.labelOnlyAfterSelection}
         separatorBetweenLabelAndOptionSelected={args?.separatorBetweenLabelAndOptionSelected}
+        applyOnSelect={args?.applyOnSelect}
       />
       <ChipFilter
         size="medium"
@@ -45,6 +46,7 @@ const Template: StoryFn<typeof ChipFilter> = (args) => {
         disabled={args?.disabled}
         labelOnlyAfterSelection={args?.labelOnlyAfterSelection}
         separatorBetweenLabelAndOptionSelected={args?.separatorBetweenLabelAndOptionSelected}
+        applyOnSelect={args?.applyOnSelect}
       />
     </Stack>
   );
@@ -144,6 +146,11 @@ MultipleLabelOnlyAfterSelection.args = {
 export const CustomSeparator = Template.bind({});
 CustomSeparator.args = {
   separatorBetweenLabelAndOptionSelected: "/",
+};
+
+export const ApplyOnSelect = Template.bind({});
+ApplyOnSelect.args = {
+  applyOnSelect: true,
 };
 
 export default {

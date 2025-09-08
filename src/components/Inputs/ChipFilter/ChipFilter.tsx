@@ -48,6 +48,11 @@ interface ChipFilterBaseProps<T = OptionValue> {
    * Indicates if the label should only be displayed after a selection is made.
    */
   labelOnlyAfterSelection?: boolean;
+  /**
+   * When true, changes are applied immediately without needing to click "Apply".
+   * When false (default), changes require clicking "Apply" to be applied.
+   */
+  applyOnSelect?: boolean;
 }
 
 // Toggle mode interface (boolean) - inferred from presence of 'checked'
@@ -149,6 +154,7 @@ function ChipFilter<T = OptionValue>(props: ChipFilterMultipleProps<T>): ReactNo
  * @param separatorBetweenLabelAndOptionSelected
  * @param multiple
  * @param size
+ * @param applyOnSelect
  * @constructor
  */
 // eslint-disable-next-line no-redeclare,react/function-component-definition
@@ -163,6 +169,7 @@ function ChipFilter<T = OptionValue>({
   disabled,
   labelMenu,
   labelOnlyAfterSelection,
+  applyOnSelect,
   separatorBetweenLabelAndOptionSelected = ":",
   multiple = false,
   size = "medium",
@@ -196,14 +203,18 @@ function ChipFilter<T = OptionValue>({
   const isArrayOfOptions = Array.isArray(options);
   const hasOptions = options !== undefined;
 
-  const handleApply = () => {
+  const applyChanges = (newValue: boolean | T | T[] | undefined) => {
     if (isToggleMode) {
-      onCheckedChange?.(internalValue as boolean);
+      onCheckedChange?.(newValue as boolean);
     } else if (multiple) {
-      (onChange as (val: T[]) => void)?.(internalValue as T[]);
-    } else if (internalValue !== undefined) {
-      (onChange as (val?: T) => void)?.(internalValue as T);
+      (onChange as (val: T[]) => void)?.(newValue as T[]);
+    } else {
+      (onChange as (val?: T) => void)?.(newValue as T);
     }
+  };
+
+  const handleApply = () => {
+    applyChanges(internalValue);
     closeMenu();
   };
 
@@ -256,17 +267,29 @@ function ChipFilter<T = OptionValue>({
   };
 
   const handleOptionClick = (optionValue: T) => {
+    let newValue: boolean | T | T[];
+
     if (isToggleMode) {
       // For toggle mode, clicking an option sets it as checked
-      setInternalValue(true);
+      newValue = true;
+      setInternalValue(newValue);
     } else if (multiple) {
       const currentValues = (internalValue as T[]) || [];
-      const newValues = currentValues.includes(optionValue)
-        ? currentValues.filter((v) => v !== optionValue)
-        : [...currentValues, optionValue];
-      setInternalValue(newValues);
+      newValue = currentValues.includes(optionValue) ? currentValues.filter((v) => v !== optionValue) : [...currentValues, optionValue];
+      setInternalValue(newValue);
     } else {
-      setInternalValue(optionValue);
+      newValue = optionValue;
+      setInternalValue(newValue);
+    }
+
+    // Apply changes immediately if immediateApply is true
+    if (applyOnSelect) {
+      applyChanges(newValue);
+
+      // For single selection mode, close menu immediately
+      if (!multiple && !isToggleMode) {
+        closeMenu();
+      }
     }
   };
 
@@ -400,15 +423,17 @@ function ChipFilter<T = OptionValue>({
             );
           })}
 
-          {/* Actions */}
-          <Stack component="li" direction="row" justifyContent="flex-end" spacing={1} marginTop={1}>
-            <Button size="small" onClick={handleReset}>
-              {t("reset")}
-            </Button>
-            <Button variant="contained" size="small" onClick={handleApply}>
-              {t("apply")}
-            </Button>
-          </Stack>
+          {/* Actions - Hide when immediateApply is true */}
+          {!applyOnSelect && (
+            <Stack component="li" direction="row" justifyContent="flex-end" spacing={1} marginTop={1}>
+              <Button size="small" onClick={handleReset}>
+                {t("reset")}
+              </Button>
+              <Button variant="contained" size="small" onClick={handleApply}>
+                {t("apply")}
+              </Button>
+            </Stack>
+          )}
         </Menu>
       )}
     </>
