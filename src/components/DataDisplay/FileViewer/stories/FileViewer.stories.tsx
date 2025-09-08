@@ -174,7 +174,7 @@ export const IconOnly = TemplateMultiIcon.bind({});
 IconOnly.args = {
   height: 115,
   iconOnly: true,
-  width: 174,
+  width: 100,
 };
 
 export default {
