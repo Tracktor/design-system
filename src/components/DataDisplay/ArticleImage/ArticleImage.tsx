@@ -40,8 +40,8 @@ const ArticleImage = ({
   const [error, setError] = useState(false);
   const { borderRadius, padding } = geStyles(width, height);
   const stylesBase = { borderRadius, flexShrink: 0 };
-  const displayLoader = src && !loaded && !error;
-  const displayPlaceholder = !src || error;
+  const displayLoader = (src && !loaded && !error) || isLoading;
+  const displayPlaceholder = !src || (error && !isLoading);
   const isTransparent = src?.endsWith(".png") || src?.endsWith(".svg") || src?.endsWith(".gif") || src?.endsWith(".webp") || false;
 
   const handleLoad = () => {
@@ -73,9 +73,9 @@ const ArticleImage = ({
       onLoad={handleLoad}
       sx={{
         ...stylesBase,
-        // Hide image until loaded
+        // Hide wrong render image (browser) during loading
         "& img": {
-          visibility: loaded || error ? "visible" : "hidden",
+          opacity: loaded || error ? 1 : 0,
         },
         background: ({ palette }: Theme) => palette.grey[100],
         height,
@@ -85,7 +85,7 @@ const ArticleImage = ({
       }}
     >
       {/* Loading Skeleton */}
-      {(isLoading || displayLoader) && <ArticleImageSkeleton width={width} height={height} sx={stylesBase} />}
+      {displayLoader && <ArticleImageSkeleton width={width} height={height} sx={stylesBase} />}
 
       {/* Placeholder image */}
       {displayPlaceholder && (

@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.12.0
+## v4.12.1
 
 ###  Fix
-#### ChipFilter
-- Add props applyOnSelect for ChipFilter component to control when the filter is applied (on select or on apply button click)
+#### ArticleImage
+- Improve visibility of image during loading state
