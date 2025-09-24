@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.13.0
+## v4.13.1
 
-###  Feat
+###  Fix
 #### ListAvatar
-- Add `divider` to items
+- Divider unique id

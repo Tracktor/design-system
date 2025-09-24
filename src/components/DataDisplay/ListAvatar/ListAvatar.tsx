@@ -184,7 +184,7 @@ export const ListAvatar = ({
 
           if (divider) {
             return (
-              <ListItem disableGutters>
+              <ListItem disableGutters key={key}>
                 <Divider flexItem sx={{ width: "100%" }} />
               </ListItem>
             );
