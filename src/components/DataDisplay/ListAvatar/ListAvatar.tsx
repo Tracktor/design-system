@@ -3,6 +3,7 @@ import {
   Box,
   Chip,
   ChipProps,
+  Divider,
   List,
   ListItem,
   ListItemButton,
@@ -31,6 +32,7 @@ interface ListAvatarItemBase {
   chipLabel?: ReactNode;
   chipColor?: ChipProps["color"] | string;
   secondaryAction?: ReactNode;
+  divider?: boolean;
 }
 
 export interface ListAvatarClickPayload {
@@ -164,7 +166,7 @@ export const ListAvatar = ({
     >
       {items?.map(
         (
-          { id, title, subtitle, image, thumbnail, secondaryAction, chipLabel, chipColor, onClick, icon, Avatar: AvatarComponent },
+          { id, title, subtitle, image, thumbnail, secondaryAction, chipLabel, chipColor, onClick, icon, divider, Avatar: AvatarComponent },
           index,
         ) => {
           const key = `key-${index}-${title}-${id}`;
@@ -174,11 +176,19 @@ export const ListAvatar = ({
           const isFile = isDocumentType(image);
           const userSelect = onClick ? "none" : undefined;
           const lightBoxDisabled = disableLightbox || !!icon || !isValidImageUrl || isFile;
-          const clickable = !!onClick || !!(!onClick && !disableLightbox && (thumbnail || image));
+          const clickable = !!onClick || !!(!onClick && !disableLightbox && image);
           const open = openElement === key;
           const avatarThumb = isValidThumbnailUrl ? thumbnail : "";
           const avatarImage = isValidImageUrl ? image : "";
           const avatarSrc = avatarThumb || avatarImage || "";
+
+          if (divider) {
+            return (
+              <ListItem disableGutters>
+                <Divider flexItem sx={{ width: "100%" }} />
+              </ListItem>
+            );
+          }
 
           return (
             <ListItem
