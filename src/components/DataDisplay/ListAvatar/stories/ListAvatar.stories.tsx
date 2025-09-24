@@ -203,6 +203,33 @@ Document.args = {
   ],
 };
 
+export const WithDivider = Template.bind({});
+WithDivider.args = {
+  items: [
+    {
+      id: 1,
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+    {
+      divider: true,
+      id: 2,
+    },
+    {
+      id: 3,
+      image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+    {
+      id: 4,
+      image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      subtitle: "Lorem Ipsum",
+      title: "Basic",
+    },
+  ],
+};
+
 export default {
   component: ListAvatar,
   title: "Components/Data Display/ListAvatar",

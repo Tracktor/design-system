@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.12.1
+## v4.13.0
 
-###  Fix
-#### ArticleImage
-- Improve visibility of image during loading state
+###  Feat
+#### ListAvatar
+- Add `divider` to items
