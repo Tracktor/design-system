@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Chip,
   ChipProps,
@@ -17,6 +16,7 @@ import {
 } from "@mui/material";
 import { MouseEvent, ReactNode, useState } from "react";
 import sheetsImage from "@/assets/img/sheets.png";
+import Avatar from "@/components/DataDisplay/Avatar/Avatar";
 import FileViewer from "@/components/DataDisplay/FileViewer";
 import isDocumentType from "@/utils/isDocumentType";
 import isValidUrl from "@/utils/isValidUrl";
@@ -28,6 +28,7 @@ interface ListAvatarItemBase {
   subtitle?: ReactNode;
   image?: string | null;
   thumbnail?: string | null;
+  thumbnailSecondary?: string | null;
   icon?: ReactNode;
   chipLabel?: ReactNode;
   chipColor?: ChipProps["color"] | string;
@@ -166,7 +167,21 @@ export const ListAvatar = ({
     >
       {items?.map(
         (
-          { id, title, subtitle, image, thumbnail, secondaryAction, chipLabel, chipColor, onClick, icon, divider, Avatar: AvatarComponent },
+          {
+            id,
+            title,
+            subtitle,
+            image,
+            thumbnail,
+            thumbnailSecondary,
+            secondaryAction,
+            chipLabel,
+            chipColor,
+            onClick,
+            icon,
+            divider,
+            Avatar: AvatarComponent,
+          },
           index,
         ) => {
           const key = `key-${index}-${title}-${id}`;
@@ -259,6 +274,7 @@ export const ListAvatar = ({
                 >
                   <Avatar
                     src={isFile ? sheetsImage : avatarSrc}
+                    secondarySrc={thumbnailSecondary}
                     variant="rounded"
                     sx={{ marginRight: AVATAR_MARGIN_RIGHT }}
                     slotProps={{

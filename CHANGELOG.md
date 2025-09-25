@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.13.1
+## v4.14.0
 
-###  Fix
+###  Feat
 #### ListAvatar
-- Divider unique id
+- Add `thumbnailSecondary` props to items

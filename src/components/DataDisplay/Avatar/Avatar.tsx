@@ -78,6 +78,7 @@ const Avatar = forwardRef(
             height: primaryHeight + gapY,
             position: "relative",
             width: primaryWidth + gapX,
+            ...props.sx,
           }}
         >
           <MuiAvatar
