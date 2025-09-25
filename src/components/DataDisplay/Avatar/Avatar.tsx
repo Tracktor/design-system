@@ -63,11 +63,14 @@ const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps<any>["size"]) 
 };
 
 const Avatar = forwardRef(
-  <C extends ElementType = "div">({ secondarySrc, secondaryAvatarProps, size, ...props }: AvatarProps<C>, ref: MuiAvatarProps["ref"]) => {
+  <C extends ElementType = "div">(
+    { secondarySrc, secondaryAvatarProps, size, sx, ...props }: AvatarProps<C>,
+    ref: MuiAvatarProps["ref"],
+  ) => {
     if (secondarySrc || secondaryAvatarProps) {
-      const primaryWidth = size ? SIZES[size].primary : parseSize(isValidSx(props.sx) ? props.sx.width : undefined);
-      const primaryHeight = size ? SIZES[size].primary : parseSize(isValidSx(props.sx) ? props.sx.height : undefined);
-      const secondarySize = getSecondarySize(props?.sx, size);
+      const primaryWidth = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.width : undefined);
+      const primaryHeight = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.height : undefined);
+      const secondarySize = getSecondarySize(sx, size);
       const gapY = secondarySize.width / 3;
       const gapX = secondarySize.height / 3;
 
@@ -78,7 +81,34 @@ const Avatar = forwardRef(
             height: primaryHeight + gapY,
             position: "relative",
             width: primaryWidth + gapX,
-            ...props.sx,
+            ...(sx?.margin && { margin: sx.margin }),
+            ...(sx?.m && { m: sx.m }),
+            ...(sx?.marginTop && { marginTop: sx.marginTop }),
+            ...(sx?.mt && { mt: sx.mt }),
+            ...(sx?.marginRight && { marginRight: sx.marginRight }),
+            ...(sx?.mr && { mr: sx.mr }),
+            ...(sx?.marginBottom && { marginBottom: sx.marginBottom }),
+            ...(sx?.mb && { mb: sx.mb }),
+            ...(sx?.marginLeft && { marginLeft: sx.marginLeft }),
+            ...(sx?.ml && { ml: sx.ml }),
+            ...(sx?.marginX && { marginX: sx.marginX }),
+            ...(sx?.mx && { mx: sx.mx }),
+            ...(sx?.marginY && { marginY: sx.marginY }),
+            ...(sx?.my && { my: sx.my }),
+            ...(sx?.padding && { padding: sx.padding }),
+            ...(sx?.p && { p: sx.p }),
+            ...(sx?.paddingTop && { paddingTop: sx.paddingTop }),
+            ...(sx?.pt && { pt: sx.pt }),
+            ...(sx?.paddingRight && { paddingRight: sx.paddingRight }),
+            ...(sx?.pr && { pr: sx.pr }),
+            ...(sx?.paddingBottom && { paddingBottom: sx.paddingBottom }),
+            ...(sx?.pb && { pb: sx.pb }),
+            ...(sx?.paddingLeft && { paddingLeft: sx.paddingLeft }),
+            ...(sx?.pl && { pl: sx.pl }),
+            ...(sx?.paddingX && { paddingX: sx.paddingX }),
+            ...(sx?.px && { px: sx.px }),
+            ...(sx?.paddingY && { paddingY: sx.paddingY }),
+            ...(sx?.py && { py: sx.py }),
           }}
         >
           <MuiAvatar
@@ -89,7 +119,7 @@ const Avatar = forwardRef(
                 height: SIZES[size].primary,
                 width: SIZES[size].primary,
               }),
-              ...props.sx,
+              ...sx,
             }}
           />
           <MuiAvatar
@@ -115,7 +145,7 @@ const Avatar = forwardRef(
         ref={ref}
         sx={{
           ...(size && { height: SIZES[size].primary, width: SIZES[size].primary }),
-          ...props.sx,
+          ...sx,
         }}
       />
     );
