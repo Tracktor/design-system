@@ -27,6 +27,7 @@ const config: UserConfig = {
       external,
       output: {
         globals: {
+          // add react-window-infinite-loader && react-virtualized-auto-sizer
           "@mui/material": "material",
           react: "React",
           "react-dom": "ReactDOM",

@@ -68,6 +68,8 @@ export { default as DialogValidation } from "@/components/Feedback/Dialog/Dialog
 export * from "@/components/Feedback/Dialog/DialogValidation/DialogValidation";
 export { default as ChipFilter } from "@/components/Inputs/ChipFilter/ChipFilter";
 export * from "@/components/Inputs/ChipFilter/ChipFilter";
+export { default as Kanban } from "@/components/DataDisplay/Kanban/Kanban";
+export * from "@/components/DataDisplay/Kanban/Kanban";
 
 // Context
 export { default as ThemeProvider } from "@/context/Theme/ThemeProvider";
