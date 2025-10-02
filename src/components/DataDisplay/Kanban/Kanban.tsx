@@ -15,7 +15,7 @@ export type HeaderColumnChip = Record<string, KanbanChipFormat>;
  * Mapping of booking statuses to their corresponding chip variants and colors.
  * This is used to style the status chips in the Kanban columns.
  */
-export const variantKanbanChip: Record<string, KanbanChipFormat> = {
+export const defaultKanbanChip: Record<string, KanbanChipFormat> = {
   canceled: { color: "error" },
   confirmed: { color: "success" },
   costing: { color: "default" },

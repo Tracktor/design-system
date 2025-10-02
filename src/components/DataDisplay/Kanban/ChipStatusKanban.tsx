@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
-import { Chip, ChipProps, HeaderColumnChip, variantKanbanChip } from "@/main";
+import { Chip, ChipProps, HeaderColumnChip, defaultKanbanChip } from "@/main";
 
 interface ChipStatusProps {
-  status?: keyof typeof variantKanbanChip | keyof HeaderColumnChip | string;
+  status?: keyof typeof defaultKanbanChip | keyof HeaderColumnChip | string;
   size?: ChipProps["size"];
   variant?: ChipProps["variant"];
   lineThrough?: boolean;
@@ -27,7 +27,7 @@ const ChipStatusKanban = ({
   size = "small",
 }: ChipStatusProps) => {
   const statusToLowerCase = String(status)?.toLowerCase();
-  const mapping = headerColumnChip ?? variantKanbanChip;
+  const mapping = headerColumnChip ?? defaultKanbanChip;
   const { color, variant: mappedVariant } = (statusToLowerCase && mapping[statusToLowerCase]) || { color: "default" };
 
   return (
