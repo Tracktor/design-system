@@ -7,26 +7,15 @@ const Template: StoryFn<typeof Kanban> = (args) => (
     <Kanban {...args} />
   </Stack>
 );
-
-export const Default: StoryFn<typeof Kanban> = Template.bind({});
-Default.args = {
+export const SingleColumnDefaultTasks = Template.bind({});
+SingleColumnDefaultTasks.args = {
   data: [
     {
       count: 2,
       isFetched: true,
       items: [
-        {
-          id: "1",
-          image: undefined,
-          tag: "Task",
-          title: "My first task",
-        },
-        {
-          id: "2",
-          image: undefined,
-          tag: "Task",
-          title: "My second task",
-        },
+        { id: "1", image: undefined, tag: "Task", title: "My first task" },
+        { id: "2", image: undefined, tag: "Task", title: "My second task" },
       ],
       label: "To Do",
       name: "todo",
@@ -34,42 +23,28 @@ Default.args = {
   ],
 };
 
-export const TwoColumnsMinimal = Template.bind({});
-TwoColumnsMinimal.args = {
+export const TwoColumnsBasic = Template.bind({});
+TwoColumnsBasic.args = {
   data: [
     {
       count: 1,
       isFetched: true,
-      items: [
-        {
-          id: "1",
-          image: undefined,
-          tag: "Task",
-          title: "Task A",
-        },
-      ],
+      items: [{ id: "1", image: undefined, tag: "Task", title: "Task A" }],
       label: "To Do",
       name: "todo",
     },
     {
       count: 1,
       isFetched: true,
-      items: [
-        {
-          id: "2",
-          image: undefined,
-          tag: "Task",
-          title: "Task B",
-        },
-      ],
+      items: [{ id: "2", image: undefined, tag: "Task", title: "Task B" }],
       label: "Done",
       name: "done",
     },
   ],
 };
 
-export const ColumnEmptyButNotAll = Template.bind({});
-ColumnEmptyButNotAll.args = {
+export const MixedColumnsWithEmpty = Template.bind({});
+MixedColumnsWithEmpty.args = {
   data: [
     {
       count: 0,
@@ -81,22 +56,15 @@ ColumnEmptyButNotAll.args = {
     {
       count: 1,
       isFetched: true,
-      items: [
-        {
-          id: "3",
-          image: undefined,
-          tag: "Task",
-          title: "Working on it",
-        },
-      ],
+      items: [{ id: "3", image: undefined, tag: "Task", title: "Working on it" }],
       label: "In Progress",
       name: "inprogress",
     },
   ],
 };
 
-export const StatusColumns = Template.bind({});
-StatusColumns.args = {
+export const BookingStatusColumns = Template.bind({});
+BookingStatusColumns.args = {
   data: [
     {
       count: 2,
@@ -125,49 +93,43 @@ StatusColumns.args = {
   ],
 };
 
-export const StatusChangeSimulation = Template.bind({});
-StatusChangeSimulation.args = {
+export const StatusFlowSimulation = Template.bind({});
+StatusFlowSimulation.args = {
   data: [
-    {
-      count: 0,
-      isFetched: true,
-      items: [],
-      label: "Validated",
-      name: "validated",
-    },
+    { count: 0, isFetched: true, items: [], label: "Validated", name: "validated" },
     {
       count: 1,
       isFetched: true,
-      items: [
-        {
-          id: "5",
-          image: undefined,
-          tag: "Task",
-          title: "Booking #5",
-        },
-      ],
+      items: [{ id: "5", image: undefined, tag: "Task", title: "Booking #5" }],
       label: "Confirmed",
       name: "confirmed",
     },
     {
       count: 1,
       isFetched: true,
-      items: [
-        {
-          id: "6",
-          image: undefined,
-          tag: "Task",
-          title: "Booking #6 (moved from confirmed)",
-        },
-      ],
+      items: [{ id: "6", image: undefined, tag: "Task", title: "Booking #6 (moved from confirmed)" }],
       label: "Started",
       name: "started",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "7", image: undefined, tag: "Task", title: "Booking #7 (finished flow)" }],
+      label: "Ended",
+      name: "ended",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "8", image: undefined, tag: "Task", title: "Booking #8 (canceled by user)" }],
+      label: "Canceled",
+      name: "canceled",
     },
   ],
 };
 
-export const WithCustomStatusMapping = Template.bind({});
-WithCustomStatusMapping.args = {
+export const WithCustomChipStatusMapping = Template.bind({});
+WithCustomChipStatusMapping.args = {
   data: [
     {
       count: 1,
@@ -191,33 +153,23 @@ WithCustomStatusMapping.args = {
       name: "review",
     },
   ],
-  statusChipMapping: {
+  headerColumnChip: {
     archived: { color: "default", variant: "outlined" },
     draft: { color: "warning", variant: "filled" },
     review: { color: "info", variant: "filled" },
   },
 };
 
-export const LoadingKanban = Template.bind({});
-LoadingKanban.args = {
+export const LoadingColumns = Template.bind({});
+LoadingColumns.args = {
   data: [
-    {
-      isLoading: true,
-      items: [],
-      label: "Validated",
-      name: "validated",
-    },
-    {
-      isLoading: true,
-      items: [],
-      label: "Confirmed",
-      name: "confirmed",
-    },
+    { isLoading: true, items: [], label: "Validated", name: "validated" },
+    { isLoading: true, items: [], label: "Confirmed", name: "confirmed" },
   ],
 };
 
-export const EmptyKanban = Template.bind({});
-EmptyKanban.args = {
+export const EmptyStateKanban = Template.bind({});
+EmptyStateKanban.args = {
   data: [],
   emptyState: {
     buttonLink: "#",

@@ -4,13 +4,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/ChipStatusKanban";
-import {
-  BASE_HEIGHT_CARD,
-  HEIGHT_LINE_BODY3,
-  KanbanChipMapping,
-  KanbanDataItemProps,
-  KanbanProps,
-} from "@/components/DataDisplay/Kanban/Kanban";
+import { BASE_HEIGHT_CARD, HEIGHT_LINE_BODY3, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/VirtualizedKanbanItem";
 import { Box, Card, CircularProgress, Skeleton, Stack } from "@/main";
 
@@ -34,7 +28,7 @@ interface ColumnProps {
   loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
   onInView?: (name: string) => void;
   Link: ElementType;
-  statusChipMapping?: KanbanChipMapping;
+  headerColumnChip?: KanbanProps["headerColumnChip"];
 }
 
 const Column = ({
@@ -57,7 +51,7 @@ const Column = ({
   chipColumDot,
   chipStatus,
   Link,
-  statusChipMapping,
+  headerColumnChip,
 }: ColumnProps) => {
   const onInViewTriggered = useRef<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -113,7 +107,7 @@ const Column = ({
               variant={chipColumVariant}
               status={chipStatus || name}
               size="small"
-              statusMapping={statusChipMapping}
+              headerColumnChip={headerColumnChip}
               sx={{ alignSelf: "flex-start" }}
             />
             {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}

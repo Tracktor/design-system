@@ -9,7 +9,7 @@ export type KanbanChipFormat = {
   variant?: ChipProps["variant"];
 };
 
-export type KanbanChipMapping = Record<string, KanbanChipFormat>;
+export type HeaderColumnChip = Record<string, KanbanChipFormat>;
 
 /**
  * Mapping of booking statuses to their corresponding chip variants and colors.
@@ -148,7 +148,7 @@ export interface KanbanProps {
    * Keys can be any string, but the value must be { color, variant? }.
    */
   // todo: New Props to review -> allow custom mapping for status chip
-  statusChipMapping?: KanbanChipMapping;
+  headerColumnChip?: HeaderColumnChip;
   /**
    * The Kanban data to be displayed.
    */
@@ -170,7 +170,7 @@ const Kanban = ({
   emptyState,
   chipColumVariant,
   chipStatus,
-  statusChipMapping,
+  headerColumnChip,
   previewBookingId = "",
   Link = "a",
   chipColumDot = true,
@@ -245,7 +245,7 @@ const Kanban = ({
               chipColumDot={chipColumDot}
               chipStatus={chipStatus}
               Link={Link}
-              statusChipMapping={statusChipMapping}
+              headerColumnChip={headerColumnChip}
             />
           );
         })}
