@@ -1,7 +1,7 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.14.0
+## v4.15.0
 
 ###  Feat
-#### ListAvatar
-- Add `thumbnailSecondary` props to items
+#### Kanban
+- Add 'Kanban' component
