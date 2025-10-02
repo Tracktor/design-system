@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Chip, Typography, Button } from "@mui/material";
 import type { StoryFn, Meta } from "@storybook/react-vite";
 import Kanban from "@/components/DataDisplay/Kanban/Kanban";
 
@@ -89,6 +89,146 @@ BookingStatusColumns.args = {
       items: [],
       label: "Started",
       name: "started",
+    },
+  ],
+};
+
+export const FullyFilledCardsThreeColumns = Template.bind({});
+FullyFilledCardsThreeColumns.args = {
+  data: [
+    {
+      count: 2,
+      isFetched: true,
+      items: [
+        {
+          Alert: <Chip color="warning" size="small" label="Deadline approaching" />,
+          Footer: (
+            <Typography variant="caption" color="text.secondary">
+              Last updated: 1d ago
+            </Typography>
+          ),
+          id: "1",
+          image: "https://picsum.photos/seed/11/100/100",
+          imageTitle: "Task image",
+          link: "#",
+          RightFooter: (
+            <Button size="small" variant="outlined">
+              Open
+            </Button>
+          ),
+          secondaryImage: "https://picsum.photos/seed/secondary11/40/40",
+          secondaryImageText: "AB",
+          subtitles: [{ text: "Due next week" }, { text: "Assigned to Alice" }],
+          tag: "High Priority",
+          title: "Design new landing page",
+        },
+        {
+          Alert: <Chip color="info" size="small" label="In review" />,
+          Footer: (
+            <Typography variant="caption" color="text.secondary">
+              Marketing team
+            </Typography>
+          ),
+          id: "2",
+          image: "https://picsum.photos/seed/12/100/100",
+          imageTitle: "Task image",
+          link: "#",
+          RightFooter: (
+            <Button size="small" variant="contained" color="primary">
+              Edit
+            </Button>
+          ),
+          secondaryImage: "https://picsum.photos/seed/secondary12/40/40",
+          secondaryImageText: "CD",
+          subtitles: [{ text: "Draft in progress" }, { text: "Owner: Chris" }],
+          tag: "Medium",
+          title: "Write blog post",
+        },
+      ],
+      label: "To Do",
+      name: "todo",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [
+        {
+          Alert: <Chip color="info" size="small" label="Blocked" />,
+          Footer: (
+            <Typography variant="caption" color="text.secondary">
+              Updated: 3h ago
+            </Typography>
+          ),
+          id: "3",
+          image: "https://picsum.photos/seed/21/100/100",
+          imageTitle: "Progress image",
+          link: "#",
+          RightFooter: (
+            <Button size="small" variant="outlined" color="secondary">
+              Details
+            </Button>
+          ),
+          secondaryImage: "https://picsum.photos/seed/secondary21/40/40",
+          secondaryImageText: "EF",
+          subtitles: [{ text: "Backend integration" }, { text: "Owner: Emma" }],
+          tag: "Urgent",
+          title: "Implement payment API",
+        },
+      ],
+      label: "In Progress",
+      name: "inprogress",
+    },
+    {
+      count: 2,
+      isFetched: true,
+      items: [
+        {
+          Alert: <Chip color="success" size="small" label="Deployed" />,
+          Footer: (
+            <Typography variant="caption" color="text.secondary">
+              Finished yesterday
+            </Typography>
+          ),
+          id: "4",
+          image: "https://picsum.photos/seed/31/100/100",
+          imageTitle: "Preview image",
+          link: "#",
+          RightFooter: (
+            <Button size="small" variant="outlined" color="primary">
+              View
+            </Button>
+          ),
+          secondaryImage: "https://picsum.photos/seed/secondary31/40/40",
+          secondaryImageText: "GH",
+          subtitles: [{ text: "Deployment successful" }, { text: "Owner: George" }],
+          tag: "Completed",
+          title: "Release v2.0",
+        },
+        {
+          Alert: <Chip color="success" size="small" label="Passed" />,
+          Footer: (
+            <Typography variant="caption" color="text.secondary">
+              Completed 2 days ago
+            </Typography>
+          ),
+          id: "5",
+          image: "https://picsum.photos/seed/32/100/100",
+          imageTitle: "Preview image",
+          link: "#",
+          RightFooter: (
+            <Button size="small" variant="contained" color="success">
+              Report
+            </Button>
+          ),
+          secondaryImage: "https://picsum.photos/seed/secondary32/40/40",
+          secondaryImageText: "IJ",
+          subtitles: [{ text: "No issues found" }, { text: "Auditor: Ivan" }],
+          tag: "Completed",
+          title: "Security audit",
+        },
+      ],
+      label: "Done",
+      name: "done",
     },
   ],
 };
