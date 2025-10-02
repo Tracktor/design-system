@@ -4,7 +4,13 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/ChipStatusKanban";
-import { BASE_HEIGHT_CARD, HEIGHT_LINE_BODY3, KanbanChipMapping, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import {
+  BASE_HEIGHT_CARD,
+  HEIGHT_LINE_BODY3,
+  KanbanChipMapping,
+  KanbanDataItemProps,
+  KanbanProps,
+} from "@/components/DataDisplay/Kanban/Kanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/VirtualizedKanbanItem";
 import { Box, Card, CircularProgress, Skeleton, Stack } from "@/main";
 
@@ -12,7 +18,7 @@ interface ColumnProps {
   name: string;
   label?: string;
   count?: number;
-  items: KanbanProps["data"][0]["items"];
+  items: KanbanDataItemProps[];
   chipColumVariant?: "filled" | "outlined";
   chipColumDot?: boolean;
   chipStatus?: string;

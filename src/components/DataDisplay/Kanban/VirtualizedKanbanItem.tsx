@@ -1,6 +1,6 @@
 import { CSSProperties, ElementType } from "react";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
-import { BASE_HEIGHT_CARD, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import { BASE_HEIGHT_CARD, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
 import { Typography, Box, Card, Chip, Stack, Tooltip, useTheme } from "@/main";
 
 const IMG_SIZE = 40;
@@ -22,7 +22,7 @@ type KanbanItemProps = {
     previewBookingId: string;
     gutterSize: number;
     onClickItem: KanbanProps["onClickItem"];
-    items: KanbanProps["data"][0]["items"];
+    items: KanbanDataItemProps[];
     Link: ElementType;
   };
 };

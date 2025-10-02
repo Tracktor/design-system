@@ -166,54 +166,6 @@ StatusChangeSimulation.args = {
   ],
 };
 
-export const LoadingKanban = Template.bind({});
-LoadingKanban.args = {
-  data: [
-    {
-      isLoading: true,
-      items: [],
-      label: "Validated",
-      name: "validated",
-    },
-    {
-      isLoading: true,
-      items: [],
-      label: "Confirmed",
-      name: "confirmed",
-    },
-  ],
-};
-
-export const WithDefaultStatusMapping = Template.bind({});
-WithDefaultStatusMapping.args = {
-  data: [
-    {
-      count: 2,
-      isFetched: true,
-      items: [
-        { id: "1", image: undefined, tag: "Task", title: "Booking #1" },
-        { id: "2", image: undefined, tag: "Task", title: "Booking #2" },
-      ],
-      label: "Validated",
-      name: "validated",
-    },
-    {
-      count: 1,
-      isFetched: true,
-      items: [{ id: "3", image: undefined, tag: "Task", title: "Booking #3" }],
-      label: "Confirmed",
-      name: "confirmed",
-    },
-    {
-      count: 1,
-      isFetched: true,
-      items: [{ id: "4", image: undefined, tag: "Task", title: "Booking #4" }],
-      label: "Canceled",
-      name: "canceled",
-    },
-  ],
-};
-
 export const WithCustomStatusMapping = Template.bind({});
 WithCustomStatusMapping.args = {
   data: [
@@ -244,6 +196,24 @@ WithCustomStatusMapping.args = {
     draft: { color: "warning", variant: "filled" },
     review: { color: "info", variant: "filled" },
   },
+};
+
+export const LoadingKanban = Template.bind({});
+LoadingKanban.args = {
+  data: [
+    {
+      isLoading: true,
+      items: [],
+      label: "Validated",
+      name: "validated",
+    },
+    {
+      isLoading: true,
+      items: [],
+      label: "Confirmed",
+      name: "confirmed",
+    },
+  ],
 };
 
 export const EmptyKanban = Template.bind({});
