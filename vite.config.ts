@@ -27,10 +27,13 @@ const config: UserConfig = {
       external,
       output: {
         globals: {
-          // add react-window-infinite-loader && react-virtualized-auto-sizer
           "@mui/material": "material",
+          "@tracktor/react-utils": "TracktorReactUtils",
           react: "React",
           "react-dom": "ReactDOM",
+          "react-virtualized-auto-sizer": "ReactVirtualizedAutoSizer",
+          "react-window": "ReactWindow",
+          "react-window-infinite-loader": "ReactWindowInfiniteLoader",
         },
       },
     },
