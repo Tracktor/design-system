@@ -1,5 +1,6 @@
 import { Stack, Chip, Typography, Button } from "@mui/material";
 import type { StoryFn, Meta } from "@storybook/react-vite";
+import { fn } from "storybook/test";
 import Kanban from "@/components/DataDisplay/Kanban/Kanban";
 
 const Template: StoryFn<typeof Kanban> = (args) => (
@@ -7,6 +8,7 @@ const Template: StoryFn<typeof Kanban> = (args) => (
     <Kanban {...args} />
   </Stack>
 );
+
 export const SingleColumnDefaultTasks = Template.bind({});
 SingleColumnDefaultTasks.args = {
   data: [
@@ -21,6 +23,7 @@ SingleColumnDefaultTasks.args = {
       name: "todo",
     },
   ],
+  onColumnInView: fn(),
 };
 
 export const TwoColumnsBasic = Template.bind({});
@@ -41,18 +44,13 @@ TwoColumnsBasic.args = {
       name: "done",
     },
   ],
+  onColumnInView: fn(),
 };
 
 export const MixedColumnsWithEmpty = Template.bind({});
 MixedColumnsWithEmpty.args = {
   data: [
-    {
-      count: 0,
-      isFetched: true,
-      items: [],
-      label: "To Do",
-      name: "todo",
-    },
+    { count: 0, isFetched: true, items: [], label: "To Do", name: "todo" },
     {
       count: 1,
       isFetched: true,
@@ -61,6 +59,7 @@ MixedColumnsWithEmpty.args = {
       name: "inprogress",
     },
   ],
+  onColumnInView: fn(),
 };
 
 export const BookingStatusColumns = Template.bind({});
@@ -83,14 +82,9 @@ BookingStatusColumns.args = {
       label: "Confirmed",
       name: "confirmed",
     },
-    {
-      count: 0,
-      isFetched: true,
-      items: [],
-      label: "Started",
-      name: "started",
-    },
+    { count: 0, isFetched: true, items: [], label: "Started", name: "started" },
   ],
+  onColumnInView: fn(),
 };
 
 export const DealDataKanban = Template.bind({});
@@ -151,6 +145,7 @@ DealDataKanban.args = {
       name: "ended",
     },
   ],
+  onColumnInView: fn(),
 };
 
 export const FullyFilledCardsThreeColumns = Template.bind({});
@@ -286,10 +281,7 @@ FullyFilledCardsThreeColumns.args = {
       name: "done",
     },
   ],
-
-  loadMoreItems: (start: number, stop: number, status?: string) => console.log("loadMoreItems", { start, status, stop }),
-  onClickItem: (id: string) => console.log("onClickItem", id),
-  onColumnInView: (name: string) => console.log("onColumnInView", name),
+  onColumnInView: fn(),
 };
 
 export const StatusFlowSimulation = Template.bind({});
@@ -325,6 +317,7 @@ StatusFlowSimulation.args = {
       name: "canceled",
     },
   ],
+  onColumnInView: fn(),
 };
 
 export const WithCustomChipStatusMapping = Template.bind({});
@@ -357,6 +350,7 @@ WithCustomChipStatusMapping.args = {
     draft: { color: "warning", variant: "filled" },
     review: { color: "info", variant: "filled" },
   },
+  onColumnInView: fn(),
 };
 
 export const LoadingColumns = Template.bind({});
@@ -365,17 +359,18 @@ LoadingColumns.args = {
     { isLoading: true, items: [], label: "Validated", name: "validated" },
     { isLoading: true, items: [], label: "Confirmed", name: "confirmed" },
   ],
+  onColumnInView: fn(),
 };
 
 export const EmptyStateKanban = Template.bind({});
 EmptyStateKanban.args = {
   data: [],
   emptyState: {
-    buttonLink: "#",
     buttonText: "Create your first item",
     description: "There are currently no items to display in this Kanban board.",
     title: "No items available",
   },
+  onColumnInView: fn(),
 };
 
 export default {

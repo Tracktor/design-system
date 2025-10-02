@@ -1,5 +1,5 @@
 import { capitalize, useInView } from "@tracktor/react-utils";
-import { CSSProperties, ElementType, ReactElement, useEffect, useRef } from "react";
+import { CSSProperties, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
@@ -33,16 +33,13 @@ type KanbanItemProps = {
     gutterSize: number;
     onClickItem: KanbanProps["onClickItem"];
     items: KanbanDataItemProps[];
-    Link: ElementType;
   };
 };
 
 const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
   const { palette } = useTheme();
-  const { items, onClickItem, previewBookingId, gutterSize, Link } = data;
-
-  const { title, subtitles, tag, image, id, link, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle } =
-    items[index];
+  const { items, onClickItem, previewBookingId, gutterSize } = data;
+  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle } = items[index];
 
   const active = previewBookingId === id;
 
@@ -55,10 +52,8 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
       }}
     >
       <Card
-        component={link ? Link : "div"}
         variant="elevation"
         elevation={palette.mode === "dark" ? 5 : 0}
-        to={link || "#"}
         onClick={() => onClickItem?.(id)}
         sx={{
           "&:hover": {
@@ -211,7 +206,6 @@ interface ColumnProps {
   onClickItem?: KanbanProps["onClickItem"];
   loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
   onInView?: (name: string) => void;
-  Link: ElementType;
   headerColumnChip?: KanbanProps["headerColumnChip"];
 }
 
@@ -234,7 +228,6 @@ const Column = ({
   chipColumVariant,
   chipColumDot,
   chipStatus,
-  Link,
   headerColumnChip,
 }: ColumnProps) => {
   const onInViewTriggered = useRef<string[]>([]);
@@ -320,7 +313,7 @@ const Column = ({
                         itemCount={items.length}
                         width={autoWidth}
                         itemSize={(index) => computeKanbanCardHeight(items[index]) + gutterSize}
-                        itemData={{ gutterSize, items, Link, onClickItem, previewBookingId }}
+                        itemData={{ gutterSize, items, onClickItem, previewBookingId }}
                         onItemsRendered={onItemsRendered}
                         itemKey={(index, data) => data.items[index].id}
                       >

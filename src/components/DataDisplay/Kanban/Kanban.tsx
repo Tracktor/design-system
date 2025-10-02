@@ -1,4 +1,4 @@
-import { ElementType, isValidElement, MouseEvent, ReactElement, RefObject, useRef, useState } from "react";
+import { isValidElement, MouseEvent, ReactElement, RefObject, useRef, useState } from "react";
 import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
 import Column from "@/components/DataDisplay/Kanban/Column";
 import { Box, Stack, useTheme, ChipProps, Card, CardContent, Typography, Button } from "@/main";
@@ -107,7 +107,7 @@ export interface EmptyStateProps {
   title: string;
   description: string;
   buttonText: string;
-  buttonLink?: string;
+  onButtonClick?: () => void;
 }
 
 /**
@@ -131,7 +131,6 @@ export interface KanbanDataItemProps {
   subtitles?: SubtitleDataItemProps[];
   tag: string;
   title: string;
-  link?: string;
   Footer?: ReactElement;
   Alert?: ReactElement;
   RightFooter?: ReactElement;
@@ -202,20 +201,13 @@ export interface KanbanProps {
    */
   onColumnInView?: (name: string) => void;
   /**
-   * The component used for rendering links. Defaults to 'a' tag.
-   */
-  // todo: New Props to review -> replace Link from react-router
-  Link: ElementType;
-  /**
    * The ID of the booking to preview, obtained from the URL search parameters.
    */
-  // todo: New Props to review -> previously searchParams.get("previewBookingId") from react-router, now pass directly the id
   previewBookingId?: string;
   /**
    * Custom mapping of booking statuses to chip variants/colors.
    * Keys can be any string, but the value must be { color, variant? }.
    */
-  // todo: New Props to review -> allow custom mapping for status chip
   headerColumnChip?: HeaderColumnChip;
   /**
    * The Kanban data to be displayed.
@@ -235,11 +227,10 @@ export const computeKanbanCardHeight = (item: KanbanDataItemProps): number =>
   BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? HEIGHT_FOOTER : 0);
 
 interface EmptyStateOverlayProps {
-  Link: ElementType;
   emptyState?: KanbanProps["emptyState"];
 }
 
-const EmptyStateOverlay = ({ Link, emptyState }: EmptyStateOverlayProps) => {
+const EmptyStateOverlay = ({ emptyState }: EmptyStateOverlayProps) => {
   if (isValidElement(emptyState)) {
     return (
       <Stack
@@ -282,7 +273,7 @@ const EmptyStateOverlay = ({ Link, emptyState }: EmptyStateOverlayProps) => {
           <Typography variant="h3">{emptyState?.title}</Typography>
           <Typography variant="body3">{emptyState?.description}</Typography>
           <Box textAlign="center" mt={3}>
-            <Button variant="contained" to={emptyState?.buttonLink} component={Link}>
+            <Button variant="contained" onClick={emptyState?.onButtonClick}>
               {emptyState?.buttonText}
             </Button>
           </Box>
@@ -302,7 +293,6 @@ const Kanban = ({
   chipStatus,
   headerColumnChip,
   previewBookingId = "",
-  Link = "a",
   chipColumDot = true,
   height = "100%",
   itemPerPage = 50,
@@ -374,14 +364,13 @@ const Kanban = ({
               chipColumVariant={chipColumVariant}
               chipColumDot={chipColumDot}
               chipStatus={chipStatus}
-              Link={Link}
               headerColumnChip={headerColumnChip}
             />
           );
         })}
       </Stack>
 
-      {isEmpty && <EmptyStateOverlay emptyState={emptyState} Link={Link} />}
+      {isEmpty && <EmptyStateOverlay emptyState={emptyState} />}
     </Box>
   );
 };
