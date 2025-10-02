@@ -1,12 +1,63 @@
 import { capitalize, useInView } from "@tracktor/react-utils";
-import { ElementType, useEffect, useRef } from "react";
+import { ElementType, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
-import ChipStatusKanban from "@/components/DataDisplay/Kanban/ChipStatusKanban";
-import { computeKanbanCardHeight, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import {
+  computeKanbanCardHeight,
+  defaultKanbanChip,
+  HeaderColumnChip,
+  KanbanDataItemProps,
+  KanbanProps,
+} from "@/components/DataDisplay/Kanban/Kanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/VirtualizedKanbanItem";
-import { Box, Card, CircularProgress, Skeleton, Stack } from "@/main";
+import { Box, Card, Chip, ChipProps, CircularProgress, Skeleton, Stack } from "@/main";
+
+interface ChipStatusProps {
+  status?: keyof typeof defaultKanbanChip | keyof HeaderColumnChip | string;
+  size?: ChipProps["size"];
+  variant?: ChipProps["variant"];
+  lineThrough?: boolean;
+  dot?: boolean;
+  label?: string;
+  sx?: ChipProps["sx"];
+  deleteIcon?: ReactElement;
+  disabled?: boolean;
+  headerColumnChip?: HeaderColumnChip;
+}
+
+const ChipStatusKanban = ({
+  label,
+  status,
+  sx,
+  deleteIcon,
+  lineThrough,
+  disabled,
+  headerColumnChip,
+  dot = true,
+  variant = "outlined",
+  size = "small",
+}: ChipStatusProps) => {
+  const statusToLowerCase = String(status)?.toLowerCase();
+  const mapping = headerColumnChip ?? defaultKanbanChip;
+  const { color, variant: mappedVariant } = (statusToLowerCase && mapping[statusToLowerCase]) || { color: "default" };
+
+  return (
+    <Chip
+      lineThrough={lineThrough}
+      disabled={disabled}
+      dot={dot}
+      color={color}
+      deleteIcon={deleteIcon}
+      label={label}
+      size={size}
+      variant={mappedVariant || variant}
+      sx={sx}
+      data-test="dealStatus"
+      onDelete={deleteIcon ? () => {} : undefined}
+    />
+  );
+};
 
 interface ColumnProps {
   name: string;
