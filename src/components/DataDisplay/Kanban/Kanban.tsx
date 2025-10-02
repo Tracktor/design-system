@@ -1,7 +1,7 @@
-import { ElementType, MouseEvent, ReactElement, RefObject, useRef, useState } from "react";
+import { ElementType, isValidElement, MouseEvent, ReactElement, RefObject, useRef, useState } from "react";
+import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
 import Column from "@/components/DataDisplay/Kanban/Column";
-import EmptyStateOverlay from "@/components/DataDisplay/Kanban/EmptyStateOverlay";
-import { Box, Stack, useTheme, ChipProps } from "@/main";
+import { Box, Stack, useTheme, ChipProps, Card, CardContent, Typography, Button } from "@/main";
 
 const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -233,6 +233,64 @@ export const HEIGHT_FOOTER = 27;
 
 export const computeKanbanCardHeight = (item: KanbanDataItemProps): number =>
   BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? HEIGHT_FOOTER : 0);
+
+interface EmptyStateOverlayProps {
+  Link: ElementType;
+  emptyState?: KanbanProps["emptyState"];
+}
+
+const EmptyStateOverlay = ({ Link, emptyState }: EmptyStateOverlayProps) => {
+  if (isValidElement(emptyState)) {
+    return (
+      <Stack
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+        sx={{
+          backgroundColor: "background.default",
+          zIndex: 10,
+        }}
+      >
+        {emptyState}
+      </Stack>
+    );
+  }
+
+  return (
+    <Stack
+      position="absolute"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+      sx={{
+        backgroundColor: "background.default",
+        zIndex: 10,
+      }}
+    >
+      <Card sx={{ maxWidth: 370 }}>
+        <Box component="img" height={170} width="100%" src={worksiteCartoonImg} sx={{ objectFit: "cover", objectPosition: "top" }} />
+        <CardContent>
+          <Typography variant="h3">{emptyState?.title}</Typography>
+          <Typography variant="body3">{emptyState?.description}</Typography>
+          <Box textAlign="center" mt={3}>
+            <Button variant="contained" to={emptyState?.buttonLink} component={Link}>
+              {emptyState?.buttonText}
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Stack>
+  );
+};
 
 const Kanban = ({
   data,
