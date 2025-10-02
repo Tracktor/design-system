@@ -4,6 +4,57 @@ import Column from "@/components/DataDisplay/Kanban/Column";
 import EmptyStateOverlay from "@/components/DataDisplay/Kanban/EmptyStateOverlay";
 import useDragScroll from "@/components/DataDisplay/Kanban/hooks/useDragScroll";
 
+/**
+ * Props for configuring the empty state of the Kanban component.
+ */
+export interface EmptyStateProps {
+  title: string;
+  description: string;
+  buttonText: string;
+  buttonLink?: string;
+}
+
+/**
+ * Props for each subtitle item in a Kanban card.
+ */
+export interface SubtitleDataItemProps {
+  text: string;
+  LeftIcon?: ReactElement;
+}
+
+/**
+ * Props for each item in a Kanban column.
+ * Each item represents a card in the Kanban board.
+ */
+export interface KanbanDataItemProps {
+  id: string;
+  image: string | undefined;
+  imageTitle?: string;
+  secondaryImage?: string;
+  secondaryImageText?: string;
+  subtitles?: SubtitleDataItemProps[];
+  tag: string;
+  title: string;
+  link?: string;
+  Footer?: ReactElement;
+  Alert?: ReactElement;
+  RightFooter?: ReactElement;
+}
+
+/**
+ * Props for each column in the Kanban board.
+ * Each column contains multiple Kanban items.
+ */
+export interface KanbanDataProps {
+  name: string;
+  label?: string;
+  count?: number;
+  isLoading?: boolean;
+  isFetching?: boolean;
+  isFetched?: boolean;
+  items: KanbanDataItemProps[];
+}
+
 export interface KanbanProps {
   /**
    * The height of the Kanban component.
@@ -59,52 +110,17 @@ export interface KanbanProps {
    */
   Link: ElementType;
   /**
-   * The Kanban data to be displayed.
-   */
-  /**
    * The ID of the booking to preview, obtained from the URL search parameters.
    */
   previewBookingId?: string;
-  data: {
-    /**
-     * The name of the Kanban column.
-     * Should be unique across all columns.
-     */
-    name: string;
-    label?: string;
-    count?: number;
-    isLoading?: boolean;
-    isFetching?: boolean;
-    isFetched?: boolean;
-    items: {
-      id: string;
-      image: string | undefined;
-      imageTitle?: string;
-      secondaryImage?: string;
-      secondaryImageText?: string;
-      subtitles?: {
-        text: string;
-        LeftIcon?: ReactElement;
-      }[];
-      tag: string;
-      title: string;
-      link?: string;
-      Footer?: ReactElement;
-      Alert?: ReactElement;
-      RightFooter?: ReactElement;
-    }[];
-  }[];
+  /**
+   * The Kanban data to be displayed.
+   */
+  data: KanbanDataProps[];
   /**
    * Optional empty state configuration.
    */
-  emptyState?:
-    | ReactElement
-    | {
-        title: string;
-        description: string;
-        buttonText: string;
-        buttonLink?: string;
-      };
+  emptyState?: ReactElement | EmptyStateProps;
 }
 
 export const BASE_HEIGHT_CARD = 76;
