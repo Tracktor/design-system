@@ -12,7 +12,7 @@ export const SingleColumnSingleItem = Template.bind({});
 SingleColumnSingleItem.args = {
   data: [
     {
-      count: 1,
+      count: 2,
       isFetched: true,
       items: [
         {
@@ -20,6 +20,12 @@ SingleColumnSingleItem.args = {
           image: undefined,
           tag: "Task",
           title: "My first task",
+        },
+        {
+          id: "2",
+          image: undefined,
+          tag: "Task",
+          title: "My second task",
         },
       ],
       label: "To Do",
@@ -85,6 +91,95 @@ ColumnEmptyButNotAll.args = {
       ],
       label: "In Progress",
       name: "inprogress",
+    },
+  ],
+};
+
+export const StatusColumns = Template.bind({});
+StatusColumns.args = {
+  data: [
+    {
+      count: 2,
+      isFetched: true,
+      items: [
+        { id: "1", image: undefined, tag: "Task", title: "Booking #1" },
+        { id: "2", image: undefined, tag: "Task", title: "Booking #2" },
+      ],
+      label: "Validated",
+      name: "validated",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "3", image: undefined, tag: "Task", title: "Booking #3" }],
+      label: "Confirmed",
+      name: "confirmed",
+    },
+    {
+      count: 0,
+      isFetched: true,
+      items: [],
+      label: "Started",
+      name: "started",
+    },
+  ],
+};
+
+export const StatusChangeSimulation = Template.bind({});
+StatusChangeSimulation.args = {
+  data: [
+    {
+      count: 0,
+      isFetched: true,
+      items: [],
+      label: "Validated",
+      name: "validated",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [
+        {
+          id: "5",
+          image: undefined,
+          tag: "Task",
+          title: "Booking #5",
+        },
+      ],
+      label: "Confirmed",
+      name: "confirmed",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [
+        {
+          id: "6",
+          image: undefined,
+          tag: "Task",
+          title: "Booking #6 (moved from confirmed)",
+        },
+      ],
+      label: "Started",
+      name: "started",
+    },
+  ],
+};
+
+export const LoadingKanban = Template.bind({});
+LoadingKanban.args = {
+  data: [
+    {
+      isLoading: true,
+      items: [],
+      label: "Validated",
+      name: "validated",
+    },
+    {
+      isLoading: true,
+      items: [],
+      label: "Confirmed",
+      name: "confirmed",
     },
   ],
 };
