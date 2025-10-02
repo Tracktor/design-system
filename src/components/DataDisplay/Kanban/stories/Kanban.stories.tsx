@@ -8,8 +8,8 @@ const Template: StoryFn<typeof Kanban> = (args) => (
   </Stack>
 );
 
-export const SingleColumnSingleItem = Template.bind({});
-SingleColumnSingleItem.args = {
+export const Default: StoryFn<typeof Kanban> = Template.bind({});
+Default.args = {
   data: [
     {
       count: 2,
@@ -197,5 +197,12 @@ EmptyKanban.args = {
 
 export default {
   component: Kanban,
+  parameters: {
+    docs: {
+      description: {
+        component: "Kanban component for displaying tasks in columns.",
+      },
+    },
+  },
   title: "Components/Data Display/Kanban",
 } as Meta<typeof Kanban>;
