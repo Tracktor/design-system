@@ -110,7 +110,6 @@ FullyFilledCardsThreeColumns.args = {
           id: "1",
           image: "https://picsum.photos/seed/11/100/100",
           imageTitle: "Task image",
-          link: "#",
           RightFooter: (
             <Button size="small" variant="outlined">
               Open
@@ -132,7 +131,6 @@ FullyFilledCardsThreeColumns.args = {
           id: "2",
           image: "https://picsum.photos/seed/12/100/100",
           imageTitle: "Task image",
-          link: "#",
           RightFooter: (
             <Button size="small" variant="contained" color="primary">
               Edit
@@ -162,7 +160,7 @@ FullyFilledCardsThreeColumns.args = {
           id: "3",
           image: "https://picsum.photos/seed/21/100/100",
           imageTitle: "Progress image",
-          link: "#",
+          link: "",
           RightFooter: (
             <Button size="small" variant="outlined" color="secondary">
               Details
@@ -192,7 +190,6 @@ FullyFilledCardsThreeColumns.args = {
           id: "4",
           image: "https://picsum.photos/seed/31/100/100",
           imageTitle: "Preview image",
-          link: "#",
           RightFooter: (
             <Button size="small" variant="outlined" color="primary">
               View
@@ -214,7 +211,6 @@ FullyFilledCardsThreeColumns.args = {
           id: "5",
           image: "https://picsum.photos/seed/32/100/100",
           imageTitle: "Preview image",
-          link: "#",
           RightFooter: (
             <Button size="small" variant="contained" color="success">
               Report
