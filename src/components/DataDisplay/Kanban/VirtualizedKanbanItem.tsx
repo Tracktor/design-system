@@ -1,6 +1,6 @@
 import { CSSProperties, ElementType } from "react";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
-import { BASE_HEIGHT_CARD, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import { computeKanbanCardHeight, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
 import { Typography, Box, Card, Chip, Stack, Tooltip, useTheme } from "@/main";
 
 const IMG_SIZE = 40;
@@ -63,7 +63,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
           boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
           cursor: "pointer",
           flexShrink: 0,
-          height: Number(BASE_HEIGHT_CARD + (subtitles?.length || 0) * BASE_HEIGHT_CARD),
+          height: computeKanbanCardHeight({ Footer, RightFooter, subtitles } as KanbanDataItemProps),
           p: 1.5,
           textDecoration: "none",
         }}
@@ -124,9 +124,9 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
             </Stack>
 
             {(Footer || RightFooter) && (
-              <Stack spacing={1} direction="row" alignItems="center" flex={1}>
+              <Stack spacing={1} direction="row" alignItems="center" mt={1}>
                 {Footer && <Box flex={1}>{Footer}</Box>}
-                {RightFooter && RightFooter}
+                {RightFooter}
               </Stack>
             )}
           </Stack>

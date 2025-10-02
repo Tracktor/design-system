@@ -4,7 +4,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/ChipStatusKanban";
-import { BASE_HEIGHT_CARD, HEIGHT_LINE_BODY3, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import { computeKanbanCardHeight, KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/VirtualizedKanbanItem";
 import { Box, Card, CircularProgress, Skeleton, Stack } from "@/main";
 
@@ -135,10 +135,7 @@ const Column = ({
                         height={autoHeight}
                         itemCount={items.length}
                         width={autoWidth}
-                        itemSize={(index) => {
-                          const item = items[index];
-                          return BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3 + gutterSize;
-                        }}
+                        itemSize={(index) => computeKanbanCardHeight(items[index]) + gutterSize}
                         itemData={{ gutterSize, items, Link, onClickItem, previewBookingId }}
                         onItemsRendered={onItemsRendered}
                         itemKey={(index, data) => data.items[index].id}

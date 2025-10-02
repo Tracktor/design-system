@@ -161,6 +161,10 @@ export interface KanbanProps {
 
 export const BASE_HEIGHT_CARD = 76;
 export const HEIGHT_LINE_BODY3 = 18;
+export const HEIGHT_FOOTER = 27;
+
+export const computeKanbanCardHeight = (item: KanbanDataItemProps): number =>
+  BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? HEIGHT_FOOTER : 0);
 
 const Kanban = ({
   data,

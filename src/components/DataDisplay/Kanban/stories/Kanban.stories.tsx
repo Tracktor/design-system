@@ -93,6 +93,66 @@ BookingStatusColumns.args = {
   ],
 };
 
+export const DealDataKanban = Template.bind({});
+DealDataKanban.args = {
+  data: [
+    {
+      count: 1,
+      isFetched: true,
+      items: [
+        {
+          id: "17483",
+          image: "https://picsum.photos/seed/ballon/160/160",
+          imageTitle: "LocMat",
+          secondaryImage: "https://picsum.photos/seed/logo1/64/64",
+          secondaryImageText: "L",
+          subtitles: [{ text: "CODE123" }, { text: "Chantier A" }],
+          tag: "N° 17483",
+          title: "Ballon éclairant [gen]",
+        },
+      ],
+      label: "Validé",
+      name: "validated",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [
+        {
+          id: "15692",
+          image: "https://picsum.photos/seed/chariot/160/160",
+          imageTitle: "Manitou",
+          secondaryImage: "https://picsum.photos/seed/logo2/64/64",
+          secondaryImageText: "M",
+          subtitles: [{ text: "MT-25" }, { text: "01 Oct → 08 Oct 2025" }, { text: "Chantier B" }],
+          tag: "N° 15692",
+          title: "Chariot télescopique 2,5t",
+        },
+      ],
+      label: "Confirmé",
+      name: "confirmed",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [
+        {
+          id: "16918",
+          image: "https://picsum.photos/seed/laveuse/160/160",
+          imageTitle: "Karcher",
+          secondaryImage: "https://picsum.photos/seed/logo3/64/64",
+          secondaryImageText: "K",
+          subtitles: [{ text: "LV-99" }, { text: "01 Oct → 16 Oct 2025" }, { text: "Chantier C" }],
+          tag: "N° 16918",
+          title: "Laveuse de sol",
+        },
+      ],
+      label: "Terminé",
+      name: "ended",
+    },
+  ],
+};
+
 export const FullyFilledCardsThreeColumns = Template.bind({});
 FullyFilledCardsThreeColumns.args = {
   data: [
@@ -160,7 +220,6 @@ FullyFilledCardsThreeColumns.args = {
           id: "3",
           image: "https://picsum.photos/seed/21/100/100",
           imageTitle: "Progress image",
-          link: "",
           RightFooter: (
             <Button size="small" variant="outlined" color="secondary">
               Details
@@ -227,6 +286,10 @@ FullyFilledCardsThreeColumns.args = {
       name: "done",
     },
   ],
+
+  loadMoreItems: (start: number, stop: number, status?: string) => console.log("loadMoreItems", { start, status, stop }),
+  onClickItem: (id: string) => console.log("onClickItem", id),
+  onColumnInView: (name: string) => console.log("onColumnInView", name),
 };
 
 export const StatusFlowSimulation = Template.bind({});
