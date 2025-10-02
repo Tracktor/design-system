@@ -1,8 +1,36 @@
-import { Box, Stack, useTheme } from "@mui/material";
 import { ElementType, ReactElement, useRef } from "react";
 import Column from "@/components/DataDisplay/Kanban/Column";
 import EmptyStateOverlay from "@/components/DataDisplay/Kanban/EmptyStateOverlay";
 import useDragScroll from "@/components/DataDisplay/Kanban/hooks/useDragScroll";
+import { Box, Stack, useTheme, ChipProps } from "@/main";
+
+export type KanbanChipFormat = {
+  color: ChipProps["color"];
+  variant?: ChipProps["variant"];
+};
+
+export type KanbanChipMapping = Record<string, KanbanChipFormat>;
+
+/**
+ * Mapping of booking statuses to their corresponding chip variants and colors.
+ * This is used to style the status chips in the Kanban columns.
+ */
+export const variantKanbanChip: Record<string, KanbanChipFormat> = {
+  canceled: { color: "error" },
+  confirmed: { color: "success" },
+  costing: { color: "default" },
+  ended: { color: "default" },
+  linking: { color: "info" },
+  oneShot: { color: "success" },
+  quotation: { color: "default" },
+  request: { color: "warning" },
+  requested: { color: "info" },
+  started: { color: "success" },
+  subleasing: { color: "warning" },
+  validated: { color: "warning" },
+  waiting_for_confirmation: { color: "info" },
+  waiting_for_validation: { color: "success" },
+};
 
 /**
  * Props for configuring the empty state of the Kanban component.
@@ -108,11 +136,19 @@ export interface KanbanProps {
   /**
    * The component used for rendering links. Defaults to 'a' tag.
    */
+  // todo: New Props to review -> replace Link from react-router
   Link: ElementType;
   /**
    * The ID of the booking to preview, obtained from the URL search parameters.
    */
+  // todo: New Props to review -> previously searchParams.get("previewBookingId") from react-router, now pass directly the id
   previewBookingId?: string;
+  /**
+   * Custom mapping of booking statuses to chip variants/colors.
+   * Keys can be any string, but the value must be { color, variant? }.
+   */
+  // todo: New Props to review -> allow custom mapping for status chip
+  statusChipMapping?: KanbanChipMapping;
   /**
    * The Kanban data to be displayed.
    */
@@ -134,6 +170,7 @@ const Kanban = ({
   emptyState,
   chipColumVariant,
   chipStatus,
+  statusChipMapping,
   previewBookingId = "",
   Link = "a",
   chipColumDot = true,
@@ -208,6 +245,7 @@ const Kanban = ({
               chipColumDot={chipColumDot}
               chipStatus={chipStatus}
               Link={Link}
+              statusChipMapping={statusChipMapping}
             />
           );
         })}

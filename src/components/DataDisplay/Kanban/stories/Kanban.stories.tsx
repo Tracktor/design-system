@@ -184,6 +184,68 @@ LoadingKanban.args = {
   ],
 };
 
+export const WithDefaultStatusMapping = Template.bind({});
+WithDefaultStatusMapping.args = {
+  data: [
+    {
+      count: 2,
+      isFetched: true,
+      items: [
+        { id: "1", image: undefined, tag: "Task", title: "Booking #1" },
+        { id: "2", image: undefined, tag: "Task", title: "Booking #2" },
+      ],
+      label: "Validated",
+      name: "validated",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "3", image: undefined, tag: "Task", title: "Booking #3" }],
+      label: "Confirmed",
+      name: "confirmed",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "4", image: undefined, tag: "Task", title: "Booking #4" }],
+      label: "Canceled",
+      name: "canceled",
+    },
+  ],
+};
+
+export const WithCustomStatusMapping = Template.bind({});
+WithCustomStatusMapping.args = {
+  data: [
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "5", image: undefined, tag: "Task", title: "Archived task" }],
+      label: "Archived",
+      name: "archived",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "6", image: undefined, tag: "Task", title: "Draft task" }],
+      label: "Draft",
+      name: "draft",
+    },
+    {
+      count: 1,
+      isFetched: true,
+      items: [{ id: "7", image: undefined, tag: "Task", title: "In Review" }],
+      label: "In Review",
+      name: "review",
+    },
+  ],
+  statusChipMapping: {
+    archived: { color: "default", variant: "outlined" },
+    draft: { color: "warning", variant: "filled" },
+    review: { color: "info", variant: "filled" },
+  },
+};
+
 export const EmptyKanban = Template.bind({});
 EmptyKanban.args = {
   data: [],

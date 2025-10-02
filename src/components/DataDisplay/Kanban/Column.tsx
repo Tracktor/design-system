@@ -3,8 +3,8 @@ import { ElementType, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
-import ChipStatus from "@/components/DataDisplay/Kanban/ChipStatusKanban";
-import { BASE_HEIGHT_CARD, HEIGHT_LINE_BODY3, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import ChipStatusKanban from "@/components/DataDisplay/Kanban/ChipStatusKanban";
+import { BASE_HEIGHT_CARD, HEIGHT_LINE_BODY3, KanbanChipMapping, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/VirtualizedKanbanItem";
 import { Box, Card, CircularProgress, Skeleton, Stack } from "@/main";
 
@@ -28,6 +28,7 @@ interface ColumnProps {
   loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
   onInView?: (name: string) => void;
   Link: ElementType;
+  statusChipMapping?: KanbanChipMapping;
 }
 
 const Column = ({
@@ -50,6 +51,7 @@ const Column = ({
   chipColumDot,
   chipStatus,
   Link,
+  statusChipMapping,
 }: ColumnProps) => {
   const onInViewTriggered = useRef<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -99,12 +101,13 @@ const Column = ({
       >
         <Stack height="100%">
           <Stack direction="row" alignItems="center" spacing={1} padding={2} justifyContent="space-between">
-            <ChipStatus
+            <ChipStatusKanban
               dot={chipColumDot}
               label={`${capitalize(label || name)}${getCountLabel()}`}
               variant={chipColumVariant}
               status={chipStatus || name}
               size="small"
+              statusMapping={statusChipMapping}
               sx={{ alignSelf: "flex-start" }}
             />
             {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
