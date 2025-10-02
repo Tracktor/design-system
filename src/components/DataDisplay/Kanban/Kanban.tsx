@@ -238,11 +238,10 @@ export interface KanbanProps {
 
 const BASE_HEIGHT_CARD = 76;
 const HEIGHT_LINE_BODY3 = 18;
-const HEIGHT_FOOTER = 27;
 const IMG_SIZE = 40;
 
 export const computeKanbanCardHeight = (item: KanbanDataItemProps): number =>
-  BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? HEIGHT_FOOTER : 0);
+  BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3;
 
 const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
   if (isValidElement(emptyState)) {
@@ -411,7 +410,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
             </Stack>
 
             {(Footer || RightFooter) && (
-              <Stack spacing={1} direction="row" alignItems="center" mt={1}>
+              <Stack spacing={1} direction="row" alignItems="center">
                 {Footer && <Box flex={1}>{Footer}</Box>}
                 {RightFooter}
               </Stack>

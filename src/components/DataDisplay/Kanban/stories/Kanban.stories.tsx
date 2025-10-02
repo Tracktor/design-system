@@ -1,7 +1,7 @@
-import { Stack, Chip, Typography, Button } from "@mui/material";
 import type { StoryFn, Meta } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 import Kanban from "@/components/DataDisplay/Kanban/Kanban";
+import { Stack, Chip, Typography, Button } from "@/main";
 
 const Template: StoryFn<typeof Kanban> = (args) => (
   <Stack flex={1} minHeight={0} height="100%">
@@ -166,7 +166,7 @@ FullyFilledCardsThreeColumns.args = {
           image: "https://picsum.photos/seed/11/100/100",
           imageTitle: "Task image",
           RightFooter: (
-            <Button size="small" variant="outlined">
+            <Button size="xSmall" variant="outlined">
               Open
             </Button>
           ),
@@ -187,7 +187,7 @@ FullyFilledCardsThreeColumns.args = {
           image: "https://picsum.photos/seed/12/100/100",
           imageTitle: "Task image",
           RightFooter: (
-            <Button size="small" variant="contained" color="primary">
+            <Button size="xSmall" variant="contained" color="primary">
               Edit
             </Button>
           ),
@@ -216,7 +216,7 @@ FullyFilledCardsThreeColumns.args = {
           image: "https://picsum.photos/seed/21/100/100",
           imageTitle: "Progress image",
           RightFooter: (
-            <Button size="small" variant="outlined" color="secondary">
+            <Button size="xSmall" variant="outlined" color="secondary">
               Details
             </Button>
           ),
@@ -245,7 +245,7 @@ FullyFilledCardsThreeColumns.args = {
           image: "https://picsum.photos/seed/31/100/100",
           imageTitle: "Preview image",
           RightFooter: (
-            <Button size="small" variant="outlined" color="primary">
+            <Button size="xSmall" variant="outlined" color="primary">
               View
             </Button>
           ),
@@ -266,7 +266,7 @@ FullyFilledCardsThreeColumns.args = {
           image: "https://picsum.photos/seed/32/100/100",
           imageTitle: "Preview image",
           RightFooter: (
-            <Button size="small" variant="contained" color="success">
+            <Button size="xSmall" variant="contained" color="success">
               Report
             </Button>
           ),
