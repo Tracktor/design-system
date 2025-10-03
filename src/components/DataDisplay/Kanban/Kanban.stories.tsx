@@ -366,6 +366,7 @@ EmptyStateKanban.args = {
 
 export default {
   args: {
+    // Pass void functions for required callbacks, otherwise Storybook will complain
     onColumnInView: () => {},
   },
   component: Kanban,
