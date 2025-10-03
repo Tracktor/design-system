@@ -28,8 +28,12 @@ const config: UserConfig = {
       output: {
         globals: {
           "@mui/material": "material",
+          "@tracktor/react-utils": "TracktorReactUtils",
           react: "React",
           "react-dom": "ReactDOM",
+          "react-virtualized-auto-sizer": "ReactVirtualizedAutoSizer",
+          "react-window": "ReactWindow",
+          "react-window-infinite-loader": "ReactWindowInfiniteLoader",
         },
       },
     },
