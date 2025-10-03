@@ -1,5 +1,4 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
-import { fn } from "storybook/test";
 import Kanban from "@/components/DataDisplay/Kanban/Kanban";
 import { Stack, Chip, Typography, Button } from "@/main";
 
@@ -23,7 +22,6 @@ SingleColumnDefaultTasks.args = {
       name: "todo",
     },
   ],
-  onColumnInView: fn(),
 };
 
 export const TwoColumnsBasic = Template.bind({});
@@ -44,7 +42,6 @@ TwoColumnsBasic.args = {
       name: "done",
     },
   ],
-  onColumnInView: fn(),
 };
 
 export const MixedColumnsWithEmpty = Template.bind({});
@@ -59,7 +56,6 @@ MixedColumnsWithEmpty.args = {
       name: "inprogress",
     },
   ],
-  onColumnInView: fn(),
 };
 
 export const BookingStatusColumns = Template.bind({});
@@ -84,7 +80,6 @@ BookingStatusColumns.args = {
     },
     { count: 0, isFetched: true, items: [], label: "Started", name: "started" },
   ],
-  onColumnInView: fn(),
 };
 
 export const DealDataKanban = Template.bind({});
@@ -145,7 +140,6 @@ DealDataKanban.args = {
       name: "ended",
     },
   ],
-  onColumnInView: fn(),
 };
 
 export const FullyFilledCardsThreeColumns = Template.bind({});
@@ -281,7 +275,6 @@ FullyFilledCardsThreeColumns.args = {
       name: "done",
     },
   ],
-  onColumnInView: fn(),
 };
 
 export const StatusFlowSimulation = Template.bind({});
@@ -317,7 +310,6 @@ StatusFlowSimulation.args = {
       name: "canceled",
     },
   ],
-  onColumnInView: fn(),
 };
 
 export const WithCustomChipStatusMapping = Template.bind({});
@@ -350,7 +342,6 @@ WithCustomChipStatusMapping.args = {
     draft: { color: "warning", variant: "filled" },
     review: { color: "info", variant: "filled" },
   },
-  onColumnInView: fn(),
 };
 
 export const LoadingColumns = Template.bind({});
@@ -359,7 +350,6 @@ LoadingColumns.args = {
     { isLoading: true, items: [], label: "Validated", name: "validated" },
     { isLoading: true, items: [], label: "Confirmed", name: "confirmed" },
   ],
-  onColumnInView: fn(),
 };
 
 export const EmptyStateKanban = Template.bind({});
@@ -370,7 +360,6 @@ EmptyStateKanban.args = {
     description: "There are currently no items to display in this Kanban board.",
     title: "No items available",
   },
-  onColumnInView: fn(),
 };
 
 export default {
