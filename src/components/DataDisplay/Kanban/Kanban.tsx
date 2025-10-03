@@ -1,24 +1,15 @@
+import { Box, Stack, ChipProps, CardContent, Card, useTheme, CircularProgress, Skeleton } from "@mui/material";
 import { capitalize, useInView } from "@tracktor/react-utils";
 import { CSSProperties, isValidElement, MouseEvent, ReactElement, RefObject, useEffect, useRef, useState } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
-import {
-  Box,
-  Stack,
-  useTheme,
-  ChipProps,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Chip,
-  CircularProgress,
-  Skeleton,
-  Tooltip,
-  ArticleImage,
-} from "@/main";
+import ArticleImage from "@/components/DataDisplay/ArticleImage";
+import Chip from "@/components/DataDisplay/Chip/Chip";
+import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
+import Typography from "@/components/DataDisplay/Typography/stories/Typography";
+import Button from "@/components/Inputs/Button/stories/Button";
 
 const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
   const [isDragging, setIsDragging] = useState(false);

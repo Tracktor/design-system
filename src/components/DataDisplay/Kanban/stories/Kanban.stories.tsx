@@ -1,6 +1,8 @@
+import { Chip, Stack } from "@mui/material";
 import type { StoryFn, Meta } from "@storybook/react-vite";
-import Kanban from "@/components/DataDisplay/Kanban/Kanban";
-import { Stack, Chip, Typography, Button } from "@/main";
+import Kanban from "./Kanban";
+import Typography from "@/components/DataDisplay/Typography/stories/Typography";
+import Button from "@/components/Inputs/Button/Button";
 
 const Template: StoryFn<typeof Kanban> = (args) => (
   <Stack flex={1} minHeight={0} height="100%">
