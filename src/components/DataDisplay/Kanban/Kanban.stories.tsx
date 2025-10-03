@@ -365,6 +365,11 @@ EmptyStateKanban.args = {
 };
 
 export default {
+  args: {
+    onColumnInView: () => {
+      /* no-op */
+    },
+  },
   component: Kanban,
   parameters: {
     docs: {
