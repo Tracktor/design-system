@@ -401,8 +401,8 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
                   >
                     {LeftIcon}
                     {onClick ? (
-                      <Button variant="link">
-                        <Typography noWrap variant="body3" color="textSecondary">
+                      <Button variant="link" sx={{ color: "text.secondary" }}>
+                        <Typography noWrap variant="body3">
                           {text}
                         </Typography>
                       </Button>
