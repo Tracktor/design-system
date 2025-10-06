@@ -113,8 +113,8 @@ export const defaultKanbanChip: Record<string, KanbanChipFormat> = {
  */
 export interface EmptyStateProps {
   title: string;
-  description: string;
-  buttonText: string;
+  description?: string;
+  buttonText?: string;
   onButtonClick?: () => void;
 }
 
@@ -124,6 +124,7 @@ export interface EmptyStateProps {
 export interface SubtitleDataItemProps {
   text: string;
   LeftIcon?: ReactElement;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
 
 /**
@@ -227,12 +228,16 @@ export interface KanbanProps {
   emptyState?: ReactElement | EmptyStateProps;
 }
 
-const BASE_HEIGHT_CARD = 76;
 const HEIGHT_LINE_BODY3 = 18;
 const IMG_SIZE = 40;
 
-export const computeKanbanCardHeight = (item: KanbanDataItemProps): number =>
-  BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3;
+export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
+  if (item.subtitles?.length) {
+    return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0);
+  }
+
+  return 64 + (item.Footer || item.RightFooter ? 25 : 0);
+};
 
 const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
   if (isValidElement(emptyState)) {
@@ -275,12 +280,14 @@ const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyStat
         <Box component="img" height={170} width="100%" src={worksiteCartoonImg} sx={{ objectFit: "cover", objectPosition: "top" }} />
         <CardContent>
           <Typography variant="h3">{emptyState?.title}</Typography>
-          <Typography variant="body3">{emptyState?.description}</Typography>
-          <Box textAlign="center" mt={3}>
-            <Button variant="contained" onClick={emptyState?.onButtonClick}>
-              {emptyState?.buttonText}
-            </Button>
-          </Box>
+          {emptyState?.description && <Typography variant="body3">{emptyState.description}</Typography>}
+          {emptyState?.buttonText && (
+            <Box textAlign="center" mt={3}>
+              <Button variant="contained" onClick={emptyState?.onButtonClick}>
+                {emptyState.buttonText}
+              </Button>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </Stack>
@@ -375,20 +382,33 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
             <Stack direction="row" spacing={1} flex={1}>
               <Stack flex={1} overflow="hidden">
                 <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
-                  <Typography variant="h6" noWrap>
+                  <Typography noWrap variant="h6">
                     {title}
                   </Typography>
                 </Tooltip>
 
-                {subtitles?.map(({ text, LeftIcon }) => (
-                  <Tooltip key={text} title={text} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
-                    <Stack direction="row" alignItems="center" spacing={0.5} overflow="hidden">
-                      {LeftIcon}
-                      <Typography variant="body3" color="textSecondary" noWrap>
+                {subtitles?.map(({ text, LeftIcon, onClick }) => (
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    spacing={0.5}
+                    overflow="hidden"
+                    onClick={(e) => onClick?.(e)}
+                    sx={onClick ? { cursor: "pointer" } : undefined}
+                  >
+                    {LeftIcon}
+                    {onClick ? (
+                      <Button variant="link">
+                        <Typography noWrap variant="body3" color="textSecondary">
+                          {text}
+                        </Typography>
+                      </Button>
+                    ) : (
+                      <Typography noWrap variant="body3" color="textSecondary">
                         {text}
                       </Typography>
-                    </Stack>
-                  </Tooltip>
+                    )}
+                  </Stack>
                 ))}
               </Stack>
 
@@ -401,7 +421,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
             </Stack>
 
             {(Footer || RightFooter) && (
-              <Stack spacing={1} direction="row" alignItems="center">
+              <Stack spacing={1} direction="row" alignItems="center" mt={1}>
                 {Footer && <Box flex={1}>{Footer}</Box>}
                 {RightFooter}
               </Stack>

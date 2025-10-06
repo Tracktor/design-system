@@ -346,6 +346,55 @@ WithCustomChipStatusMapping.args = {
   },
 };
 
+export const SubtitleActions = Template.bind({});
+SubtitleActions.args = {
+  data: [
+    {
+      count: 2,
+      isFetched: true,
+      items: [
+        {
+          Footer: <Chip color="info" size="small" label="Summer" variant="outlined-rounded" />,
+          id: "17605",
+          image: "https://picsum.photos/seed/abri/160/160",
+          imageTitle: "Abri de chantier isolé équipé sur roues",
+          secondaryImage: "https://picsum.photos/seed/logo1/64/64",
+          secondaryImageText: "V",
+          subtitles: [{ text: "Élévateur - GS-1532" }, { text: "08 Oct → 12 Oct 2025" }, { text: "SGP LIGNE 17 TRIANGLE GONESSE" }],
+          tag: "N° 17605",
+          title: "HELLO CONSTRUCTION",
+        },
+        {
+          id: "18098",
+          image: "https://picsum.photos/seed/betonniere/160/160",
+          imageTitle: "Bétonnière électrique - 100 L",
+          secondaryImage: "https://picsum.photos/seed/logo2/64/64",
+          secondaryImageText: "V",
+          subtitles: [
+            {
+              LeftIcon: <span style={{ fontSize: 16 }}>➕</span>,
+              onClick: (event) => {
+                event.stopPropagation();
+                // eslint-disable-next-line no-alert
+                alert("Add resource clicked");
+              },
+              text: "Add resource",
+            },
+            { text: "100 €/jour · 13 Oct → 19 Oct 2025" },
+            { text: "SGP LIGNE 17 TRIANGLE GONESSE" },
+          ],
+          tag: "N° 18098",
+          title: "WORLD CONSTRUCTION",
+        },
+      ],
+      label: "Waiting for confirmation",
+      name: "waiting_for_confirmation",
+    },
+  ],
+  // eslint-disable-next-line no-alert
+  onClickItem: () => alert(`Clicked on item`),
+};
+
 export const LoadingColumns = Template.bind({});
 LoadingColumns.args = {
   data: [
