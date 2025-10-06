@@ -346,15 +346,15 @@ WithCustomChipStatusMapping.args = {
   },
 };
 
-export const DealSupplierKanban = Template.bind({});
-DealSupplierKanban.args = {
+export const SubtitleActions = Template.bind({});
+SubtitleActions.args = {
   data: [
     {
       count: 2,
       isFetched: true,
       items: [
         {
-          Footer: <Chip color="info" size="small" label="Passed" variant="outlined-rounded" />,
+          Footer: <Chip color="info" size="small" label="Summer" variant="outlined-rounded" />,
           id: "17605",
           image: "https://picsum.photos/seed/abri/160/160",
           imageTitle: "Abri de chantier isolé équipé sur roues",

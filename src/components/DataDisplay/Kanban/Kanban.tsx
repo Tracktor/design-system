@@ -228,12 +228,16 @@ export interface KanbanProps {
   emptyState?: ReactElement | EmptyStateProps;
 }
 
-const BASE_HEIGHT_CARD = 76;
 const HEIGHT_LINE_BODY3 = 18;
 const IMG_SIZE = 40;
 
-export const computeKanbanCardHeight = (item: KanbanDataItemProps): number =>
-  BASE_HEIGHT_CARD + (item.subtitles?.length || 0) * HEIGHT_LINE_BODY3;
+export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
+  if (item.subtitles?.length) {
+    return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0);
+  }
+
+  return 64 + (item.Footer || item.RightFooter ? 25 : 0);
+};
 
 const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
   if (isValidElement(emptyState)) {
