@@ -322,7 +322,7 @@ WithCustomChipStatusMapping.args = {
       isFetched: true,
       items: [{ id: "5", image: undefined, tag: "Task", title: "Archived task" }],
       label: "Archived",
-      name: "archived",
+      name: "archivedItem",
     },
     {
       count: 1,
@@ -340,7 +340,7 @@ WithCustomChipStatusMapping.args = {
     },
   ],
   headerColumnChip: {
-    archived: { color: "default", variant: "outlined" },
+    archivedItem: { color: "error", variant: "outlined" },
     draft: { color: "warning", variant: "filled" },
     review: { color: "info", variant: "filled" },
   },

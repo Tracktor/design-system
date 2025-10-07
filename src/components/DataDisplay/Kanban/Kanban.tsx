@@ -389,6 +389,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
 
                 {subtitles?.map(({ text, LeftIcon, onClick }) => (
                   <Stack
+                    key={`${text}-${index}`}
                     direction="row"
                     alignItems="center"
                     spacing={0.5}
@@ -398,8 +399,8 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
                   >
                     {LeftIcon}
                     {onClick ? (
-                      <Button variant="link">
-                        <Typography noWrap variant="body3" color="textSecondary">
+                      <Button variant="link" sx={{ color: "text.secondary" }}>
+                        <Typography noWrap variant="body3">
                           {text}
                         </Typography>
                       </Button>
@@ -458,9 +459,8 @@ const ChipStatusKanban = ({
   variant = "outlined",
   size = "small",
 }: ChipStatusProps) => {
-  const statusToLowerCase = String(status)?.toLowerCase();
   const mapping = headerColumnChip ?? defaultKanbanChip;
-  const { color, variant: mappedVariant } = (statusToLowerCase && mapping[statusToLowerCase]) || { color: "default" };
+  const { color, variant: mappedVariant } = (status && mapping[status]) || { color: "default" };
 
   return (
     <Chip
