@@ -239,8 +239,6 @@ export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
   return 64 + (item.Footer || item.RightFooter ? 25 : 0);
 };
 
-const generateId = (text: string) => `${Math.random().toString(36).substring(2, 10)}-${text.slice(0, 5)}`;
-
 const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
   if (isValidElement(emptyState)) {
     return (
@@ -391,7 +389,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
 
                 {subtitles?.map(({ text, LeftIcon, onClick }) => (
                   <Stack
-                    key={generateId(text)}
+                    key={`${text}-${index}`}
                     direction="row"
                     alignItems="center"
                     spacing={0.5}
