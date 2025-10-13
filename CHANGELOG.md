@@ -1,8 +1,9 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.16.1
+## v4.17.0
 
-### Fix
-#### Add key subtitle in Kanban cards & fix Chip Name case sensitivity
-- Fix missing key subtitle in Kanban cards.
-- Remove toLowerCase Chip Name to avoid issues with case sensitivity.
+### Feat
+#### Add headerTitle prop to Kanban component
+- Add headerTitle prop to Kanban component to allow custom header titles.
+- Update size of cards in Kanban component for better visibility.
+- Reduce size between line in empty state of Kanban component.

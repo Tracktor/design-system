@@ -1,84 +1,16 @@
 import { Box, Stack, ChipProps, CardContent, Card, useTheme, CircularProgress, Skeleton } from "@mui/material";
 import { capitalize, useInView } from "@tracktor/react-utils";
-import { CSSProperties, isValidElement, MouseEvent, ReactElement, RefObject, useEffect, useRef, useState } from "react";
+import { CSSProperties, isValidElement, MouseEvent, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
+import { computeKanbanCardHeight, IMG_SIZE, useDragScroll } from "@/components/DataDisplay/Kanban/utils";
 import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
-
-const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const startXRef = useRef(0);
-  const scrollLeftRef = useRef(0);
-  const hasMoved = useRef(false);
-  const isMouseDownRef = useRef(false);
-
-  const onMouseDown = (e: MouseEvent<HTMLElement>) => {
-    const element = ref.current;
-    if (!element) {
-      return;
-    }
-
-    isMouseDownRef.current = true;
-    startXRef.current = e.pageX - element.offsetLeft;
-    scrollLeftRef.current = element.scrollLeft;
-    hasMoved.current = false;
-    element.style.cursor = "grabbing";
-  };
-
-  const onMouseUp = () => {
-    const element = ref.current;
-
-    if (!element) {
-      return;
-    }
-
-    isMouseDownRef.current = false;
-
-    if (isDragging) {
-      setIsDragging(false);
-    }
-
-    hasMoved.current = false;
-    element.style.cursor = "grab";
-  };
-
-  const onMouseMove = (e: MouseEvent<HTMLElement>) => {
-    const element = ref.current;
-
-    if (!element || !isMouseDownRef.current) {
-      return;
-    }
-
-    const x = e.pageX - element.offsetLeft;
-    const deltaX = Math.abs(x - startXRef.current);
-
-    // If the mouse has moved more than 5 pixels, set isDragging to true
-    // Avoids setting isDragging to true if the mouse has not moved
-    if (deltaX > 5 && !hasMoved.current) {
-      hasMoved.current = true;
-      setIsDragging(true);
-    }
-
-    if (hasMoved.current) {
-      e.preventDefault();
-      const walk = x - startXRef.current;
-      element.scrollLeft = scrollLeftRef.current - walk;
-    }
-  };
-
-  return {
-    isDragging,
-    onMouseDown,
-    onMouseMove,
-    onMouseUp,
-  };
-};
 
 export type KanbanChipFormat = {
   color: ChipProps["color"];
@@ -143,6 +75,7 @@ export interface KanbanDataItemProps {
   Footer?: ReactElement;
   Alert?: ReactElement;
   RightFooter?: ReactElement;
+  headerTitle?: string;
 }
 
 /**
@@ -228,17 +161,6 @@ export interface KanbanProps {
   emptyState?: ReactElement | EmptyStateProps;
 }
 
-const HEIGHT_LINE_BODY3 = 18;
-const IMG_SIZE = 40;
-
-export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
-  if (item.subtitles?.length) {
-    return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0);
-  }
-
-  return 64 + (item.Footer || item.RightFooter ? 25 : 0);
-};
-
 const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
   if (isValidElement(emptyState)) {
     return (
@@ -279,15 +201,22 @@ const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyStat
       <Card sx={{ maxWidth: 370 }}>
         <Box component="img" height={170} width="100%" src={worksiteCartoonImg} sx={{ objectFit: "cover", objectPosition: "top" }} />
         <CardContent>
-          <Typography variant="h3">{emptyState?.title}</Typography>
-          {emptyState?.description && <Typography variant="body3">{emptyState.description}</Typography>}
-          {emptyState?.buttonText && (
-            <Box textAlign="center" mt={3}>
-              <Button variant="contained" onClick={emptyState?.onButtonClick}>
-                {emptyState.buttonText}
-              </Button>
-            </Box>
-          )}
+          <Stack>
+            <Typography variant="h3">{emptyState?.title}</Typography>
+            {emptyState?.description && (
+              <Stack mt={1} mb={1}>
+                <Typography variant="body3">{emptyState.description}</Typography>
+              </Stack>
+            )}
+
+            {emptyState?.buttonText && (
+              <Box textAlign="center" mt={3}>
+                <Button variant="contained" onClick={emptyState?.onButtonClick}>
+                  {emptyState.buttonText}
+                </Button>
+              </Box>
+            )}
+          </Stack>
         </CardContent>
       </Card>
     </Stack>
@@ -315,15 +244,88 @@ type KanbanItemProps = {
   };
 };
 
+const TOOLTIP_DELAYS = { enterDelay: 300, enterNextDelay: 300 };
+
 const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
   const { palette } = useTheme();
   const { items, onClickItem, previewBookingId, gutterSize } = data;
-  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle } = items[index];
+  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
+    items[index];
 
   const active = previewBookingId === id;
 
+  const imageElement = (
+    <Tooltip title={imageTitle} enterDelay={TOOLTIP_DELAYS.enterDelay} enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}>
+      <Box component="span">
+        <ArticleImage
+          src={image}
+          secondarySrc={secondaryImage}
+          secondaryAvatarProps={secondaryImageText ? { children: secondaryImageText, sx: { height: 24, width: 24 } } : undefined}
+          alt={title}
+          width={IMG_SIZE}
+          height={IMG_SIZE}
+        />
+      </Box>
+    </Tooltip>
+  );
+
+  const contentElement = (
+    <Stack flex={1} overflow="hidden">
+      <Tooltip
+        title={title}
+        enterDelay={TOOLTIP_DELAYS.enterDelay}
+        enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
+        slotProps={{ popper: POPPER_KANBAN }}
+      >
+        <Typography noWrap variant="h6">
+          {title}
+        </Typography>
+      </Tooltip>
+
+      {subtitles?.map(({ text, LeftIcon, onClick }) => (
+        <Stack
+          key={`${text}-${index}`}
+          direction="row"
+          alignItems="center"
+          spacing={0.5}
+          overflow="hidden"
+          onClick={onClick}
+          sx={onClick ? { cursor: "pointer" } : undefined}
+        >
+          {LeftIcon}
+          {onClick ? (
+            <Button variant="link" sx={{ color: "text.secondary" }}>
+              <Typography noWrap variant="body3">
+                {text}
+              </Typography>
+            </Button>
+          ) : (
+            <Typography noWrap variant="body3" color="textSecondary">
+              {text}
+            </Typography>
+          )}
+        </Stack>
+      ))}
+    </Stack>
+  );
+
+  const footerElement = (Footer || RightFooter) && (
+    <Stack spacing={1} direction="row" alignItems="center" mt={1}>
+      {Footer && <Box flex={1}>{Footer}</Box>}
+      {RightFooter}
+    </Stack>
+  );
+
+  const tagsAlertElement = (
+    <Stack spacing={1} direction="row" alignItems="center">
+      {Alert}
+      <Chip label={tag} variant="rounded" color="default" size="small" />
+    </Stack>
+  );
+
   return (
-    <div
+    <Box
+      component="div"
       style={{
         ...style,
         paddingLeft: gutterSize,
@@ -347,90 +349,52 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
           boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
           cursor: "pointer",
           flexShrink: 0,
-          height: computeKanbanCardHeight({ Footer, RightFooter, subtitles } as KanbanDataItemProps),
+          height: computeKanbanCardHeight({ Footer, headerTitle, RightFooter, subtitles } as KanbanDataItemProps),
           p: 1.5,
           textDecoration: "none",
         }}
       >
         <Stack direction="row" spacing={1} flex={1} overflow="hidden">
-          <Box>
-            <Tooltip title={imageTitle} enterDelay={300} enterNextDelay={300}>
-              <span>
-                <ArticleImage
-                  src={image}
-                  secondarySrc={secondaryImage}
-                  secondaryAvatarProps={
-                    secondaryImageText
-                      ? {
-                          children: secondaryImageText,
-                          sx: {
-                            height: 24,
-                            width: 24,
-                          },
-                        }
-                      : undefined
-                  }
-                  alt={title}
-                  width={IMG_SIZE}
-                  height={IMG_SIZE}
-                />
-              </span>
-            </Tooltip>
-          </Box>
-
-          <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-            <Stack direction="row" spacing={1} flex={1}>
-              <Stack flex={1} overflow="hidden">
-                <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
-                  <Typography noWrap variant="h6">
-                    {title}
+          {headerTitle ? (
+            <Stack spacing={1} flex={1} overflow="hidden">
+              <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
+                <Tooltip title={headerTitle}>
+                  <Typography noWrap variant="body3" color="textSecondary" overflow="hidden" textOverflow="ellipsis">
+                    {headerTitle}
                   </Typography>
                 </Tooltip>
 
-                {subtitles?.map(({ text, LeftIcon, onClick }) => (
-                  <Stack
-                    key={`${text}-${index}`}
-                    direction="row"
-                    alignItems="center"
-                    spacing={0.5}
-                    overflow="hidden"
-                    onClick={(e) => onClick?.(e)}
-                    sx={onClick ? { cursor: "pointer" } : undefined}
-                  >
-                    {LeftIcon}
-                    {onClick ? (
-                      <Button variant="link" sx={{ color: "text.secondary" }}>
-                        <Typography noWrap variant="body3">
-                          {text}
-                        </Typography>
-                      </Button>
-                    ) : (
-                      <Typography noWrap variant="body3" color="textSecondary">
-                        {text}
-                      </Typography>
-                    )}
-                  </Stack>
-                ))}
+                <Stack spacing={0.5} direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
+                  {Alert && <Stack maxWidth="50%">{Alert}</Stack>}
+                  <Chip label={tag} variant="rounded" color="default" size="small" sx={{ maxWidth: Alert ? "50%" : "100%" }} />
+                </Stack>
               </Stack>
 
-              <Stack alignItems="stretch" justifyContent="space-between">
-                <Stack spacing={1} direction="row" alignItems="center">
-                  {Alert && Alert}
-                  <Chip label={tag} variant="rounded" color="default" size="small" />
+              <Stack direction="row" spacing={1} flex={1} overflow="hidden">
+                {imageElement}
+                <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+                  {contentElement}
+                  {footerElement}
                 </Stack>
               </Stack>
             </Stack>
-
-            {(Footer || RightFooter) && (
-              <Stack spacing={1} direction="row" alignItems="center" mt={1}>
-                {Footer && <Box flex={1}>{Footer}</Box>}
-                {RightFooter}
+          ) : (
+            <>
+              {imageElement}
+              <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+                <Stack direction="row" spacing={1} flex={1}>
+                  {contentElement}
+                  <Stack alignItems="stretch" justifyContent="space-between">
+                    {tagsAlertElement}
+                  </Stack>
+                </Stack>
+                {footerElement}
               </Stack>
-            )}
-          </Stack>
+            </>
+          )}
         </Stack>
       </Card>
-    </div>
+    </Box>
   );
 };
 
