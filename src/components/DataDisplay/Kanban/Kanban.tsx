@@ -328,7 +328,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
           </Typography>
         </Tooltip>
 
-        <Stack direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
+        <Stack spacing={0.5} direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
           <Stack maxWidth="50%">{Alert && Alert}</Stack>
 
           <Chip
