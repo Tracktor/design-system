@@ -201,20 +201,22 @@ const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyStat
       <Card sx={{ maxWidth: 370 }}>
         <Box component="img" height={170} width="100%" src={worksiteCartoonImg} sx={{ objectFit: "cover", objectPosition: "top" }} />
         <CardContent>
-          <Typography variant="h3">{emptyState?.title}</Typography>
-          {emptyState?.description && (
-            <Stack mt={1} mb={1}>
-              <Typography variant="body3">{emptyState.description}</Typography>
-            </Stack>
-          )}
+          <Stack>
+            <Typography variant="h3">{emptyState?.title}</Typography>
+            {emptyState?.description && (
+              <Stack mt={1} mb={1}>
+                <Typography variant="body3">{emptyState.description}</Typography>
+              </Stack>
+            )}
 
-          {emptyState?.buttonText && (
-            <Box textAlign="center" mt={3}>
-              <Button variant="contained" onClick={emptyState?.onButtonClick}>
-                {emptyState.buttonText}
-              </Button>
-            </Box>
-          )}
+            {emptyState?.buttonText && (
+              <Box textAlign="center" mt={3}>
+                <Button variant="contained" onClick={emptyState?.onButtonClick}>
+                  {emptyState.buttonText}
+                </Button>
+              </Box>
+            )}
+          </Stack>
         </CardContent>
       </Card>
     </Stack>
