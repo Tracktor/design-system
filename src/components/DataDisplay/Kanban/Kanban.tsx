@@ -237,6 +237,8 @@ type KanbanItemProps = {
   };
 };
 
+const TOOLTIP_DELAYS = { enterDelay: 300, enterNextDelay: 300 };
+
 const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
   const { palette } = useTheme();
   const { items, onClickItem, previewBookingId, gutterSize } = data;
@@ -245,168 +247,72 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
 
   const active = previewBookingId === id;
 
-  const elementWithoutHeader = (
-    <>
-      <Tooltip title={imageTitle} enterDelay={300} enterNextDelay={300}>
-        <Box component="span">
-          <ArticleImage
-            src={image}
-            secondarySrc={secondaryImage}
-            secondaryAvatarProps={
-              secondaryImageText
-                ? {
-                    children: secondaryImageText,
-                    sx: { height: 24, width: 24 },
-                  }
-                : undefined
-            }
-            alt={title}
-            width={IMG_SIZE}
-            height={IMG_SIZE}
-          />
-        </Box>
-      </Tooltip>
-
-      <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-        <Stack direction="row" spacing={1} flex={1}>
-          <Stack flex={1} overflow="hidden">
-            <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
-              <Typography noWrap variant="h6">
-                {title}
-              </Typography>
-            </Tooltip>
-
-            {subtitles?.map(({ text, LeftIcon, onClick }) => (
-              <Stack
-                key={`${text}-${index}`}
-                direction="row"
-                alignItems="center"
-                spacing={0.5}
-                overflow="hidden"
-                onClick={(e) => onClick?.(e)}
-                sx={onClick ? { cursor: "pointer" } : undefined}
-              >
-                {LeftIcon}
-                {onClick ? (
-                  <Button variant="link" sx={{ color: "text.secondary" }}>
-                    <Typography noWrap variant="body3">
-                      {text}
-                    </Typography>
-                  </Button>
-                ) : (
-                  <Typography noWrap variant="body3" color="textSecondary">
-                    {text}
-                  </Typography>
-                )}
-              </Stack>
-            ))}
-          </Stack>
-
-          <Stack alignItems="stretch" justifyContent="space-between">
-            <Stack spacing={1} direction="row" alignItems="center">
-              {Alert && Alert}
-              <Chip label={tag} variant="rounded" color="default" size="small" />
-            </Stack>
-          </Stack>
-        </Stack>
-        {(Footer || RightFooter) && (
-          <Stack spacing={1} direction="row" alignItems="center" mt={1}>
-            {Footer && <Box flex={1}>{Footer}</Box>}
-            {RightFooter}
-          </Stack>
-        )}
-      </Stack>
-    </>
+  const imageElement = (
+    <Tooltip title={imageTitle} enterDelay={TOOLTIP_DELAYS.enterDelay} enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}>
+      <Box component="span">
+        <ArticleImage
+          src={image}
+          secondarySrc={secondaryImage}
+          secondaryAvatarProps={secondaryImageText ? { children: secondaryImageText, sx: { height: 24, width: 24 } } : undefined}
+          alt={title}
+          width={IMG_SIZE}
+          height={IMG_SIZE}
+        />
+      </Box>
+    </Tooltip>
   );
 
-  const elementWithHeader = (
-    <Stack spacing={1} flex={1} overflow="hidden">
-      <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
-        <Tooltip title={headerTitle}>
-          <Typography noWrap variant="body3" color="textSecondary" overflow="hidden" textOverflow="ellipsis">
-            {headerTitle}
-          </Typography>
-        </Tooltip>
+  const contentElement = (
+    <Stack flex={1} overflow="hidden">
+      <Tooltip
+        title={title}
+        enterDelay={TOOLTIP_DELAYS.enterDelay}
+        enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
+        slotProps={{ popper: POPPER_KANBAN }}
+      >
+        <Typography noWrap variant="h6">
+          {title}
+        </Typography>
+      </Tooltip>
 
-        <Stack spacing={0.5} direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
-          <Stack maxWidth="50%">{Alert && Alert}</Stack>
-
-          <Chip
-            label={tag}
-            variant="rounded"
-            color="default"
-            size="small"
-            sx={{
-              maxWidth: Alert ? "50%" : "100%",
-            }}
-          />
-        </Stack>
-      </Stack>
-
-      <Stack direction="row" spacing={1} flex={1} overflow="hidden">
-        <Tooltip title={imageTitle} enterDelay={300} enterNextDelay={300}>
-          <Box component="span">
-            <ArticleImage
-              src={image}
-              secondarySrc={secondaryImage}
-              secondaryAvatarProps={
-                secondaryImageText
-                  ? {
-                      children: secondaryImageText,
-                      sx: { height: 24, width: 24 },
-                    }
-                  : undefined
-              }
-              alt={title}
-              width={IMG_SIZE}
-              height={IMG_SIZE}
-            />
-          </Box>
-        </Tooltip>
-
-        <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-          <Stack direction="row" spacing={1} flex={1}>
-            <Stack flex={1} overflow="hidden">
-              <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
-                <Typography noWrap variant="h6">
-                  {title}
-                </Typography>
-              </Tooltip>
-
-              {subtitles?.map(({ text, LeftIcon, onClick }) => (
-                <Stack
-                  key={`${text}-${index}`}
-                  direction="row"
-                  alignItems="center"
-                  spacing={0.5}
-                  overflow="hidden"
-                  onClick={(e) => onClick?.(e)}
-                  sx={onClick ? { cursor: "pointer" } : undefined}
-                >
-                  {LeftIcon}
-                  {onClick ? (
-                    <Button variant="link" sx={{ color: "text.secondary" }}>
-                      <Typography noWrap variant="body3">
-                        {text}
-                      </Typography>
-                    </Button>
-                  ) : (
-                    <Typography noWrap variant="body3" color="textSecondary">
-                      {text}
-                    </Typography>
-                  )}
-                </Stack>
-              ))}
-            </Stack>
-          </Stack>
-          {(Footer || RightFooter) && (
-            <Stack spacing={1} direction="row" alignItems="center" mt={1}>
-              {Footer && <Box flex={1}>{Footer}</Box>}
-              {RightFooter}
-            </Stack>
+      {subtitles?.map(({ text, LeftIcon, onClick }) => (
+        <Stack
+          key={`${text}-${index}`}
+          direction="row"
+          alignItems="center"
+          spacing={0.5}
+          overflow="hidden"
+          onClick={onClick}
+          sx={onClick ? { cursor: "pointer" } : undefined}
+        >
+          {LeftIcon}
+          {onClick ? (
+            <Button variant="link" sx={{ color: "text.secondary" }}>
+              <Typography noWrap variant="body3">
+                {text}
+              </Typography>
+            </Button>
+          ) : (
+            <Typography noWrap variant="body3" color="textSecondary">
+              {text}
+            </Typography>
           )}
         </Stack>
-      </Stack>
+      ))}
+    </Stack>
+  );
+
+  const footerElement = (Footer || RightFooter) && (
+    <Stack spacing={1} direction="row" alignItems="center" mt={1}>
+      {Footer && <Box flex={1}>{Footer}</Box>}
+      {RightFooter}
+    </Stack>
+  );
+
+  const tagsElement = (
+    <Stack spacing={1} direction="row" alignItems="center">
+      {Alert}
+      <Chip label={tag} variant="rounded" color="default" size="small" />
     </Stack>
   );
 
@@ -442,7 +348,43 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         }}
       >
         <Stack direction="row" spacing={1} flex={1} overflow="hidden">
-          {headerTitle ? elementWithHeader : elementWithoutHeader}
+          {headerTitle ? (
+            <Stack spacing={1} flex={1} overflow="hidden">
+              <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
+                <Tooltip title={headerTitle}>
+                  <Typography noWrap variant="body3" color="textSecondary" overflow="hidden" textOverflow="ellipsis">
+                    {headerTitle}
+                  </Typography>
+                </Tooltip>
+
+                <Stack spacing={0.5} direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
+                  {Alert && <Stack maxWidth="50%">{Alert}</Stack>}
+                  <Chip label={tag} variant="rounded" color="default" size="small" sx={{ maxWidth: Alert ? "50%" : "100%" }} />
+                </Stack>
+              </Stack>
+
+              <Stack direction="row" spacing={1} flex={1} overflow="hidden">
+                {imageElement}
+                <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+                  {contentElement}
+                  {footerElement}
+                </Stack>
+              </Stack>
+            </Stack>
+          ) : (
+            <>
+              {imageElement}
+              <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+                <Stack direction="row" spacing={1} flex={1}>
+                  {contentElement}
+                  <Stack alignItems="stretch" justifyContent="space-between">
+                    {tagsElement}
+                  </Stack>
+                </Stack>
+                {footerElement}
+              </Stack>
+            </>
+          )}
         </Stack>
       </Card>
     </Box>
