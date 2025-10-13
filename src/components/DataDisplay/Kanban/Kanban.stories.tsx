@@ -158,6 +158,7 @@ FullyFilledCardsThreeColumns.args = {
               Last updated: 1d ago
             </Typography>
           ),
+          headerTitle: "Custom Header Content aazazeazazeazeazezaeazrearar",
           id: "1",
           image: "https://picsum.photos/seed/11/100/100",
           imageTitle: "Task image",
@@ -286,7 +287,7 @@ StatusFlowSimulation.args = {
     {
       count: 1,
       isFetched: true,
-      items: [{ id: "5", image: undefined, tag: "Task", title: "Booking #5" }],
+      items: [{ headerTitle: "Custom Header Content", id: "5", image: undefined, tag: "Task", title: "Booking #5" }],
       label: "Confirmed",
       name: "confirmed",
     },
@@ -355,6 +356,7 @@ SubtitleActions.args = {
       items: [
         {
           Footer: <Chip color="info" size="small" label="Summer" variant="outlined-rounded" />,
+          headerTitle: "Custom Header Content",
           id: "17605",
           image: "https://picsum.photos/seed/abri/160/160",
           imageTitle: "Abri de chantier isolé équipé sur roues",
@@ -365,6 +367,7 @@ SubtitleActions.args = {
           title: "HELLO CONSTRUCTION",
         },
         {
+          Footer: <Chip color="success" size="small" label="winter" variant="outlined-rounded" />,
           id: "18098",
           image: "https://picsum.photos/seed/betonniere/160/160",
           imageTitle: "Bétonnière électrique - 100 L",

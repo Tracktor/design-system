@@ -143,6 +143,7 @@ export interface KanbanDataItemProps {
   Footer?: ReactElement;
   Alert?: ReactElement;
   RightFooter?: ReactElement;
+  headerTitle?: string;
 }
 
 /**
@@ -230,8 +231,17 @@ export interface KanbanProps {
 
 const HEIGHT_LINE_BODY3 = 18;
 const IMG_SIZE = 40;
+const HEADER_HEIGHT = 25;
 
 export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
+  if (item.headerTitle && item.subtitles?.length) {
+    return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0) + HEADER_HEIGHT;
+  }
+
+  if (item.headerTitle && !item.subtitles?.length) {
+    return 72 + (item.Footer || item.RightFooter ? 25 : 0) + HEADER_HEIGHT;
+  }
+
   if (item.subtitles?.length) {
     return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0);
   }
@@ -318,12 +328,179 @@ type KanbanItemProps = {
 const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
   const { palette } = useTheme();
   const { items, onClickItem, previewBookingId, gutterSize } = data;
-  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle } = items[index];
+  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
+    items[index];
 
   const active = previewBookingId === id;
 
+  const elementWithoutHeader = (
+    <>
+      <Tooltip title={imageTitle} enterDelay={300} enterNextDelay={300}>
+        <Box component="span">
+          <ArticleImage
+            src={image}
+            secondarySrc={secondaryImage}
+            secondaryAvatarProps={
+              secondaryImageText
+                ? {
+                    children: secondaryImageText,
+                    sx: { height: 24, width: 24 },
+                  }
+                : undefined
+            }
+            alt={title}
+            width={IMG_SIZE}
+            height={IMG_SIZE}
+          />
+        </Box>
+      </Tooltip>
+
+      <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+        <Stack direction="row" spacing={1} flex={1}>
+          <Stack flex={1} overflow="hidden">
+            <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
+              <Typography noWrap variant="h6">
+                {title}
+              </Typography>
+            </Tooltip>
+
+            {subtitles?.map(({ text, LeftIcon, onClick }) => (
+              <Stack
+                key={`${text}-${index}`}
+                direction="row"
+                alignItems="center"
+                spacing={0.5}
+                overflow="hidden"
+                onClick={(e) => onClick?.(e)}
+                sx={onClick ? { cursor: "pointer" } : undefined}
+              >
+                {LeftIcon}
+                {onClick ? (
+                  <Button variant="link" sx={{ color: "text.secondary" }}>
+                    <Typography noWrap variant="body3">
+                      {text}
+                    </Typography>
+                  </Button>
+                ) : (
+                  <Typography noWrap variant="body3" color="textSecondary">
+                    {text}
+                  </Typography>
+                )}
+              </Stack>
+            ))}
+          </Stack>
+
+          <Stack alignItems="stretch" justifyContent="space-between">
+            <Stack spacing={1} direction="row" alignItems="center">
+              {Alert && Alert}
+              <Chip label={tag} variant="rounded" color="default" size="small" />
+            </Stack>
+          </Stack>
+        </Stack>
+        {(Footer || RightFooter) && (
+          <Stack spacing={1} direction="row" alignItems="center" mt={1}>
+            {Footer && <Box flex={1}>{Footer}</Box>}
+            {RightFooter}
+          </Stack>
+        )}
+      </Stack>
+    </>
+  );
+
+  const elementWithHeader = (
+    <Stack spacing={1} flex={1} overflow="hidden">
+      <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
+        <Tooltip title={headerTitle}>
+          <Typography noWrap variant="body3" color="textSecondary" overflow="hidden" textOverflow="ellipsis">
+            {headerTitle}
+          </Typography>
+        </Tooltip>
+
+        <Stack direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
+          <Stack maxWidth="50%">{Alert && Alert}</Stack>
+
+          <Chip
+            label={tag}
+            variant="rounded"
+            color="default"
+            size="small"
+            sx={{
+              maxWidth: Alert ? "50%" : "100%",
+            }}
+          />
+        </Stack>
+      </Stack>
+
+      <Stack direction="row" spacing={1} flex={1} overflow="hidden">
+        <Tooltip title={imageTitle} enterDelay={300} enterNextDelay={300}>
+          <Box component="span">
+            <ArticleImage
+              src={image}
+              secondarySrc={secondaryImage}
+              secondaryAvatarProps={
+                secondaryImageText
+                  ? {
+                      children: secondaryImageText,
+                      sx: { height: 24, width: 24 },
+                    }
+                  : undefined
+              }
+              alt={title}
+              width={IMG_SIZE}
+              height={IMG_SIZE}
+            />
+          </Box>
+        </Tooltip>
+
+        <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+          <Stack direction="row" spacing={1} flex={1}>
+            <Stack flex={1} overflow="hidden">
+              <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
+                <Typography noWrap variant="h6">
+                  {title}
+                </Typography>
+              </Tooltip>
+
+              {subtitles?.map(({ text, LeftIcon, onClick }) => (
+                <Stack
+                  key={`${text}-${index}`}
+                  direction="row"
+                  alignItems="center"
+                  spacing={0.5}
+                  overflow="hidden"
+                  onClick={(e) => onClick?.(e)}
+                  sx={onClick ? { cursor: "pointer" } : undefined}
+                >
+                  {LeftIcon}
+                  {onClick ? (
+                    <Button variant="link" sx={{ color: "text.secondary" }}>
+                      <Typography noWrap variant="body3">
+                        {text}
+                      </Typography>
+                    </Button>
+                  ) : (
+                    <Typography noWrap variant="body3" color="textSecondary">
+                      {text}
+                    </Typography>
+                  )}
+                </Stack>
+              ))}
+            </Stack>
+          </Stack>
+          {(Footer || RightFooter) && (
+            <Stack spacing={1} direction="row" alignItems="center" mt={1}>
+              {Footer && <Box flex={1}>{Footer}</Box>}
+              {RightFooter}
+            </Stack>
+          )}
+        </Stack>
+      </Stack>
+    </Stack>
+  );
+
   return (
-    <div
+    <Box
+      component="div"
       style={{
         ...style,
         paddingLeft: gutterSize,
@@ -347,90 +524,16 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
           boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
           cursor: "pointer",
           flexShrink: 0,
-          height: computeKanbanCardHeight({ Footer, RightFooter, subtitles } as KanbanDataItemProps),
+          height: computeKanbanCardHeight({ Footer, headerTitle, RightFooter, subtitles } as KanbanDataItemProps),
           p: 1.5,
           textDecoration: "none",
         }}
       >
         <Stack direction="row" spacing={1} flex={1} overflow="hidden">
-          <Box>
-            <Tooltip title={imageTitle} enterDelay={300} enterNextDelay={300}>
-              <span>
-                <ArticleImage
-                  src={image}
-                  secondarySrc={secondaryImage}
-                  secondaryAvatarProps={
-                    secondaryImageText
-                      ? {
-                          children: secondaryImageText,
-                          sx: {
-                            height: 24,
-                            width: 24,
-                          },
-                        }
-                      : undefined
-                  }
-                  alt={title}
-                  width={IMG_SIZE}
-                  height={IMG_SIZE}
-                />
-              </span>
-            </Tooltip>
-          </Box>
-
-          <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-            <Stack direction="row" spacing={1} flex={1}>
-              <Stack flex={1} overflow="hidden">
-                <Tooltip title={title} enterDelay={300} enterNextDelay={300} slotProps={{ popper: POPPER_KANBAN }}>
-                  <Typography noWrap variant="h6">
-                    {title}
-                  </Typography>
-                </Tooltip>
-
-                {subtitles?.map(({ text, LeftIcon, onClick }) => (
-                  <Stack
-                    key={`${text}-${index}`}
-                    direction="row"
-                    alignItems="center"
-                    spacing={0.5}
-                    overflow="hidden"
-                    onClick={(e) => onClick?.(e)}
-                    sx={onClick ? { cursor: "pointer" } : undefined}
-                  >
-                    {LeftIcon}
-                    {onClick ? (
-                      <Button variant="link" sx={{ color: "text.secondary" }}>
-                        <Typography noWrap variant="body3">
-                          {text}
-                        </Typography>
-                      </Button>
-                    ) : (
-                      <Typography noWrap variant="body3" color="textSecondary">
-                        {text}
-                      </Typography>
-                    )}
-                  </Stack>
-                ))}
-              </Stack>
-
-              <Stack alignItems="stretch" justifyContent="space-between">
-                <Stack spacing={1} direction="row" alignItems="center">
-                  {Alert && Alert}
-                  <Chip label={tag} variant="rounded" color="default" size="small" />
-                </Stack>
-              </Stack>
-            </Stack>
-
-            {(Footer || RightFooter) && (
-              <Stack spacing={1} direction="row" alignItems="center" mt={1}>
-                {Footer && <Box flex={1}>{Footer}</Box>}
-                {RightFooter}
-              </Stack>
-            )}
-          </Stack>
+          {headerTitle ? elementWithHeader : elementWithoutHeader}
         </Stack>
       </Card>
-    </div>
+    </Box>
   );
 };
 
