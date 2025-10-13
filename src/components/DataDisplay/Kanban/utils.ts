@@ -5,24 +5,41 @@ const HEIGHT_LINE_BODY3 = 18;
 const HEADER_HEIGHT = 25;
 export const IMG_SIZE = 40;
 
-const getBaseHeight = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): number => {
-  if (hasHeader && hasSubtitles) return 54;
-  if (hasHeader && !hasSubtitles) return 72;
+type BaseHeightKey = "header-subtitles" | "header-only" | "footer-subtitles" | "footer-only" | "subtitles-only" | "default";
+type FooterHeightKey = "header-subtitles" | "header-only" | "rightFooter" | "default";
 
-  if (hasFooter && hasSubtitles) return 60;
-  if (hasFooter && !hasSubtitles) return 64;
-
-  if (hasSubtitles) return 45;
-  return 64;
+const BASE_HEIGHT_CONFIG: Record<BaseHeightKey, number> = {
+  default: 64,
+  "footer-only": 64,
+  "footer-subtitles": 60,
+  "header-only": 72,
+  "header-subtitles": 54,
+  "subtitles-only": 45,
 };
 
-const getFooterHeight = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean, hasRightFooter: boolean): number => {
-  if (!hasFooter) return 0;
-  if (hasHeader && hasSubtitles) return 34;
-  if (hasHeader) return 30;
-  if (hasRightFooter) return 20;
+const FOOTER_HEIGHT_CONFIG: Record<FooterHeightKey, number> = {
+  default: 25,
+  "header-only": 30,
+  "header-subtitles": 34,
+  rightFooter: 20,
+};
 
-  return 25;
+const getConfigKey = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): BaseHeightKey => {
+  if (hasHeader && hasSubtitles) return "header-subtitles";
+  if (hasHeader && !hasSubtitles) return "header-only";
+  if (hasFooter && hasSubtitles) return "footer-subtitles";
+  if (hasFooter && !hasSubtitles) return "footer-only";
+  if (!hasHeader && !hasFooter && hasSubtitles) return "subtitles-only";
+
+  return "default";
+};
+
+const getFooterConfigKey = (hasHeader: boolean, hasSubtitles: boolean, hasRightFooter: boolean): FooterHeightKey => {
+  if (hasHeader && hasSubtitles) return "header-subtitles";
+  if (hasHeader && !hasSubtitles) return "header-only";
+  if (hasRightFooter) return "rightFooter";
+
+  return "default";
 };
 
 export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
@@ -31,12 +48,12 @@ export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
   const hasFooter = !!(item.Footer || item.RightFooter);
   const hasRightFooter = !!item.RightFooter;
 
-  const baseHeight = getBaseHeight(hasHeader, hasSubtitles, hasFooter);
-  const footerHeight = getFooterHeight(hasHeader, hasSubtitles, hasFooter, hasRightFooter);
+  const baseHeight = BASE_HEIGHT_CONFIG[getConfigKey(hasHeader, hasSubtitles, hasFooter)];
+  const footerHeight = hasFooter ? FOOTER_HEIGHT_CONFIG[getFooterConfigKey(hasHeader, hasSubtitles, hasRightFooter)] : 0;
   const headerHeight = hasHeader ? HEADER_HEIGHT : 0;
   const subtitlesHeight = (item.subtitles?.length ?? 0) * HEIGHT_LINE_BODY3;
 
-  return baseHeight + subtitlesHeight + footerHeight + headerHeight;
+  return baseHeight + headerHeight + subtitlesHeight + footerHeight;
 };
 
 export const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
