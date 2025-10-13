@@ -1,84 +1,16 @@
 import { Box, Stack, ChipProps, CardContent, Card, useTheme, CircularProgress, Skeleton } from "@mui/material";
 import { capitalize, useInView } from "@tracktor/react-utils";
-import { CSSProperties, isValidElement, MouseEvent, ReactElement, RefObject, useEffect, useRef, useState } from "react";
+import { CSSProperties, isValidElement, MouseEvent, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
+import { computeKanbanCardHeight, IMG_SIZE, useDragScroll } from "@/components/DataDisplay/Kanban/utils";
 import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
-
-const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const startXRef = useRef(0);
-  const scrollLeftRef = useRef(0);
-  const hasMoved = useRef(false);
-  const isMouseDownRef = useRef(false);
-
-  const onMouseDown = (e: MouseEvent<HTMLElement>) => {
-    const element = ref.current;
-    if (!element) {
-      return;
-    }
-
-    isMouseDownRef.current = true;
-    startXRef.current = e.pageX - element.offsetLeft;
-    scrollLeftRef.current = element.scrollLeft;
-    hasMoved.current = false;
-    element.style.cursor = "grabbing";
-  };
-
-  const onMouseUp = () => {
-    const element = ref.current;
-
-    if (!element) {
-      return;
-    }
-
-    isMouseDownRef.current = false;
-
-    if (isDragging) {
-      setIsDragging(false);
-    }
-
-    hasMoved.current = false;
-    element.style.cursor = "grab";
-  };
-
-  const onMouseMove = (e: MouseEvent<HTMLElement>) => {
-    const element = ref.current;
-
-    if (!element || !isMouseDownRef.current) {
-      return;
-    }
-
-    const x = e.pageX - element.offsetLeft;
-    const deltaX = Math.abs(x - startXRef.current);
-
-    // If the mouse has moved more than 5 pixels, set isDragging to true
-    // Avoids setting isDragging to true if the mouse has not moved
-    if (deltaX > 5 && !hasMoved.current) {
-      hasMoved.current = true;
-      setIsDragging(true);
-    }
-
-    if (hasMoved.current) {
-      e.preventDefault();
-      const walk = x - startXRef.current;
-      element.scrollLeft = scrollLeftRef.current - walk;
-    }
-  };
-
-  return {
-    isDragging,
-    onMouseDown,
-    onMouseMove,
-    onMouseUp,
-  };
-};
 
 export type KanbanChipFormat = {
   color: ChipProps["color"];
@@ -228,26 +160,6 @@ export interface KanbanProps {
    */
   emptyState?: ReactElement | EmptyStateProps;
 }
-
-const HEIGHT_LINE_BODY3 = 18;
-const IMG_SIZE = 40;
-const HEADER_HEIGHT = 25;
-
-export const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
-  if (item.headerTitle && item.subtitles?.length) {
-    return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0) + HEADER_HEIGHT;
-  }
-
-  if (item.headerTitle && !item.subtitles?.length) {
-    return 72 + (item.Footer || item.RightFooter ? 25 : 0) + HEADER_HEIGHT;
-  }
-
-  if (item.subtitles?.length) {
-    return 54 + item.subtitles.length * HEIGHT_LINE_BODY3 + (item.Footer || item.RightFooter ? 30 : 0);
-  }
-
-  return 64 + (item.Footer || item.RightFooter ? 25 : 0);
-};
 
 const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
   if (isValidElement(emptyState)) {
