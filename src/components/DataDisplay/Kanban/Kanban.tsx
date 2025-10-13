@@ -309,7 +309,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
     </Stack>
   );
 
-  const tagsElement = (
+  const tagsAlertElement = (
     <Stack spacing={1} direction="row" alignItems="center">
       {Alert}
       <Chip label={tag} variant="rounded" color="default" size="small" />
@@ -378,7 +378,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
                 <Stack direction="row" spacing={1} flex={1}>
                   {contentElement}
                   <Stack alignItems="stretch" justifyContent="space-between">
-                    {tagsElement}
+                    {tagsAlertElement}
                   </Stack>
                 </Stack>
                 {footerElement}
