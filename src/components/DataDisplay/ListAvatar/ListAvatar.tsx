@@ -127,7 +127,7 @@ export const ListAvatar = ({
 }: ListAvatarProps) => {
   const [openElement, setOpenElement] = useState("");
 
-  if (!items?.length && !isLoading && !action) {
+  if (!(items?.length || isLoading || action)) {
     return Empty || null;
   }
 
@@ -191,7 +191,7 @@ export const ListAvatar = ({
           const isFile = isDocumentType(image);
           const userSelect = onClick ? "none" : undefined;
           const lightBoxDisabled = disableLightbox || !!icon || !isValidImageUrl || isFile;
-          const clickable = !!onClick || !!(!onClick && !disableLightbox && image);
+          const clickable = !!onClick || !!(!(onClick || disableLightbox) && image);
           const open = openElement === key;
           const avatarThumb = isValidThumbnailUrl ? thumbnail : "";
           const avatarImage = isValidImageUrl ? image : "";
@@ -263,7 +263,7 @@ export const ListAvatar = ({
               )}
 
               {/* Image or avatar */}
-              {!AvatarComponent && !isPdf && (
+              {!(AvatarComponent || isPdf) && (
                 <FileViewer
                   disableThumb
                   src={image}

@@ -1,4 +1,4 @@
-import { Box, Stack, ChipProps, CardContent, Card, useTheme, CircularProgress, Skeleton } from "@mui/material";
+import { Box, Card, CardContent, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
 import { capitalize, useInView } from "@tracktor/react-utils";
 import { CSSProperties, isValidElement, MouseEvent, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
@@ -337,12 +337,12 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         elevation={palette.mode === "dark" ? 5 : 0}
         onClick={() => onClickItem?.(id)}
         sx={{
-          "&:hover": {
-            boxShadow: 8,
-          },
           ".grabbing &": {
             cursor: "grabbing",
             pointerEvents: "none",
+          },
+          "&:hover": {
+            boxShadow: 8,
           },
           background: `${active ? palette.grey[50] : "none"}`,
           border: `1px solid ${active ? palette.action.active : palette.divider}`,

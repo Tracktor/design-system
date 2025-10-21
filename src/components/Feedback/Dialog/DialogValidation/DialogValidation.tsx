@@ -40,17 +40,6 @@ interface DialogValidationProps extends Omit<DialogProps, "children" | "onClose"
 const BACKGROUND_ICON_SIZE = 86;
 
 const checkAnimation = {
-  "& svg": {
-    animation: "scaleIn 0.4s ease-out",
-  },
-  "& svg path:first-of-type": {
-    animation: "circleIn 2s ease-out",
-  },
-  "& svg path:last-child": {
-    animation: "checkIn 0.4s ease-out 0.4s both",
-    strokeDasharray: "30",
-    strokeDashoffset: "-30",
-  },
   "@keyframes checkIn": {
     "0%": {
       strokeDashoffset: "-30",
@@ -74,6 +63,17 @@ const checkAnimation = {
     "100%": {
       transform: "scale(1)",
     },
+  },
+  "& svg": {
+    animation: "scaleIn 0.4s ease-out",
+  },
+  "& svg path:first-of-type": {
+    animation: "circleIn 2s ease-out",
+  },
+  "& svg path:last-child": {
+    animation: "checkIn 0.4s ease-out 0.4s both",
+    strokeDasharray: "30",
+    strokeDashoffset: "-30",
   },
 };
 

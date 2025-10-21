@@ -1,4 +1,4 @@
-import { CircularProgress as Component, CircularProgressProps } from "@mui/material";
+import { CircularProgressProps, CircularProgress as Component } from "@mui/material";
 
 const CircularProgress = (props: CircularProgressProps) => <Component {...props} />;
 

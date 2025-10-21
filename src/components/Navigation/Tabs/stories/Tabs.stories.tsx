@@ -1,10 +1,10 @@
 import { Box, SvgIcon, Tab, useTheme } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { SyntheticEvent, useState } from "react";
-import Tabs from "./Tabs";
 import TabPanel from "@/components/Navigation/TabPanel";
 import LinkTabComponent from "@/components/Navigation/Tabs/LinkTab/LinkTab";
 import useTabs from "@/hooks/useTabs";
+import Tabs from "./Tabs";
 
 const Template: StoryFn<typeof Tabs> = (args, { name }) => {
   const isDisabledContext = name === "Disabled";

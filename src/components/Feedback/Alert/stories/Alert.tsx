@@ -1,4 +1,4 @@
-import { Alert as Component, AlertProps } from "@mui/material";
+import { AlertProps, Alert as Component } from "@mui/material";
 
 const Alert = (props: AlertProps) => <Component {...props} />;
 

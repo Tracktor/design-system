@@ -1,4 +1,4 @@
-import { BottomNavigation as Component, BottomNavigationProps } from "@mui/material";
+import { BottomNavigationProps, BottomNavigation as Component } from "@mui/material";
 
 const BottomNavigation = (props: BottomNavigationProps) => <Component {...props} />;
 

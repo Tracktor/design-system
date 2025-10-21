@@ -1,4 +1,4 @@
-import { Box, Button, Fade, Stack, styled, tooltipClasses, TooltipProps, Typography, Zoom } from "@mui/material";
+import { Box, Button, Fade, Stack, styled, TooltipProps, Typography, tooltipClasses, Zoom } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import Tooltip from "./Tooltip";
 

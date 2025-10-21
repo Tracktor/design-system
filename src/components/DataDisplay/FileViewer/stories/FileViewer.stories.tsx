@@ -1,4 +1,4 @@
-import { Stack, Grid } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
 import FileViewer from "@/components/DataDisplay/FileViewer";

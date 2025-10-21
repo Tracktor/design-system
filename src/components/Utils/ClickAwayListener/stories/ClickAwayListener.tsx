@@ -1,4 +1,4 @@
-import { ClickAwayListener as Component, ClickAwayListenerProps } from "@mui/material";
+import { ClickAwayListenerProps, ClickAwayListener as Component } from "@mui/material";
 
 const ClickAwayListener = (props: ClickAwayListenerProps) => <Component {...props} />;
 

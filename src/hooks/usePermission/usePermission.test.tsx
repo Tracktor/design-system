@@ -2,8 +2,8 @@
 
 import { renderHook } from "@testing-library/react-hooks";
 import { describe, expect, it } from "vitest";
-import usePermission from "./usePermission";
 import PermissionProvider from "@/context/Permission/PermissionProvider";
+import usePermission from "./usePermission";
 
 describe("Test usePermission", () => {
   it("provide name & permissions with empty string array", () => {

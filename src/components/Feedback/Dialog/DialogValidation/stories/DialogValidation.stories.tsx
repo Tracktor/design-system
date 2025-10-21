@@ -68,8 +68,8 @@ Info.args = {
   color: "info",
 };
 
-export const Error = BasicTemplate.bind({});
-Error.args = {
+export const ErrorStory = BasicTemplate.bind({});
+ErrorStory.args = {
   buttonPrimary: {
     text: "Continue",
   },

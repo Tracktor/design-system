@@ -1,5 +1,0 @@
-.circleci
-.husky
-dist
-node_modules
-storybook-static

@@ -100,7 +100,7 @@ const FileViewer = ({
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const lowercaseSrc = src?.toLowerCase();
-  const isImage = !lowercaseSrc?.endsWith(".pdf") && !lowercaseSrc?.startsWith("blob:") && !lowercaseSrc?.endsWith(".eml");
+  const isImage = !(lowercaseSrc?.endsWith(".pdf") || lowercaseSrc?.startsWith("blob:") || lowercaseSrc?.endsWith(".eml"));
   const isPdf = lowercaseSrc?.endsWith(".pdf");
   const opacity = disableLightbox ? 1 : 0.8;
   const isThumbnailReady = disableThumb ? true : !isLoading;
@@ -175,7 +175,7 @@ const FileViewer = ({
 
   return (
     <>
-      {!disableThumb && !children && (
+      {!(disableThumb || children) && (
         <Tooltip arrow title={isDocument || iconOnly ? fileNameWithExtension : ""}>
           <Box
             data-test="fileViewer"

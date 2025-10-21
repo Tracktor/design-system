@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { useState } from "react";
-import List from "./List";
 import ListItemCard from "@/components/DataDisplay/ListItemCard";
+import List from "./List";
 
 const Template: StoryFn<typeof List> = (args) => (
   <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">

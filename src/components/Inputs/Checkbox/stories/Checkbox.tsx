@@ -1,4 +1,4 @@
-import { Checkbox as Component, CheckboxProps } from "@mui/material";
+import { CheckboxProps, Checkbox as Component } from "@mui/material";
 
 const Checkbox = (props: CheckboxProps) => <Component {...props} />;
 

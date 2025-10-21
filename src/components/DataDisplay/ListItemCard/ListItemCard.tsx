@@ -1,5 +1,4 @@
 import { Alert, Box, Card, ListItem, ListItemProps, Skeleton } from "@mui/material";
-import * as React from "react";
 import { ForwardedRef, forwardRef, memo, PropsWithChildren } from "react";
 
 const DEFAULT_EMPTY_MESSAGE = "No data";

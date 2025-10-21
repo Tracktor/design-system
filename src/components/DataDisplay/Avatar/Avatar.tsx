@@ -1,4 +1,4 @@
-import { Avatar as MuiAvatar, AvatarProps as MuiAvatarProps, Box, SxProps, Theme } from "@mui/material";
+import { Box, Avatar as MuiAvatar, AvatarProps as MuiAvatarProps, SxProps, Theme } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { ElementType, forwardRef } from "react";
 

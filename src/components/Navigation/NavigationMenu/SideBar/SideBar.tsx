@@ -19,6 +19,9 @@ const styles = {
       "& svg": {
         color: "text.secondary",
       },
+      "&:hover": {
+        background: ({ palette }: Theme) => palette.grey[50],
+      },
       "&.active": {
         "& svg": {
           color: "text.primary",
@@ -26,9 +29,6 @@ const styles = {
         background: ({ palette }: Theme) => palette.grey[50],
         borderColor: "divider",
         color: "text.primary",
-      },
-      "&:hover": {
-        background: ({ palette }: Theme) => palette.grey[50],
       },
       "&[aria-disabled='true']": {
         "& svg": {
@@ -135,7 +135,7 @@ const SideBar = ({ children, ...props }: SideBarProps) => {
   const { palette } = useTheme();
   const backgroundColor = palette.mode === "dark" ? palette.background.default : palette.primary.black;
   const borderRight = isMobile && isDrawerOpen ? "none" : `solid 1px ${palette.divider}`;
-  const isDesktop = !isMobile && !isTablet;
+  const isDesktop = !(isMobile || isTablet);
   const displaySearch = hideSearchDesktop ? !isDesktop : true;
 
   return (

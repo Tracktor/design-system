@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
-import AppBar from "../AppBar";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
+import AppBar from "../AppBar";
 
 const menuItems = [
   {

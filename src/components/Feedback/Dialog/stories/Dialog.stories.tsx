@@ -22,8 +22,8 @@ import { blue } from "@mui/material/colors";
 import type { TransitionProps } from "@mui/material/transitions";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { forwardRef, ReactElement, Ref, useState } from "react";
-import Dialog from "./Dialog";
 import DialogCloseIcon from "@/components/Feedback/Dialog/DialogCloseIcon";
+import Dialog from "./Dialog";
 
 export interface SimpleDialogProps {
   open: boolean;

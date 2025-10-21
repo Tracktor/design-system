@@ -42,7 +42,7 @@ const ArticleImage = ({
   const stylesBase = { borderRadius, flexShrink: 0 };
   const displayLoader = (src && !loaded && !error) || isLoading;
   const displayPlaceholder = !src || (error && !isLoading);
-  const isTransparent = src?.endsWith(".png") || src?.endsWith(".svg") || src?.endsWith(".gif") || src?.endsWith(".webp") || false;
+  const isTransparent = src?.endsWith(".png") || src?.endsWith(".svg") || src?.endsWith(".gif") || src?.endsWith(".webp");
 
   const handleLoad = () => {
     setError(false);
