@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
-import { capitalize, useInView } from "@tracktor/react-utils";
+import { capitalize, isString, useInView } from "@tracktor/react-utils";
 import { CSSProperties, isValidElement, MouseEvent, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
@@ -54,7 +54,7 @@ export interface EmptyStateProps {
  * Props for each subtitle item in a Kanban card.
  */
 export interface SubtitleDataItemProps {
-  text: string;
+  text: string | ReactElement;
   LeftIcon?: ReactElement;
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
@@ -282,9 +282,9 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         </Typography>
       </Tooltip>
 
-      {subtitles?.map(({ text, LeftIcon, onClick }) => (
+      {subtitles?.map(({ text, LeftIcon, onClick }, index) => (
         <Stack
-          key={`${text}-${index}`}
+          key={`${isString(text) ? text : index}`}
           direction="row"
           alignItems="center"
           spacing={0.5}
@@ -293,16 +293,23 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
           sx={onClick ? { cursor: "pointer" } : undefined}
         >
           {LeftIcon}
+
           {onClick ? (
             <Button variant="link" sx={{ color: "text.secondary" }}>
-              <Typography noWrap variant="body3">
-                {text}
-              </Typography>
+              {isString(text) ? (
+                <Typography noWrap variant="body3">
+                  {text}
+                </Typography>
+              ) : (
+                text
+              )}
             </Button>
-          ) : (
+          ) : isString(text) ? (
             <Typography noWrap variant="body3" color="textSecondary">
               {text}
             </Typography>
+          ) : (
+            text
           )}
         </Stack>
       ))}

@@ -1,4 +1,5 @@
 import { Box, Chip, Collapse as CollapseMui, Divider, Stack, Tooltip, Typography } from "@mui/material";
+import { isString } from "@tracktor/react-utils";
 import { useEffect, useState } from "react";
 import FileViewer from "@/components/DataDisplay/FileViewer";
 import ArrowRightIcon from "@/components/DataDisplay/Icons/ArrowRightIcon";
@@ -43,22 +44,20 @@ const TimeLineEventItem = ({
     <Stack direction="row" alignItems="stretch" spacing={0} mt={0.5}>
       <Box mt={1.5} textAlign="center">
         <Stack spacing={1} alignItems="center" sx={{ height: "100%", width: 32 }}>
-          <>
-            {Icon || <StatusIcon color={active ? "secondary" : "primary"} />}
-            <Box sx={{ flex: 1 }}>
-              {!isLastElement && (
-                <Divider
-                  sx={{
-                    borderColor: ({ palette }) => (active ? palette.secondary.main : palette.divider),
-                    borderStyle: active ? "solid" : "dashed",
-                    height: "100%",
-                  }}
-                  flexItem
-                  orientation="vertical"
-                />
-              )}
-            </Box>
-          </>
+          {Icon || <StatusIcon color={active ? "secondary" : "primary"} />}
+          <Box sx={{ flex: 1 }}>
+            {!isLastElement && (
+              <Divider
+                sx={{
+                  borderColor: ({ palette }) => (active ? palette.secondary.main : palette.divider),
+                  borderStyle: active ? "solid" : "dashed",
+                  height: "100%",
+                }}
+                flexItem
+                orientation="vertical"
+              />
+            )}
+          </Box>
         </Stack>
       </Box>
       <Stack
@@ -106,11 +105,14 @@ const TimeLineEventItem = ({
               )}
             </Stack>
             {tag && <Chip color={tag?.color || "default"} label={tag?.label} size="xSmall" variant="outlined" />}
-            {subtitle && (
-              <Typography variant="body2" color="textSecondary">
-                {subtitle}
-              </Typography>
-            )}
+            {subtitle &&
+              (isString(subtitle) ? (
+                <Typography variant="body2" color="textSecondary">
+                  {subtitle}
+                </Typography>
+              ) : (
+                subtitle
+              ))}
           </Box>
           {Action && (
             <Box
