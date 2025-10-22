@@ -1,8 +1,8 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.0
+## v4.17.1
 
-### Feat
+### Fix
 #### Change ESLint Config for Biome config
 - Update ESLint Config to be compatible with Biome
 - Add Biome Config file
