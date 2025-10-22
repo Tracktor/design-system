@@ -10,7 +10,7 @@ export const isValidUrl = (url?: string | null) => {
   try {
     const parsedUrl = new URL(url);
     return Boolean(parsedUrl.protocol);
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 };

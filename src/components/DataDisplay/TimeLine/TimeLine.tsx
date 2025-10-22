@@ -189,7 +189,7 @@ const TimeLine = ({
     );
   }
 
-  if (!items?.length && !isLoading) {
+  if (!(items?.length || isLoading)) {
     return (
       <CardContainer sx={containerStyle}>
         <Alert severity="info">{emptyMessage}</Alert>

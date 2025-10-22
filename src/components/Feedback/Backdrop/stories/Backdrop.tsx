@@ -1,4 +1,4 @@
-import { Backdrop as Component, BackdropProps } from "@mui/material";
+import { BackdropProps, Backdrop as Component } from "@mui/material";
 
 const Backdrop = (props: BackdropProps) => <Component {...props} />;
 

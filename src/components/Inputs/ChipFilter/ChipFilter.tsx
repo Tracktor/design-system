@@ -179,7 +179,7 @@ function ChipFilter<T = OptionValue>({
 
   const [internalValue, setInternalValue] = useState(() => {
     if (isToggleMode) {
-      return checked || false;
+      return checked;
     }
     if (multiple) {
       return value || [];
@@ -287,7 +287,7 @@ function ChipFilter<T = OptionValue>({
       applyChanges(newValue);
 
       // For single selection mode, close menu immediately
-      if (!multiple && !isToggleMode) {
+      if (!(multiple || isToggleMode)) {
         closeMenu();
       }
     }
@@ -298,7 +298,7 @@ function ChipFilter<T = OptionValue>({
       return checked === true;
     }
     if (multiple) {
-      return (internalValue as T[])?.includes(optionValue) || false;
+      return (internalValue as T[])?.includes(optionValue);
     }
     return internalValue === optionValue;
   };
@@ -348,7 +348,7 @@ function ChipFilter<T = OptionValue>({
       }
     }
 
-    if (!multiple && !isToggleMode && value !== undefined && value !== null && isArrayOfOptions) {
+    if (!(multiple || isToggleMode) && value !== undefined && value !== null && isArrayOfOptions) {
       const selectedLabel = getSelectedOptionLabel(value);
       return selectedLabel || label;
     }

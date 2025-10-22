@@ -31,6 +31,9 @@ const styles = {
       "& svg": {
         color: "text.secondary",
       },
+      "&:hover": {
+        background: ({ palette }: Theme) => palette.grey[50],
+      },
       "&.active": {
         "& svg": {
           color: "text.primary",
@@ -38,9 +41,6 @@ const styles = {
         background: ({ palette }: Theme) => palette.grey[50],
         borderColor: "divider",
         color: "text.primary",
-      },
-      "&:hover": {
-        background: ({ palette }: Theme) => palette.grey[50],
       },
       alignItems: "center",
       borderColor: "transparent",

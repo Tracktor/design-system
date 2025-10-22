@@ -5,12 +5,12 @@ import {
   Stack,
   Step,
   StepConnector,
-  stepConnectorClasses,
   StepContent,
   StepIconProps,
   StepLabel,
-  styled,
   SvgIcon,
+  stepConnectorClasses,
+  styled,
   Typography,
 } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";

@@ -1,4 +1,4 @@
-import { Breadcrumbs as Component, BreadcrumbsProps } from "@mui/material";
+import { BreadcrumbsProps, Breadcrumbs as Component } from "@mui/material";
 
 const Breadcrumbs = (props: BreadcrumbsProps) => <Component {...props} />;
 

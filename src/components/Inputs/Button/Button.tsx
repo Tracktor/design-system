@@ -1,4 +1,4 @@
-import { Box, Button as MuiButton, ButtonProps as MuiButtonProps, ButtonTypeMap, CircularProgress, Stack } from "@mui/material";
+import { Box, ButtonTypeMap, CircularProgress, Button as MuiButton, ButtonProps as MuiButtonProps, Stack } from "@mui/material";
 import * as React from "react";
 import { ElementType, ForwardedRef, forwardRef, ReactNode } from "react";
 

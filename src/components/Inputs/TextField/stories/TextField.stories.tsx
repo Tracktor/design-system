@@ -56,8 +56,8 @@ MultilineFilled.args = {
   variant: "filled",
 };
 
-export const Date = Template.bind({});
-Date.args = {
+export const DateField = Template.bind({});
+DateField.args = {
   label: "",
   type: "date",
 };

@@ -1,9 +1,9 @@
 import { Box, IconButton, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
-import ListAvatar from "../ListAvatar";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import CheckIcon from "@/components/DataDisplay/Icons/CheckIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
+import ListAvatar from "../ListAvatar";
 
 const data = [
   {

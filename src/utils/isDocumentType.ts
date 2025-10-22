@@ -29,7 +29,7 @@ export const isDocumentType = (url?: string | null) => {
     const path = parsedUrl.pathname.toLowerCase();
 
     return documentExtensions.some((ext) => path.endsWith(ext));
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 };

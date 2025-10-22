@@ -134,7 +134,9 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
 
         // Manually update the input files
         const dataTransfer = new DataTransfer();
-        Array.from(newFiles).forEach((file) => dataTransfer.items.add(file));
+        Array.from(newFiles).forEach((file) => {
+          dataTransfer.items.add(file);
+        });
 
         if (inputElement) {
           inputElement.files = dataTransfer.files;

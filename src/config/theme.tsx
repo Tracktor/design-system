@@ -3,10 +3,10 @@ import {
   ComponentsPropsList,
   createTheme,
   getOverlayAlpha,
-  PaletteMode,
-  responsiveFontSizes,
   Theme as MuiTheme,
   ThemeOptions as MuiThemeOptions,
+  PaletteMode,
+  responsiveFontSizes,
 } from "@mui/material";
 import { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { Children, CSSProperties, isValidElement } from "react";

@@ -1,7 +1,5 @@
 import {
-  Autocomplete as MuiAutocomplete,
   AutocompletePaperSlotPropsOverrides,
-  AutocompleteProps as MuiAutocompleteProps,
   AutocompleteValue,
   Avatar,
   Badge,
@@ -16,6 +14,8 @@ import {
   ListItemAvatar,
   ListItemButton,
   ListItemText,
+  Autocomplete as MuiAutocomplete,
+  AutocompleteProps as MuiAutocompleteProps,
   Paper,
   PaperProps,
   TextField,
@@ -61,7 +61,7 @@ export interface AutocompleteFilterProps<
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType = ChipTypeMap["defaultComponent"],
-  Value extends unknown = unknown,
+  Value = unknown,
 > extends Omit<
     MuiAutocompleteProps<AutocompleteFilterOption<Value>, Multiple, DisableClearable, FreeSolo, ChipComponent>,
     "options" | "onChange" | "freeSolo" | "renderInput" | "value"
@@ -196,7 +196,7 @@ const PaperComponent = <
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType,
-  Value extends unknown,
+  Value,
 >({
   variant,
   children,
@@ -324,7 +324,7 @@ const AutocompleteFilter = <
   DisableClearable extends boolean | undefined,
   FreeSolo extends false,
   ChipComponent extends ElementType,
-  Value extends unknown,
+  Value,
 >(
   {
     variant,
@@ -377,7 +377,7 @@ const AutocompleteFilter = <
 
     onChange?.(event, newValue as AutocompleteFilterOption<Value>[], reason, details);
 
-    if (!disableCloseOnSelect || !multiple) {
+    if (!(disableCloseOnSelect && multiple)) {
       setInternalOpen(false);
     }
   };
@@ -556,12 +556,12 @@ const AutocompleteFilter = <
                       e.stopPropagation();
                     }}
                     sx={{
+                      ".MuiTextField-root:hover &": {
+                        opacity: 1,
+                      },
                       "& .MuiSvgIcon-root": {
                         fontSize: pxToRem(16),
                         pointerEvents: "none",
-                      },
-                      ".MuiTextField-root:hover &": {
-                        opacity: 1,
                       },
                       color: hasValue ? "text.contrast" : "text.primary",
                       cursor: "pointer",
@@ -641,7 +641,7 @@ const AutocompleteFilter = <
           <TextField
             sx={{
               "& .MuiInputBase-root .MuiInputBase-input": {
-                flex: !multiple || (!internalOpen && !finalInputValue) || internalOpen ? 1 : 0,
+                flex: !(multiple && (internalOpen || finalInputValue)) || internalOpen ? 1 : 0,
                 minWidth: 0,
               },
               ...(isChipVariant && {

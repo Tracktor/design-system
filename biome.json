@@ -1,0 +1,3 @@
+{
+  "extends": ["@tracktor/biome-config-react"]
+}

@@ -1,8 +1,8 @@
 import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, PopperProps, Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import { ElementRef, MouseEvent, useRef, useState } from "react";
-import Dialog from "../DialogPopper";
 import DialogPopper from "@/components/Feedback/Dialog/DialogPopper";
+import Dialog from "../DialogPopper";
 
 const BasicTemplate: StoryFn<typeof Dialog> = ({ ...args }, { parameters }) => {
   const [open, setOpen] = useState(false);

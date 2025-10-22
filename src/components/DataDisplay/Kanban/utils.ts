@@ -29,7 +29,7 @@ const getConfigKey = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: bool
   if (hasHeader && !hasSubtitles) return "header-only";
   if (hasFooter && hasSubtitles) return "footer-subtitles";
   if (hasFooter && !hasSubtitles) return "footer-only";
-  if (!hasHeader && !hasFooter && hasSubtitles) return "subtitles-only";
+  if (!(hasHeader || hasFooter) && hasSubtitles) return "subtitles-only";
 
   return "default";
 };
@@ -96,7 +96,7 @@ export const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
   const onMouseMove = (e: MouseEvent<HTMLElement>) => {
     const element = ref.current;
 
-    if (!element || !isMouseDownRef.current) {
+    if (!(element && isMouseDownRef.current)) {
       return;
     }
 

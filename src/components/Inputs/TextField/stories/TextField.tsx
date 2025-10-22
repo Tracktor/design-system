@@ -1,4 +1,4 @@
-import { TextField as Component, BaseTextFieldProps } from "@mui/material";
+import { BaseTextFieldProps, TextField as Component } from "@mui/material";
 
 const TextField = (props: BaseTextFieldProps) => <Component {...props} />;
 

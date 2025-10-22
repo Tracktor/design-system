@@ -1,4 +1,4 @@
-import { createTheme, css, CssBaseline, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
+import { CssBaseline, createTheme, css, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import { frFR, Localization } from "@mui/material/locale";
 import { createContext, ReactNode, useMemo } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
@@ -63,9 +63,9 @@ const ScrollBarStyle = ({ theme }: { theme: ThemeProviderProps["theme"] }) => (
   <GlobalStyles
     styles={css`
       * {
-        scrollbar-color: ${theme === "dark"
-          ? "rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05)"
-          : "rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05)"};
+        scrollbar-color: ${
+          theme === "dark" ? "rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05)"
+        };
         scrollbar-width: thin;
       }
 
