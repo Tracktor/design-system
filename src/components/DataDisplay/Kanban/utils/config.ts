@@ -3,6 +3,7 @@ export const HEADER_HEIGHT = 25;
 export const IMG_SIZE = 40;
 
 type BaseHeightKey = "header-subtitles" | "header-only" | "footer-subtitles" | "footer-only" | "subtitles-only" | "default";
+
 type FooterHeightKey = "header-subtitles" | "header-only" | "rightFooter" | "default";
 
 export const BASE_HEIGHT_CONFIG: Record<BaseHeightKey, number> = {
@@ -21,42 +22,40 @@ export const FOOTER_HEIGHT_CONFIG: Record<FooterHeightKey, number> = {
   rightFooter: 20,
 };
 
-export const getConfigKey = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): BaseHeightKey => {
-  if (hasHeader && hasSubtitles) {
-    return "header-subtitles";
+export const getBaseConfig = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): number => {
+  switch (true) {
+    case hasHeader && hasSubtitles:
+      return BASE_HEIGHT_CONFIG["header-subtitles"];
+    case hasHeader && !hasSubtitles:
+      return BASE_HEIGHT_CONFIG["header-only"];
+    case hasSubtitles && hasFooter:
+      return BASE_HEIGHT_CONFIG["footer-subtitles"];
+    case hasFooter && !hasHeader && !hasSubtitles:
+      return BASE_HEIGHT_CONFIG["footer-only"];
+    case hasSubtitles && !hasHeader && !hasFooter:
+      return BASE_HEIGHT_CONFIG["subtitles-only"];
+    default:
+      return BASE_HEIGHT_CONFIG.default;
   }
-
-  if (hasHeader && !hasSubtitles) {
-    return "header-only";
-  }
-
-  if (hasFooter && hasSubtitles) {
-    return "footer-subtitles";
-  }
-
-  if (hasFooter && !hasSubtitles) {
-    return "footer-only";
-  }
-
-  if (!(hasHeader || hasFooter) && hasSubtitles) {
-    return "subtitles-only";
-  }
-
-  return "default";
 };
 
-export const getFooterConfigKey = (hasHeader: boolean, hasSubtitles: boolean, hasRightFooter: boolean): FooterHeightKey => {
+export const getFooterConfig = (hasHeader: boolean, hasSubtitles: boolean, hasRightFooter: boolean): number => {
   if (hasHeader && hasSubtitles) {
-    return "header-subtitles";
+    return FOOTER_HEIGHT_CONFIG["header-subtitles"];
   }
 
-  if (hasHeader && !hasSubtitles) {
-    return "header-only";
+  if (hasHeader) {
+    return FOOTER_HEIGHT_CONFIG["header-only"];
   }
 
   if (hasRightFooter) {
-    return "rightFooter";
+    return FOOTER_HEIGHT_CONFIG.rightFooter;
   }
 
-  return "default";
+  return FOOTER_HEIGHT_CONFIG.default;
 };
+
+export const getConfig = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean, hasRightFooter: boolean) => ({
+  baseHeight: getBaseConfig(hasHeader, hasSubtitles, hasFooter),
+  footerHeight: hasFooter ? getFooterConfig(hasHeader, hasSubtitles, hasRightFooter) : 0,
+});

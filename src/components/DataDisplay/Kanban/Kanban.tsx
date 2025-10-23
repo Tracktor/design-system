@@ -1,6 +1,6 @@
 import { Box, Card, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
 import { capitalize, isString, useInView } from "@tracktor/react-utils";
-import { CSSProperties, MouseEvent, ReactElement, useEffect, useRef } from "react";
+import { CSSProperties, Fragment, MouseEvent, ReactElement, ReactNode, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
@@ -57,7 +57,7 @@ export interface EmptyStateProps {
  * Props for each subtitle item in a Kanban card.
  */
 export interface SubtitleDataItemProps {
-  text: string | ReactElement;
+  text: ReactNode;
   LeftIcon?: ReactElement;
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
@@ -211,18 +211,19 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
   );
 
   const subtitleList = subtitles?.map(({ text, LeftIcon, onClick }, index) => {
-    const isStringText = isString(text);
-    const content = isStringText ? (
+    if (!isString(text)) {
+      return <Fragment key={index}>{text}</Fragment>;
+    }
+
+    const content = (
       <Typography noWrap variant="body3" color={onClick ? "text.secondary" : "textSecondary"}>
         {text}
       </Typography>
-    ) : (
-      text
     );
 
     return (
       <Stack
-        key={isStringText ? text : index}
+        key={text}
         direction="row"
         alignItems="center"
         spacing={0.5}
