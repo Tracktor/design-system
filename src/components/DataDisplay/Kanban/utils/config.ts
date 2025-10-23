@@ -1,0 +1,77 @@
+export const HEIGHT_LINE_BODY3 = 18;
+export const HEADER_HEIGHT = 25;
+export const IMG_SIZE = 40;
+
+type BaseHeightKey = "header-subtitles" | "header-only" | "footer-subtitles" | "footer-only" | "subtitles-only" | "default";
+
+type FooterHeightKey = "header-subtitles" | "header-only" | "rightFooter" | "default";
+
+export const BASE_HEIGHT_CONFIG: Record<BaseHeightKey, number> = {
+  default: 64,
+  "footer-only": 64,
+  "footer-subtitles": 60,
+  "header-only": 72,
+  "header-subtitles": 54,
+  "subtitles-only": 45,
+};
+
+export const FOOTER_HEIGHT_CONFIG: Record<FooterHeightKey, number> = {
+  default: 25,
+  "header-only": 30,
+  "header-subtitles": 34,
+  rightFooter: 20,
+};
+
+const getBaseHeight = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): number => {
+  switch (true) {
+    case hasHeader && hasSubtitles:
+      return BASE_HEIGHT_CONFIG["header-subtitles"];
+    case hasHeader && !hasSubtitles:
+      return BASE_HEIGHT_CONFIG["header-only"];
+    case hasSubtitles && hasFooter:
+      return BASE_HEIGHT_CONFIG["footer-subtitles"];
+    case hasFooter && !hasHeader && !hasSubtitles:
+      return BASE_HEIGHT_CONFIG["footer-only"];
+    case hasSubtitles && !hasHeader && !hasFooter:
+      return BASE_HEIGHT_CONFIG["subtitles-only"];
+    default:
+      return BASE_HEIGHT_CONFIG.default;
+  }
+};
+
+const getFooterHeight = (hasFooter: boolean, hasHeader: boolean, hasSubtitles: boolean, hasRightFooter: boolean): number => {
+  if (!hasFooter) {
+    return 0;
+  }
+
+  if (hasHeader && hasSubtitles) {
+    return FOOTER_HEIGHT_CONFIG["header-subtitles"];
+  }
+
+  if (hasHeader) {
+    return FOOTER_HEIGHT_CONFIG["header-only"];
+  }
+
+  if (hasRightFooter) {
+    return FOOTER_HEIGHT_CONFIG.rightFooter || 0;
+  }
+
+  return FOOTER_HEIGHT_CONFIG.default;
+};
+
+const getHeaderHeight = (hasHeader: boolean): number => (hasHeader ? HEADER_HEIGHT : 0);
+
+const getSubtitlesHeight = (subtitleLength?: number): number => (subtitleLength ?? 0) * HEIGHT_LINE_BODY3;
+
+export const getConfig = (
+  hasHeader: boolean,
+  hasSubtitles: boolean,
+  hasFooter: boolean,
+  hasRightFooter: boolean,
+  subtitleLength?: number,
+) => ({
+  baseHeight: getBaseHeight(hasHeader, hasSubtitles, hasFooter),
+  footerHeight: getFooterHeight(hasFooter, hasHeader, hasSubtitles, hasRightFooter),
+  headerHeight: getHeaderHeight(hasHeader),
+  subtitlesHeight: getSubtitlesHeight(subtitleLength),
+});

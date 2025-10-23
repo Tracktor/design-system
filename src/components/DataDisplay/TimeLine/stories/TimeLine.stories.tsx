@@ -1,4 +1,4 @@
-import { Link, Stack, Typography } from "@mui/material";
+import { Link, Stack, Tooltip, Typography } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
 import TimeLine from "@/components/DataDisplay/TimeLine";
 
@@ -219,6 +219,42 @@ VariantHover.args = {
     ...items,
   ],
   variant: "hover",
+};
+
+export const CustomSubtitle = Template.bind({});
+CustomSubtitle.args = {
+  items: [
+    {
+      active: true,
+      key: "custom-subtitle-1",
+      subtitle: (
+        <Tooltip title="Ceci est un sous-titre personnalisé 👌" enterDelay={300}>
+          <Typography variant="body2" color="textSecondary" sx={{ cursor: "help", textDecoration: "underline" }}>
+            Survolez-moi pour voir le tooltip
+          </Typography>
+        </Tooltip>
+      ),
+      tag: {
+        color: "info",
+        label: "Custom",
+      },
+      title: "Event with custom subtitle",
+    },
+    {
+      active: false,
+      key: "custom-subtitle-2",
+      subtitle: (
+        <Link href="https://www.tracktor.fr" target="_blank" rel="noopener noreferrer" color="secondary" underline="hover">
+          Ouvrir Tracktor.fr
+        </Link>
+      ),
+      tag: {
+        color: "secondary",
+        label: "Link",
+      },
+      title: "Event with subtitle link",
+    },
+  ],
 };
 
 export default {

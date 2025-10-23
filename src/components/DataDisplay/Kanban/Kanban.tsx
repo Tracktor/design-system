@@ -1,13 +1,16 @@
-import { Box, Card, CardContent, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
-import { capitalize, useInView } from "@tracktor/react-utils";
-import { CSSProperties, isValidElement, MouseEvent, ReactElement, useEffect, useRef } from "react";
+import { Box, Card, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
+import { capitalize, isString, useInView } from "@tracktor/react-utils";
+import { CSSProperties, Fragment, MouseEvent, ReactElement, ReactNode, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
-import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
-import { computeKanbanCardHeight, IMG_SIZE, useDragScroll } from "@/components/DataDisplay/Kanban/utils";
+import ChipStatusKanban from "@/components/DataDisplay/Kanban/utils/ChipStatusKanban";
+import computeKanbanCardHeight from "@/components/DataDisplay/Kanban/utils/computeKanbanCardHeight";
+import { IMG_SIZE } from "@/components/DataDisplay/Kanban/utils/config";
+import EmptyStateOverlay from "@/components/DataDisplay/Kanban/utils/EmptyStateOverlay";
+import useDragScroll from "@/components/DataDisplay/Kanban/utils/useDragScroll";
 import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
@@ -54,7 +57,7 @@ export interface EmptyStateProps {
  * Props for each subtitle item in a Kanban card.
  */
 export interface SubtitleDataItemProps {
-  text: string;
+  text: ReactNode;
   LeftIcon?: ReactElement;
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
@@ -161,68 +164,6 @@ export interface KanbanProps {
   emptyState?: ReactElement | EmptyStateProps;
 }
 
-const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
-  if (isValidElement(emptyState)) {
-    return (
-      <Stack
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-        sx={{
-          backgroundColor: "background.default",
-          zIndex: 10,
-        }}
-      >
-        {emptyState}
-      </Stack>
-    );
-  }
-
-  return (
-    <Stack
-      position="absolute"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      justifyContent="center"
-      alignItems="center"
-      spacing={2}
-      sx={{
-        backgroundColor: "background.default",
-        zIndex: 10,
-      }}
-    >
-      <Card sx={{ maxWidth: 370 }}>
-        <Box component="img" height={170} width="100%" src={worksiteCartoonImg} sx={{ objectFit: "cover", objectPosition: "top" }} />
-        <CardContent>
-          <Stack>
-            <Typography variant="h3">{emptyState?.title}</Typography>
-            {emptyState?.description && (
-              <Stack mt={1} mb={1}>
-                <Typography variant="body3">{emptyState.description}</Typography>
-              </Stack>
-            )}
-
-            {emptyState?.buttonText && (
-              <Box textAlign="center" mt={3}>
-                <Button variant="contained" onClick={emptyState?.onButtonClick}>
-                  {emptyState.buttonText}
-                </Button>
-              </Box>
-            )}
-          </Stack>
-        </CardContent>
-      </Card>
-    </Stack>
-  );
-};
-
 // Avoid body scrollbar appearing when tooltip is displayed and user scrolls
 const POPPER_KANBAN = {
   sx: {
@@ -269,7 +210,40 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
     </Tooltip>
   );
 
-  const contentElement = (
+  const subtitleList = subtitles?.map(({ text, LeftIcon, onClick }, index) => {
+    if (!isString(text)) {
+      return <Fragment key={index}>{text}</Fragment>;
+    }
+
+    const content = (
+      <Typography noWrap variant="body3" color={onClick ? "text.secondary" : "textSecondary"}>
+        {text}
+      </Typography>
+    );
+
+    return (
+      <Stack
+        key={text}
+        direction="row"
+        alignItems="center"
+        spacing={0.5}
+        overflow="hidden"
+        onClick={onClick}
+        sx={onClick ? { cursor: "pointer" } : undefined}
+      >
+        {LeftIcon}
+        {onClick ? (
+          <Button variant="link" sx={{ color: "text.secondary" }}>
+            {content}
+          </Button>
+        ) : (
+          content
+        )}
+      </Stack>
+    );
+  });
+
+  const cardContent = (
     <Stack flex={1} overflow="hidden">
       <Tooltip
         title={title}
@@ -282,33 +256,9 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         </Typography>
       </Tooltip>
 
-      {subtitles?.map(({ text, LeftIcon, onClick }) => (
-        <Stack
-          key={`${text}-${index}`}
-          direction="row"
-          alignItems="center"
-          spacing={0.5}
-          overflow="hidden"
-          onClick={onClick}
-          sx={onClick ? { cursor: "pointer" } : undefined}
-        >
-          {LeftIcon}
-          {onClick ? (
-            <Button variant="link" sx={{ color: "text.secondary" }}>
-              <Typography noWrap variant="body3">
-                {text}
-              </Typography>
-            </Button>
-          ) : (
-            <Typography noWrap variant="body3" color="textSecondary">
-              {text}
-            </Typography>
-          )}
-        </Stack>
-      ))}
+      {subtitleList}
     </Stack>
   );
-
   const footerElement = (Footer || RightFooter) && (
     <Stack spacing={1} direction="row" alignItems="center" mt={1}>
       {Footer && <Box flex={1}>{Footer}</Box>}
@@ -373,7 +323,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
               <Stack direction="row" spacing={1} flex={1} overflow="hidden">
                 {imageElement}
                 <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-                  {contentElement}
+                  {cardContent}
                   {footerElement}
                 </Stack>
               </Stack>
@@ -383,7 +333,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
               {imageElement}
               <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
                 <Stack direction="row" spacing={1} flex={1}>
-                  {contentElement}
+                  {cardContent}
                   <Stack alignItems="stretch" justifyContent="space-between">
                     {tagsAlertElement}
                   </Stack>
@@ -395,51 +345,6 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         </Stack>
       </Card>
     </Box>
-  );
-};
-
-interface ChipStatusProps {
-  status?: keyof typeof defaultKanbanChip | keyof HeaderColumnChip | string;
-  size?: ChipProps["size"];
-  variant?: ChipProps["variant"];
-  lineThrough?: boolean;
-  dot?: boolean;
-  label?: string;
-  sx?: ChipProps["sx"];
-  deleteIcon?: ReactElement;
-  disabled?: boolean;
-  headerColumnChip?: HeaderColumnChip;
-}
-
-const ChipStatusKanban = ({
-  label,
-  status,
-  sx,
-  deleteIcon,
-  lineThrough,
-  disabled,
-  headerColumnChip,
-  dot = true,
-  variant = "outlined",
-  size = "small",
-}: ChipStatusProps) => {
-  const mapping = headerColumnChip ?? defaultKanbanChip;
-  const { color, variant: mappedVariant } = (status && mapping[status]) || { color: "default" };
-
-  return (
-    <Chip
-      lineThrough={lineThrough}
-      disabled={disabled}
-      dot={dot}
-      color={color}
-      deleteIcon={deleteIcon}
-      label={label}
-      size={size}
-      variant={mappedVariant || variant}
-      sx={sx}
-      data-test="dealStatus"
-      onDelete={deleteIcon ? () => {} : undefined}
-    />
   );
 };
 
