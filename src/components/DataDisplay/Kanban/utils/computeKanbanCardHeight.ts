@@ -1,5 +1,5 @@
 import type { KanbanDataItemProps } from "@/components/DataDisplay/Kanban/Kanban";
-import { getConfig, HEADER_HEIGHT, HEIGHT_LINE_BODY3 } from "@/components/DataDisplay/Kanban/utils/config";
+import { getConfig } from "@/components/DataDisplay/Kanban/utils/config";
 
 const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
   const hasHeader = !!item.headerTitle;
@@ -7,10 +7,13 @@ const computeKanbanCardHeight = (item: KanbanDataItemProps): number => {
   const hasFooter = !!(item.Footer || item.RightFooter);
   const hasRightFooter = !!item.RightFooter;
 
-  const { footerHeight, baseHeight } = getConfig(hasHeader, hasSubtitles, hasFooter, hasRightFooter);
-
-  const headerHeight = hasHeader ? HEADER_HEIGHT : 0;
-  const subtitlesHeight = (item.subtitles?.length ?? 0) * HEIGHT_LINE_BODY3;
+  const { footerHeight, baseHeight, headerHeight, subtitlesHeight } = getConfig(
+    hasHeader,
+    hasSubtitles,
+    hasFooter,
+    hasRightFooter,
+    item.subtitles?.length,
+  );
 
   return baseHeight + headerHeight + subtitlesHeight + footerHeight;
 };

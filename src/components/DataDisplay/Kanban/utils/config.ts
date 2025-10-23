@@ -22,7 +22,7 @@ export const FOOTER_HEIGHT_CONFIG: Record<FooterHeightKey, number> = {
   rightFooter: 20,
 };
 
-export const getBaseConfig = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): number => {
+const getBaseHeight = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean): number => {
   switch (true) {
     case hasHeader && hasSubtitles:
       return BASE_HEIGHT_CONFIG["header-subtitles"];
@@ -39,7 +39,11 @@ export const getBaseConfig = (hasHeader: boolean, hasSubtitles: boolean, hasFoot
   }
 };
 
-export const getFooterConfig = (hasHeader: boolean, hasSubtitles: boolean, hasRightFooter: boolean): number => {
+const getFooterHeight = (hasFooter: boolean, hasHeader: boolean, hasSubtitles: boolean, hasRightFooter: boolean): number => {
+  if (!hasFooter) {
+    return 0;
+  }
+
   if (hasHeader && hasSubtitles) {
     return FOOTER_HEIGHT_CONFIG["header-subtitles"];
   }
@@ -49,13 +53,25 @@ export const getFooterConfig = (hasHeader: boolean, hasSubtitles: boolean, hasRi
   }
 
   if (hasRightFooter) {
-    return FOOTER_HEIGHT_CONFIG.rightFooter;
+    return FOOTER_HEIGHT_CONFIG.rightFooter || 0;
   }
 
   return FOOTER_HEIGHT_CONFIG.default;
 };
 
-export const getConfig = (hasHeader: boolean, hasSubtitles: boolean, hasFooter: boolean, hasRightFooter: boolean) => ({
-  baseHeight: getBaseConfig(hasHeader, hasSubtitles, hasFooter),
-  footerHeight: hasFooter ? getFooterConfig(hasHeader, hasSubtitles, hasRightFooter) : 0,
+const getHeaderHeight = (hasHeader: boolean): number => (hasHeader ? HEADER_HEIGHT : 0);
+
+const getSubtitlesHeight = (subtitleLength?: number): number => (subtitleLength ?? 0) * HEIGHT_LINE_BODY3;
+
+export const getConfig = (
+  hasHeader: boolean,
+  hasSubtitles: boolean,
+  hasFooter: boolean,
+  hasRightFooter: boolean,
+  subtitleLength?: number,
+) => ({
+  baseHeight: getBaseHeight(hasHeader, hasSubtitles, hasFooter),
+  footerHeight: getFooterHeight(hasFooter, hasHeader, hasSubtitles, hasRightFooter),
+  headerHeight: getHeaderHeight(hasHeader),
+  subtitlesHeight: getSubtitlesHeight(subtitleLength),
 });
