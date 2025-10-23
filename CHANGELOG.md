@@ -1,9 +1,10 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.17.1
+## v4.18.0
 
-### Fix
-#### Change ESLint Config for Biome config
-- Update ESLint Config to be compatible with Biome
-- Add Biome Config file
-- Fix lint issues after switching to Biome
+### Feat
+#### Kanban: Add ReactElement to Subtitle items
+- Add ReactElement to Subtitle items in Kanban component for more flexibility
+
+#### Timeline: Add React Element to Subtitle
+- Allow React Element in Subtitle of Timeline component for enhanced customization
