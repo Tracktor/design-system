@@ -1,13 +1,16 @@
-import { Box, Card, CardContent, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
+import { Box, Card, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
 import { capitalize, isString, useInView } from "@tracktor/react-utils";
-import { CSSProperties, isValidElement, MouseEvent, ReactElement, useEffect, useRef } from "react";
+import { CSSProperties, MouseEvent, ReactElement, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
-import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
-import { computeKanbanCardHeight, IMG_SIZE, useDragScroll } from "@/components/DataDisplay/Kanban/utils";
+import ChipStatusKanban from "@/components/DataDisplay/Kanban/utils/ChipStatusKanban";
+import computeKanbanCardHeight from "@/components/DataDisplay/Kanban/utils/computeKanbanCardHeight";
+import { IMG_SIZE } from "@/components/DataDisplay/Kanban/utils/config";
+import EmptyStateOverlay from "@/components/DataDisplay/Kanban/utils/EmptyStateOverlay";
+import useDragScroll from "@/components/DataDisplay/Kanban/utils/useDragScroll";
 import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
@@ -161,68 +164,6 @@ export interface KanbanProps {
   emptyState?: ReactElement | EmptyStateProps;
 }
 
-const EmptyStateOverlay = ({ emptyState }: { emptyState?: KanbanProps["emptyState"] }) => {
-  if (isValidElement(emptyState)) {
-    return (
-      <Stack
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-        sx={{
-          backgroundColor: "background.default",
-          zIndex: 10,
-        }}
-      >
-        {emptyState}
-      </Stack>
-    );
-  }
-
-  return (
-    <Stack
-      position="absolute"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      justifyContent="center"
-      alignItems="center"
-      spacing={2}
-      sx={{
-        backgroundColor: "background.default",
-        zIndex: 10,
-      }}
-    >
-      <Card sx={{ maxWidth: 370 }}>
-        <Box component="img" height={170} width="100%" src={worksiteCartoonImg} sx={{ objectFit: "cover", objectPosition: "top" }} />
-        <CardContent>
-          <Stack>
-            <Typography variant="h3">{emptyState?.title}</Typography>
-            {emptyState?.description && (
-              <Stack mt={1} mb={1}>
-                <Typography variant="body3">{emptyState.description}</Typography>
-              </Stack>
-            )}
-
-            {emptyState?.buttonText && (
-              <Box textAlign="center" mt={3}>
-                <Button variant="contained" onClick={emptyState?.onButtonClick}>
-                  {emptyState.buttonText}
-                </Button>
-              </Box>
-            )}
-          </Stack>
-        </CardContent>
-      </Card>
-    </Stack>
-  );
-};
-
 // Avoid body scrollbar appearing when tooltip is displayed and user scrolls
 const POPPER_KANBAN = {
   sx: {
@@ -269,7 +210,39 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
     </Tooltip>
   );
 
-  const contentElement = (
+  const subtitleList = subtitles?.map(({ text, LeftIcon, onClick }, index) => {
+    const isStringText = isString(text);
+    const content = isStringText ? (
+      <Typography noWrap variant="body3" color={onClick ? "text.secondary" : "textSecondary"}>
+        {text}
+      </Typography>
+    ) : (
+      text
+    );
+
+    return (
+      <Stack
+        key={isStringText ? text : index}
+        direction="row"
+        alignItems="center"
+        spacing={0.5}
+        overflow="hidden"
+        onClick={onClick}
+        sx={onClick ? { cursor: "pointer" } : undefined}
+      >
+        {LeftIcon}
+        {onClick ? (
+          <Button variant="link" sx={{ color: "text.secondary" }}>
+            {content}
+          </Button>
+        ) : (
+          content
+        )}
+      </Stack>
+    );
+  });
+
+  const cardContent = (
     <Stack flex={1} overflow="hidden">
       <Tooltip
         title={title}
@@ -282,40 +255,9 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         </Typography>
       </Tooltip>
 
-      {subtitles?.map(({ text, LeftIcon, onClick }, index) => (
-        <Stack
-          key={`${isString(text) ? text : index}`}
-          direction="row"
-          alignItems="center"
-          spacing={0.5}
-          overflow="hidden"
-          onClick={onClick}
-          sx={onClick ? { cursor: "pointer" } : undefined}
-        >
-          {LeftIcon}
-
-          {onClick ? (
-            <Button variant="link" sx={{ color: "text.secondary" }}>
-              {isString(text) ? (
-                <Typography noWrap variant="body3">
-                  {text}
-                </Typography>
-              ) : (
-                text
-              )}
-            </Button>
-          ) : isString(text) ? (
-            <Typography noWrap variant="body3" color="textSecondary">
-              {text}
-            </Typography>
-          ) : (
-            text
-          )}
-        </Stack>
-      ))}
+      {subtitleList}
     </Stack>
   );
-
   const footerElement = (Footer || RightFooter) && (
     <Stack spacing={1} direction="row" alignItems="center" mt={1}>
       {Footer && <Box flex={1}>{Footer}</Box>}
@@ -380,7 +322,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
               <Stack direction="row" spacing={1} flex={1} overflow="hidden">
                 {imageElement}
                 <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-                  {contentElement}
+                  {cardContent}
                   {footerElement}
                 </Stack>
               </Stack>
@@ -390,7 +332,7 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
               {imageElement}
               <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
                 <Stack direction="row" spacing={1} flex={1}>
-                  {contentElement}
+                  {cardContent}
                   <Stack alignItems="stretch" justifyContent="space-between">
                     {tagsAlertElement}
                   </Stack>
@@ -402,51 +344,6 @@ const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
         </Stack>
       </Card>
     </Box>
-  );
-};
-
-interface ChipStatusProps {
-  status?: keyof typeof defaultKanbanChip | keyof HeaderColumnChip | string;
-  size?: ChipProps["size"];
-  variant?: ChipProps["variant"];
-  lineThrough?: boolean;
-  dot?: boolean;
-  label?: string;
-  sx?: ChipProps["sx"];
-  deleteIcon?: ReactElement;
-  disabled?: boolean;
-  headerColumnChip?: HeaderColumnChip;
-}
-
-const ChipStatusKanban = ({
-  label,
-  status,
-  sx,
-  deleteIcon,
-  lineThrough,
-  disabled,
-  headerColumnChip,
-  dot = true,
-  variant = "outlined",
-  size = "small",
-}: ChipStatusProps) => {
-  const mapping = headerColumnChip ?? defaultKanbanChip;
-  const { color, variant: mappedVariant } = (status && mapping[status]) || { color: "default" };
-
-  return (
-    <Chip
-      lineThrough={lineThrough}
-      disabled={disabled}
-      dot={dot}
-      color={color}
-      deleteIcon={deleteIcon}
-      label={label}
-      size={size}
-      variant={mappedVariant || variant}
-      sx={sx}
-      data-test="dealStatus"
-      onDelete={deleteIcon ? () => {} : undefined}
-    />
   );
 };
 
