@@ -53,7 +53,7 @@ export interface TimeLineItem {
   /**
    * Subtitle of the event.
    */
-  subtitle?: string | ReactElement;
+  subtitle?: ReactNode
   /**
    * If true, the event will be displayed as active.
    */
