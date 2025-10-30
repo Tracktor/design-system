@@ -42,7 +42,7 @@
     "prepare": "bunx run build && husky install",
     "preview": "bunx vite preview",
     "storybook": "storybook dev -p 6006",
-    "test": "bun lint && vitest",
+    "test": "bun run lint && bunx vitest run --environment jsdom --config vite.config.ts",
     "test-ui": "vitest --ui",
     "test-visual": "chromatic --project-token=c9bbc986d0d6 --exit-zero-on-changes"
   },
