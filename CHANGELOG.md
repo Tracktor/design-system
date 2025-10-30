@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.1
+## v4.18.2
 ### Chore
-- Change yarn to bun in scripts
+- Fix CI on publish storybook action & improve perf with caching
