@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.3
+## v4.18.4
 ### Chore
-- Update Dockerfile to use bun instead of yarn for installing dependencies and running scripts. This change optimizes the build process by leveraging bun's performance benefits.
+- Inject npm token in .npmrc for publishing with bun (it was carried out by yarn directly in previous versions)
