@@ -1,4 +1,4 @@
-name: CI/CD
+name: Continuous Integration
 
 on:
   push:
@@ -8,18 +8,26 @@ on:
   pull_request:
 
 jobs:
-  tests:
-    name: Run unit tests
+  setup:
+    name: Setup environment
     runs-on: ubuntu-latest
-
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Install Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22.15.1
 
-      - uses: oven-sh/setup-bun@v1
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v1
+
+      - id: cache-key
+        name: Compute cache key
+        run: echo "key=${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}" >> $GITHUB_OUTPUT
 
       - name: Cache Bun dependencies
         uses: actions/cache@v4
@@ -27,16 +35,26 @@ jobs:
           path: |
             ~/.bun/install/cache
             node_modules
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
+          key: ${{ steps.cache-key.outputs.key }}
           restore-keys: |
-            bun-${{ runner.os }}-
+            ${{ runner.os }}-bun-
 
       - name: Install dependencies
         run: bun install
 
-      - name: Run unit tests
-        run: bun test
 
+  tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.15.1
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install
+      - run: bun test
 
   chromatic:
     name: Chromatic Deployment
@@ -66,16 +84,22 @@ jobs:
         with:
           node-version: 22.15.1
       - uses: oven-sh/setup-bun@v1
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
+      - run: bun install
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker registry
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.CONTAINER_REGISTRY_USER }}
           password: ${{ secrets.CONTAINER_REGISTRY_PWD }}
 
-      - name: Extract version
+      - name: Extract version from package.json
         run: echo "VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
 
-      - uses: docker/build-push-action@v6
+      - name: Build and push Storybook image
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
