@@ -39,10 +39,10 @@
     "build-storybook-docs": "storybook build --docs",
     "lint": "bunx biome check --diagnostic-level=error . && tsc --noEmit --incremental",
     "lint:fix": "bunx biome check . --write",
-    "prepare": "bunx run build && husky install",
+    "prepare": "bun run build && husky install",
     "preview": "bunx vite preview",
     "storybook": "storybook dev -p 6006",
-    "test": "bun run lint && bunx vitest run --environment jsdom --config vite.config.ts",
+    "test": "bun lint && vitest",
     "test-ui": "vitest --ui",
     "test-visual": "chromatic --project-token=c9bbc986d0d6 --exit-zero-on-changes"
   },
