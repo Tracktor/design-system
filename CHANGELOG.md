@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.2
+## v4.18.3
 ### Chore
-- Fix CI on publish storybook action & improve perf with caching
+- Update Dockerfile to use bun instead of yarn for installing dependencies and running scripts. This change optimizes the build process by leveraging bun's performance benefits.
