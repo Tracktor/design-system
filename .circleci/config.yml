@@ -41,8 +41,11 @@ jobs:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
       - run:
-          name: Install dependencies
-          command: bun install
+          name: Install dependencies (skip prepare)
+          command: bun install --ignore-scripts
+      - run:
+          name: Run prepare script manually
+          command: bun run prepare
       - run:
           name: Run unit tests
           command: bun run test
@@ -62,8 +65,11 @@ jobs:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
       - run:
-          name: Install dependencies
-          command: bun install
+          name: Install dependencies (skip prepare)
+          command: bun install --ignore-scripts
+      - run:
+          name: Run prepare script manually
+          command: bun run prepare
       - run:
           name: Run Chromatic visual tests
           command: bun run test-visual
@@ -80,8 +86,11 @@ jobs:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
       - run:
-          name: Install dependencies
-          command: bun install
+          name: Install dependencies (skip prepare)
+          command: bun install --ignore-scripts
+      - run:
+          name: Run prepare script manually
+          command: bun run prepare
       - sre/build-docker:
           image_name: "tracktor/design-system-storybook"
           registry_pwd: $CONTAINER_REGISTRY_PWD
@@ -99,8 +108,11 @@ jobs:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
       - run:
-          name: Install dependencies
-          command: bun install
+          name: Install dependencies (skip prepare)
+          command: bun install --ignore-scripts
+      - run:
+          name: Run prepare script manually
+          command: bun run prepare
       - run:
           name: Create GitHub release
           command: |
