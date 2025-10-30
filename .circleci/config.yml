@@ -114,6 +114,11 @@ jobs:
           name: Run prepare script manually
           command: bun run prepare
       - run:
+          name: Configure npm auth
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+            npm whoami
+      - run:
           name: Create GitHub release
           command: |
             export TAG=$(grep '"version":' ./package.json | cut -d\" -f4)
