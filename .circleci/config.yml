@@ -21,11 +21,22 @@ executors:
     docker:
       - image: cimg/node:22.15.1
 
+commands:
+  install-bun:
+    description: "Install Bun runtime"
+    steps:
+      - run:
+          name: Install Bun
+          command: |
+            curl -fsSL https://bun.sh/install | bash
+            echo 'export PATH="$HOME/.bun/bin:$PATH"' >> $BASH_ENV
+
 jobs:
   run-unit-tests:
     executor: tests
     steps:
       - checkout
+      - install-bun
       - restore_cache:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
@@ -46,6 +57,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - install-bun
       - restore_cache:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
@@ -56,13 +68,13 @@ jobs:
           name: Run Chromatic visual tests
           command: bun run test-visual
 
-  # Docker Build + Publish
   publish-storybook-docker:
     executor: build-docker
     steps:
       - setup_remote_docker:
           version: default
       - checkout
+      - install-bun
       - sre/load-package-version
       - restore_cache:
           keys:
@@ -82,6 +94,7 @@ jobs:
     steps:
       - gh/setup
       - checkout
+      - install-bun
       - restore_cache:
           keys:
             - bun-dependencies-{{ checksum "bun.lock" }}
@@ -97,7 +110,6 @@ jobs:
           name: Publish on npm
           command: npm publish --access public
 
-
 workflows:
   Visual Test:
     when:
@@ -109,6 +121,7 @@ workflows:
           name: Run unit tests
       - chromatic-deployment:
           name: Chromatic Deployment
+
   Release:
     when:
       equal: [ master, << pipeline.git.branch >> ]
