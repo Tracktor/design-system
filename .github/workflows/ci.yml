@@ -46,10 +46,28 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Detect changed UI files
+        id: changes
+        run: |
+          git fetch origin master --depth=1
+          CHANGED=$(git diff --name-only origin/master...HEAD | grep -E '^src/|^packages/|\.stories\.|\.mdx$' || true)
+          echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
+
+      - name: Print changed files
+        run: |
+          echo "Changed UI files:"
+          echo "${{ steps.changes.outputs.changed_files }}"
+
+      - name: Skip Chromatic (no UI change)
+        if: ${{ steps.changes.outputs.changed_files == '' }}
+        run: echo "No UI changes detected — skipping Chromatic."
+
       - name: Install Bun
+        if: ${{ steps.changes.outputs.changed_files != '' }}
         uses: oven-sh/setup-bun@v1
 
       - name: Cache Bun dependencies
+        if: ${{ steps.changes.outputs.changed_files != '' }}
         uses: actions/cache@v4
         with:
           path: |
@@ -60,11 +78,13 @@ jobs:
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
+        if: ${{ steps.changes.outputs.changed_files != '' }}
         run: bun install --ignore-scripts
 
       - name: Run prepare script manually
+        if: ${{ steps.changes.outputs.changed_files != '' }}
         run: bun run prepare
 
       - name: Run Chromatic
+        if: ${{ steps.changes.outputs.changed_files != '' }}
         run: bun run test-visual
-
