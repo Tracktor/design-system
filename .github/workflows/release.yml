@@ -42,6 +42,14 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
           npm whoami
 
+      - name: Configure GitHub CLI Auth
+        run: |
+          gh auth setup-git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract version from package.json
         id: version
         run: |
@@ -50,7 +58,13 @@ jobs:
 
       - name: Create GitHub Release
         run: |
-          gh release create "${{ steps.version.outputs.version }}" -F CHANGELOG.md
+          if gh release view "${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "Release already exists, skipping."
+          else
+            gh release create "${{ steps.version.outputs.version }}" -F CHANGELOG.md
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: npm publish --access public --provenance
