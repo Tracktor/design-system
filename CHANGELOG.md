@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.4
+## v4.18.5
 ### Chore
-- Inject npm token in .npmrc for publishing with bun (it was carried out by yarn directly in previous versions)
+- Change CIRCLECI config to GITHUB_ACTIONS
