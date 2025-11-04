@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install --ignore-scripts
+
+      - name: Run prepare script manually
+        run: bun run prepare
+
+      - name: Configure npm auth
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+          npm whoami
+
+      - name: Create GitHub Release
+        id: create_release
+        run: |
+          TAG=$(jq -r .version package.json)
+          gh release create "$TAG" -F CHANGELOG.md
+
+      - name: Publish to npm
+        run: npm publish --access public
