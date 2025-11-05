@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: Storybook
+      name: ${{ github.ref_name == 'master' && 'Storybook' || 'Storybook-Test' }}
       url: https://storybook.tracktor.fr
 
     steps:
