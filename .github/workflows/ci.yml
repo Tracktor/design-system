@@ -12,8 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Install Bun
         uses: oven-sh/setup-bun@v1
@@ -43,24 +41,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Detect changed UI files
         id: changes
         run: |
-          git fetch origin master --depth=1
-          CHANGED=$(git diff --name-only origin/master...HEAD | grep -E '^src/|^packages/|\.stories\.|\.mdx$' || true)
+          DEFAULT_BRANCH=$(git remote show origin | sed -n "/HEAD branch/s/.*: //p")
+          git fetch origin $DEFAULT_BRANCH --depth=2
+          CHANGED=$(git diff --name-only origin/$DEFAULT_BRANCH...HEAD | grep -E '^src/|^packages/|\.stories\.|\.mdx$' || true)
           echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
-
-      - name: Print changed files
-        run: |
-          echo "Changed UI files:"
-          echo "${{ steps.changes.outputs.changed_files }}"
 
       - name: Skip Chromatic (no UI change)
         if: ${{ steps.changes.outputs.changed_files == '' }}
-        run: echo "No UI changes detected — skipping Chromatic."
+        run: echo "No UI changes — skipping Chromatic."
 
       - name: Install Bun
         if: ${{ steps.changes.outputs.changed_files != '' }}
@@ -96,14 +88,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Detect changed UI files
         id: changes
         run: |
-          git fetch origin master --depth=1
-          CHANGED=$(git diff --name-only origin/master...HEAD | grep -E '^src/|^packages/|\.stories\.|\.mdx$' || true)
+          DEFAULT_BRANCH=$(git remote show origin | sed -n "/HEAD branch/s/.*: //p")
+          git fetch origin $DEFAULT_BRANCH --depth=2
+          CHANGED=$(git diff --name-only origin/$DEFAULT_BRANCH...HEAD | grep -E '^src/|^packages/|\.stories\.|\.mdx$' || true)
           echo "changed_files=$CHANGED" >> $GITHUB_OUTPUT
 
       - name: Skip Storybook deploy (no UI change)
