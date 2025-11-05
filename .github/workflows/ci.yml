@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: bun install --ignore-scripts
 
-      - name: Run prepare script manually
+      - name: Build
         run: bun run build
 
       - name: Run unit tests
@@ -81,13 +81,13 @@ jobs:
         if: ${{ steps.changes.outputs.changed_files != '' }}
         run: bun install --ignore-scripts
 
-      - name: Build (prepare)
+      - name: Build for Chromatic
         if: ${{ steps.changes.outputs.changed_files != '' }}
         run: bun run build
 
       - name: Run Chromatic
         if: ${{ steps.changes.outputs.changed_files != '' }}
-        run: bun run test-visual  # contains --exit-zero-on-changes
+        run: bun run test-visual
 
 
   storybook-deploy:
