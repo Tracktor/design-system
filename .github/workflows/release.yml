@@ -6,7 +6,7 @@ on:
       - master
 
 permissions:
-  contents: write # required for gh release create
+  contents: write
   packages: write
 
 jobs:
@@ -34,8 +34,8 @@ jobs:
       - name: Install dependencies
         run: bun install --ignore-scripts
 
-      - name: Run prepare script manually
-        run: bun run prepare
+      - name: Build package
+        run: bun run build
 
       - name: Configure npm auth
         run: |
@@ -50,7 +50,13 @@ jobs:
 
       - name: Create GitHub Release
         run: |
-          gh release create "${{ steps.version.outputs.version }}" -F CHANGELOG.md
+          if gh release view "${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "Release already exists, skipping."
+          else
+            gh release create "${{ steps.version.outputs.version }}" -F CHANGELOG.md
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: npm publish --access public --provenance

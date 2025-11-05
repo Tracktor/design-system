@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.5
+## v4.18.6
 ### Chore
-- Change CIRCLECI config to GITHUB_ACTIONS
+- Update release & CI workflows to use latest actions
