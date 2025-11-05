@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.18.7
+## v4.18.8
 ### Chore
-- Update release & CI workflows to use latest actions
+- Add Preview story for PRs

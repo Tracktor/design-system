@@ -1,31 +1,25 @@
-name: Deploy Storybook
+name: Storybook Deployment
 
 on:
   push:
     branches:
       - master
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+  pull-requests: write
 
 jobs:
-  deploy:
+  storybook:
     runs-on: ubuntu-latest
-
-    environment:
-      name: Storybook
-      url: https://storybook.tracktor.fr
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v1
@@ -43,13 +37,55 @@ jobs:
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install --ignore-scripts
+        run: bun install --frozen-lockfile --ignore-scripts
 
+      # 🏗️ Build Storybook (except when closing PR)
       - name: Build Storybook
+        if: github.event.action != 'closed'
         run: bun run build-storybook
 
-      - name: Deploy to GitHub Pages
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+      - name: Set deploy path
+        id: paths
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "folder=pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+          else
+            echo "folder=." >> $GITHUB_OUTPUT
+          fi
+
+      # 🚀 Deploy (master OR PR build)
+      - name: Deploy Storybook
+        if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: storybook-static
-          checkout: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: storybook-static
+          destination_dir: ${{ steps.paths.outputs.folder }}
+          keep_files: true
+
+      # 🧹 Delete Preview on PR Close
+      - name: Delete PR preview
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git clone --depth=1 --branch=gh-pages https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
+          cd gh-pages
+
+          rm -rf pr-${{ github.event.pull_request.number }}
+
+          git add .
+          git commit -m "Delete PR preview pr-${{ github.event.pull_request.number }}" || echo "Nothing to commit"
+          git push
+
+      # 💬 Comment PR with Preview URL
+      - name: Comment PR with Storybook URL
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          header: storybook_preview
+          message: |
+            🚀 **Storybook Preview Ready**
+            🔗 https://storybook.tracktor.fr/pr-${{ github.event.pull_request.number }}/
