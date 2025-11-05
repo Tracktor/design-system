@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - test
 
 permissions:
   contents: write
@@ -16,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     environment:
-      name: ${{ github.ref_name == 'master' && 'Storybook' || 'Storybook-Test' }}
+      name: Storybook
       url: https://storybook.tracktor.fr
 
     steps:
