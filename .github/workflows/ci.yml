@@ -32,7 +32,7 @@ jobs:
         run: bun install --ignore-scripts
 
       - name: Run prepare script manually
-        run: bun run prepare
+        run: bun run build
 
       - name: Run unit tests
         run: bun run test
@@ -81,13 +81,14 @@ jobs:
         if: ${{ steps.changes.outputs.changed_files != '' }}
         run: bun install --ignore-scripts
 
-      - name: Run prepare script manually
+      - name: Build (prepare)
         if: ${{ steps.changes.outputs.changed_files != '' }}
-        run: bun run prepare
+        run: bun run build
 
       - name: Run Chromatic
         if: ${{ steps.changes.outputs.changed_files != '' }}
-        run: bun run test-visual
+        run: bun run test-visual  # contains --exit-zero-on-changes
+
 
   storybook-deploy:
     runs-on: ubuntu-latest
@@ -134,9 +135,7 @@ jobs:
 
       - name: Deploy Storybook to GitHub Pages
         if: ${{ steps.changes.outputs.changed_files != '' }}
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: storybook-static
-          checkout: false
-          install_command: "echo 'skip install'"
-          build_command: "echo 'skip build'"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: storybook-static
