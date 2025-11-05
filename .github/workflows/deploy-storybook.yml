@@ -54,3 +54,4 @@ jobs:
           path: storybook-static
           checkout: false
           install_command: ""
+          build_command: ""

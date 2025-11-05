@@ -35,7 +35,6 @@
   "homepage": "https://github.com/Tracktor/design-system#readme",
   "scripts": {
     "build": "tsc && vite build",
-    "build-storybook-preview": "STORYBOOK_BASE_HREF=. storybook build --output-dir=storybook-static --quiet",
     "build-storybook": "storybook build",
     "build-storybook-docs": "storybook build --docs",
     "lint": "bun x biome check --diagnostic-level=error . && tsc --noEmit --incremental",
