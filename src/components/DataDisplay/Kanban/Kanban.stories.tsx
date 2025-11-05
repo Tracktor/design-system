@@ -398,53 +398,53 @@ SubtitleActions.args = {
   onClickItem: () => alert(`Clicked on item`),
 };
 
-export const CustomSubtitles = Template.bind({});
-CustomSubtitles.args = {
-  data: [
-    {
-      count: 1,
-      isFetched: true,
-      items: [
-        {
-          Footer: <Chip color="warning" size="small" label="Spring" variant="outlined-rounded" />,
-          id: "19001",
-          image: "https://picsum.photos/seed/excavator/160/160",
-          imageTitle: "Excavatrice compacte - 2T",
-          secondaryImage: "https://picsum.photos/seed/logo3/64/64",
-          secondaryImageText: "E",
-          subtitles: [
-            {
-              text: (
-                <Stack spacing={1} direction="row" alignItems="center">
-                  <Typography noWrap variant="body2" color="success">
-                    Excavatrice
-                  </Typography>
-                  <Tooltip title="Numéro de série : EXC-2025-001" enterDelay={300}>
-                    <Typography noWrap variant="body3" color="error">
-                      série 2025
-                    </Typography>
-                  </Tooltip>
-                  <span style={{ fontSize: 16 }}>➕</span>
-                </Stack>
-              ),
-            },
-            {
-              text: "14 Oct → 20 Oct 2025",
-            },
-            {
-              text: "CHANTIER METRO L14 BERCY",
-            },
-          ],
-          tag: "N° 19001",
-          title: "BIG MACHINES",
-        },
-      ],
-      label: "With tooltip",
-      name: "with_tooltip",
-    },
-  ],
-  onClickItem: () => alert(`Clicked on item`),
-};
+// export const CustomSubtitles = Template.bind({});
+// CustomSubtitles.args = {
+//   data: [
+//     {
+//       count: 1,
+//       isFetched: true,
+//       items: [
+//         {
+//           Footer: <Chip color="warning" size="small" label="Spring" variant="outlined-rounded" />,
+//           id: "19001",
+//           image: "https://picsum.photos/seed/excavator/160/160",
+//           imageTitle: "Excavatrice compacte - 2T",
+//           secondaryImage: "https://picsum.photos/seed/logo3/64/64",
+//           secondaryImageText: "E",
+//           subtitles: [
+//             {
+//               text: (
+//                 <Stack spacing={1} direction="row" alignItems="center">
+//                   <Typography noWrap variant="body2" color="success">
+//                     Excavatrice
+//                   </Typography>
+//                   <Tooltip title="Numéro de série : EXC-2025-001" enterDelay={300}>
+//                     <Typography noWrap variant="body3" color="error">
+//                       série 2025
+//                     </Typography>
+//                   </Tooltip>
+//                   <span style={{ fontSize: 16 }}>➕</span>
+//                 </Stack>
+//               ),
+//             },
+//             {
+//               text: "14 Oct → 20 Oct 2025",
+//             },
+//             {
+//               text: "CHANTIER METRO L14 BERCY",
+//             },
+//           ],
+//           tag: "N° 19001",
+//           title: "BIG MACHINES",
+//         },
+//       ],
+//       label: "With tooltip",
+//       name: "with_tooltip",
+//     },
+//   ],
+//   onClickItem: () => alert(`Clicked on item`),
+// };
 
 export const LoadingColumns = Template.bind({});
 LoadingColumns.args = {
