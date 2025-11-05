@@ -43,7 +43,7 @@ jobs:
             ${{ runner.os }}-bun-
 
       - name: Install dependencies
-        run: bun install --ignore-scripts
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Build Storybook
         run: bun run build-storybook
@@ -53,3 +53,5 @@ jobs:
         with:
           path: storybook-static
           checkout: false
+          install_command: ""
+          build_command: ""
