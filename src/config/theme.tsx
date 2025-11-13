@@ -64,18 +64,21 @@ declare module "@mui/material/FormControlLabel" {
 declare module "@mui/material/InputBase" {
   interface InputBasePropsSizeOverrides {
     xSmall: true;
+    tiny: true;
   }
 }
 
 declare module "@mui/material/InputLabel" {
   interface InputLabelPropsSizeOverrides {
     xSmall: true;
+    tiny: true;
   }
 }
 
 declare module "@mui/material/TextField" {
   interface TextFieldPropsSizeOverrides {
     xSmall: true;
+    tiny: true;
   }
 }
 
@@ -736,6 +739,25 @@ const commonThemeOptions: MuiThemeOptions = {
       },
       variants: [
         {
+          props: { size: "tiny" },
+          style: {
+            "& .MuiFilledInput-input, & .MuiInputBase-input.MuiInput-input, & .MuiOutlinedInput-input": {
+              paddingBottom: 1.5,
+              paddingTop: 1.5,
+            },
+
+            "&.MuiInputBase-root.MuiFilledInput-root, &.MuiInputBase-root.MuiInput-root & &.MuiInputBase-root.MuiInputBase-multiline textarea & &.MuiInputBase-root.MuiOutlinedInput-root":
+              {
+                minHeight: 24,
+              },
+
+            "&.MuiInputBase-root.MuiInputBase-multiline": {
+              paddingBottom: 0,
+              paddingTop: 2,
+            },
+          },
+        },
+        {
           props: { size: "small" },
           style: {
             "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall": {
@@ -772,6 +794,23 @@ const commonThemeOptions: MuiThemeOptions = {
     },
     MuiInputLabel: {
       variants: [
+        {
+          props: { size: "tiny" },
+          style: {
+            "& + .MuiOutlinedInput-root legend": {
+              maxWidth: 0,
+            },
+            "&.MuiInputLabel-outlined.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink), &.MuiInputLabel-filled.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)":
+              {
+                transform: "translate(14px, 1px)",
+              },
+
+            "&.MuiInputLabel-sizeTiny.MuiInputLabel-shrink": {
+              fontSize: "0.75rem",
+              transform: "translate(14px, -18px)",
+            },
+          },
+        },
         {
           props: { size: "xSmall" },
           style: {
