@@ -797,9 +797,17 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { size: "tiny" },
           style: {
+            // MULTILINE
+            ".MuiFormControl-root:has(.MuiInputBase-multiline) &.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)": {
+              transform: "translate(14px, 4px)",
+            },
+
+            // General shrunk state
             "& + .MuiOutlinedInput-root legend": {
               maxWidth: 0,
             },
+
+            // OUTLINED / FILLED
             "&.MuiInputLabel-outlined.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink), &.MuiInputLabel-filled.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)":
               {
                 transform: "translate(14px, 1px)",
@@ -809,8 +817,9 @@ const commonThemeOptions: MuiThemeOptions = {
               fontSize: "0.75rem",
               transform: "translate(14px, -18px)",
             },
+
+            // STANDARD
             "&.MuiInputLabel-standard.MuiInputLabel-shrink": {
-              // backgroundColor: "red",
               transform: "translate(0, -3px)",
             },
           },
