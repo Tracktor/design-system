@@ -819,6 +819,9 @@ const commonThemeOptions: MuiThemeOptions = {
             },
 
             // STANDARD
+            "&.MuiInputLabel-standard:not(.MuiInputLabel-shrink)": {
+              transform: "translate(0, 12px)",
+            },
             "&.MuiInputLabel-standard.MuiInputLabel-shrink": {
               transform: "translate(0, -3px)",
             },
