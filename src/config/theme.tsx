@@ -809,6 +809,10 @@ const commonThemeOptions: MuiThemeOptions = {
               fontSize: "0.75rem",
               transform: "translate(14px, -18px)",
             },
+            "&.MuiInputLabel-standard.MuiInputLabel-shrink": {
+              // backgroundColor: "red",
+              transform: "translate(0, -3px)",
+            },
           },
         },
         {
