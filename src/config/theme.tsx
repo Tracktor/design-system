@@ -812,10 +812,10 @@ const commonThemeOptions: MuiThemeOptions = {
               {
                 transform: "translate(14px, 1px)",
               },
-
             "&.MuiInputLabel-sizeTiny.MuiInputLabel-shrink": {
-              fontSize: "0.75rem",
-              transform: "translate(14px, -18px)",
+              opacity: 0,
+              pointerEvents: "none",
+              transform: "translate(0, 0)",
             },
 
             // STANDARD
@@ -823,7 +823,9 @@ const commonThemeOptions: MuiThemeOptions = {
               transform: "translate(0, 12px)",
             },
             "&.MuiInputLabel-standard.MuiInputLabel-shrink": {
-              transform: "translate(0, -3px)",
+              opacity: 0,
+              pointerEvents: "none",
+              transform: "translate(0, 0)",
             },
           },
         },
