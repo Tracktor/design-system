@@ -742,8 +742,9 @@ const commonThemeOptions: MuiThemeOptions = {
           props: { size: "tiny" },
           style: {
             "& .MuiFilledInput-input, & .MuiInputBase-input.MuiInput-input, & .MuiOutlinedInput-input": {
-              paddingBottom: 1.5,
-              paddingTop: 1.5,
+              height: pxToRem(22),
+              paddingBottom: 4.0,
+              paddingTop: 3.0,
             },
 
             "&.MuiInputBase-root.MuiFilledInput-root, &.MuiInputBase-root.MuiInput-root & &.MuiInputBase-root.MuiInputBase-multiline textarea & &.MuiInputBase-root.MuiOutlinedInput-root":
@@ -810,7 +811,7 @@ const commonThemeOptions: MuiThemeOptions = {
             // OUTLINED / FILLED
             "&.MuiInputLabel-outlined.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink), &.MuiInputLabel-filled.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)":
               {
-                transform: "translate(14px, 1px)",
+                transform: "translate(14px, 3px)",
               },
             "&.MuiInputLabel-sizeTiny.MuiInputLabel-shrink": {
               opacity: 0,
@@ -820,7 +821,7 @@ const commonThemeOptions: MuiThemeOptions = {
 
             // STANDARD
             "&.MuiInputLabel-standard:not(.MuiInputLabel-shrink)": {
-              transform: "translate(0, 12px)",
+              transform: "translate(0, 16px)",
             },
             "&.MuiInputLabel-standard.MuiInputLabel-shrink": {
               opacity: 0,
