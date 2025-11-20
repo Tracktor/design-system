@@ -64,18 +64,21 @@ declare module "@mui/material/FormControlLabel" {
 declare module "@mui/material/InputBase" {
   interface InputBasePropsSizeOverrides {
     xSmall: true;
+    tiny: true;
   }
 }
 
 declare module "@mui/material/InputLabel" {
   interface InputLabelPropsSizeOverrides {
     xSmall: true;
+    tiny: true;
   }
 }
 
 declare module "@mui/material/TextField" {
   interface TextFieldPropsSizeOverrides {
     xSmall: true;
+    tiny: true;
   }
 }
 
@@ -736,6 +739,35 @@ const commonThemeOptions: MuiThemeOptions = {
       },
       variants: [
         {
+          props: { size: "tiny" },
+          style: {
+            ".MuiOutlinedInput-notchedOutline": {
+              top: 0,
+            },
+            ".MuiOutlinedInput-notchedOutline legend": {
+              display: "none",
+            },
+            "& .MuiInputBase-input.MuiFilledInput-input": {
+              paddingBottom: 2.5,
+              paddingTop: 5.5,
+            },
+            "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
+              paddingBottom: 3.5,
+              paddingLeft: 8,
+              paddingRight: 8,
+              paddingTop: 3.5,
+            },
+            "&.MuiInputBase-multiline": {
+              paddingBottom: 0,
+              paddingTop: 10,
+            },
+            "&.MuiInputBase-multiline textarea": {
+              height: 40,
+            },
+            fontSize: pxToRem(14),
+          },
+        },
+        {
           props: { size: "small" },
           style: {
             "& .MuiOutlinedInput-input.MuiInputBase-inputSizeSmall": {
@@ -772,6 +804,29 @@ const commonThemeOptions: MuiThemeOptions = {
     },
     MuiInputLabel: {
       variants: [
+        {
+          props: { size: "tiny" },
+          style: {
+            // Filled
+            "&.MuiInputLabel-filled.MuiInputLabel-sizeTiny": {
+              transform: "translate(12px, 0px) scale(0.65)",
+            },
+            // Outlined
+            "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
+              display: "none",
+            },
+            // Label when not shrunk
+            "&.MuiInputLabel-outlined.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink), &.MuiInputLabel-filled.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)":
+              {
+                transform: "translate(12px, 5px) scale(1)",
+              },
+            // Standard shrink
+            "&.MuiInputLabel-standard.MuiInputLabel-sizeTiny.MuiInputLabel-shrink": {
+              transform: "translate(0, 6.5px) scale(0.75)",
+            },
+            fontSize: pxToRem(12),
+          },
+        },
         {
           props: { size: "xSmall" },
           style: {
