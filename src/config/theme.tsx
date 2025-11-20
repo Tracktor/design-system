@@ -741,21 +741,30 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { size: "tiny" },
           style: {
-            "& .MuiFilledInput-input, & .MuiInputBase-input.MuiInput-input, & .MuiOutlinedInput-input": {
-              height: pxToRem(22),
-              paddingBottom: 4.0,
-              paddingTop: 3.0,
+            ".MuiOutlinedInput-notchedOutline": {
+              top: 0,
             },
-
-            "&.MuiInputBase-root.MuiFilledInput-root, &.MuiInputBase-root.MuiInput-root & &.MuiInputBase-root.MuiInputBase-multiline textarea & &.MuiInputBase-root.MuiOutlinedInput-root":
-              {
-                minHeight: 24,
-              },
-
-            "&.MuiInputBase-root.MuiInputBase-multiline": {
+            ".MuiOutlinedInput-notchedOutline legend": {
+              display: "none",
+            },
+            "& .MuiInputBase-input.MuiFilledInput-input": {
+              paddingBottom: 2.5,
+              paddingTop: 5.5,
+            },
+            "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
+              paddingBottom: 3.5,
+              paddingLeft: 8,
+              paddingRight: 8,
+              paddingTop: 3.5,
+            },
+            "&.MuiInputBase-multiline": {
               paddingBottom: 0,
-              paddingTop: 2,
+              paddingTop: 10,
             },
+            "&.MuiInputBase-multiline textarea": {
+              height: 40,
+            },
+            fontSize: pxToRem(14),
           },
         },
         {
@@ -798,36 +807,24 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { size: "tiny" },
           style: {
-            // MULTILINE
-            ".MuiFormControl-root:has(.MuiInputBase-multiline) &.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)": {
-              transform: "translate(14px, 4px)",
+            // Filled
+            "&.MuiInputLabel-filled.MuiInputLabel-sizeTiny": {
+              transform: "translate(12px, 0px) scale(0.65)",
             },
-
-            // General shrunk state
-            "& + .MuiOutlinedInput-root legend": {
-              maxWidth: 0,
+            // Outlined
+            "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
+              display: "none",
             },
-
-            // OUTLINED / FILLED
+            // Label when not shrunk
             "&.MuiInputLabel-outlined.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink), &.MuiInputLabel-filled.MuiInputLabel-sizeTiny:not(.MuiInputLabel-shrink)":
               {
-                transform: "translate(14px, 3px)",
+                transform: "translate(12px, 5px) scale(1)",
               },
-            "&.MuiInputLabel-sizeTiny.MuiInputLabel-shrink": {
-              opacity: 0,
-              pointerEvents: "none",
-              transform: "translate(0, 0)",
+            // Standard shrink
+            "&.MuiInputLabel-standard.MuiInputLabel-sizeTiny.MuiInputLabel-shrink": {
+              transform: "translate(0, 6.5px) scale(0.75)",
             },
-
-            // STANDARD
-            "&.MuiInputLabel-standard:not(.MuiInputLabel-shrink)": {
-              transform: "translate(0, 16px)",
-            },
-            "&.MuiInputLabel-standard.MuiInputLabel-shrink": {
-              opacity: 0,
-              pointerEvents: "none",
-              transform: "translate(0, 0)",
-            },
+            fontSize: pxToRem(12),
           },
         },
         {
