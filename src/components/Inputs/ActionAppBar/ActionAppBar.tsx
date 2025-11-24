@@ -7,12 +7,12 @@ const ActionAppBar = ({ sx, ...props }: ButtonProps) => (
     size="small"
     sx={{
       "&:hover": {
-        backgroundColor: dark?.palette?.action?.hover,
-        borderColor: dark?.palette?.primary.main,
+        backgroundColor: dark?.palette?.primary?.dark,
+        opacity: dark?.palette?.primary?.dark,
       },
-      backgroundColor: dark?.palette?.grey?.["100"],
-      borderColor: dark?.palette?.divider,
-      color: dark?.palette?.text?.primary,
+      backgroundColor: dark?.palette.primary.main,
+      borderColor: dark?.palette.primary.main,
+      color: dark?.palette?.text?.contrast,
       ...sx,
     }}
     {...props}
