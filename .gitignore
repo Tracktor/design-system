@@ -25,4 +25,4 @@ tsconfig.tsbuildinfo
 *.sln
 *.sw?
 package-lock.json
-!/CLAUDE.md
+CLAUDE.md
