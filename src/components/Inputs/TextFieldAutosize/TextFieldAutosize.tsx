@@ -12,8 +12,7 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
   const prevValueRef = useRef<string | undefined>(undefined);
   const { size } = props;
   const isTiny = size === "tiny";
-
-  const extraWidth = isTiny ? 40 : 50;
+  const extraWidth = isTiny ? 27 : 50;
 
   const inputSlotProps = props?.slotProps?.input as Partial<OutlinedInputProps> | undefined;
   const hasStart = !!inputSlotProps?.startAdornment || !!props?.InputProps?.startAdornment;
@@ -53,15 +52,13 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
       ref={ref}
       inputRef={inputRef}
       sx={{
-        "& .MuiInputAdornment-positionEnd": {
-          marginLeft: "auto",
-          paddingLeft: "16px",
-        },
         "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
           ...(hasEnd && { paddingRight: 0 }),
           ...(hasStart && { paddingLeft: 1 }),
         },
         "& .MuiOutlinedInput-root": {
+          paddingLeft: isTiny && hasStart ? "5px" : undefined,
+          paddingRight: isTiny && hasEnd ? "5px" : undefined,
           width: inputWidth ? `${inputWidth}px` : "auto",
         },
         ...sx,
