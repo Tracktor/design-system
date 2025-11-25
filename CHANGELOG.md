@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.19.2
-### Fix
-- update hover styles for improved visibility and interaction
+## v4.20.0
+### Feat
+- Add TextFieldAutosize component to allow auto-resizing text fields based on content.
