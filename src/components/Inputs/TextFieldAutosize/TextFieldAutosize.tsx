@@ -1,20 +1,25 @@
-import { TextField, TextFieldProps } from "@mui/material";
+import { OutlinedInputProps, TextField, TextFieldProps } from "@mui/material";
 import { forwardRef, Ref, useCallback, useEffect, useRef, useState } from "react";
 import measureInputWidth from "@/components/Inputs/TextFieldAutosize/utils/measureInputWidth";
 
-const EXTRA_WIDTH = 50;
-
+/**
+ * TextField with auto-sizing width based on content
+ * Automatically adjusts width to fit the input value, placeholder, or default value
+ */
 const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
   const prevValueRef = useRef<string | undefined>(undefined);
+  const { size } = props;
+  const isTiny = size === "tiny";
 
-  // @ts-expect-error: startAdornment might be in slotProps.input or InputProps but are not typed in TextFieldProps
-  const hasStart = !!props?.slotProps?.input?.startAdornment || !!props?.InputProps?.startAdornment;
-  // @ts-expect-error: endAdornment might be in slotProps.input or InputProps but are not typed in TextFieldProps
-  const hasEnd = !!props?.slotProps?.input?.endAdornment || !!props?.InputProps?.endAdornment;
+  const extraWidth = isTiny ? 40 : 50;
 
-  const adornmentWidth = (hasStart ? EXTRA_WIDTH : 0) + (hasEnd ? EXTRA_WIDTH : 0);
+  const inputSlotProps = props?.slotProps?.input as Partial<OutlinedInputProps> | undefined;
+  const hasStart = !!inputSlotProps?.startAdornment || !!props?.InputProps?.startAdornment;
+  const hasEnd = !!inputSlotProps?.endAdornment || !!props?.InputProps?.endAdornment;
+
+  const adornmentWidth = (hasStart ? extraWidth : 0) + (hasEnd ? extraWidth : 0);
 
   const measure = useCallback(() => {
     const width = measureInputWidth(inputRef.current, props.value, props.defaultValue, props.placeholder, adornmentWidth);
@@ -48,6 +53,10 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
       ref={ref}
       inputRef={inputRef}
       sx={{
+        "& .MuiInputAdornment-positionEnd": {
+          marginLeft: "auto",
+          paddingLeft: "16px",
+        },
         "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
           ...(hasEnd && { paddingRight: 0 }),
           ...(hasStart && { paddingLeft: 1 }),
