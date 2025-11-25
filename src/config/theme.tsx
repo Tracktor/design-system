@@ -981,6 +981,14 @@ const commonThemeOptions: MuiThemeOptions = {
       },
       variants: [
         {
+          props: { variant: "standard" },
+          style: {
+            ".MuiInputBase-root:before, .MuiInputBase-root:after, .MuiInputBase-root.MuiInput-underline:hover:before": {
+              borderBottom: "none",
+            },
+          },
+        },
+        {
           props: { variant: "outlined" },
           style: ({ theme }) => ({
             "& .MuiInputBase-root": {
