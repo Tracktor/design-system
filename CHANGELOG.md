@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.19.2
+## v4.19.3
 ### Fix
-- update hover styles for improved visibility and interaction
+- Theme : update styles for textfield 'standard' variant to remove underline on hover
