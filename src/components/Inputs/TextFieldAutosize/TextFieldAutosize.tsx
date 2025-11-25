@@ -1,5 +1,5 @@
 import { TextField, TextFieldProps } from "@mui/material";
-import { forwardRef, Ref, useCallback, useLayoutEffect, useRef, useState } from "react";
+import { forwardRef, Ref, useCallback, useEffect, useRef, useState } from "react";
 import measureInputWidth from "@/components/Inputs/TextFieldAutosize/utils/measureInputWidth";
 
 const EXTRA_WIDTH = 50;
@@ -7,6 +7,7 @@ const EXTRA_WIDTH = 50;
 const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
+  const prevValueRef = useRef<string | undefined>(undefined);
 
   // @ts-expect-error: startAdornment might be in slotProps.input or InputProps but are not typed in TextFieldProps
   const hasStart = !!props?.slotProps?.input?.startAdornment || !!props?.InputProps?.startAdornment;
@@ -18,25 +19,29 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
   const measure = useCallback(() => {
     const width = measureInputWidth(inputRef.current, props.value, props.defaultValue, props.placeholder, adornmentWidth);
 
-    if (width !== null) {
-      setInputWidth(width);
+    if (width === null) {
+      return;
     }
+
+    setInputWidth(width);
   }, [props.value, props.defaultValue, props.placeholder, adornmentWidth]);
 
   /**
    *  Measure the input width on mount and whenever the input size changes
    */
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!inputRef.current) {
       return;
     }
 
-    // Observe size changes to the input element to re-compute width input
-    const observer = new ResizeObserver(measure);
-    observer.observe(inputRef.current);
+    const newValue = props.value?.toString();
+    const prevValue = prevValueRef.current;
 
-    return () => observer.disconnect();
-  }, [measure]);
+    if (newValue !== prevValue) {
+      measure();
+      prevValueRef.current = newValue;
+    }
+  }, [measure, props.value?.toString]);
 
   return (
     <TextField

@@ -40,6 +40,15 @@ AutosizeStartAdornment.args = {
   variant: "outlined",
 };
 
+export const AutosizeBothAdornments = Template.bind({});
+AutosizeBothAdornments.args = {
+  InputProps: {
+    endAdornment: <span style={{ backgroundColor: "blue" }}>.00</span>,
+    startAdornment: <span style={{ backgroundColor: "red" }}>USD</span>,
+  },
+  variant: "outlined",
+};
+
 export default {
   component: TextFieldAutosize,
   title: "Components/Inputs/TextFieldAutosize",
