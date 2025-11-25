@@ -50,6 +50,8 @@ export * from "@/components/Inputs/TextArea";
 export { default as TextArea } from "@/components/Inputs/TextArea";
 export * from "@/components/Inputs/TextFieldAppBar";
 export { default as TextFieldAppBar } from "@/components/Inputs/TextFieldAppBar";
+export * from "@/components/Inputs/TextFieldAutosize/TextFieldAutosize";
+export { default as TextFieldAutosize } from "@/components/Inputs/TextFieldAutosize/TextFieldAutosize";
 export * from "@/components/Inputs/TextFieldPassword";
 export { default as TextFieldPassword } from "@/components/Inputs/TextFieldPassword";
 export * from "@/components/Layout/Backoffice";

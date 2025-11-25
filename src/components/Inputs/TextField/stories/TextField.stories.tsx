@@ -1,6 +1,5 @@
 import { Stack } from "@mui/material";
 import type { Meta, StoryFn } from "@storybook/react-vite";
-import { useState } from "react";
 import TextField from "./TextField";
 
 const Template: StoryFn<typeof TextField> = (args) => (
@@ -68,27 +67,6 @@ export const Time = Template.bind({});
 Time.args = {
   label: "",
   type: "time",
-};
-
-const TemplateAutoWidth: StoryFn<typeof TextField> = (args) => {
-  const [tiny, setTiny] = useState("Tiny");
-  const [xSmall, setXSmall] = useState("xSmall text");
-  const [small, setSmall] = useState("Small field value");
-  const [medium, setMedium] = useState("Medium sized input");
-
-  return (
-    <Stack direction="column" spacing={2} alignItems="center" justifyContent="center" height="100%">
-      <TextField label="Tiny" size="tiny" value={tiny} onChange={(e) => setTiny(e.target.value)} {...args} />
-      <TextField label="xSmall" size="xSmall" value={xSmall} onChange={(e) => setXSmall(e.target.value)} {...args} />
-      <TextField label="Small" size="small" value={small} onChange={(e) => setSmall(e.target.value)} {...args} />
-      <TextField label="Medium" size="medium" value={medium} onChange={(e) => setMedium(e.target.value)} {...args} />
-    </Stack>
-  );
-};
-
-export const AutoSize = TemplateAutoWidth.bind({});
-AutoSize.args = {
-  autosize: true,
 };
 
 export default {
