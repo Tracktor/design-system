@@ -23,13 +23,15 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
     }
   }, [props.value, props.defaultValue, props.placeholder, adornmentWidth]);
 
+  /**
+   *  Measure the input width on mount and whenever the input size changes
+   */
   useLayoutEffect(() => {
     if (!inputRef.current) {
       return;
     }
 
-    measure();
-
+    // Observe size changes to the input element to re-compute width input
     const observer = new ResizeObserver(measure);
     observer.observe(inputRef.current);
 
