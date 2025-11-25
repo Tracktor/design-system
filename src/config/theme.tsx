@@ -983,6 +983,9 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { variant: "standard" },
           style: {
+            ".MuiInputBase-root": {
+              backgroundColor: "transparent",
+            },
             ".MuiInputBase-root:before, .MuiInputBase-root:after, .MuiInputBase-root.MuiInput-underline:hover:before": {
               borderBottom: "none",
             },
