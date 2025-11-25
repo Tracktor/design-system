@@ -24,6 +24,22 @@ Autosize.args = {
   variant: "outlined",
 };
 
+export const AutosizeEndAdornment = Template.bind({});
+AutosizeEndAdornment.args = {
+  InputProps: {
+    endAdornment: <span style={{ backgroundColor: "blue", marginLeft: 8 }}>USD</span>,
+  },
+  variant: "outlined",
+};
+
+export const AutosizeStartAdornment = Template.bind({});
+AutosizeStartAdornment.args = {
+  InputProps: {
+    startAdornment: <span style={{ backgroundColor: "blue", marginRight: 8 }}>USD</span>,
+  },
+  variant: "outlined",
+};
+
 export default {
   component: TextFieldAutosize,
   title: "Components/Inputs/TextFieldAutosize",

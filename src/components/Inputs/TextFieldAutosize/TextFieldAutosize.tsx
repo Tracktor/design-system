@@ -1,36 +1,27 @@
 import { TextField, TextFieldProps } from "@mui/material";
 import { forwardRef, Ref, useCallback, useLayoutEffect, useRef, useState } from "react";
+import measureInputWidth from "@/components/Inputs/TextFieldAutosize/utils/measureInputWidth";
+
+const EXTRA_WIDTH = 50;
 
 const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
 
+  // @ts-expect-error: startAdornment might be in slotProps.input or InputProps but are not typed in TextFieldProps
+  const hasStart = !!props?.slotProps?.input?.startAdornment || !!props?.InputProps?.startAdornment;
+  // @ts-expect-error: endAdornment might be in slotProps.input or InputProps but are not typed in TextFieldProps
+  const hasEnd = !!props?.slotProps?.input?.endAdornment || !!props?.InputProps?.endAdornment;
+
+  const adornmentWidth = (hasStart ? EXTRA_WIDTH : 0) + (hasEnd ? EXTRA_WIDTH : 0);
+
   const measure = useCallback(() => {
-    const input = inputRef.current;
-    if (!input) {
-      return;
+    const width = measureInputWidth(inputRef.current, props.value, props.defaultValue, props.placeholder, adornmentWidth);
+
+    if (width !== null) {
+      setInputWidth(width);
     }
-
-    const styles = window.getComputedStyle(input);
-    const font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    if (!ctx) {
-      return;
-    }
-
-    ctx.font = font;
-
-    const value = props.value?.toString() || props.defaultValue?.toString() || props.placeholder?.toString() || " ";
-
-    const textWidth = ctx.measureText(value).width;
-
-    const paddingLeft = parseFloat(styles.paddingLeft);
-    const paddingRight = parseFloat(styles.paddingRight);
-
-    setInputWidth(textWidth + paddingLeft + paddingRight);
-  }, [props.value, props.defaultValue, props.placeholder]);
+  }, [props.value, props.defaultValue, props.placeholder, adornmentWidth]);
 
   useLayoutEffect(() => {
     if (!inputRef.current) {
@@ -50,8 +41,12 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
       ref={ref}
       inputRef={inputRef}
       sx={{
+        "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
+          ...(hasEnd && { paddingRight: 0 }),
+          ...(hasStart && { paddingLeft: 0 }),
+        },
         "& .MuiOutlinedInput-root": {
-          width: inputWidth ? `${inputWidth}px !important` : "auto !important",
+          width: inputWidth ? `${inputWidth}px` : "auto",
         },
         ...sx,
       }}

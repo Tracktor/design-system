@@ -753,8 +753,8 @@ const commonThemeOptions: MuiThemeOptions = {
             },
             "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
               paddingBottom: 3.5,
-              paddingLeft: 8,
-              paddingRight: 8,
+              paddingLeft: 6,
+              paddingRight: 6,
               paddingTop: 3.5,
             },
             "&.MuiInputBase-multiline": {
