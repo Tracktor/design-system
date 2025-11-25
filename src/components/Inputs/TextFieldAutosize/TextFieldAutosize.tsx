@@ -43,7 +43,7 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
       sx={{
         "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
           ...(hasEnd && { paddingRight: 0 }),
-          ...(hasStart && { paddingLeft: 0 }),
+          ...(hasStart && { paddingLeft: 1 }),
         },
         "& .MuiOutlinedInput-root": {
           width: inputWidth ? `${inputWidth}px` : "auto",

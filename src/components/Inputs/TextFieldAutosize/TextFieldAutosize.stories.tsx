@@ -4,10 +4,10 @@ import { useState } from "react";
 import TextFieldAutosize from "./TextFieldAutosize";
 
 const Template: StoryFn<typeof TextFieldAutosize> = (args) => {
-  const [tiny, setTiny] = useState("Tiny");
-  const [xSmall, setXSmall] = useState("xSmall text");
-  const [small, setSmall] = useState("Small field value");
-  const [medium, setMedium] = useState("Medium sized input");
+  const [tiny, setTiny] = useState("Tiny text rendered");
+  const [xSmall, setXSmall] = useState("xSmall text rendered");
+  const [small, setSmall] = useState("Small field value rendered");
+  const [medium, setMedium] = useState("Medium sized input rendered");
 
   return (
     <Stack direction="column" spacing={3} alignItems="center" justifyContent="center" height="100%">
@@ -27,7 +27,7 @@ Autosize.args = {
 export const AutosizeEndAdornment = Template.bind({});
 AutosizeEndAdornment.args = {
   InputProps: {
-    endAdornment: <span style={{ backgroundColor: "blue", marginLeft: 8 }}>USD</span>,
+    endAdornment: <span style={{ backgroundColor: "blue" }}>USD</span>,
   },
   variant: "outlined",
 };
@@ -35,7 +35,7 @@ AutosizeEndAdornment.args = {
 export const AutosizeStartAdornment = Template.bind({});
 AutosizeStartAdornment.args = {
   InputProps: {
-    startAdornment: <span style={{ backgroundColor: "blue", marginRight: 8 }}>USD</span>,
+    startAdornment: <span style={{ backgroundColor: "blue" }}>USD</span>,
   },
   variant: "outlined",
 };
