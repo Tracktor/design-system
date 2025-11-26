@@ -31,23 +31,20 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
   }, [props.value, props.defaultValue, props.placeholder, adornmentWidth]);
 
   // Focus handler to move cursor to the end of the input
-  const handleFocus = useCallback(
-    (event: FocusEvent<HTMLInputElement>) => {
-      props.onFocus?.(event);
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
+    props.onFocus?.(event);
 
-      const input = inputRef.current;
-      if (!input) {
-        return;
-      }
+    const input = inputRef.current;
+    if (!input) {
+      return;
+    }
 
-      const len = input.value.length;
+    const len = input.value.length;
 
-      requestAnimationFrame(() => {
-        input.setSelectionRange(len, len);
-      });
-    },
-    [props.onFocus],
-  );
+    requestAnimationFrame(() => {
+      input.setSelectionRange(len, len);
+    });
+  };
 
   /**
    *  Measure the input width on mount and whenever the input size changes
