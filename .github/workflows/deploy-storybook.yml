@@ -4,19 +4,16 @@ on:
   push:
     branches:
       - master
+      - test/storybook
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
-    environment:
-      name: Storybook
-      url: https://storybook.tracktor.fr
 
     steps:
       - name: Checkout repository
@@ -48,8 +45,17 @@ jobs:
       - name: Build Storybook
         run: bun run build-storybook
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Storybook artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./storybook-static
+          path: storybook-static
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: Storybook
+      url: https://storybook.tracktor.fr
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
