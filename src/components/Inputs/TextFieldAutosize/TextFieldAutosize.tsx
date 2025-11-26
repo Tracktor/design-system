@@ -1,5 +1,5 @@
 import { OutlinedInputProps, TextField, TextFieldProps } from "@mui/material";
-import { forwardRef, Ref, useCallback, useEffect, useRef, useState } from "react";
+import { FocusEvent, forwardRef, Ref, useCallback, useEffect, useRef, useState } from "react";
 import measureInputWidth from "@/components/Inputs/TextFieldAutosize/utils/measureInputWidth";
 
 /**
@@ -29,6 +29,25 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
 
     setInputWidth(width);
   }, [props.value, props.defaultValue, props.placeholder, adornmentWidth]);
+
+  // Focus handler to move cursor to the end of the input
+  const handleFocus = useCallback(
+    (event: FocusEvent<HTMLInputElement>) => {
+      props.onFocus?.(event);
+
+      const input = inputRef.current;
+      if (!input) {
+        return;
+      }
+
+      const len = input.value.length;
+
+      requestAnimationFrame(() => {
+        input.setSelectionRange(len, len);
+      });
+    },
+    [props.onFocus],
+  );
 
   /**
    *  Measure the input width on mount and whenever the input size changes
@@ -64,6 +83,7 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
         ...sx,
       }}
       {...props}
+      onFocus={handleFocus}
     />
   );
 });
