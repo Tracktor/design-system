@@ -758,11 +758,8 @@ const commonThemeOptions: MuiThemeOptions = {
               paddingTop: 3.5,
             },
             "&.MuiInputBase-multiline": {
-              paddingBottom: 0,
-              paddingTop: 10,
-            },
-            "&.MuiInputBase-multiline textarea": {
-              height: 40,
+              paddingBottom: 8,
+              paddingTop: 8,
             },
             fontSize: pxToRem(14),
           },
@@ -792,11 +789,11 @@ const commonThemeOptions: MuiThemeOptions = {
               paddingTop: 8.5,
             },
             "&.MuiInputBase-multiline": {
-              paddingBottom: 0,
-              paddingTop: 0,
+              paddingBottom: 6,
+              paddingTop: 6,
             },
-            "&.MuiInputBase-multiline textarea": {
-              height: 50,
+            "&.MuiInputBase-multiline textarea.MuiInputBase-input": {
+              padding: 0,
             },
           },
         },
