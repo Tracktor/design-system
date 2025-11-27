@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.20.2
+## v4.20.3
 ### Fix
-- adjust padding for multiline input styles and update version to 4.20.2
+- adjust padding for input styles in outlined and xSmall variants

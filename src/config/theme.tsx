@@ -747,6 +747,9 @@ const commonThemeOptions: MuiThemeOptions = {
             ".MuiOutlinedInput-notchedOutline legend": {
               display: "none",
             },
+            "& .MuiInputBase-input": {
+              paddingTop: 0,
+            },
             "& .MuiInputBase-input.MuiFilledInput-input": {
               paddingBottom: 2.5,
               paddingTop: 5.5,
@@ -780,6 +783,9 @@ const commonThemeOptions: MuiThemeOptions = {
         {
           props: { size: "xSmall" },
           style: {
+            "& .MuiInputBase-input": {
+              paddingTop: 0,
+            },
             "& .MuiInputBase-input.MuiFilledInput-input": {
               paddingBottom: 3.5,
               paddingTop: 13.5,
