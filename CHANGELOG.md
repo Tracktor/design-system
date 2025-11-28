@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.20.3
+## v4.20.4
 ### Fix
-- adjust padding for input styles in outlined and xSmall variants
+- add maxWidth to TextFieldAutosize component & add story

@@ -2,11 +2,15 @@ import { OutlinedInputProps, TextField, TextFieldProps } from "@mui/material";
 import { FocusEvent, forwardRef, Ref, useCallback, useEffect, useRef, useState } from "react";
 import measureInputWidth from "@/components/Inputs/TextFieldAutosize/utils/measureInputWidth";
 
+type TextFieldAutosizeProps = TextFieldProps & {
+  maxWidth?: number;
+};
+
 /**
  * TextField with auto-sizing width based on content
  * Automatically adjusts width to fit the input value, placeholder, or default value
  */
-const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref<HTMLDivElement>) => {
+const TextFieldAutosize = forwardRef(({ sx, maxWidth, ...props }: TextFieldAutosizeProps, ref: Ref<HTMLDivElement>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
   const prevValueRef = useRef<string | undefined>(undefined);
@@ -27,8 +31,8 @@ const TextFieldAutosize = forwardRef(({ sx, ...props }: TextFieldProps, ref: Ref
       return;
     }
 
-    setInputWidth(width);
-  }, [props.value, props.defaultValue, props.placeholder, adornmentWidth]);
+    setInputWidth(maxWidth ? Math.min(width, maxWidth) : width);
+  }, [props.value, props.defaultValue, props.placeholder, adornmentWidth, maxWidth]);
 
   // Focus handler to move cursor to the end of the input
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {

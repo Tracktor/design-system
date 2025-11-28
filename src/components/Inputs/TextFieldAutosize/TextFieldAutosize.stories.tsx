@@ -49,6 +49,12 @@ AutosizeBothAdornments.args = {
   variant: "outlined",
 };
 
+export const AutosizeWithMaxWidth = Template.bind({});
+AutosizeWithMaxWidth.args = {
+  maxWidth: 150,
+  variant: "outlined",
+};
+
 export default {
   component: TextFieldAutosize,
   title: "Components/Inputs/TextFieldAutosize",
