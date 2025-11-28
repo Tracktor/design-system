@@ -1,1 +1,0 @@
-import{p as f,q as i,k as S,t as c}from"./iframe-B1YTgcM9.js";function u(o){const{elementType:s,externalSlotProps:t,ownerState:e,skipResolvingSlotProps:p=!1,...n}=o,r=p?{}:f(t,e),{props:l,internalRef:a}=i({...n,externalSlotProps:r}),P=S(a,r?.ref,o.additionalProps?.ref);return c(s,{...l,ref:P},e)}export{u};
