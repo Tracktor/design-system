@@ -101,7 +101,7 @@ jobs:
       - name: Run Chromatic
         run: |
           npx chromatic \
-            --project-token=${{ secrets.CHROMATIC_TOKEN }} \
+            --project-token=c9bbc986d0d6 \
             --storybook-build-dir=storybook-static \
             --exit-zero-on-changes \
             --ci
