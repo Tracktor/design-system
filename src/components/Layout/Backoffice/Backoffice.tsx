@@ -1,26 +1,24 @@
 import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
-import { cloneElement, ReactElement, ReactNode, useRef } from "react";
+import type { ReactNode } from "react";
+import { cloneElement, isValidElement, useRef } from "react";
 
 interface BackofficeProps {
-  AppBar?: ReactElement;
+  AppBar?: ReactNode;
   Main?: ReactNode;
-  Sidebar?: ReactElement;
+  Sidebar?: ReactNode;
 }
-
-const cloneElementWithProps = <T extends Record<string, unknown>>(element: ReactElement, props: T): ReactElement =>
-  cloneElement(element, props);
 
 const Backoffice = ({ Main, Sidebar, AppBar }: BackofficeProps) => {
   const { breakpoints } = useTheme();
   const gridRef = useRef<HTMLDivElement>(null);
   const isSmallScreen = useMediaQuery(breakpoints.down("md"));
-  const SideBarAppBar = Sidebar ? cloneElementWithProps(Sidebar, { AppBar }) : Sidebar;
+  const SidebarWithAppBar = isValidElement<{ AppBar?: ReactNode }>(Sidebar) ? cloneElement(Sidebar, { AppBar }) : Sidebar;
 
   return (
     <Stack height="100%">
       {!isSmallScreen && AppBar}
       <Stack height="100%" direction={isSmallScreen ? "column" : "row"} minHeight={0}>
-        {SideBarAppBar}
+        {SidebarWithAppBar}
         <Box
           flex={1}
           sx={{

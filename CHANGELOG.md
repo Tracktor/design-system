@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.20.4
+## v4.20.5
 ### Fix
-- add maxWidth to TextFieldAutosize component & add story
+- update prop types for AppBar and Sidebar to use ReactNode
