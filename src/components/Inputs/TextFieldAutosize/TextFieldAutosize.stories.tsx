@@ -55,6 +55,19 @@ AutosizeWithMaxWidth.args = {
   variant: "outlined",
 };
 
+export const AutosizeWithMinWidth = Template.bind({});
+AutosizeWithMinWidth.args = {
+  minWidth: 300,
+  variant: "outlined",
+};
+
+export const AutosizeWithMinAndMaxWidth = Template.bind({});
+AutosizeWithMinAndMaxWidth.args = {
+  maxWidth: 400,
+  minWidth: 200,
+  variant: "outlined",
+};
+
 export default {
   component: TextFieldAutosize,
   title: "Components/Inputs/TextFieldAutosize",

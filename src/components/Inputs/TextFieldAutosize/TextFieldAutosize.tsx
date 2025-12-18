@@ -4,24 +4,23 @@ import measureInputWidth from "@/components/Inputs/TextFieldAutosize/utils/measu
 
 type TextFieldAutosizeProps = TextFieldProps & {
   maxWidth?: number;
+  minWidth?: number;
 };
 
 /**
  * TextField with auto-sizing width based on content
  * Automatically adjusts width to fit the input value, placeholder, or default value
  */
-const TextFieldAutosize = forwardRef(({ sx, maxWidth, ...props }: TextFieldAutosizeProps, ref: Ref<HTMLDivElement>) => {
+const TextFieldAutosize = forwardRef(({ sx, maxWidth, minWidth, ...props }: TextFieldAutosizeProps, ref: Ref<HTMLDivElement>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
   const prevValueRef = useRef<string | undefined>(undefined);
   const { size } = props;
   const isTiny = size === "tiny";
   const extraWidth = isTiny ? 27 : 50;
-
   const inputSlotProps = props?.slotProps?.input as Partial<OutlinedInputProps> | undefined;
   const hasStart = !!inputSlotProps?.startAdornment || !!props?.InputProps?.startAdornment;
   const hasEnd = !!inputSlotProps?.endAdornment || !!props?.InputProps?.endAdornment;
-
   const adornmentWidth = (hasStart ? extraWidth : 0) + (hasEnd ? extraWidth : 0);
 
   const measure = useCallback(() => {
@@ -31,10 +30,15 @@ const TextFieldAutosize = forwardRef(({ sx, maxWidth, ...props }: TextFieldAutos
       return;
     }
 
-    setInputWidth(maxWidth ? Math.min(width, maxWidth) : width);
-  }, [props.value, props.defaultValue, props.placeholder, adornmentWidth, maxWidth]);
+    const clampedWidth = Math.min(Math.max(width, minWidth ?? 0), maxWidth ?? Infinity);
 
-  // Focus handler to move cursor to the end of the input
+    setInputWidth(clampedWidth);
+  }, [props.value, props.defaultValue, props.placeholder, maxWidth, minWidth, adornmentWidth]);
+
+  /**
+   * Focus handler to move cursor to the end of the input
+   * @param event
+   */
   const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
     props.onFocus?.(event);
 
@@ -71,6 +75,8 @@ const TextFieldAutosize = forwardRef(({ sx, maxWidth, ...props }: TextFieldAutos
     <TextField
       ref={ref}
       inputRef={inputRef}
+      {...props}
+      onFocus={handleFocus}
       sx={{
         "& .MuiInputBase-input.MuiOutlinedInput-input:not(.MuiInputBase-inputMultiline)": {
           ...(hasEnd && { paddingRight: 0 }),
@@ -83,8 +89,6 @@ const TextFieldAutosize = forwardRef(({ sx, maxWidth, ...props }: TextFieldAutos
         },
         ...sx,
       }}
-      {...props}
-      onFocus={handleFocus}
     />
   );
 });

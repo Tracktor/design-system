@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.20.5
-### Fix
-- update prop types for AppBar and Sidebar to use ReactNode
+## v4.21.0
+### Feat
+- TextFieldAutosize: add minWidth and maxWidth props for better sizing control
