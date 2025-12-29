@@ -1,6 +1,6 @@
 import { CssBaseline, createTheme, css, GlobalStyles, ThemeOptions, ThemeProvider as ThemeProviderMUI } from "@mui/material";
 import { frFR, Localization } from "@mui/material/locale";
-import { createContext, ReactNode, useEffect, useMemo } from "react";
+import { createContext, ReactNode, useMemo } from "react";
 import { commonTheme, darkTheme, lightTheme } from "@/config/theme";
 import { defaultFontWeight } from "@/constants/fonts";
 
@@ -140,49 +140,6 @@ const ThemeProvider = ({
     return createTheme(commonTheme, themeOptions, languages);
   }, [theme, language]);
 
-  /**
-   * Inject Google Fonts via <link> tags for better Lighthouse performance
-   */
-  useEffect(() => {
-    if (!fontOptions.import || typeof document === "undefined") {
-      return;
-    }
-
-    const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${fontName}:wght@${fontWeight}&display=swap`;
-    const preconnectUrls = ["https://fonts.googleapis.com", "https://fonts.gstatic.com"]; // Add preconnect links for faster font loading
-
-    for (const url of preconnectUrls) {
-      const existingPreconnect = document.head.querySelector(`link[rel="preconnect"][href="${url}"]`);
-
-      if (!existingPreconnect) {
-        const preconnectLink = document.createElement("link");
-
-        preconnectLink.rel = "preconnect";
-        preconnectLink.href = url;
-        if (url === "https://fonts.gstatic.com") {
-          preconnectLink.crossOrigin = "anonymous";
-        }
-        document.head.appendChild(preconnectLink);
-      }
-    }
-
-    // Add Google Fonts stylesheet link
-    const existingFontLink = document.head.querySelector(`link[href="${googleFontsUrl}"]`);
-
-    if (!existingFontLink) {
-      const fontLink = document.createElement("link");
-      fontLink.rel = "stylesheet";
-      fontLink.href = googleFontsUrl;
-      document.head.appendChild(fontLink);
-    }
-
-    // Cleanup on unmount or when font changes
-    return () => {
-      const fontLink = document.head.querySelector(`link[href="${googleFontsUrl}"]`);
-      fontLink?.remove();
-    };
-  }, [fontName, fontWeight, fontOptions.import]);
-
   return (
     <ThemeContext.Provider value={themeContextValue}>
       <ThemeProviderMUI theme={memoizedTheme}>
@@ -193,6 +150,13 @@ const ThemeProvider = ({
             }
           `}
         />
+        {fontOptions.import && (
+          <GlobalStyles
+            styles={css`
+              @import url("https://fonts.googleapis.com/css2?family=${fontName}:wght@${fontWeight}&display=swap");
+            `}
+          />
+        )}
         {includeCssBaseline && <CssBaseline enableColorScheme={enableColorScheme} />}
         {fullHeight && <FullHeightStyle />}
         {includeScrollBarStyle && <ScrollBarStyle theme={theme} />}

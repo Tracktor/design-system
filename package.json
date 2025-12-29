@@ -2,7 +2,7 @@
   "name": "@tracktor/design-system",
   "description": "Tracktor Design System",
   "sideEffects": false,
-  "version": "4.21.1",
+  "version": "4.21.2",
   "license": "ISC",
   "type": "module",
   "types": "./dist/src/main.d.ts",
@@ -76,7 +76,7 @@
     "sass": "^1.80.5",
     "storybook": "^9.1.10",
     "typescript": "^5.8.3",
-    "vite": "7.0.0",
+    "vite": "7.3.0",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.6.1"
   },
