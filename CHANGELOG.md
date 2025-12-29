@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.21.0
-### Feat
-- TextFieldAutosize: add minWidth and maxWidth props for better sizing control
+## v4.21.1
+### Fix
+- ThemeProvider: replace CSS @import with link injection for Google Fonts to fix Lighthouse font-display warning
