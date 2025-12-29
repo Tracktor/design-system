@@ -1,28 +1,31 @@
 import { Box, Card, CircularProgress, Skeleton, Stack } from "@mui/material";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { capitalize } from "@tracktor/react-utils";
+import { capitalize, useInView } from "@tracktor/react-utils";
 import { useEffect, useRef } from "react";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipStatusKanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/components/VirtualizedKanbanItem";
 import { KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import computeKanbanCardHeight from "@/components/DataDisplay/Kanban/utils/computeKanbanCardHeight";
 
 interface ColumnProps {
   name: string;
   label?: string;
   count?: number;
   items: KanbanDataItemProps[];
-  isLoading?: boolean;
-  isFetching?: boolean;
-  gutterSize: number;
-  listWidth: number | string;
-  disableCount?: boolean;
-  previewBookingId: string;
-  onClickItem?: KanbanProps["onClickItem"];
-  loadMoreItems?: (start: number, stop: number, status?: string) => void;
-  itemPerPage?: number;
   chipColumVariant?: "filled" | "outlined";
   chipColumDot?: boolean;
   chipStatus?: string;
+  isLoading?: boolean;
+  isFetching?: boolean;
+  gutterSize: number;
+  itemPerPage?: number;
+  listWidth: number | string;
+  disableCount?: boolean;
+  itemCount: number;
+  previewBookingId: string;
+  onClickItem?: KanbanProps["onClickItem"];
+  loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
+  onInView?: (name: string) => void;
   headerColumnChip?: KanbanProps["headerColumnChip"];
 }
 
@@ -31,64 +34,89 @@ const ColumnTanstack = ({
   label,
   count,
   items,
-  isLoading,
   isFetching,
+  isLoading,
   gutterSize,
+  itemPerPage,
   listWidth,
   disableCount,
+  loadMoreItems,
+  itemCount,
   previewBookingId,
   onClickItem,
-  loadMoreItems,
-  itemPerPage = 50,
+  onInView,
   chipColumVariant,
   chipColumDot,
   chipStatus,
   headerColumnChip,
 }: ColumnProps) => {
+  const onInViewTriggered = useRef<string[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
 
-  const rowVirtualizer = useVirtualizer({
-    count: items.length,
-    estimateSize: () => 160,
-    getScrollElement: () => parentRef.current,
+  const inView = useInView(containerRef);
+  const showSkeletons = isLoading;
+  const skeletonsToShow = 3;
 
-    measureElement: (el) => el.getBoundingClientRect().height,
-    overscan: 5,
-  });
-
-  const virtualItems = rowVirtualizer.getVirtualItems();
-
-  /** 🔄 Infinite loading */
-  useEffect(() => {
-    const lastItem = virtualItems.at(-1);
-    if (!lastItem) {
-      return;
-    }
-
-    if (lastItem.index >= items.length - 5) {
-      loadMoreItems?.(items.length, items.length + itemPerPage, name);
-    }
-  }, [virtualItems, items.length, loadMoreItems, itemPerPage, name]);
-
-  const getCountLabel = () => {
+  const getCountLabel = (): string => {
     if (disableCount) {
       return "";
     }
-
     const value = count ?? items.length;
     return value ? ` ${value}` : "";
   };
 
+  /**
+   * Trigger onInView once per column
+   */
+  useEffect(() => {
+    if (inView && !onInViewTriggered.current.includes(name)) {
+      onInViewTriggered.current.push(name);
+      onInView?.(name);
+    }
+  }, [name, inView, onInView]);
+
+  /**
+   * TanStack Virtualizer
+   */
+  const rowVirtualizer = useVirtualizer({
+    count: items.length,
+    estimateSize: (index) => computeKanbanCardHeight(items[index]) + gutterSize,
+    getScrollElement: () => parentRef.current,
+    overscan: 5,
+  });
+
+  /**
+   * Infinite loading trigger
+   */
+  useEffect(() => {
+    const virtualItems = rowVirtualizer.getVirtualItems();
+    if (!virtualItems.length) {
+      return;
+    }
+
+    const lastItem = virtualItems[virtualItems.length - 1];
+    if (lastItem.index >= items.length - 1 && items.length < itemCount) {
+      loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+    }
+  }, [items.length, itemCount, itemPerPage, loadMoreItems, name, rowVirtualizer.getVirtualItems]);
+
   return (
-    <Stack spacing={2}>
+    <Stack ref={containerRef} spacing={2}>
       <Card
         sx={{
+          ".kanban-virtual-list": {
+            "&::-webkit-scrollbar": { display: "none" },
+            flex: 1,
+            msOverflowStyle: "none",
+            overflowY: "auto",
+            scrollbarWidth: "none",
+          },
           borderRadius: 2,
           flex: "1 1 auto",
           height: 0,
           width: listWidth,
         }}
-        variant="elevation"
         elevation={1}
       >
         <Stack height="100%">
@@ -102,43 +130,36 @@ const ColumnTanstack = ({
               size="small"
               headerColumnChip={headerColumnChip}
             />
-            {isFetching && <CircularProgress size={16} />}
+            {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
           </Stack>
 
           {/* Content */}
-          <Box
-            ref={parentRef}
-            flex={1}
-            sx={{
-              "&::-webkit-scrollbar": { display: "none" },
-              overflowY: "auto",
-            }}
-          >
-            {isLoading ? (
+          <Box flex={1} ref={parentRef} className="kanban-virtual-list">
+            {showSkeletons ? (
               <Stack spacing={1} p={`${gutterSize}px`}>
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <Skeleton key={i} variant="rounded" height={112} />
+                {Array.from({ length: skeletonsToShow }).map((_, index) => (
+                  <Skeleton key={index} variant="rounded" height={112} />
                 ))}
               </Stack>
             ) : (
               <Box
                 sx={{
-                  height: rowVirtualizer.getTotalSize(),
+                  height: `${rowVirtualizer.getTotalSize()}px`,
                   position: "relative",
+                  width: "100%",
                 }}
               >
-                {virtualItems.map((virtualRow) => {
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                   const item = items[virtualRow.index];
 
                   return (
                     <Box
                       key={item.id}
                       ref={rowVirtualizer.measureElement}
+                      data-index={virtualRow.index}
                       sx={{
                         left: 0,
                         paddingBottom: `${gutterSize}px`,
-                        paddingLeft: `${gutterSize}px`,
-                        paddingRight: `${gutterSize}px`,
                         position: "absolute",
                         top: 0,
                         transform: `translateY(${virtualRow.start}px)`,
@@ -147,8 +168,13 @@ const ColumnTanstack = ({
                     >
                       <VirtualizedKanbanItem
                         index={virtualRow.index}
-                        data={{ gutterSize, items, onClickItem, previewBookingId }}
                         style={{}}
+                        data={{
+                          gutterSize,
+                          items,
+                          onClickItem,
+                          previewBookingId,
+                        }}
                       />
                     </Box>
                   );

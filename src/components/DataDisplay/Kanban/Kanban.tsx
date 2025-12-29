@@ -1,6 +1,6 @@
 import { Box, ChipProps, Stack, useTheme } from "@mui/material";
 import { MouseEvent, ReactElement, ReactNode, useRef } from "react";
-import Column from "@/components/DataDisplay/Kanban/components/Column";
+import ColumnTanstack from "@/components/DataDisplay/Kanban/components/ColumnTanstack";
 import EmptyStateOverlay from "@/components/DataDisplay/Kanban/components/EmptyStateOverlay";
 import useDragScroll from "@/components/DataDisplay/Kanban/hooks/useDragScroll";
 
@@ -214,7 +214,7 @@ const Kanban = ({
           const key = `${name}-${index}`;
 
           return (
-            <Column
+            <ColumnTanstack
               key={key}
               itemCount={itemCount}
               listWidth={listWidth}
