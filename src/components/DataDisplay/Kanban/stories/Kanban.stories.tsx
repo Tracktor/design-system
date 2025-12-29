@@ -4,6 +4,7 @@ import {
   advancedKanbanDataGenerator,
   customChipStatusMappingData,
   customSubtitlesData,
+  KANBAN_ANIMATED_ITEM_TEMPLATES,
   KANBAN_ITEM_TEMPLATES,
   loadingColumnData,
   simpleDataGenerator,
@@ -69,7 +70,7 @@ FullyFilledCardsThreeColumns.args = {
   data: advancedKanbanDataGenerator(3, {
     alternateReverse: true,
     itemsPerColumn: [32, 45, 13],
-    itemTemplates: KANBAN_ITEM_TEMPLATES,
+    itemTemplates: KANBAN_ANIMATED_ITEM_TEMPLATES,
     statuses: [
       { label: "To Do", name: "todo" },
       { label: "In Progress", name: "inprogress" },

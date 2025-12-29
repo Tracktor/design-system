@@ -1,5 +1,5 @@
 import { Chip, Stack, Tooltip } from "@mui/material";
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { KanbanDataItemProps, KanbanDataProps } from "@/components/DataDisplay/Kanban/Kanban";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/Button";
@@ -201,6 +201,123 @@ export const advancedKanbanDataGenerator = (columns: number, options: AdvancedKa
     };
   });
 };
+
+type AnimatedSubtitlesProps = {
+  subtitles?: { text: string }[];
+  delay?: number;
+};
+
+export const AnimatedSubtitles = ({ subtitles = [], delay = 1500 }: AnimatedSubtitlesProps) => {
+  const [visibleCount, setVisibleCount] = useState(1);
+
+  useEffect(() => {
+    if (subtitles.length <= 1) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setVisibleCount((prev) => (prev >= subtitles.length ? 1 : prev + 1));
+    }, delay);
+
+    return () => clearInterval(interval);
+  }, [subtitles, delay]);
+
+  return (
+    <>
+      {subtitles.slice(0, visibleCount).map((s, i) => (
+        <Typography key={i} variant="body2" color="text.secondary">
+          {s.text}
+        </Typography>
+      ))}
+    </>
+  );
+};
+
+export const KANBAN_ANIMATED_ITEM_TEMPLATES: KanbanItemTemplate[] = [
+  {
+    Alert: <Chip color="warning" size="small" label="Deadline approaching" />,
+    Footer: (
+      <Typography variant="caption" color="text.secondary">
+        Last updated: 1d ago
+      </Typography>
+    ),
+    headerTitle: "Custom Header Content With very Long Text to test overflow",
+    image: "https://picsum.photos/seed/11/100/100",
+    imageTitle: "Task image",
+    RightFooter: (
+      <Button size="xSmall" variant="outlined">
+        Open
+      </Button>
+    ),
+    secondaryImage: "https://picsum.photos/seed/secondary11/40/40",
+    secondaryImageText: "AB",
+    subtitles: [
+      {
+        text: (
+          <AnimatedSubtitles
+            subtitles={[{ text: "Due next week" }, { text: "Assigned to Alice" }, { text: "Priority: High" }]}
+            delay={1200}
+          />
+        ),
+      },
+    ],
+    tag: "High Priority",
+    title: "Design new landing page",
+  },
+  {
+    Alert: <Chip color="info" size="small" label="In review" />,
+    image: "https://picsum.photos/seed/12/100/100",
+    imageTitle: "Task image",
+    RightFooter: (
+      <Button size="xSmall" variant="contained" color="primary">
+        Edit
+      </Button>
+    ),
+    subtitles: [
+      {
+        text: <AnimatedSubtitles subtitles={[{ text: "Draft in progress" }, { text: "Owner: Chris" }]} delay={1000} />,
+      },
+    ],
+    tag: "Medium",
+    title: "Write blog post",
+  },
+  {
+    Footer: (
+      <Typography variant="caption" color="text.secondary">
+        Waiting for backend API
+      </Typography>
+    ),
+    image: "https://picsum.photos/seed/13/100/100",
+    imageTitle: "Task image",
+    subtitles: [{ text: "Dependency missing" }],
+    tag: "Blocked",
+    title: "Integrate payment service",
+  },
+  {
+    image: "https://picsum.photos/seed/14/100/100",
+    imageTitle: "Task image",
+    tag: "Completed",
+    title: "Release v2.1",
+  },
+  {
+    Alert: <Chip color="secondary" size="small" label="Scheduled" />,
+    Footer: (
+      <Typography variant="caption" color="text.secondary">
+        Starts next week
+      </Typography>
+    ),
+    headerTitle: "Upcoming task",
+    image: "https://picsum.photos/seed/15/100/100",
+    imageTitle: "Task image",
+    subtitles: [
+      {
+        text: <AnimatedSubtitles subtitles={[{ text: "Kickoff planned" }, { text: "Waiting for validation" }]} delay={1400} />,
+      },
+    ],
+    tag: "Planned",
+    title: "Prepare Q4 roadmap",
+  },
+];
 
 export const customChipStatusMappingData = [
   {
