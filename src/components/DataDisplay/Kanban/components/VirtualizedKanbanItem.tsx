@@ -4,11 +4,11 @@ import { CSSProperties, Fragment } from "react";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
 import { KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
-import computeKanbanCardHeight from "@/components/DataDisplay/Kanban/utils/computeKanbanCardHeight";
-import { IMG_SIZE } from "@/components/DataDisplay/Kanban/utils/config";
 import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
+
+const IMG_SIZE = 40;
 
 // Avoid body scrollbar appearing when tooltip is displayed and user scrolls
 const POPPER_KANBAN = {
@@ -145,7 +145,6 @@ export const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) =
           boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
           cursor: "pointer",
           flexShrink: 0,
-          height: computeKanbanCardHeight({ Footer, headerTitle, RightFooter, subtitles } as KanbanDataItemProps),
           p: 1.5,
           textDecoration: "none",
         }}

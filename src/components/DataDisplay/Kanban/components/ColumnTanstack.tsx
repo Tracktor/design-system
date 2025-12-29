@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipStatusKanban";
 import VirtualizedKanbanItem from "@/components/DataDisplay/Kanban/components/VirtualizedKanbanItem";
 import { KanbanDataItemProps, KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
-import computeKanbanCardHeight from "@/components/DataDisplay/Kanban/utils/computeKanbanCardHeight";
 
 interface ColumnProps {
   name: string;
@@ -81,17 +80,18 @@ const ColumnTanstack = ({
    */
   const rowVirtualizer = useVirtualizer({
     count: items.length,
-    estimateSize: (index) => computeKanbanCardHeight(items[index]) + gutterSize,
+    estimateSize: () => 112 + gutterSize,
     getScrollElement: () => parentRef.current,
     overscan: 5,
   });
+
+  const virtualItems = rowVirtualizer.getVirtualItems();
 
   /**
    * Infinite loading trigger
    */
   useEffect(() => {
-    const virtualItems = rowVirtualizer.getVirtualItems();
-    if (!virtualItems.length) {
+    if (!virtualItems.length || isFetching) {
       return;
     }
 
@@ -99,7 +99,7 @@ const ColumnTanstack = ({
     if (lastItem.index >= items.length - 1 && items.length < itemCount) {
       loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
     }
-  }, [items.length, itemCount, itemPerPage, loadMoreItems, name, rowVirtualizer.getVirtualItems]);
+  }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
 
   return (
     <Stack ref={containerRef} spacing={2}>
@@ -150,11 +150,9 @@ const ColumnTanstack = ({
                 }}
               >
                 {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                  const item = items[virtualRow.index];
-
                   return (
                     <Box
-                      key={item.id}
+                      key={items[virtualRow.index].id}
                       ref={rowVirtualizer.measureElement}
                       data-index={virtualRow.index}
                       sx={{
