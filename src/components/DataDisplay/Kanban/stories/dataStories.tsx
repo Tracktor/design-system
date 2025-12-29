@@ -207,7 +207,7 @@ type AnimatedSubtitlesProps = {
   delay?: number;
 };
 
-export const AnimatedSubtitles = ({ subtitles = [], delay = 1500 }: AnimatedSubtitlesProps) => {
+export const AnimatedSubtitles = ({ subtitles = [], delay = 2000 }: AnimatedSubtitlesProps) => {
   const [visibleCount, setVisibleCount] = useState(1);
 
   useEffect(() => {
@@ -253,12 +253,7 @@ export const KANBAN_ANIMATED_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     secondaryImageText: "AB",
     subtitles: [
       {
-        text: (
-          <AnimatedSubtitles
-            subtitles={[{ text: "Due next week" }, { text: "Assigned to Alice" }, { text: "Priority: High" }]}
-            delay={1200}
-          />
-        ),
+        text: <AnimatedSubtitles subtitles={[{ text: "Due next week" }, { text: "Assigned to Alice" }, { text: "Priority: High" }]} />,
       },
     ],
     tag: "High Priority",
@@ -275,7 +270,7 @@ export const KANBAN_ANIMATED_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     ),
     subtitles: [
       {
-        text: <AnimatedSubtitles subtitles={[{ text: "Draft in progress" }, { text: "Owner: Chris" }]} delay={1000} />,
+        text: <AnimatedSubtitles subtitles={[{ text: "Draft in progress" }, { text: "Owner: Chris" }]} />,
       },
     ],
     tag: "Medium",
@@ -311,7 +306,7 @@ export const KANBAN_ANIMATED_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     imageTitle: "Task image",
     subtitles: [
       {
-        text: <AnimatedSubtitles subtitles={[{ text: "Kickoff planned" }, { text: "Waiting for validation" }]} delay={1400} />,
+        text: <AnimatedSubtitles subtitles={[{ text: "Kickoff planned" }, { text: "Waiting for validation" }]} />,
       },
     ],
     tag: "Planned",
