@@ -57,6 +57,7 @@ export type UnifiedKanbanGeneratorOptions = GeneratorOptions & {
   itemTemplates?: Partial<KanbanDataItemProps>[];
   alternateReverse?: boolean;
   loadingColumns?: number[];
+  itemIdOffset?: number;
 };
 
 export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGeneratorOptions = {}): KanbanDataProps[] => {
@@ -77,6 +78,7 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
   }>(
     (acc, _, colIndex) => {
       const { name, label } = getColumnPreset(columns, colIndex, statuses);
+      const idOffset = options.itemIdOffset ?? 0;
 
       if (loadingColumns.includes(colIndex)) {
         return {
@@ -101,11 +103,13 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
       const baseItems: KanbanDataItemProps[] = Array.from({ length: count }).map((_, itemIndex) => {
         const template = itemTemplates?.[count === 1 ? colIndex % itemTemplates.length : itemIndex % itemTemplates.length];
 
+        const index = idOffset + itemIndex;
+
         return {
-          id: `${name}-${itemIndex}`,
+          id: `${name}-${index}`,
           image: undefined,
           tag: "Task",
-          title: `Task ${name} #${itemIndex + 1}`,
+          title: `Task ${name} #${index + 1}`,
           ...template,
         };
       });

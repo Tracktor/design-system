@@ -83,26 +83,11 @@ const Column = ({
     }
 
     const lastItem = virtualItems[virtualItems.length - 1];
+
     if (lastItem.index >= items.length - 1 && items.length < itemCount) {
       loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
     }
   }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
-
-  // /**
-  //  * Infinite loading trigger
-  //  * Automatically loads more items when user scrolls near the end of the virtualized list
-  //  */
-  // useEffect(() => {
-  //   const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
-  //
-  //   if (!lastItem) {
-  //     return;
-  //   }
-  //
-  //   if (lastItem.index >= items.length - 1 && items.length < itemCount) {
-  //     loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
-  //   }
-  // }, [items.length, itemCount, itemPerPage, loadMoreItems, name, rowVirtualizer.getVirtualItems]);
 
   /**
    * Trigger onInView once per column

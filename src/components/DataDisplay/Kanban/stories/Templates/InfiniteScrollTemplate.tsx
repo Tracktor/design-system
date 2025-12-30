@@ -41,9 +41,10 @@ const createInitialData = (initialItems: number) =>
 /**
  * Generate additional items for infinite scroll
  */
-const generateAdvancedItems = (count: number, status: { label: string; name: string }) =>
+const generateAdvancedItems = (count: number, status: { label: string; name: string }, offset: number) =>
   kanbanDataGenerator(1, {
     alternateReverse: true,
+    itemIdOffset: offset,
     itemsPerColumn: [count],
     itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [status],
@@ -51,17 +52,8 @@ const generateAdvancedItems = (count: number, status: { label: string; name: str
 
 const InfiniteScrollTemplate: StoryFn<InfiniteScrollStoryArgs> = (args) => {
   const initialItems = args.initialItemsPerColumn ?? DEFAULT_INITIAL_ITEMS;
-
   const pageSize = args.itemPerPage ?? DEFAULT_PAGE_SIZE;
-
   const [data, setData] = useState(() => createInitialData(initialItems));
-
-  /**
-   * Reset data when initial items change (Storybook controls)
-   */
-  useEffect(() => {
-    setData(createInitialData(initialItems));
-  }, [initialItems]);
 
   /**
    * Infinite load callback
@@ -91,10 +83,14 @@ const InfiniteScrollTemplate: StoryFn<InfiniteScrollStoryArgs> = (args) => {
           const remaining = TOTAL_ITEMS - existingCount;
           const toAdd = Math.min(pageSize, remaining);
 
-          const newItems = generateAdvancedItems(toAdd, {
-            label: col.label ?? col.name,
-            name: col.name,
-          });
+          const newItems = generateAdvancedItems(
+            toAdd,
+            {
+              label: col.label ?? col.name,
+              name: col.name,
+            },
+            existingCount,
+          );
 
           return {
             ...col,
@@ -106,6 +102,13 @@ const InfiniteScrollTemplate: StoryFn<InfiniteScrollStoryArgs> = (args) => {
     },
     [pageSize],
   );
+
+  /**
+   * Reset data when initial items change
+   */
+  useEffect(() => {
+    setData(createInitialData(initialItems));
+  }, [initialItems]);
 
   return (
     <Stack flex={1} minHeight={0} height="100%">
