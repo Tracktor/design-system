@@ -68,51 +68,57 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
     statuses,
     itemTemplates,
     alternateReverse = false,
-    loadingColumns = [], // ⬅️
+    loadingColumns = [],
   } = options;
 
-  let totalItems = 0;
+  return Array.from({ length: columns }).reduce<{
+    data: KanbanDataProps[];
+    totalItems: number;
+  }>(
+    (acc, _, colIndex) => {
+      const { name, label } = getColumnPreset(columns, colIndex, statuses);
 
-  return Array.from({ length: columns }).reduce<KanbanDataProps[]>((acc, _, colIndex) => {
-    const { name, label } = getColumnPreset(columns, colIndex, statuses);
+      if (loadingColumns.includes(colIndex)) {
+        return {
+          ...acc,
+          data: [
+            ...acc.data,
+            {
+              isLoading: true,
+              items: [],
+              label,
+              name,
+            },
+          ],
+        };
+      }
 
-    if (loadingColumns.includes(colIndex)) {
-      return [
-        ...acc,
-        {
-          isLoading: true,
-          items: [],
-          label,
-          name,
-        },
-      ];
-    }
+      const isEmpty = emptyColumns.includes(colIndex);
+      const wanted = isEmpty ? 0 : (itemsPerColumn[colIndex] ?? 0);
+      const remaining = maxTotalItems ? Math.max(0, maxTotalItems - acc.totalItems) : wanted;
+      const count = maxTotalItems ? Math.min(wanted, remaining) : wanted;
 
-    const isEmpty = emptyColumns.includes(colIndex);
-    const wanted = isEmpty ? 0 : (itemsPerColumn[colIndex] ?? 0);
-    const remaining = maxTotalItems ? Math.max(0, maxTotalItems - totalItems) : wanted;
-    const count = maxTotalItems ? Math.min(wanted, remaining) : wanted;
+      const baseItems: KanbanDataItemProps[] = Array.from({ length: count }).map((_, itemIndex) => {
+        const template = itemTemplates?.[count === 1 ? colIndex % itemTemplates.length : itemIndex % itemTemplates.length];
 
-    totalItems += count;
+        return {
+          id: `${name}-${itemIndex}`,
+          image: undefined,
+          tag: "Task",
+          title: `Task ${name} #${itemIndex + 1}`,
+          ...template,
+        };
+      });
 
-    const baseItems: KanbanDataItemProps[] = Array.from({ length: count }).map((_, itemIndex) => {
-      const template = itemTemplates?.[count === 1 ? colIndex % itemTemplates.length : itemIndex % itemTemplates.length];
+      const items = alternateReverse && colIndex % 2 === 1 ? [...baseItems].reverse() : baseItems;
+
+      if (hideEmptyColumns && items.length === 0) {
+        return acc;
+      }
 
       return {
-        id: `${name}-${itemIndex}`,
-        image: undefined,
-        tag: "Task",
-        title: `Task #${itemIndex + 1}`,
-        ...template,
-      };
-    });
-
-    const items = alternateReverse && colIndex % 2 === 1 ? [...baseItems].reverse() : baseItems;
-
-    return hideEmptyColumns && items.length === 0
-      ? acc
-      : [
-          ...acc,
+        data: [
+          ...acc.data,
           {
             count: items.length,
             isFetched: true,
@@ -120,6 +126,10 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
             label,
             name,
           },
-        ];
-  }, []);
+        ],
+        totalItems: acc.totalItems + items.length,
+      };
+    },
+    { data: [], totalItems: 0 },
+  ).data;
 };

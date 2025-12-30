@@ -24,6 +24,7 @@ type InfiniteScrollStoryArgs = ComponentProps<typeof Kanban> & {
  */
 const createInitialData = (initialItems: number) =>
   kanbanDataGenerator(3, {
+    alternateReverse: true,
     itemsPerColumn: [initialItems, initialItems, initialItems],
     itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [
@@ -42,6 +43,7 @@ const createInitialData = (initialItems: number) =>
  */
 const generateAdvancedItems = (count: number, status: { label: string; name: string }) =>
   kanbanDataGenerator(1, {
+    alternateReverse: true,
     itemsPerColumn: [count],
     itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [status],
