@@ -1,48 +1,40 @@
-import { Stack } from "@mui/material";
-import type { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta } from "@storybook/react-vite";
 import {
-  advancedKanbanDataGenerator,
   customChipStatusMappingData,
   customSubtitlesData,
-  KANBAN_ANIMATED_ITEM_TEMPLATES,
-  // KANBAN_ANIMATED_ITEM_TEMPLATES,
   KANBAN_ITEM_TEMPLATES,
   loadingColumnData,
-  simpleDataGenerator,
   subtitleActionsData,
 } from "@/components/DataDisplay/Kanban/stories/dataStories";
+import { kanbanDataGenerator } from "@/components/DataDisplay/Kanban/stories/kanbanDataGenerator";
+import InfiniteScrollTemplate from "@/components/DataDisplay/Kanban/stories/Templates/InfiniteScrollTemplate";
+import Template from "@/components/DataDisplay/Kanban/stories/Templates/Template";
 import Kanban from "../Kanban";
-
-const Template: StoryFn<typeof Kanban> = (args) => (
-  <Stack flex={1} minHeight={0} height="100%">
-    <Kanban {...args} />
-  </Stack>
-);
 
 export const SingleColumnDefaultTasks = Template.bind({});
 SingleColumnDefaultTasks.args = {
-  data: simpleDataGenerator(1, {
+  data: kanbanDataGenerator(1, {
     itemsPerColumn: [2],
   }),
 };
 
 export const TwoColumnsBasic = Template.bind({});
 TwoColumnsBasic.args = {
-  data: simpleDataGenerator(2, {
+  data: kanbanDataGenerator(2, {
     itemsPerColumn: [1, 1],
   }),
 };
 
 export const MixedColumnsWithEmpty = Template.bind({});
 MixedColumnsWithEmpty.args = {
-  data: simpleDataGenerator(2, {
+  data: kanbanDataGenerator(2, {
     itemsPerColumn: [0, 1],
   }),
 };
 
 export const BookingStatusColumns = Template.bind({});
 BookingStatusColumns.args = {
-  data: simpleDataGenerator(3, {
+  data: kanbanDataGenerator(3, {
     itemsPerColumn: [2, 1, 0],
     statuses: [
       { label: "Validated", name: "validated" },
@@ -54,7 +46,7 @@ BookingStatusColumns.args = {
 
 export const DealDataKanban = Template.bind({});
 DealDataKanban.args = {
-  data: advancedKanbanDataGenerator(3, {
+  data: kanbanDataGenerator(3, {
     alternateReverse: true,
     itemsPerColumn: [3, 2, 1],
     itemTemplates: KANBAN_ITEM_TEMPLATES,
@@ -68,10 +60,11 @@ DealDataKanban.args = {
 
 export const FullyFilledCardsThreeColumns = Template.bind({});
 FullyFilledCardsThreeColumns.args = {
-  data: advancedKanbanDataGenerator(3, {
+  data: kanbanDataGenerator(3, {
     alternateReverse: true,
     itemsPerColumn: [32, 45, 13],
-    itemTemplates: KANBAN_ANIMATED_ITEM_TEMPLATES,
+    itemTemplates: KANBAN_ITEM_TEMPLATES,
+    // itemTemplates: KANBAN_ANIMATED_ITEM_TEMPLATES,
     statuses: [
       { label: "To Do", name: "todo" },
       { label: "In Progress", name: "inprogress" },
@@ -82,7 +75,7 @@ FullyFilledCardsThreeColumns.args = {
 
 export const StatusFlowSimulation = Template.bind({});
 StatusFlowSimulation.args = {
-  data: advancedKanbanDataGenerator(5, {
+  data: kanbanDataGenerator(5, {
     alternateReverse: false,
     itemsPerColumn: [0, 1, 1, 1, 1],
     itemTemplates: [
@@ -126,6 +119,12 @@ export const CustomSubtitles = Template.bind({});
 CustomSubtitles.args = {
   data: customSubtitlesData,
   onClickItem: () => alert(`Clicked on item`),
+};
+
+export const InfiniteScrollPages = InfiniteScrollTemplate.bind({});
+InfiniteScrollPages.args = {
+  initialItemsPerColumn: 30,
+  itemPerPage: 50,
 };
 
 export const EmptyStateKanban = Template.bind({});

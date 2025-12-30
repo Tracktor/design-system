@@ -28,7 +28,7 @@ interface ColumnProps {
   headerColumnChip?: KanbanProps["headerColumnChip"];
 }
 
-const ColumnTanstack = ({
+const Column = ({
   name,
   label,
   count,
@@ -65,19 +65,6 @@ const ColumnTanstack = ({
     return value ? ` ${value}` : "";
   };
 
-  /**
-   * Trigger onInView once per column
-   */
-  useEffect(() => {
-    if (inView && !onInViewTriggered.current.includes(name)) {
-      onInViewTriggered.current.push(name);
-      onInView?.(name);
-    }
-  }, [name, inView, onInView]);
-
-  /**
-   * TanStack Virtualizer
-   */
   const rowVirtualizer = useVirtualizer({
     count: items.length,
     estimateSize: () => 112 + gutterSize,
@@ -100,6 +87,32 @@ const ColumnTanstack = ({
       loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
     }
   }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
+
+  // /**
+  //  * Infinite loading trigger
+  //  * Automatically loads more items when user scrolls near the end of the virtualized list
+  //  */
+  // useEffect(() => {
+  //   const [lastItem] = [...rowVirtualizer.getVirtualItems()].reverse();
+  //
+  //   if (!lastItem) {
+  //     return;
+  //   }
+  //
+  //   if (lastItem.index >= items.length - 1 && items.length < itemCount) {
+  //     loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+  //   }
+  // }, [items.length, itemCount, itemPerPage, loadMoreItems, name, rowVirtualizer.getVirtualItems]);
+
+  /**
+   * Trigger onInView once per column
+   */
+  useEffect(() => {
+    if (inView && !onInViewTriggered.current.includes(name)) {
+      onInViewTriggered.current.push(name);
+      onInView?.(name);
+    }
+  }, [name, inView, onInView]);
 
   return (
     <Stack ref={containerRef} spacing={2}>
@@ -186,4 +199,4 @@ const ColumnTanstack = ({
   );
 };
 
-export default ColumnTanstack;
+export default Column;
