@@ -273,7 +273,11 @@ const Column = ({
     const lastItem = virtualItems[virtualItems.length - 1];
 
     if (lastItem.index >= items.length - 1 && items.length < itemCount) {
-      loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+      // Defer loading to the next microtask to let TanStack Virtual
+      // finish its internal measurements (flushSync) before triggering a state update / fetch.
+      queueMicrotask(() => {
+        loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+      });
     }
   }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
 
