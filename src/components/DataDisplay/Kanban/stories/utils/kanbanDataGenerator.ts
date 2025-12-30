@@ -56,6 +56,7 @@ const getColumnPreset = (columns: number, index: number, statuses?: StatusPreset
 export type UnifiedKanbanGeneratorOptions = GeneratorOptions & {
   itemTemplates?: Partial<KanbanDataItemProps>[];
   alternateReverse?: boolean;
+  loadingColumns?: number[];
 };
 
 export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGeneratorOptions = {}): KanbanDataProps[] => {
@@ -67,6 +68,7 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
     statuses,
     itemTemplates,
     alternateReverse = false,
+    loadingColumns = [], // ⬅️
   } = options;
 
   let totalItems = 0;
@@ -74,17 +76,27 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
   return Array.from({ length: columns }).reduce<KanbanDataProps[]>((acc, _, colIndex) => {
     const { name, label } = getColumnPreset(columns, colIndex, statuses);
 
+    if (loadingColumns.includes(colIndex)) {
+      return [
+        ...acc,
+        {
+          isLoading: true,
+          items: [],
+          label,
+          name,
+        },
+      ];
+    }
+
     const isEmpty = emptyColumns.includes(colIndex);
     const wanted = isEmpty ? 0 : (itemsPerColumn[colIndex] ?? 0);
-
     const remaining = maxTotalItems ? Math.max(0, maxTotalItems - totalItems) : wanted;
-
     const count = maxTotalItems ? Math.min(wanted, remaining) : wanted;
 
     totalItems += count;
 
     const baseItems: KanbanDataItemProps[] = Array.from({ length: count }).map((_, itemIndex) => {
-      const template = itemTemplates?.[itemIndex % (itemTemplates?.length ?? 1)];
+      const template = itemTemplates?.[count === 1 ? colIndex % itemTemplates.length : itemIndex % itemTemplates.length];
 
       return {
         id: `${name}-${itemIndex}`,
@@ -97,14 +109,17 @@ export const kanbanDataGenerator = (columns: number, options: UnifiedKanbanGener
 
     const items = alternateReverse && colIndex % 2 === 1 ? [...baseItems].reverse() : baseItems;
 
-    const column: KanbanDataProps = {
-      count: items.length,
-      isFetched: true,
-      items,
-      label,
-      name,
-    };
-
-    return hideEmptyColumns && items.length === 0 ? acc : [...acc, column];
+    return hideEmptyColumns && items.length === 0
+      ? acc
+      : [
+          ...acc,
+          {
+            count: items.length,
+            isFetched: true,
+            items,
+            label,
+            name,
+          },
+        ];
   }, []);
 };

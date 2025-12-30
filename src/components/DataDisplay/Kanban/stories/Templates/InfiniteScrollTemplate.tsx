@@ -2,8 +2,8 @@ import { Stack } from "@mui/material";
 import type { StoryFn } from "@storybook/react-vite";
 import { ComponentProps, useCallback, useEffect, useState } from "react";
 import Kanban from "@/components/DataDisplay/Kanban/Kanban";
-import { KANBAN_ITEM_TEMPLATES } from "@/components/DataDisplay/Kanban/stories/dataStories";
-import { kanbanDataGenerator } from "@/components/DataDisplay/Kanban/stories/kanbanDataGenerator";
+import { DEAL_ITEM_TEMPLATES } from "@/components/DataDisplay/Kanban/stories/Templates/kanbanItemTemplate";
+import { kanbanDataGenerator } from "@/components/DataDisplay/Kanban/stories/utils/kanbanDataGenerator";
 
 /**
  * Defaults (can be overridden via Storybook args)
@@ -25,7 +25,7 @@ type InfiniteScrollStoryArgs = ComponentProps<typeof Kanban> & {
 const createInitialData = (initialItems: number) =>
   kanbanDataGenerator(3, {
     itemsPerColumn: [initialItems, initialItems, initialItems],
-    itemTemplates: KANBAN_ITEM_TEMPLATES,
+    itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [
       { label: "To Do", name: "todo" },
       { label: "In Progress", name: "inprogress" },
@@ -43,7 +43,7 @@ const createInitialData = (initialItems: number) =>
 const generateAdvancedItems = (count: number, status: { label: string; name: string }) =>
   kanbanDataGenerator(1, {
     itemsPerColumn: [count],
-    itemTemplates: KANBAN_ITEM_TEMPLATES,
+    itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [status],
   })[0].items;
 

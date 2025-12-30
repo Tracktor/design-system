@@ -1,14 +1,12 @@
 import type { Meta } from "@storybook/react-vite";
-import {
-  customChipStatusMappingData,
-  customSubtitlesData,
-  KANBAN_ITEM_TEMPLATES,
-  loadingColumnData,
-  subtitleActionsData,
-} from "@/components/DataDisplay/Kanban/stories/dataStories";
-import { kanbanDataGenerator } from "@/components/DataDisplay/Kanban/stories/kanbanDataGenerator";
 import InfiniteScrollTemplate from "@/components/DataDisplay/Kanban/stories/Templates/InfiniteScrollTemplate";
+import {
+  ACTION_ITEM_TEMPLATE,
+  DEAL_ITEM_TEMPLATES,
+  SUBTITLE_ITEM_TEMPLATES,
+} from "@/components/DataDisplay/Kanban/stories/Templates/kanbanItemTemplate";
 import Template from "@/components/DataDisplay/Kanban/stories/Templates/Template";
+import { kanbanDataGenerator } from "@/components/DataDisplay/Kanban/stories/utils/kanbanDataGenerator";
 import Kanban from "../Kanban";
 
 export const SingleColumnDefaultTasks = Template.bind({});
@@ -49,7 +47,7 @@ DealDataKanban.args = {
   data: kanbanDataGenerator(3, {
     alternateReverse: true,
     itemsPerColumn: [3, 2, 1],
-    itemTemplates: KANBAN_ITEM_TEMPLATES,
+    itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [
       { label: "Validé", name: "validated" },
       { label: "Confirmé", name: "confirmed" },
@@ -63,8 +61,7 @@ FullyFilledCardsThreeColumns.args = {
   data: kanbanDataGenerator(3, {
     alternateReverse: true,
     itemsPerColumn: [32, 45, 13],
-    itemTemplates: KANBAN_ITEM_TEMPLATES,
-    // itemTemplates: KANBAN_ANIMATED_ITEM_TEMPLATES,
+    itemTemplates: DEAL_ITEM_TEMPLATES,
     statuses: [
       { label: "To Do", name: "todo" },
       { label: "In Progress", name: "inprogress" },
@@ -97,11 +94,44 @@ StatusFlowSimulation.args = {
 };
 
 export const LoadingColumns = Template.bind({});
-LoadingColumns.args = { data: loadingColumnData };
+LoadingColumns.args = {
+  data: kanbanDataGenerator(2, {
+    loadingColumns: [0, 1],
+    statuses: [
+      { label: "Validated", name: "validated" },
+      { label: "Confirmed", name: "confirmed" },
+    ],
+  }),
+};
 
 export const WithCustomChipStatusMapping = Template.bind({});
 WithCustomChipStatusMapping.args = {
-  data: customChipStatusMappingData,
+  data: kanbanDataGenerator(3, {
+    itemsPerColumn: [1, 1, 1],
+    itemTemplates: [
+      {
+        image: undefined,
+        tag: "Task",
+        title: "Archived task",
+      },
+      {
+        image: undefined,
+        tag: "Task",
+        title: "Draft task",
+      },
+      {
+        image: undefined,
+        tag: "Task",
+        title: "In Review",
+      },
+    ],
+    statuses: [
+      { label: "Archived", name: "archivedItem" },
+      { label: "Draft", name: "draft" },
+      { label: "In Review", name: "review" },
+    ],
+  }),
+
   headerColumnChip: {
     archivedItem: { color: "error", variant: "outlined" },
     draft: { color: "warning", variant: "filled" },
@@ -111,14 +141,33 @@ WithCustomChipStatusMapping.args = {
 
 export const SubtitleActions = Template.bind({});
 SubtitleActions.args = {
-  data: subtitleActionsData,
-  onClickItem: () => alert(`Clicked on item`),
+  data: kanbanDataGenerator(1, {
+    itemsPerColumn: [2],
+    itemTemplates: ACTION_ITEM_TEMPLATE,
+    statuses: [
+      {
+        label: "Waiting for confirmation",
+        name: "waiting_for_confirmation",
+      },
+    ],
+  }),
+  onClickItem: () => alert("Clicked on item"),
 };
 
 export const CustomSubtitles = Template.bind({});
 CustomSubtitles.args = {
-  data: customSubtitlesData,
-  onClickItem: () => alert(`Clicked on item`),
+  data: kanbanDataGenerator(1, {
+    itemsPerColumn: [1],
+    itemTemplates: SUBTITLE_ITEM_TEMPLATES,
+    statuses: [
+      {
+        label: "With tooltip",
+        name: "with_tooltip",
+      },
+    ],
+  }),
+
+  onClickItem: () => alert("Clicked on item"),
 };
 
 export const InfiniteScrollPages = InfiniteScrollTemplate.bind({});
