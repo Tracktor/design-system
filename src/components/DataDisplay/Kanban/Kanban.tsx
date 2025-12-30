@@ -1,19 +1,374 @@
 import { Box, Card, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import { capitalize, isString, useInView } from "@tracktor/react-utils";
 import { CSSProperties, Fragment, MouseEvent, ReactElement, ReactNode, useEffect, useRef } from "react";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { VariableSizeList } from "react-window";
-import InfiniteLoader from "react-window-infinite-loader";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
-import ChipStatusKanban from "@/components/DataDisplay/Kanban/utils/ChipStatusKanban";
-import computeKanbanCardHeight from "@/components/DataDisplay/Kanban/utils/computeKanbanCardHeight";
-import { IMG_SIZE } from "@/components/DataDisplay/Kanban/utils/config";
-import EmptyStateOverlay from "@/components/DataDisplay/Kanban/utils/EmptyStateOverlay";
-import useDragScroll from "@/components/DataDisplay/Kanban/utils/useDragScroll";
+import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipStatusKanban";
+import EmptyStateOverlay from "@/components/DataDisplay/Kanban/components/EmptyStateOverlay";
+import useDragScroll from "@/components/DataDisplay/Kanban/hooks/useDragScroll";
 import { Tooltip } from "@/components/DataDisplay/Tooltip/stories/Tooltip";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
+
+const IMG_SIZE = 40;
+
+// Avoid body scrollbar appearing when tooltip is displayed and user scrolls
+const POPPER_KANBAN = {
+  sx: {
+    "&[data-popper-reference-hidden]": {
+      display: "none",
+      pointerEvents: "none",
+    },
+  },
+};
+
+const TOOLTIP_DELAYS = { enterDelay: 300, enterNextDelay: 300 };
+
+type KanbanItemProps = {
+  index: number;
+  style: CSSProperties;
+  data: {
+    previewBookingId: string;
+    gutterSize: number;
+    onClickItem: KanbanProps["onClickItem"];
+    items: KanbanDataItemProps[];
+  };
+};
+
+export const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
+  const { palette } = useTheme();
+  const { items, onClickItem, previewBookingId, gutterSize } = data;
+  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
+    items[index];
+
+  const active = previewBookingId === id;
+
+  const imageElement = (
+    <Tooltip title={imageTitle} enterDelay={TOOLTIP_DELAYS.enterDelay} enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}>
+      <Box component="span">
+        <ArticleImage
+          src={image}
+          secondarySrc={secondaryImage}
+          secondaryAvatarProps={secondaryImageText ? { children: secondaryImageText, sx: { height: 24, width: 24 } } : undefined}
+          alt={title}
+          width={IMG_SIZE}
+          height={IMG_SIZE}
+        />
+      </Box>
+    </Tooltip>
+  );
+
+  const subtitleList = subtitles?.map(({ text, LeftIcon, onClick }, index) => {
+    if (!isString(text)) {
+      return <Fragment key={index}>{text}</Fragment>;
+    }
+
+    const content = (
+      <Typography noWrap variant="body3" color={onClick ? "text.secondary" : "textSecondary"}>
+        {text}
+      </Typography>
+    );
+
+    return (
+      <Stack
+        key={text}
+        direction="row"
+        alignItems="center"
+        spacing={0.5}
+        overflow="hidden"
+        onClick={onClick}
+        sx={onClick ? { cursor: "pointer" } : undefined}
+      >
+        {LeftIcon}
+        {onClick ? (
+          <Button variant="link" sx={{ color: "text.secondary" }}>
+            {content}
+          </Button>
+        ) : (
+          content
+        )}
+      </Stack>
+    );
+  });
+
+  const cardContent = (
+    <Stack flex={1} overflow="hidden">
+      <Tooltip
+        title={title}
+        enterDelay={TOOLTIP_DELAYS.enterDelay}
+        enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
+        slotProps={{ popper: POPPER_KANBAN }}
+      >
+        <Typography noWrap variant="h6">
+          {title}
+        </Typography>
+      </Tooltip>
+
+      {subtitleList}
+    </Stack>
+  );
+  const footerElement = (Footer || RightFooter) && (
+    <Stack spacing={1} direction="row" alignItems="center" mt={1}>
+      {Footer && <Box flex={1}>{Footer}</Box>}
+      {RightFooter}
+    </Stack>
+  );
+
+  const tagsAlertElement = (
+    <Stack spacing={1} direction="row" alignItems="center">
+      {Alert}
+      <Chip label={tag} variant="rounded" color="default" size="small" />
+    </Stack>
+  );
+
+  return (
+    <Box
+      component="div"
+      style={{
+        ...style,
+        paddingLeft: gutterSize,
+        paddingRight: gutterSize,
+      }}
+    >
+      <Card
+        variant="elevation"
+        elevation={palette.mode === "dark" ? 5 : 0}
+        onClick={() => onClickItem?.(id)}
+        sx={{
+          ".grabbing &": {
+            cursor: "grabbing",
+            pointerEvents: "none",
+          },
+          "&:hover": {
+            boxShadow: 8,
+          },
+          background: `${active ? palette.grey[50] : "none"}`,
+          border: `1px solid ${active ? palette.action.active : palette.divider}`,
+          boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
+          cursor: "pointer",
+          flexShrink: 0,
+          p: 1.5,
+          textDecoration: "none",
+        }}
+      >
+        <Stack direction="row" spacing={1} flex={1} overflow="hidden">
+          {headerTitle ? (
+            <Stack spacing={1} flex={1} overflow="hidden">
+              <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
+                <Tooltip title={headerTitle}>
+                  <Typography noWrap variant="body3" color="textSecondary" overflow="hidden" textOverflow="ellipsis">
+                    {headerTitle}
+                  </Typography>
+                </Tooltip>
+
+                <Stack spacing={0.5} direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
+                  {Alert && <Stack maxWidth="50%">{Alert}</Stack>}
+                  <Chip label={tag} variant="rounded" color="default" size="small" sx={{ maxWidth: Alert ? "50%" : "100%" }} />
+                </Stack>
+              </Stack>
+
+              <Stack direction="row" spacing={1} flex={1} overflow="hidden">
+                {imageElement}
+                <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+                  {cardContent}
+                  {footerElement}
+                </Stack>
+              </Stack>
+            </Stack>
+          ) : (
+            <>
+              {imageElement}
+              <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
+                <Stack direction="row" spacing={1} flex={1}>
+                  {cardContent}
+                  <Stack alignItems="stretch" justifyContent="space-between">
+                    {tagsAlertElement}
+                  </Stack>
+                </Stack>
+                {footerElement}
+              </Stack>
+            </>
+          )}
+        </Stack>
+      </Card>
+    </Box>
+  );
+};
+
+interface ColumnProps {
+  name: string;
+  label?: string;
+  count?: number;
+  items: KanbanDataItemProps[];
+  chipColumVariant?: "filled" | "outlined";
+  chipColumDot?: boolean;
+  chipStatus?: string;
+  isLoading?: boolean;
+  isFetching?: boolean;
+  gutterSize: number;
+  itemPerPage?: number;
+  listWidth: number | string;
+  disableCount?: boolean;
+  itemCount: number;
+  previewBookingId: string;
+  onClickItem?: KanbanProps["onClickItem"];
+  loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
+  onInView?: (name: string) => void;
+  headerColumnChip?: KanbanProps["headerColumnChip"];
+}
+
+const Column = ({
+  name,
+  label,
+  count,
+  items,
+  isFetching,
+  isLoading,
+  gutterSize,
+  itemPerPage,
+  listWidth,
+  disableCount,
+  loadMoreItems,
+  itemCount,
+  previewBookingId,
+  onClickItem,
+  onInView,
+  chipColumVariant,
+  chipColumDot,
+  chipStatus,
+  headerColumnChip,
+}: ColumnProps) => {
+  const onInViewTriggered = useRef<string[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLDivElement>(null);
+
+  const inView = useInView(containerRef);
+  const showSkeletons = isLoading;
+  const skeletonsToShow = 3;
+
+  const getCountLabel = (): string => {
+    if (disableCount) {
+      return "";
+    }
+    const value = count ?? items.length;
+    return value ? ` ${value}` : "";
+  };
+
+  const rowVirtualizer = useVirtualizer({
+    count: items.length,
+    estimateSize: () => 112 + gutterSize,
+    getScrollElement: () => parentRef.current,
+    overscan: 5,
+  });
+
+  const virtualItems = rowVirtualizer.getVirtualItems();
+
+  // Load more items when scrolling to the end
+  useEffect(() => {
+    if (!virtualItems.length || isFetching) {
+      return;
+    }
+
+    const lastItem = virtualItems[virtualItems.length - 1];
+
+    if (lastItem.index >= items.length - 1 && items.length < itemCount) {
+      loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+    }
+  }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
+
+  /**
+   * Trigger onInView once per column
+   */
+  useEffect(() => {
+    if (inView && !onInViewTriggered.current.includes(name)) {
+      onInViewTriggered.current.push(name);
+      onInView?.(name);
+    }
+  }, [name, inView, onInView]);
+
+  return (
+    <Stack ref={containerRef} spacing={2}>
+      <Card
+        sx={{
+          ".kanban-virtual-list": {
+            "&::-webkit-scrollbar": { display: "none" },
+            flex: 1,
+            msOverflowStyle: "none",
+            overflowY: "auto",
+            scrollbarWidth: "none",
+          },
+          borderRadius: 2,
+          flex: "1 1 auto",
+          height: 0,
+          width: listWidth,
+        }}
+        elevation={1}
+      >
+        <Stack height="100%">
+          {/* Header */}
+          <Stack direction="row" alignItems="center" spacing={1} padding={2} justifyContent="space-between">
+            <ChipStatusKanban
+              dot={chipColumDot}
+              label={`${capitalize(label || name)}${getCountLabel()}`}
+              variant={chipColumVariant}
+              status={chipStatus || name}
+              size="small"
+              headerColumnChip={headerColumnChip}
+            />
+            {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
+          </Stack>
+
+          {/* Content */}
+          <Box flex={1} ref={parentRef} className="kanban-virtual-list">
+            {showSkeletons ? (
+              <Stack spacing={1} p={`${gutterSize}px`}>
+                {Array.from({ length: skeletonsToShow }).map((_, index) => (
+                  <Skeleton key={index} variant="rounded" height={112} />
+                ))}
+              </Stack>
+            ) : (
+              <Box
+                sx={{
+                  height: `${rowVirtualizer.getTotalSize()}px`,
+                  position: "relative",
+                  width: "100%",
+                }}
+              >
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+                  <Box
+                    key={items[virtualRow.index].id}
+                    ref={rowVirtualizer.measureElement}
+                    data-index={virtualRow.index}
+                    sx={{
+                      left: 0,
+                      paddingBottom: `${gutterSize}px`,
+                      position: "absolute",
+                      top: 0,
+                      transform: `translateY(${virtualRow.start}px)`,
+                      width: "100%",
+                    }}
+                  >
+                    <VirtualizedKanbanItem
+                      index={virtualRow.index}
+                      style={{}}
+                      data={{
+                        gutterSize,
+                        items,
+                        onClickItem,
+                        previewBookingId,
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            )}
+          </Box>
+        </Stack>
+      </Card>
+    </Stack>
+  );
+};
 
 export type KanbanChipFormat = {
   color: ChipProps["color"];
@@ -163,334 +518,6 @@ export interface KanbanProps {
    */
   emptyState?: ReactElement | EmptyStateProps;
 }
-
-// Avoid body scrollbar appearing when tooltip is displayed and user scrolls
-const POPPER_KANBAN = {
-  sx: {
-    "&[data-popper-reference-hidden]": {
-      display: "none",
-      pointerEvents: "none",
-    },
-  },
-};
-
-type KanbanItemProps = {
-  index: number;
-  style: CSSProperties;
-  data: {
-    previewBookingId: string;
-    gutterSize: number;
-    onClickItem: KanbanProps["onClickItem"];
-    items: KanbanDataItemProps[];
-  };
-};
-
-const TOOLTIP_DELAYS = { enterDelay: 300, enterNextDelay: 300 };
-
-const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
-  const { palette } = useTheme();
-  const { items, onClickItem, previewBookingId, gutterSize } = data;
-  const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
-    items[index];
-
-  const active = previewBookingId === id;
-
-  const imageElement = (
-    <Tooltip title={imageTitle} enterDelay={TOOLTIP_DELAYS.enterDelay} enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}>
-      <Box component="span">
-        <ArticleImage
-          src={image}
-          secondarySrc={secondaryImage}
-          secondaryAvatarProps={secondaryImageText ? { children: secondaryImageText, sx: { height: 24, width: 24 } } : undefined}
-          alt={title}
-          width={IMG_SIZE}
-          height={IMG_SIZE}
-        />
-      </Box>
-    </Tooltip>
-  );
-
-  const subtitleList = subtitles?.map(({ text, LeftIcon, onClick }, index) => {
-    if (!isString(text)) {
-      return <Fragment key={index}>{text}</Fragment>;
-    }
-
-    const content = (
-      <Typography noWrap variant="body3" color={onClick ? "text.secondary" : "textSecondary"}>
-        {text}
-      </Typography>
-    );
-
-    return (
-      <Stack
-        key={text}
-        direction="row"
-        alignItems="center"
-        spacing={0.5}
-        overflow="hidden"
-        onClick={onClick}
-        sx={onClick ? { cursor: "pointer" } : undefined}
-      >
-        {LeftIcon}
-        {onClick ? (
-          <Button variant="link" sx={{ color: "text.secondary" }}>
-            {content}
-          </Button>
-        ) : (
-          content
-        )}
-      </Stack>
-    );
-  });
-
-  const cardContent = (
-    <Stack flex={1} overflow="hidden">
-      <Tooltip
-        title={title}
-        enterDelay={TOOLTIP_DELAYS.enterDelay}
-        enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
-        slotProps={{ popper: POPPER_KANBAN }}
-      >
-        <Typography noWrap variant="h6">
-          {title}
-        </Typography>
-      </Tooltip>
-
-      {subtitleList}
-    </Stack>
-  );
-  const footerElement = (Footer || RightFooter) && (
-    <Stack spacing={1} direction="row" alignItems="center" mt={1}>
-      {Footer && <Box flex={1}>{Footer}</Box>}
-      {RightFooter}
-    </Stack>
-  );
-
-  const tagsAlertElement = (
-    <Stack spacing={1} direction="row" alignItems="center">
-      {Alert}
-      <Chip label={tag} variant="rounded" color="default" size="small" />
-    </Stack>
-  );
-
-  return (
-    <Box
-      component="div"
-      style={{
-        ...style,
-        paddingLeft: gutterSize,
-        paddingRight: gutterSize,
-      }}
-    >
-      <Card
-        variant="elevation"
-        elevation={palette.mode === "dark" ? 5 : 0}
-        onClick={() => onClickItem?.(id)}
-        sx={{
-          ".grabbing &": {
-            cursor: "grabbing",
-            pointerEvents: "none",
-          },
-          "&:hover": {
-            boxShadow: 8,
-          },
-          background: `${active ? palette.grey[50] : "none"}`,
-          border: `1px solid ${active ? palette.action.active : palette.divider}`,
-          boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
-          cursor: "pointer",
-          flexShrink: 0,
-          height: computeKanbanCardHeight({ Footer, headerTitle, RightFooter, subtitles } as KanbanDataItemProps),
-          p: 1.5,
-          textDecoration: "none",
-        }}
-      >
-        <Stack direction="row" spacing={1} flex={1} overflow="hidden">
-          {headerTitle ? (
-            <Stack spacing={1} flex={1} overflow="hidden">
-              <Stack spacing={1} direction="row" alignItems="center" justifyContent="space-between">
-                <Tooltip title={headerTitle}>
-                  <Typography noWrap variant="body3" color="textSecondary" overflow="hidden" textOverflow="ellipsis">
-                    {headerTitle}
-                  </Typography>
-                </Tooltip>
-
-                <Stack spacing={0.5} direction="row" alignItems="stretch" justifyContent="flex-end" maxWidth={Alert ? "60%" : "100%"}>
-                  {Alert && <Stack maxWidth="50%">{Alert}</Stack>}
-                  <Chip label={tag} variant="rounded" color="default" size="small" sx={{ maxWidth: Alert ? "50%" : "100%" }} />
-                </Stack>
-              </Stack>
-
-              <Stack direction="row" spacing={1} flex={1} overflow="hidden">
-                {imageElement}
-                <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-                  {cardContent}
-                  {footerElement}
-                </Stack>
-              </Stack>
-            </Stack>
-          ) : (
-            <>
-              {imageElement}
-              <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
-                <Stack direction="row" spacing={1} flex={1}>
-                  {cardContent}
-                  <Stack alignItems="stretch" justifyContent="space-between">
-                    {tagsAlertElement}
-                  </Stack>
-                </Stack>
-                {footerElement}
-              </Stack>
-            </>
-          )}
-        </Stack>
-      </Card>
-    </Box>
-  );
-};
-
-interface ColumnProps {
-  name: string;
-  label?: string;
-  count?: number;
-  items: KanbanDataItemProps[];
-  chipColumVariant?: "filled" | "outlined";
-  chipColumDot?: boolean;
-  chipStatus?: string;
-  isLoading?: boolean;
-  isFetching?: boolean;
-  gutterSize: number;
-  itemPerPage?: number;
-  listWidth: number | string;
-  disableCount?: boolean;
-  itemCount: number;
-  previewBookingId: string;
-  onClickItem?: KanbanProps["onClickItem"];
-  loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
-  onInView?: (name: string) => void;
-  headerColumnChip?: KanbanProps["headerColumnChip"];
-}
-
-const Column = ({
-  name,
-  label,
-  count,
-  items,
-  isFetching,
-  isLoading,
-  gutterSize,
-  itemPerPage,
-  listWidth,
-  disableCount,
-  loadMoreItems,
-  itemCount,
-  previewBookingId,
-  onClickItem,
-  onInView,
-  chipColumVariant,
-  chipColumDot,
-  chipStatus,
-  headerColumnChip,
-}: ColumnProps) => {
-  const onInViewTriggered = useRef<string[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isItemLoaded = (index: number) => index < items.length || (itemPerPage || 0) > items.length;
-  const inView = useInView(containerRef);
-  const showSkeletons = isLoading;
-  const skeletonsToShow = 3;
-
-  const getCountLabel = (): string => {
-    if (disableCount) {
-      return "";
-    }
-    const value = count ?? items.length;
-    return value ? ` ${value}` : "";
-  };
-
-  /**
-   * Trigger the onInView function when the column is in view
-   */
-  useEffect(() => {
-    if (inView && !onInViewTriggered.current?.includes(name)) {
-      onInViewTriggered.current = [...onInViewTriggered.current, name];
-      onInView?.(name);
-    }
-  }, [name, inView, onInView]);
-
-  return (
-    <Stack ref={containerRef} spacing={2}>
-      <Card
-        sx={{
-          ".kanban-virtual-list": {
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-            flex: 1,
-            msOverflowStyle: "none",
-            overflowY: "auto",
-            scrollbarWidth: "none",
-          },
-          borderRadius: 2,
-          flex: "1 1 auto",
-          height: 0,
-          width: listWidth,
-        }}
-        variant="elevation"
-        elevation={1}
-      >
-        <Stack height="100%">
-          <Stack direction="row" alignItems="center" spacing={1} padding={2} justifyContent="space-between">
-            <ChipStatusKanban
-              dot={chipColumDot}
-              label={`${capitalize(label || name)}${getCountLabel()}`}
-              variant={chipColumVariant}
-              status={chipStatus || name}
-              size="small"
-              headerColumnChip={headerColumnChip}
-              sx={{ alignSelf: "flex-start" }}
-            />
-            {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
-          </Stack>
-          <Box flex={1}>
-            {showSkeletons ? (
-              <Stack spacing={1} p={`${gutterSize}px`}>
-                {Array.from({ length: skeletonsToShow }).map((_, index) => {
-                  const key = `skeleton-${index}`;
-                  return <Skeleton key={key} variant="rounded" height={112} />;
-                })}
-              </Stack>
-            ) : (
-              <AutoSizer>
-                {({ height: autoHeight, width: autoWidth }) => (
-                  <InfiniteLoader
-                    isItemLoaded={isItemLoaded}
-                    itemCount={itemCount}
-                    loadMoreItems={(startIndex, stopIndex) => loadMoreItems?.(startIndex, stopIndex, name)}
-                  >
-                    {({ onItemsRendered, ref }) => (
-                      <VariableSizeList
-                        className="kanban-virtual-list"
-                        ref={ref}
-                        height={autoHeight}
-                        itemCount={items.length}
-                        width={autoWidth}
-                        itemSize={(index) => computeKanbanCardHeight(items[index]) + gutterSize}
-                        itemData={{ gutterSize, items, onClickItem, previewBookingId }}
-                        onItemsRendered={onItemsRendered}
-                        itemKey={(index, data) => data.items[index].id}
-                      >
-                        {VirtualizedKanbanItem}
-                      </VariableSizeList>
-                    )}
-                  </InfiniteLoader>
-                )}
-              </AutoSizer>
-            )}
-          </Box>
-        </Stack>
-      </Card>
-    </Stack>
-  );
-};
 
 const Kanban = ({
   data,
