@@ -147,34 +147,32 @@ const Column = ({
                   width: "100%",
                 }}
               >
-                {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-                  return (
-                    <Box
-                      key={items[virtualRow.index].id}
-                      ref={rowVirtualizer.measureElement}
-                      data-index={virtualRow.index}
-                      sx={{
-                        left: 0,
-                        paddingBottom: `${gutterSize}px`,
-                        position: "absolute",
-                        top: 0,
-                        transform: `translateY(${virtualRow.start}px)`,
-                        width: "100%",
+                {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+                  <Box
+                    key={items[virtualRow.index].id}
+                    ref={rowVirtualizer.measureElement}
+                    data-index={virtualRow.index}
+                    sx={{
+                      left: 0,
+                      paddingBottom: `${gutterSize}px`,
+                      position: "absolute",
+                      top: 0,
+                      transform: `translateY(${virtualRow.start}px)`,
+                      width: "100%",
+                    }}
+                  >
+                    <VirtualizedKanbanItem
+                      index={virtualRow.index}
+                      style={{}}
+                      data={{
+                        gutterSize,
+                        items,
+                        onClickItem,
+                        previewBookingId,
                       }}
-                    >
-                      <VirtualizedKanbanItem
-                        index={virtualRow.index}
-                        style={{}}
-                        data={{
-                          gutterSize,
-                          items,
-                          onClickItem,
-                          previewBookingId,
-                        }}
-                      />
-                    </Box>
-                  );
-                })}
+                    />
+                  </Box>
+                ))}
               </Box>
             )}
           </Box>
