@@ -273,7 +273,11 @@ const Column = ({
     const lastItem = virtualItems[virtualItems.length - 1];
 
     if (lastItem.index >= items.length - 1 && items.length < itemCount) {
-      loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+      //  Deferring the fetch to a microtask ensures the update happens
+      // Stabilize the virtualizer before loading more items
+      queueMicrotask(() => {
+        loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+      });
     }
   }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
 
