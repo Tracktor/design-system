@@ -18,6 +18,7 @@ import { MouseEvent, ReactNode, useState } from "react";
 import sheetsImage from "@/assets/img/sheets.png";
 import Avatar from "@/components/DataDisplay/Avatar/Avatar";
 import FileViewer from "@/components/DataDisplay/FileViewer";
+import getBrowser, { Browser } from "@/utils/getBrowser";
 import isDocumentType from "@/utils/isDocumentType";
 import isValidUrl from "@/utils/isValidUrl";
 
@@ -126,6 +127,8 @@ export const ListAvatar = ({
   numberLoadingItems = 3,
 }: ListAvatarProps) => {
   const [openElement, setOpenElement] = useState("");
+  const browser = getBrowser();
+  const isFirefox = browser === Browser.Firefox;
 
   if (!(items?.length || isLoading || action)) {
     return Empty || null;
@@ -251,6 +254,7 @@ export const ListAvatar = ({
               {/* PDF Thumb */}
               {!AvatarComponent && isPdf && (
                 <FileViewer
+                  iconOnly={isFirefox}
                   src={image}
                   srcThumb={thumbnail}
                   width={40}

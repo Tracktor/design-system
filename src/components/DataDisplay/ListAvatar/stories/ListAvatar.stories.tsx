@@ -129,13 +129,13 @@ WithPdf.args = {
       id: 1,
       image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
       subtitle: "Lorem Ipsum",
-      title: "Basic",
+      title: "PDF n°1",
     },
     {
       id: 2,
-      image: "https://www.soundczech.cz/temp/lorem-ipsum.pdf",
+      image: "https://pousses.fr/sites/default/files/2019-08/pdf_test_1.pdf",
       subtitle: "Lorem Ipsum",
-      title: "Basic",
+      title: "PDF n°2",
     },
   ],
 };
