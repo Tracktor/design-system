@@ -49,7 +49,7 @@ const FileViewer = ({
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Bowser compatibility
+  // Browser compatibility
   const browser = getBrowser();
   const isFirefox = browser === Browser.Firefox;
 
