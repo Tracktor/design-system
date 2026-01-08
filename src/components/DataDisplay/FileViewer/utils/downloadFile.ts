@@ -10,8 +10,7 @@ const downloadFile = (src: string, filename?: string) => {
 
   try {
     link.click();
-  } catch (error) {
-    console.error(error);
+  } catch (_error) {
     window.open(src, "_blank");
   } finally {
     document.body.removeChild(link);
