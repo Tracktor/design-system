@@ -1,41 +1,78 @@
 name: Chromatic
 
 on:
-  workflow_dispatch:
-    inputs:
-      pr:
-        description: "Pull request number (e.g. 42)"
-        required: true
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+  issue_comment:
+    types: [created]
 
 jobs:
-  chromatic:
+  # ---------------------------
+  # 1) Post the "Run Chromatic" button
+  # ---------------------------
+  post-button:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR
-        uses: actions/checkout@v4
+      - uses: actions/github-script@v7
         with:
-          fetch-depth: 0
-          ref: refs/pull/${{ github.event.inputs.pr }}/head
+          script: |
+            const pr = context.payload.pull_request.number;
+            const { owner, repo } = context.repo;
 
-      - uses: oven-sh/setup-bun@v1
+            const body = `🧪 **Visual regression tests**
 
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.bun/install/cache
-            node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+Click to run Chromatic:
 
-      - name: Install dependencies
-        run: bun install --ignore-scripts
+  [▶ Run Chromatic](https://github.com/${owner}/${repo}/issues/${pr}#issuecomment-new)
+  
+  *(Clicking this will post the magic command automatically)*`;
+  
+  await github.rest.issues.createComment({
+  owner,
+  repo,
+issue_number: pr,
+  body
+});
 
-      - name: Build Storybook
-        run: bun run build-storybook
+# ---------------------------
+# 2) Run Chromatic when button is clicked
+# ---------------------------
+chromatic:
+  if: |
+    github.event_name == 'issue_comment' &&
+    github.event.issue.pull_request &&
+    github.event.comment.body == 'RUN_CHROMATIC'
 
-      - name: Run Chromatic
-        run: |
-          npx chromatic \
-            --project-token=c9bbc986d0d6 \
-            --storybook-build-dir=storybook-static \
-            --ci
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout PR
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: refs/pull/${{ github.event.issue.number }}/head
+
+    - uses: oven-sh/setup-bun@v1
+
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.bun/install/cache
+          node_modules
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
+    - name: Install deps
+      run: bun install --ignore-scripts
+
+    - name: Build Storybook
+      run: bun run build-storybook
+
+    - name: Run Chromatic
+      run: |
+        npx chromatic \
+          --project-token=c9bbc986d0d6 \
+          --storybook-build-dir=storybook-static \
+          --ci
