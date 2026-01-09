@@ -1,0 +1,41 @@
+name: Chromatic
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "Pull request number (e.g. 42)"
+        required: true
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: refs/pull/${{ github.event.inputs.pr }}/head
+
+      - uses: oven-sh/setup-bun@v1
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
+      - name: Install dependencies
+        run: bun install --ignore-scripts
+
+      - name: Build Storybook
+        run: bun run build-storybook
+
+      - name: Run Chromatic
+        run: |
+          npx chromatic \
+            --project-token=c9bbc986d0d6 \
+            --storybook-build-dir=storybook-static \
+            --ci
