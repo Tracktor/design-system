@@ -1,4 +1,4 @@
-name: Run Chromatic
+name: Chromatic
 
 on:
   workflow_dispatch:
