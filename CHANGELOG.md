@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.21.6
+## v4.21.7
 ### Fix
-- Kanban: Pass loadMore item into onWheel & remove useEffect to avoid loop API calls.
+- Chromatic: Trigger manual build & check for visual regressions instead of automatic build on every commit.
