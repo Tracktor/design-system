@@ -7,21 +7,19 @@ on:
 jobs:
   chromatic:
     if: |
-      contains(github.event.pull_request.body, '- [x] Run Chromatic') ||
-      contains(github.event.pull_request.body, '- [X] Run Chromatic')
+      contains(github.event.pull_request.body, '- [x] Run Chromatic for visual regression tests') ||
+      contains(github.event.pull_request.body, '- [X] Run Chromatic for visual regression tests')
 
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - uses: oven-sh/setup-bun@v1
 
       - run: bun install --ignore-scripts
-
       - run: bun run build-storybook
 
       - run: |
