@@ -1,7 +1,7 @@
-name: Run Chromatic when checklist is complete
+name: Run Chromatic
 
 on:
-  status
+  workflow_dispatch:  # Permet le déclenchement manuel
 
 permissions:
   contents: read
@@ -10,14 +10,10 @@ permissions:
 
 jobs:
   chromatic:
-    if: >
-      github.event.state == 'success' &&
-      contains(github.event.context, 'checklist')
-
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get PR
+      - name: Get PR info
         id: pr
         run: |
           PR=$(gh api repos/${{ github.repository }}/commits/${{ github.sha }}/pulls --jq '.[0]')
