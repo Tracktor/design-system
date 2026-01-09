@@ -1,1 +1,0 @@
-import{r as e}from"./iframe-Caen7W5m.js";const a=()=>{const[n,s]=e.useState(null),u=!!n,o=e.useCallback(()=>{s(null)},[]),t=e.useCallback(({currentTarget:c})=>{s(c)},[]);return{anchorMenu:n,closeMenu:o,isMenuOpen:u,openMenu:t}};export{a as u};
