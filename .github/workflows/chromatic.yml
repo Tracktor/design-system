@@ -2,77 +2,30 @@ name: Chromatic
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
-
-  issue_comment:
-    types: [created]
+    types: [edited]
 
 jobs:
-  # ---------------------------
-  # 1) Post the "Run Chromatic" button
-  # ---------------------------
-  post-button:
-    if: github.event_name == 'pull_request'
+  chromatic:
+    if: |
+      contains(github.event.pull_request.body, '- [x] Run Chromatic') ||
+      contains(github.event.pull_request.body, '- [X] Run Chromatic')
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/github-script@v7
+      - name: Checkout PR
+        uses: actions/checkout@v4
         with:
-          script: |
-            const pr = context.payload.pull_request.number;
-            const { owner, repo } = context.repo;
+          ref: ${{ github.event.pull_request.head.sha }}
 
-            const body = `🧪 **Visual regression tests**
+      - uses: oven-sh/setup-bun@v1
 
-Click to run Chromatic:
+      - run: bun install --ignore-scripts
 
-  [▶ Run Chromatic](https://github.com/${owner}/${repo}/issues/${pr}#issuecomment-new)
-  
-  *(Clicking this will post the magic command automatically)*`;
-  
-  await github.rest.issues.createComment({
-  owner,
-  repo,
-issue_number: pr,
-  body
-});
+      - run: bun run build-storybook
 
-# ---------------------------
-# 2) Run Chromatic when button is clicked
-# ---------------------------
-chromatic:
-  if: |
-    github.event_name == 'issue_comment' &&
-    github.event.issue.pull_request &&
-    github.event.comment.body == 'RUN_CHROMATIC'
-
-  runs-on: ubuntu-latest
-
-  steps:
-    - name: Checkout PR
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        ref: refs/pull/${{ github.event.issue.number }}/head
-
-    - uses: oven-sh/setup-bun@v1
-
-    - uses: actions/cache@v4
-      with:
-        path: |
-          ~/.bun/install/cache
-          node_modules
-        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
-
-    - name: Install deps
-      run: bun install --ignore-scripts
-
-    - name: Build Storybook
-      run: bun run build-storybook
-
-    - name: Run Chromatic
-      run: |
-        npx chromatic \
-          --project-token=c9bbc986d0d6 \
-          --storybook-build-dir=storybook-static \
-          --ci
+      - run: |
+          npx chromatic \
+            --project-token=c9bbc986d0d6 \
+            --storybook-build-dir=storybook-static \
+            --ci
