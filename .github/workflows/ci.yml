@@ -41,11 +41,23 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.pull_request.body || '';
-            if (!body.includes('Run Chromatic for visual regression tests')) {
-              core.setFailed('PR is missing the Chromatic checkbox');
-            }
+            const { owner, repo } = context.repo;
+            const pr = context.payload.pull_request.number;
 
+            const comments = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number: pr,
+              per_page: 100,
+            });
+
+            const found = comments.data.some(c =>
+              c.body.includes('Run Chromatic for visual regression tests')
+            );
+
+            if (!found) {
+              core.setFailed('PR is missing the Chromatic checkbox comment');
+            }
 
   build-storybook:
     if: github.event_name == 'pull_request'
@@ -84,9 +96,6 @@ jobs:
           if-no-files-found: error
 
 
-  # ---------------------------
-  # 4) Deploy Storybook
-  # ---------------------------
   storybook-deploy:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
