@@ -1,0 +1,19 @@
+import{a as o,b as s}from"./iframe-DDIA12wO.js";import{C as i}from"./Checkbox-oEsjo14c.js";import{S as n}from"./Stack-37KHzGwv.js";import{F as d}from"./FormControlLabel-CezPrt07.js";import{F as u}from"./FormGroup-Bj8IUXRT.js";import"./preload-helper-PPVm8Dsz.js";import"./SwitchBase-DkkpgSt2.js";import"./useFormControl-C75M6SCX.js";import"./useControlled-BY01H-g2.js";import"./mergeSlotProps-CmeXxHqd.js";import"./useThemeProps-1bVNWKZu.js";import"./formControlState-Dq1zat_P.js";import"./Typography-jW0ss8aj.js";const r=e=>o(i,{...e});try{r.displayName="Checkbox",r.__docgenInfo={description:"",displayName:"Checkbox",props:{component:{defaultValue:null,description:"",name:"component",required:!1,type:{name:"ElementType<any, keyof IntrinsicElements>"}},slots:{defaultValue:{value:"{}"},description:"The components used for each slot inside.",name:"slots",required:!1,type:{name:"Partial<CheckboxSlots>"}},slotProps:{defaultValue:{value:"{}"},description:"The props used for each slot inside.",name:"slotProps",required:!1,type:{name:"{ root?: SlotProps<ElementType<SwitchBaseProps, keyof IntrinsicElements>, CheckboxRootSlotPropsOverrides, CheckboxOwnerState>; input?: SlotProps<...>; } | undefined"}}}}}catch{}const t={inputProps:{"aria-label":"Checkbox demo"}},p=e=>s(n,{direction:"row",spacing:2,alignItems:"center",justifyContent:"center",height:"100%",children:[o(r,{...t,defaultChecked:!0,...e}),o(r,{...t,...e}),o(r,{...t,disabled:!0,...e}),o(r,{...t,disabled:!0,checked:!0,...e})]}),h=e=>o(n,{alignItems:"center",justifyContent:"center",height:"100%",children:s(u,{children:[o(d,{control:o(r,{defaultChecked:!0,...e}),label:"Label"}),o(d,{disabled:!0,control:o(r,{...e}),label:"Disabled"})]})}),m=e=>s(n,{direction:"row",spacing:2,alignItems:"center",justifyContent:"center",height:"100%",children:[o(r,{...t,defaultChecked:!0,...e}),o(r,{...t,defaultChecked:!0,color:"secondary",...e}),o(r,{...t,defaultChecked:!0,color:"info",...e}),o(r,{...t,defaultChecked:!0,color:"success",...e}),o(r,{...t,defaultChecked:!0,color:"warning",...e}),o(r,{...t,defaultChecked:!0,color:"default",...e}),o(r,{...t,defaultChecked:!0,color:"error",...e})]}),a=p.bind({});a.args={};const c=h.bind({});c.args={};const l=m.bind({});l.args={};const L={component:r,title:"Components/Inputs/Checkbox"};a.parameters={...a.parameters,docs:{...a.parameters?.docs,source:{originalSource:`args => <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Checkbox {...label} defaultChecked {...args} />
+    <Checkbox {...label} {...args} />
+    <Checkbox {...label} disabled {...args} />
+    <Checkbox {...label} disabled checked {...args} />
+  </Stack>`,...a.parameters?.docs?.source}}};c.parameters={...c.parameters,docs:{...c.parameters?.docs,source:{originalSource:`args => <Stack alignItems="center" justifyContent="center" height="100%">
+    <FormGroup>
+      <FormControlLabel control={<Checkbox defaultChecked {...args} />} label="Label" />
+      <FormControlLabel disabled control={<Checkbox {...args} />} label="Disabled" />
+    </FormGroup>
+  </Stack>`,...c.parameters?.docs?.source}}};l.parameters={...l.parameters,docs:{...l.parameters?.docs,source:{originalSource:`args => <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Checkbox {...label} defaultChecked {...args} />
+    <Checkbox {...label} defaultChecked color="secondary" {...args} />
+    <Checkbox {...label} defaultChecked color="info" {...args} />
+    <Checkbox {...label} defaultChecked color="success" {...args} />
+    <Checkbox {...label} defaultChecked color="warning" {...args} />
+    <Checkbox {...label} defaultChecked color="default" {...args} />
+    <Checkbox {...label} defaultChecked color="error" {...args} />
+  </Stack>`,...l.parameters?.docs?.source}}};const P=["Basic","Label","Color"];export{a as Basic,l as Color,c as Label,P as __namedExportsOrder,L as default};
