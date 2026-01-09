@@ -1,7 +1,7 @@
 import { Box, Card, ChipProps, CircularProgress, Skeleton, Stack, useTheme } from "@mui/material";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { capitalize, isString, useInView } from "@tracktor/react-utils";
-import { CSSProperties, Fragment, MouseEvent, ReactElement, ReactNode, useEffect, useRef } from "react";
+import { CSSProperties, Fragment, MouseEvent, ReactElement, ReactNode, useEffect, useRef, WheelEvent } from "react";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipStatusKanban";
@@ -247,6 +247,13 @@ const Column = ({
   const showSkeletons = isLoading;
   const skeletonsToShow = 3;
 
+  const rowVirtualizer = useVirtualizer({
+    count: items.length,
+    estimateSize: () => 112 + gutterSize,
+    getScrollElement: () => parentRef.current,
+    overscan: 5,
+  });
+
   const getCountLabel = (): string => {
     if (disableCount) {
       return "";
@@ -255,31 +262,31 @@ const Column = ({
     return value ? ` ${value}` : "";
   };
 
-  const rowVirtualizer = useVirtualizer({
-    count: items.length,
-    estimateSize: () => 112 + gutterSize,
-    getScrollElement: () => parentRef.current,
-    overscan: 5,
-  });
-
-  const virtualItems = rowVirtualizer.getVirtualItems();
-
-  // Load more items when scrolling to the end
-  useEffect(() => {
-    if (!virtualItems.length || isFetching) {
+  /**
+   * Infinite scroll using `wheel` event to avoid DOM reflow loops.
+   * Loads next page when user scrolls down within 50px of bottom.
+   */
+  const onWheel = (e: WheelEvent<HTMLDivElement>) => {
+    // Only trigger on downward scroll
+    if (e.deltaY <= 0) {
       return;
     }
 
-    const lastItem = virtualItems[virtualItems.length - 1];
+    const el = parentRef.current;
 
-    if (lastItem.index >= items.length - 1 && items.length < itemCount) {
-      // Defer loading to the next microtask to let TanStack Virtual
-      // finish its internal measurements (flushSync) before triggering a state update / fetch.
-      queueMicrotask(() => {
-        loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
-      });
+    // Skip if: no element, already fetching, or list not scrollable
+    if (!el || isFetching || el.scrollHeight <= el.clientHeight) {
+      return;
     }
-  }, [virtualItems, items.length, itemCount, itemPerPage, isFetching, loadMoreItems, name]);
+
+    const bottom = el.scrollTop + el.clientHeight;
+    const isNearBottom = bottom >= el.scrollHeight - 50;
+    const hasMoreItemsToLoad = items.length < itemCount;
+
+    if (isNearBottom && hasMoreItemsToLoad) {
+      loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
+    }
+  };
 
   /**
    * Trigger onInView once per column
@@ -324,7 +331,7 @@ const Column = ({
           </Stack>
 
           {/* Content */}
-          <Box flex={1} ref={parentRef} className="kanban-virtual-list">
+          <Box flex={1} ref={parentRef} className="kanban-virtual-list" onWheel={onWheel}>
             {showSkeletons ? (
               <Stack spacing={1} p={`${gutterSize}px`}>
                 {Array.from({ length: skeletonsToShow }).map((_, index) => (
