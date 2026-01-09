@@ -1,5 +1,5 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.21.4
+## v4.21.5
 ### Fix
-- Kanban: add queueMicrotask to avoid 'flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering.'
+- Files: Adapt comportment of opening file lightbox & thumbnail display with Firefox browser to avoid iframe issues & unintended downloads.
