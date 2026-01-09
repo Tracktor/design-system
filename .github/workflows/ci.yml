@@ -51,13 +51,14 @@ jobs:
               per_page: 100,
             });
 
-            const found = comments.data.some(c =>
-              c.body.includes('Run Chromatic for visual regression tests')
-            );
+            const regex = /- \[(x|X)\]\s*Run Chromatic for visual regression tests/i;
+
+            const found = comments.data.some(c => regex.test(c.body));
 
             if (!found) {
-              core.setFailed('PR is missing the Chromatic checkbox comment');
+              core.setFailed('Chromatic checkbox is not checked in PR comments');
             }
+
 
   build-storybook:
     if: github.event_name == 'pull_request'
