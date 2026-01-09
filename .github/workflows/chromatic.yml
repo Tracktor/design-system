@@ -23,8 +23,15 @@ jobs:
       - name: Extract PR info
         id: pr
         run: |
-          echo "number=${{ github.event.check_run.pull_requests[0].number }}" >> $GITHUB_OUTPUT
-          echo "sha=${{ github.event.check_run.head_sha }}" >> $GITHUB_OUTPUT
+          PR=$(gh api repos/${{ github.repository }}/commits/${{ github.event.check_run.head_sha }}/pulls --jq '.[0]')
+          
+          NUMBER=$(echo "$PR" | jq -r '.number')
+          SHA="${{ github.event.check_run.head_sha }}"
+          
+          echo "number=$NUMBER" >> $GITHUB_OUTPUT
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prevent duplicate Chromatic for same commit
         run: |
