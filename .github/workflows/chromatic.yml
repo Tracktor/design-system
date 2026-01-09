@@ -31,6 +31,7 @@ jobs:
           fetch-depth: 0
 
       - uses: oven-sh/setup-bun@v1
+
       - uses: actions/cache@v4
         with:
           path: |
@@ -39,6 +40,7 @@ jobs:
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
 
       - run: bun install --ignore-scripts
+
       - run: bun run build-storybook
 
       - run: |

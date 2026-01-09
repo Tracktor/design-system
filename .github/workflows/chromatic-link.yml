@@ -5,6 +5,7 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
+  contents: read
   pull-requests: write
 
 jobs:
@@ -20,46 +21,45 @@ jobs:
             const repo = context.repo.repo;
             const owner = context.repo.owner;
 
-            const workflowUrl =
-              `https://github.com/${owner}/${repo}/actions/workflows/chromatic.yml?pr=${prNumber}`;
+            const workflowUrl = `https://github.com/${owner}/${repo}/actions/workflows/chromatic.yml`;
 
             const body = `### 🎨 Run Chromatic Visual Tests
 
-  <a href="${workflowUrl}">
-  <img src="https://img.shields.io/badge/▶️_Launch_Chromatic-4A90E2?style=for-the-badge&logo=github" alt="Run Chromatic"/>
-  </a>
+            <a href="${workflowUrl}">
+              <img src="https://img.shields.io/badge/▶️_Launch_Chromatic-4A90E2?style=for-the-badge&logo=github" alt="Run Chromatic"/>
+            </a>
 
-  **What this does:**
-- Builds Storybook
-- Runs Chromatic visual tests
-- Posts the review link
-- Consumes **1 credit**
-  
-  Click the button above, then click **Run workflow**.`;
+            **What this does:**
+            - Builds Storybook
+            - Runs Chromatic visual tests
+            - Posts the review link
+            - Consumes **1 credit**
+            
+            **To run:** Click the button above → Click "Run workflow" → Select your branch → Enter PR number: \`${prNumber}\` → Click "Run workflow"`;
 
-const { data: comments } = await github.rest.issues.listComments({
-  owner,
-  repo,
-  issue_number: prNumber
-});
-  
-  const botComment = comments.find(c =>
-  c.user.type === "Bot" &&
-  c.body.includes("Launch_Chromatic")
-  );
-  
-  if (botComment) {
-  await github.rest.issues.updateComment({
-  owner,
-  repo,
-comment_id: botComment.id,
-  body
-});
-} else {
-  await github.rest.issues.createComment({
-  owner,
-  repo,
-issue_number: prNumber,
-  body
-});
-}
+            const { data: comments } = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number: prNumber
+            });
+            
+            const botComment = comments.find(c =>
+              c.user.type === "Bot" &&
+              c.body.includes("Launch_Chromatic")
+            );
+            
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: botComment.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: prNumber,
+                body
+              });
+            }
