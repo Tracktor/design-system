@@ -1,0 +1,67 @@
+name: Run Chromatic when checklist is complete
+
+on:
+  check_run:
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+
+jobs:
+  chromatic:
+    if: >
+      github.event.check_run.name == 'GitHub Task List Checker' &&
+      github.event.check_run.conclusion == 'success' &&
+      github.event.check_run.pull_requests != null &&
+      github.event.check_run.pull_requests[0] != null
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract PR info
+        id: pr
+        run: |
+          echo "number=${{ github.event.check_run.pull_requests[0].number }}" >> $GITHUB_OUTPUT
+          echo "sha=${{ github.event.check_run.head_sha }}" >> $GITHUB_OUTPUT
+
+      - name: Prevent duplicate Chromatic for same commit
+        run: |
+          RUNS=$(gh run list \
+            --workflow chromatic.yml \
+            --json headSha,status \
+            --jq ".[] | select(.headSha == \"${{ steps.pr.outputs.sha }}\") | select(.status != \"completed\")")
+
+          if [ -n "$RUNS" ]; then
+            echo "Chromatic already running for this commit – skipping"
+            exit 0
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr.outputs.sha }}
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v1
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - run: bun install --ignore-scripts
+
+      - run: bun run build-storybook
+
+      - run: |
+          npx chromatic \
+            --project-token=c9bbc986d0d6 \
+            --exit-zero-on-changes \
+            --ci
