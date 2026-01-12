@@ -1,0 +1,43 @@
+name: Chromatic – run
+
+on:
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.issue.pull_request &&
+      github.event.comment.user.type == 'Bot' &&
+      contains(github.event.comment.body, 'Chromatic pending')
+
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - uses: oven-sh/setup-bun@v1
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
+      - name: Install deps
+        run: bun install --ignore-scripts
+
+      - name: Build Storybook
+        run: bun run build-storybook
+
+      - name: Run Chromatic
+        run: |
+          npx chromatic \
+            --project-token=${{ secrets.CHROMATIC_TOKEN }} \
+            --storybook-build-dir=storybook-static \
+            --exit-zero-on-changes \
+            --ci
