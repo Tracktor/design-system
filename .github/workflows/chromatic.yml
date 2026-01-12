@@ -1,19 +1,60 @@
-name: Chromatic on PR Comment
+name: Chromatic
 
 on:
-  pull_request:
   issue_comment:
     types: [created]
 
 jobs:
-  chromatic-test:
+  chromatic:
+    if: contains(github.event.comment.body, '/chromatic')
+
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    permissions:
+      contents: read
+      pull-requests: read
 
-      - name: Hello World
+    steps:
+      - name: Get PR info
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            core.setOutput("ref", pr.data.head.ref);
+            core.setOutput("repo", pr.data.head.repo.full_name);
+
+      - name: Checkout PR
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.pr.outputs.repo }}
+          ref: ${{ steps.pr.outputs.ref }}
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v1
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
+      - name: Install dependencies
+        run: bun install --ignore-scripts
+
+      - name: Build Storybook
+        run: bun run build-storybook
+
+      - name: Run Chromatic
         run: |
-          echo "Hello World! Chromatic workflow triggered."
-          echo "Event: ${{ github.event_name }}"
+          npx chromatic \
+            --project-token=c9bbc986d0d6 \
+            --storybook-build-dir=storybook-static \
+            --exit-zero-on-changes \
+            --ci
+
