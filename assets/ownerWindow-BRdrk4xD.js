@@ -1,0 +1,1 @@
+import{v as n}from"./iframe-mHlq7DfC.js";function t(o){return n(o).defaultView||window}export{t as o};
