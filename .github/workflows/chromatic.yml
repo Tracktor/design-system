@@ -1,18 +1,42 @@
-name: Chromatic DEBUG
+name: Chromatic on PR Comment
 
 on:
   issue_comment:
     types: [created]
 
 jobs:
-  chromatic:
+  chromatic-test:
+    # Ne s'exécute que si c'est un commentaire sur une PR et qu'il contient /chromatic
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/chromatic')
     runs-on: ubuntu-latest
 
     steps:
-      - name: Dump event
-        run: |
-          echo "COMMENT BODY:"
-          echo "${{ github.event.comment.body }}"
-          echo ""
-          echo "EVENT:"
-          echo '${{ toJson(github.event) }}'
+      - name: React to comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes'
+            })
+
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - name: Hello World
+        run: echo "Hello World! Chromatic workflow triggered by comment."
+
+      - name: Comment result
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ Chromatic workflow completed! Hello World executed.'
+            })
