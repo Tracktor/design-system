@@ -1,6 +1,7 @@
 name: Chromatic on PR Comment
 
 on:
+  pull_request:
   issue_comment:
     types: [created]
   workflow_dispatch:  # Permet de lancer manuellement
