@@ -2,15 +2,14 @@ name: Chromatic – run
 
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
 jobs:
   chromatic:
     runs-on: ubuntu-latest
     if: >
       github.event.issue.pull_request &&
-      github.event.comment.user.type == 'Bot' &&
-      contains(github.event.comment.body, 'Chromatic pending')
+      contains(github.event.comment.body, '/chromatic')
 
     steps:
       - name: Checkout PR
@@ -28,14 +27,10 @@ jobs:
             node_modules
           key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
 
-      - name: Install deps
-        run: bun install --ignore-scripts
+      - run: bun install --ignore-scripts
+      - run: bun run build-storybook
 
-      - name: Build Storybook
-        run: bun run build-storybook
-
-      - name: Run Chromatic
-        run: |
+      - run: |
           npx chromatic \
             --project-token=${{ secrets.CHROMATIC_TOKEN }} \
             --storybook-build-dir=storybook-static \
