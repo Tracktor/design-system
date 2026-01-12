@@ -1,0 +1,43 @@
+name: Chromatic
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  chromatic:
+    if: >
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/chromatic')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@v1
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.bun/install/cache
+            node_modules
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        run: bun install --ignore-scripts
+
+      - name: Build Storybook
+        run: bun run build-storybook
+
+      - name: Run Chromatic
+        run: |
+          npx chromatic \
+            --project-token=c9bbc986d0d6 \
+            --storybook-build-dir=storybook-static \
+            --exit-zero-on-changes \
+            --ci

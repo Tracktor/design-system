@@ -5,21 +5,6 @@ on:
     branches-ignore:
       - master
   pull_request:
-    types: [opened, synchronize, reopened]
-  issue_comment:
-    types: [created]
-  workflow_dispatch:
-    inputs:
-      pr_number:
-        description: 'Numéro de la PR'
-        required: true
-        type: number
-
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-  actions: read
 
 jobs:
   unit-tests:
@@ -46,38 +31,6 @@ jobs:
 
       - name: Run unit tests
         run: bun run test
-
-
-  post-chromatic-button:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    needs: unit-tests
-
-    steps:
-      - name: Find existing comment
-        uses: peter-evans/find-comment@v3
-        id: find-comment
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: '🎨 Chromatic Visual Testing'
-
-      - name: Create or update comment
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          comment-id: ${{ steps.find-comment.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          edit-mode: replace
-          body: |
-            ## 🎨 Chromatic Visual Testing
-            
-            Pour lancer les tests visuels Chromatic, commentez :
-            ```
-            /chromatic
-            ```
-            
-            ---
-            _Dernière mise à jour : ${{ github.sha }}_
 
 
   build-storybook:
@@ -113,107 +66,6 @@ jobs:
           name: storybook-static
           path: storybook-static
           if-no-files-found: error
-
-
-  chromatic:
-    if: |
-      (github.event_name == 'issue_comment' &&
-       github.event.issue.pull_request &&
-       contains(github.event.comment.body, '/chromatic')) ||
-      github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Get PR number
-        id: pr
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
-          else
-            echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: React to comment
-        if: github.event_name == 'issue_comment'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.reactions.createForIssueComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: context.payload.comment.id,
-              content: 'rocket'
-            });
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: refs/pull/${{ steps.pr.outputs.number }}/head
-
-      - uses: oven-sh/setup-bun@v1
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.bun/install/cache
-            node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
-
-      - name: Install dependencies
-        run: bun install --ignore-scripts
-
-      - name: Build Storybook
-        run: bun run build-storybook
-
-      - name: Run Chromatic
-        id: chromatic
-        run: |
-          npx chromatic \
-            --project-token=c9bbc986d0d6 \
-            --storybook-build-dir=storybook-static \
-            --exit-zero-on-changes \
-            --ci
-
-      - name: Update button comment with result
-        uses: actions/github-script@v7
-        if: always()
-        with:
-          script: |
-            const prNumber = ${{ steps.pr.outputs.number }};
-            const comments = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: prNumber,
-            });
-            
-            const botComment = comments.data.find(comment => 
-              comment.user.type === 'Bot' && 
-              comment.body.includes('🎨 Chromatic Visual Testing')
-            );
-            
-            if (botComment) {
-              const status = '${{ job.status }}' === 'success' ? '✅ Terminé avec succès' : '❌ Échec';
-              const timestamp = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
-            
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: `## 🎨 Chromatic Visual Testing
-            
-            Pour lancer les tests visuels Chromatic, commentez :
-            \`\`\`
-            /chromatic
-            \`\`\`
-            
-            **Dernier résultat :** ${status} _(${timestamp})_
-            
-            ---
-            _Dernière mise à jour : ${{ github.sha }}_`
-              });
-            }
 
 
   storybook-deploy:
