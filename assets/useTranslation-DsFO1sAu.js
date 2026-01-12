@@ -1,1 +1,0 @@
-import{r as t,an as s}from"./iframe-nKapAHid.js";const o={apply:"Apply",clickToUpload:"Click to upload",files:"Files",reset:"Reset",selectAll:"Select all"},c={apply:"Appliquer",clickToUpload:"Cliquez pour télécharger",files:"Fichiers",reset:"Réinitialiser",selectAll:"Tout sélectionner"},r={en:o,fr:c},n=()=>{const{language:e}=t.useContext(s);return{t:l=>r[e][l]}};export{n as u};
