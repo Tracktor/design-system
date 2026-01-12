@@ -3,40 +3,39 @@ name: Chromatic on PR Comment
 on:
   issue_comment:
     types: [created]
+  workflow_dispatch:  # Permet de lancer manuellement
+    inputs:
+      pr_number:
+        description: 'PR number to test'
+        required: true
+        type: number
 
 jobs:
   chromatic-test:
-    # Ne s'exécute que si c'est un commentaire sur une PR et qu'il contient /chromatic
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/chromatic')
+    if: |
+      (github.event_name == 'issue_comment' && 
+       github.event.issue.pull_request && 
+       contains(github.event.comment.body, '/chromatic')) ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
-      - name: React to comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.reactions.createForIssueComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              comment_id: context.payload.comment.id,
-              content: 'eyes'
-            })
+      - name: Get PR info
+        id: pr
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "number=${{ inputs.pr_number }}" >> $GITHUB_OUTPUT
+          else
+            echo "number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Checkout PR code
         uses: actions/checkout@v4
         with:
-          ref: refs/pull/${{ github.event.issue.number }}/head
+          ref: refs/pull/${{ steps.pr.outputs.number }}/head
 
       - name: Hello World
-        run: echo "Hello World! Chromatic workflow triggered by comment."
-
-      - name: Comment result
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: '✅ Chromatic workflow completed! Hello World executed.'
-            })
+        run: |
+          echo "Hello World! Chromatic workflow triggered."
+          echo "PR number: ${{ steps.pr.outputs.number }}"
+          echo "Event: ${{ github.event_name }}"
