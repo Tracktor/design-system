@@ -36,6 +36,7 @@ interface ListAvatarItemBase {
   chipColor?: ChipProps["color"] | string;
   secondaryAction?: ReactNode;
   divider?: boolean;
+  sx?: SxProps<Theme>;
 }
 
 export interface ListAvatarClickPayload {
@@ -66,10 +67,6 @@ export interface ListAvatarProps extends ListProps {
    * Empty message
    */
   Empty?: ReactNode;
-  /**
-   * Custom style
-   */
-  sx?: SxProps;
   /**
    * Full width
    */
@@ -202,6 +199,7 @@ export const ListAvatar = ({
             onClick,
             icon,
             divider,
+            sx: itemSx,
             Avatar: AvatarComponent,
           },
           index,
@@ -262,9 +260,13 @@ export const ListAvatar = ({
                   "& .MuiListItemSecondaryAction-root": {
                     opacity: 1,
                   },
-                  backgroundColor: ({ palette }: Theme) => (clickable ? palette.action.hover : "transparent"),
+                  ...(!(itemSx && typeof itemSx === "object" && !Array.isArray(itemSx) && "backgroundColor" in itemSx) &&
+                    clickable && {
+                      backgroundColor: ({ palette }: Theme) => palette.action.hover,
+                    }),
                 },
                 cursor: clickable ? "pointer" : "default",
+                ...itemSx,
               }}
             >
               {/* Custom avatar */}
