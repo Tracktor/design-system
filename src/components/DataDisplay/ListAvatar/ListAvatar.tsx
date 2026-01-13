@@ -14,6 +14,7 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
+import { ListProps } from "@mui/material/List/List";
 import { MouseEvent, ReactNode, useState } from "react";
 import sheetsImage from "@/assets/img/sheets.png";
 import Avatar from "@/components/DataDisplay/Avatar/Avatar";
@@ -60,7 +61,7 @@ export interface ListAvatarItem extends ListAvatarItemBase {
   onClick?: (event: MouseEvent<HTMLLIElement>, item: ListAvatarClickPayload) => void;
 }
 
-export interface ListAvatarProps {
+export interface ListAvatarProps extends ListProps {
   /**
    * Empty message
    */
@@ -97,6 +98,10 @@ export interface ListAvatarProps {
    * Action
    */
   action?: ListAvatarAction;
+  /**
+   * Density of the list
+   */
+  density?: "standard" | "comfortable";
 }
 
 const AVATAR_MARGIN_RIGHT = 1;
@@ -125,10 +130,23 @@ export const ListAvatar = ({
   isLoading,
   disableLightbox,
   numberLoadingItems = 3,
+  density = "standard",
+  ...props
 }: ListAvatarProps) => {
   const [openElement, setOpenElement] = useState("");
   const browser = getBrowser();
   const isFirefox = browser === Browser.Firefox;
+
+  const listItemBaseSx = {
+    ...styles.listItem,
+    ...(density === "comfortable" && {
+      "&:last-of-type": {
+        marginBottom: 0,
+      },
+      marginBottom: 1,
+      padding: 1.5,
+    }),
+  };
 
   if (!(items?.length || isLoading || action)) {
     return Empty || null;
@@ -143,7 +161,7 @@ export const ListAvatar = ({
         }}
       >
         {[...Array(numberLoadingItems).keys()].map((index) => (
-          <ListItem key={index} sx={styles.listItem}>
+          <ListItem key={index} sx={listItemBaseSx}>
             <Skeleton width={40} height={40} sx={{ marginRight: AVATAR_MARGIN_RIGHT }} variant="rounded" />
             <ListItemText
               primary={
@@ -167,6 +185,7 @@ export const ListAvatar = ({
         ...(fullWidth && { width: "100%" }),
         ...sx,
       }}
+      {...props}
     >
       {items?.map(
         (
@@ -229,7 +248,7 @@ export const ListAvatar = ({
                 }
               }}
               sx={{
-                ...styles.listItem,
+                ...listItemBaseSx,
                 "& .MuiListItemSecondaryAction-root": {
                   alignItems: "center",
                   display: "flex",
@@ -326,7 +345,7 @@ export const ListAvatar = ({
         <ListItemButton
           onClick={action?.onClick}
           sx={{
-            ...styles.listItem,
+            ...listItemBaseSx,
             "&:hover": {
               backgroundColor: ({ palette }: Theme) => palette.action.hover,
             },

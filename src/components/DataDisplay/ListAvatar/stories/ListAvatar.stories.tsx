@@ -250,6 +250,27 @@ DoubleAvatar.args = {
   ],
 };
 
+export const DensityComfortable = Template.bind({});
+DensityComfortable.args = {
+  density: "comfortable",
+  items: [
+    {
+      id: 1,
+      subtitle: "Lorem Ipsum",
+      thumbnail: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      thumbnailSecondary: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      title: "Basic",
+    },
+    {
+      id: 2,
+      subtitle: "Lorem Ipsum",
+      thumbnail: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+      thumbnailSecondary: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+      title: "Basic",
+    },
+  ],
+};
+
 export default {
   component: ListAvatar,
   title: "Components/Data Display/ListAvatar",

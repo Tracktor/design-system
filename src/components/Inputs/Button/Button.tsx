@@ -1,5 +1,4 @@
 import { Box, ButtonTypeMap, CircularProgress, Button as MuiButton, ButtonProps as MuiButtonProps, Stack } from "@mui/material";
-import * as React from "react";
 import { ElementType, ForwardedRef, forwardRef, ReactNode } from "react";
 
 export type ButtonProps<RootComponent extends ElementType = ButtonTypeMap["defaultComponent"], AdditionalProps = {}> = MuiButtonProps<
