@@ -2,17 +2,22 @@ import { useContext } from "react";
 import { ThemeContext } from "@/context/Theme/ThemeProvider";
 import locales from "@/locales";
 
-/**
- * Hook to get the translations internally
- */
+type Locale = keyof typeof locales;
+type TranslationKey = keyof typeof locales.en;
+
+const DEFAULT_LOCALE: Locale = "en";
+
+const isSupportedLocale = (lang: string): lang is Locale => lang in locales;
+
 const useTranslation = () => {
   const { language } = useContext(ThemeContext);
 
-  const t = (key: keyof typeof locales.en | keyof typeof locales.fr) => locales[language][key];
+  // Choose the appropriate locale, defaulting to English if unsupported
+  const locale = isSupportedLocale(language) ? locales[language] : locales[DEFAULT_LOCALE];
 
-  return {
-    t,
-  };
+  const t = (key: TranslationKey): string => locale[key] ?? locales[DEFAULT_LOCALE][key] ?? key;
+
+  return { t };
 };
 
 export default useTranslation;
