@@ -31,6 +31,8 @@ declare module "@mui/material/Autocomplete" {
 
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
+    dashed: true;
+    "dashed-rounded": true;
     link: true;
   }
 }
@@ -432,6 +434,156 @@ const commonThemeOptions: MuiThemeOptions = {
               textTransform: "none",
             };
           },
+        },
+        // Dashed variant (borderRadius: 4px)
+        {
+          props: { variant: "dashed" },
+          style: ({ theme }) => ({
+            "&:hover": {
+              backgroundColor: theme.palette.grey[100],
+              borderColor: theme.palette.action.disabled,
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "transparent",
+              borderColor: theme.palette.action.disabled,
+              borderStyle: "dashed",
+              color: theme.palette.action.disabled,
+            },
+            backgroundColor: "transparent",
+            border: `1px dashed ${theme.palette.action.disabled}`,
+            borderRadius: theme.shape.borderRadiusS,
+            color: theme.palette.text.secondary,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          }),
+        },
+        {
+          props: { color: "secondary", variant: "dashed" },
+          style: ({ theme }) => ({
+            "&:hover": {
+              backgroundColor: theme.palette.grey[200],
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "transparent",
+              border: `1px dashed ${theme.palette.action.disabled}`,
+              color: theme.palette.action.disabled,
+            },
+            backgroundColor: theme.palette.grey[100],
+            border: "none",
+            borderRadius: theme.shape.borderRadiusS,
+            color: theme.palette.primary.main,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          }),
+        },
+        {
+          props: { color: "error", variant: "dashed" },
+          style: ({ theme }) => ({
+            "&:hover": {
+              backgroundColor: theme.palette.error["8p"],
+              borderColor: theme.palette.error.main,
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "transparent",
+              borderColor: theme.palette.action.disabled,
+              borderStyle: "dashed",
+              color: theme.palette.action.disabled,
+            },
+            backgroundColor: "transparent",
+            border: `1px dashed ${theme.palette.error.main}`,
+            borderRadius: theme.shape.borderRadiusS,
+            color: theme.palette.primary.main,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          }),
+        },
+        // Dashed-rounded variant (borderRadius: 9999px)
+        {
+          props: { variant: "dashed-rounded" },
+          style: ({ theme }) => ({
+            "&:hover": {
+              backgroundColor: theme.palette.grey[100],
+              borderColor: theme.palette.action.disabled,
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "transparent",
+              borderColor: theme.palette.action.disabled,
+              borderStyle: "dashed",
+              color: theme.palette.action.disabled,
+            },
+            backgroundColor: "transparent",
+            border: `1px dashed ${theme.palette.action.disabled}`,
+            borderRadius: 9999,
+            color: theme.palette.text.secondary,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          }),
+        },
+        {
+          props: { color: "secondary", variant: "dashed-rounded" },
+          style: ({ theme }) => ({
+            "&:hover": {
+              backgroundColor: theme.palette.grey[200],
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "transparent",
+              border: `1px dashed ${theme.palette.action.disabled}`,
+              color: theme.palette.action.disabled,
+            },
+            backgroundColor: theme.palette.grey[100],
+            border: "none",
+            borderRadius: 9999,
+            color: theme.palette.primary.main,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          }),
+        },
+        {
+          props: { color: "error", variant: "dashed-rounded" },
+          style: ({ theme }) => ({
+            "&:hover": {
+              backgroundColor: theme.palette.error["8p"],
+              borderColor: theme.palette.error.main,
+            },
+            "&.Mui-disabled": {
+              backgroundColor: "transparent",
+              borderColor: theme.palette.action.disabled,
+              borderStyle: "dashed",
+              color: theme.palette.action.disabled,
+            },
+            backgroundColor: "transparent",
+            border: `1px dashed ${theme.palette.error.main}`,
+            borderRadius: 9999,
+            color: theme.palette.primary.main,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          }),
+        },
+        // Dashed sizes
+        {
+          props: { size: "large", variant: "dashed" },
+          style: ({ theme }) => ({ ...theme.typography.body2, height: 34, minHeight: 34 }),
+        },
+        {
+          props: { size: "medium", variant: "dashed" },
+          style: ({ theme }) => ({ ...theme.typography.body2, height: 26, minHeight: 26 }),
+        },
+        {
+          props: { size: "small", variant: "dashed" },
+          style: ({ theme }) => ({ ...theme.typography.body3, height: 22, minHeight: 22 }),
+        },
+        // Dashed-rounded sizes
+        {
+          props: { size: "large", variant: "dashed-rounded" },
+          style: ({ theme }) => ({ ...theme.typography.body2, height: 34, minHeight: 34 }),
+        },
+        {
+          props: { size: "medium", variant: "dashed-rounded" },
+          style: ({ theme }) => ({ ...theme.typography.body2, height: 26, minHeight: 26 }),
+        },
+        {
+          props: { size: "small", variant: "dashed-rounded" },
+          style: ({ theme }) => ({ ...theme.typography.body3, height: 22, minHeight: 22 }),
         },
       ],
     },

@@ -3,7 +3,7 @@
 ## v4.23.0
 
 ### Feat
-- Add new button variant dashed
+- Add new button variant `dashed` and `dashed-rounded`
 ### Chore
 - Upgrade storybook to v10
 - Improve bun runtime support
