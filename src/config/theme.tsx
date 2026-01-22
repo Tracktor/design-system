@@ -562,28 +562,58 @@ const commonThemeOptions: MuiThemeOptions = {
         // Dashed sizes
         {
           props: { size: "large", variant: "dashed" },
-          style: ({ theme }) => ({ ...theme.typography.body2, height: 34, minHeight: 34 }),
+          style: ({ theme }) => ({
+            ...theme.typography.body2,
+            "& .MuiButton-startIcon > *:nth-of-type(1), & .MuiButton-endIcon > *:nth-of-type(1)": { fontSize: 20 },
+            height: 34,
+            minHeight: 34,
+          }),
         },
         {
           props: { size: "medium", variant: "dashed" },
-          style: ({ theme }) => ({ ...theme.typography.body2, height: 26, minHeight: 26 }),
+          style: ({ theme }) => ({
+            ...theme.typography.body2,
+            "& .MuiButton-startIcon > *:nth-of-type(1), & .MuiButton-endIcon > *:nth-of-type(1)": { fontSize: 16 },
+            height: 26,
+            minHeight: 26,
+          }),
         },
         {
           props: { size: "small", variant: "dashed" },
-          style: ({ theme }) => ({ ...theme.typography.body3, height: 22, minHeight: 22 }),
+          style: ({ theme }) => ({
+            ...theme.typography.body3,
+            "& .MuiButton-startIcon > *:nth-of-type(1), & .MuiButton-endIcon > *:nth-of-type(1)": { fontSize: 14 },
+            height: 22,
+            minHeight: 22,
+          }),
         },
         // Dashed-rounded sizes
         {
           props: { size: "large", variant: "dashed-rounded" },
-          style: ({ theme }) => ({ ...theme.typography.body2, height: 34, minHeight: 34 }),
+          style: ({ theme }) => ({
+            ...theme.typography.body2,
+            "& .MuiButton-startIcon > *:nth-of-type(1), & .MuiButton-endIcon > *:nth-of-type(1)": { fontSize: 20 },
+            height: 34,
+            minHeight: 34,
+          }),
         },
         {
           props: { size: "medium", variant: "dashed-rounded" },
-          style: ({ theme }) => ({ ...theme.typography.body2, height: 26, minHeight: 26 }),
+          style: ({ theme }) => ({
+            ...theme.typography.body2,
+            "& .MuiButton-startIcon > *:nth-of-type(1), & .MuiButton-endIcon > *:nth-of-type(1)": { fontSize: 16 },
+            height: 26,
+            minHeight: 26,
+          }),
         },
         {
           props: { size: "small", variant: "dashed-rounded" },
-          style: ({ theme }) => ({ ...theme.typography.body3, height: 22, minHeight: 22 }),
+          style: ({ theme }) => ({
+            ...theme.typography.body3,
+            "& .MuiButton-startIcon > *:nth-of-type(1), & .MuiButton-endIcon > *:nth-of-type(1)": { fontSize: 14 },
+            height: 22,
+            minHeight: 22,
+          }),
         },
       ],
     },
