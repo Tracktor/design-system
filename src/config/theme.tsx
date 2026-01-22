@@ -8,8 +8,25 @@ import {
   PaletteMode,
   responsiveFontSizes,
 } from "@mui/material";
-import { OverridesStyleRules } from "@mui/material/styles/overrides";
+import type { Interpolation } from "@mui/system";
 import { Children, CSSProperties, isValidElement } from "react";
+
+// Local type definition since OverridesStyleRules is not exported from @mui/material/styles
+type OverridesStyleRules<
+  ClassKey extends string = string,
+  ComponentName extends keyof ComponentsPropsList = keyof ComponentsPropsList,
+  Theme = unknown,
+> = Record<
+  ClassKey,
+  Interpolation<
+    ComponentsPropsList[ComponentName] &
+      Record<string, unknown> & {
+        ownerState: ComponentsPropsList[ComponentName] & Record<string, unknown>;
+        theme: Theme;
+      }
+  >
+>;
+
 import { ButtonProps } from "@/components/Inputs/Button";
 import { dark, light } from "@/constants/colors";
 import { defaultFontFamily } from "@/constants/fonts";
