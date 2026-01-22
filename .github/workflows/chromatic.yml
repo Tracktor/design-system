@@ -3,8 +3,51 @@ name: Chromatic
 on:
   pull_request:
     types: [labeled, synchronize]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
+  # =============================================================================
+  # Job 0: Auto-add label on PR approval
+  # Triggered when a review is submitted with "approved" state
+  # =============================================================================
+  auto-label-on-approval:
+    name: Auto Label
+    if: |
+      github.event_name == 'pull_request_review' &&
+      github.event.review.state == 'approved'
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Add chromatic label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+
+            // Check if label already exists
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              owner,
+              repo,
+              issue_number: prNumber
+            });
+
+            if (!labels.some(l => l.name === 'chromatic')) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: prNumber,
+                labels: ['chromatic']
+              });
+              console.log('Added chromatic label');
+            } else {
+              console.log('Label already exists');
+            }
   # =============================================================================
   # Job 1: Chromatic Build
   # Triggered when "chromatic" label is added
