@@ -1,5 +1,14 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.22.1
+## v4.23.0
+
+### Feat
+- Add new button variant `dashed` and `dashed-rounded`
+- 
 ### Fix
-- useTranslation: add fallback to avoid conflicts with other i18n instances
+- chromatic configuration for pull request handling in issue comments
+
+### Chore
+- Upgrade storybook to v10
+- Improve bun runtime support
+- Update testing library imports and upgrade Storybook dependencies

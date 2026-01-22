@@ -222,6 +222,176 @@ const ButtonLinkTemplate: StoryFn<typeof Button> = () => (
   </Stack>
 );
 
+const ButtonDashedTemplate: StoryFn<typeof Button> = () => (
+  <Stack direction="row" spacing={4} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed" size="small">
+        Empty small
+      </Button>
+      <Button variant="dashed" size="small" startIcon={<AddShoppingCartIcon />}>
+        Empty small
+      </Button>
+      <Button variant="dashed" size="medium">
+        Empty medium
+      </Button>
+      <Button variant="dashed" size="medium" startIcon={<AddShoppingCartIcon />}>
+        Empty medium
+      </Button>
+      <Button variant="dashed" size="large">
+        Empty large
+      </Button>
+      <Button variant="dashed" size="large" startIcon={<AddShoppingCartIcon />}>
+        Empty large
+      </Button>
+    </Stack>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed" color="secondary" size="small">
+        Filled small
+      </Button>
+      <Button variant="dashed" color="secondary" size="small" startIcon={<AddShoppingCartIcon />}>
+        Filled small
+      </Button>
+      <Button variant="dashed" color="secondary" size="medium">
+        Filled medium
+      </Button>
+      <Button variant="dashed" color="secondary" size="medium" startIcon={<AddShoppingCartIcon />}>
+        Filled medium
+      </Button>
+      <Button variant="dashed" color="secondary" size="large">
+        Filled large
+      </Button>
+      <Button variant="dashed" color="secondary" size="large" startIcon={<AddShoppingCartIcon />}>
+        Filled large
+      </Button>
+    </Stack>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed" color="error" size="small">
+        Error small
+      </Button>
+      <Button variant="dashed" color="error" size="small" startIcon={<AddShoppingCartIcon />}>
+        Error small
+      </Button>
+      <Button variant="dashed" color="error" size="medium">
+        Error medium
+      </Button>
+      <Button variant="dashed" color="error" size="medium" startIcon={<AddShoppingCartIcon />}>
+        Error medium
+      </Button>
+      <Button variant="dashed" color="error" size="large">
+        Error large
+      </Button>
+      <Button variant="dashed" color="error" size="large" startIcon={<AddShoppingCartIcon />}>
+        Error large
+      </Button>
+    </Stack>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed" disabled size="small">
+        Disabled small
+      </Button>
+      <Button variant="dashed" disabled size="small" startIcon={<AddShoppingCartIcon />}>
+        Disabled small
+      </Button>
+      <Button variant="dashed" disabled size="medium">
+        Disabled medium
+      </Button>
+      <Button variant="dashed" disabled size="medium" startIcon={<AddShoppingCartIcon />}>
+        Disabled medium
+      </Button>
+      <Button variant="dashed" disabled size="large">
+        Disabled large
+      </Button>
+      <Button variant="dashed" disabled size="large" startIcon={<AddShoppingCartIcon />}>
+        Disabled large
+      </Button>
+    </Stack>
+  </Stack>
+);
+
+const ButtonDashedRoundedTemplate: StoryFn<typeof Button> = () => (
+  <Stack direction="row" spacing={4} alignItems="center" justifyContent="center" height="100%" paddingY={5}>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed-rounded" size="small">
+        Empty small
+      </Button>
+      <Button variant="dashed-rounded" size="small" startIcon={<AddShoppingCartIcon />}>
+        Empty small
+      </Button>
+      <Button variant="dashed-rounded" size="medium">
+        Empty medium
+      </Button>
+      <Button variant="dashed-rounded" size="medium" startIcon={<AddShoppingCartIcon />}>
+        Empty medium
+      </Button>
+      <Button variant="dashed-rounded" size="large">
+        Empty large
+      </Button>
+      <Button variant="dashed-rounded" size="large" startIcon={<AddShoppingCartIcon />}>
+        Empty large
+      </Button>
+    </Stack>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed-rounded" color="secondary" size="small">
+        Filled small
+      </Button>
+      <Button variant="dashed-rounded" color="secondary" size="small" startIcon={<AddShoppingCartIcon />}>
+        Filled small
+      </Button>
+      <Button variant="dashed-rounded" color="secondary" size="medium">
+        Filled medium
+      </Button>
+      <Button variant="dashed-rounded" color="secondary" size="medium" startIcon={<AddShoppingCartIcon />}>
+        Filled medium
+      </Button>
+      <Button variant="dashed-rounded" color="secondary" size="large">
+        Filled large
+      </Button>
+      <Button variant="dashed-rounded" color="secondary" size="large" startIcon={<AddShoppingCartIcon />}>
+        Filled large
+      </Button>
+    </Stack>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed-rounded" color="error" size="small">
+        Error small
+      </Button>
+      <Button variant="dashed-rounded" color="error" size="small" startIcon={<AddShoppingCartIcon />}>
+        Error small
+      </Button>
+      <Button variant="dashed-rounded" color="error" size="medium">
+        Error medium
+      </Button>
+      <Button variant="dashed-rounded" color="error" size="medium" startIcon={<AddShoppingCartIcon />}>
+        Error medium
+      </Button>
+      <Button variant="dashed-rounded" color="error" size="large">
+        Error large
+      </Button>
+      <Button variant="dashed-rounded" color="error" size="large" startIcon={<AddShoppingCartIcon />}>
+        Error large
+      </Button>
+    </Stack>
+    <Stack spacing={2} alignItems="center">
+      <Button variant="dashed-rounded" disabled size="small">
+        Disabled small
+      </Button>
+      <Button variant="dashed-rounded" disabled size="small" startIcon={<AddShoppingCartIcon />}>
+        Disabled small
+      </Button>
+      <Button variant="dashed-rounded" disabled size="medium">
+        Disabled medium
+      </Button>
+      <Button variant="dashed-rounded" disabled size="medium" startIcon={<AddShoppingCartIcon />}>
+        Disabled medium
+      </Button>
+      <Button variant="dashed-rounded" disabled size="large">
+        Disabled large
+      </Button>
+      <Button variant="dashed-rounded" disabled size="large" startIcon={<AddShoppingCartIcon />}>
+        Disabled large
+      </Button>
+    </Stack>
+  </Stack>
+);
+
 export const Contained = Template.bind({});
 Contained.args = {
   variant: "contained",
@@ -240,6 +410,16 @@ Text.args = {
 export const Link = ButtonLinkTemplate.bind({});
 Link.args = {
   variant: "link",
+};
+
+export const Dashed = ButtonDashedTemplate.bind({});
+Dashed.args = {
+  variant: "dashed",
+};
+
+export const DashedRounded = ButtonDashedRoundedTemplate.bind({});
+DashedRounded.args = {
+  variant: "dashed-rounded",
 };
 
 export const Icon = IconTemplate.bind({});

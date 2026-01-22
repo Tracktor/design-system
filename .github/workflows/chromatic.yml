@@ -1,36 +1,77 @@
 name: Chromatic
 
 on:
+  pull_request:
+    types: [labeled, synchronize]
   pull_request_review:
     types: [submitted]
 
-  issue_comment:
-    types: [created]
-
-
 jobs:
-  chromatic:
+  # =============================================================================
+  # Job 0: Auto-add label on PR approval
+  # Triggered when a review is submitted with "approved" state
+  # =============================================================================
+  auto-label-on-approval:
+    name: Auto Label
     if: |
-      (
-        github.event_name == 'pull_request_review' &&
-        github.event.review.state == 'approved'
-      ) ||
-      (
-        github.event_name == 'issue_comment' &&
-        (
-          contains(github.event.comment.body, '@chromatic') ||
-          contains(github.event.comment.body, '/chromatic')
-        )
-      )
+      github.event_name == 'pull_request_review' &&
+      github.event.review.state == 'approved'
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Add chromatic label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.payload.pull_request.number;
+
+            // Check if label already exists
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue({
+              owner,
+              repo,
+              issue_number: prNumber
+            });
+
+            if (!labels.some(l => l.name === 'chromatic')) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: prNumber,
+                labels: ['chromatic']
+              });
+              console.log('Added chromatic label');
+            } else {
+              console.log('Label already exists');
+            }
+  # =============================================================================
+  # Job 1: Chromatic Build
+  # Triggered when "chromatic" label is added
+  # Shows as "Chromatic Build" in PR checklist
+  # =============================================================================
+  chromatic-build:
+    name: Chromatic Build
+    if: contains(github.event.pull_request.labels.*.name, 'chromatic')
 
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
-      pull-requests: read
+      pull-requests: write
+      statuses: write
+
+    outputs:
+      change-count: ${{ steps.chromatic.outputs.changeCount }}
+      error-count: ${{ steps.chromatic.outputs.errorCount }}
+      chromatic-url: ${{ steps.chromatic.outputs.url }}
+      build-url: ${{ steps.chromatic.outputs.buildUrl }}
 
     steps:
-      - name: Checkout PR
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -51,9 +92,64 @@ jobs:
         run: bun run build-storybook
 
       - name: Run Chromatic
+        id: chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: c9bbc986d0d6
+          storybookBuildDir: storybook-static
+          exitZeroOnChanges: true
+          exitOnceUploaded: true
+
+  # =============================================================================
+  # Job 2: Visual Review
+  # Runs after chromatic-build
+  # Shows as "Visual Review" in PR checklist
+  # - Success if no visual changes
+  # - Pending if changes need approval on Chromatic
+  # =============================================================================
+  visual-review:
+    name: Visual Review
+    needs: chromatic-build
+    if: contains(github.event.pull_request.labels.*.name, 'chromatic')
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      statuses: write
+      pull-requests: write
+
+    steps:
+      - name: Check visual changes
+        id: check
         run: |
-          npx chromatic \
-            --project-token=c9bbc986d0d6 \
-            --storybook-build-dir=storybook-static \
-            --exit-zero-on-changes \
-            --ci
+          echo "change_count=${{ needs.chromatic-build.outputs.change-count }}" >> $GITHUB_OUTPUT
+          echo "error_count=${{ needs.chromatic-build.outputs.error-count }}" >> $GITHUB_OUTPUT
+
+      - name: No changes - Auto approve
+        if: needs.chromatic-build.outputs.change-count == '0' && needs.chromatic-build.outputs.error-count == '0'
+        run: echo "No visual changes detected - auto approved"
+
+      - name: Changes detected - Require approval
+        if: needs.chromatic-build.outputs.change-count != '0' && needs.chromatic-build.outputs.error-count == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ needs.chromatic-build.outputs.chromatic-url }}';
+            const changeCount = '${{ needs.chromatic-build.outputs.change-count }}';
+
+            // Add comment with review link
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: `## 🎨 Visual Review Required\n\n**${changeCount} visual change(s)** detected.\n\n➡️ [Review and approve on Chromatic](${url})\n\nOnce approved on Chromatic, re-run this workflow or push a new commit.`
+            });
+
+            // Fail the job to keep it in "failed" state until approved
+            core.setFailed(`${changeCount} visual change(s) need review on Chromatic`);
+
+      - name: Build errors
+        if: needs.chromatic-build.outputs.error-count != '0'
+        run: |
+          echo "Build had errors"
+          exit 1

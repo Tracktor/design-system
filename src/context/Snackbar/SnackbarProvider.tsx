@@ -1,5 +1,5 @@
 import { Alert, AlertColor, AlertProps, Snackbar } from "@mui/material";
-import type { SnackbarOrigin } from "@mui/material/Snackbar/Snackbar";
+import type { SnackbarOrigin } from "@mui/material/Snackbar";
 import { createContext, ElementType, PropsWithChildren, SyntheticEvent, useCallback, useMemo, useState } from "react";
 
 interface SnackBarState {

@@ -14,7 +14,7 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import { ListProps } from "@mui/material/List/List";
+import type { ListProps } from "@mui/material/List";
 import { MouseEvent, ReactNode, useState } from "react";
 import sheetsImage from "@/assets/img/sheets.png";
 import Avatar from "@/components/DataDisplay/Avatar/Avatar";

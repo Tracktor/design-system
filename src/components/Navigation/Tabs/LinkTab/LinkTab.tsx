@@ -1,5 +1,5 @@
 import { Tab } from "@mui/material";
-import type { TabProps } from "@mui/material/Tab/Tab";
+import type { TabProps } from "@mui/material/Tab";
 import type { ElementType, MouseEvent } from "react";
 
 export interface LinkTabProps extends Omit<TabProps, "onClick"> {

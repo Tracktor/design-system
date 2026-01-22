@@ -25,11 +25,12 @@ jobs:
               issue_number: context.issue.number,
               body:
                 "💡 **Chromatic Visual Tests**\n\n" +
-                "To run Chromatic visual regression tests on this PR, comment:\n\n" +
-                "```\n" +
-                "@chromatic\n" +
-                "```\n\n" +
-                "Or simply approve the PR to run them automatically."
+                "To run visual regression tests, either:\n" +
+                "- Add the `chromatic` label manually\n" +
+                "- Or simply **approve the PR** to run them automatically\n\n" +
+                "Two checks will appear in the PR checklist:\n" +
+                "- **Chromatic Build** - builds and uploads to Chromatic\n" +
+                "- **Visual Review** - passes if no changes, fails if changes need review"
             })
 
 

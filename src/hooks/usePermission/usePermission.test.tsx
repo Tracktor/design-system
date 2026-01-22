@@ -1,6 +1,6 @@
 // usePermission.test.tsx
 
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import PermissionProvider from "@/context/Permission/PermissionProvider";
 import usePermission from "./usePermission";
