@@ -1,7 +1,9 @@
-import { resolve } from "path";
+import path, { resolve } from "path";
+import { fileURLToPath } from "url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config = {
   assetsInclude: ["/sb-preview/runtime.js"],
@@ -12,7 +14,7 @@ const config = {
     alias: [
       {
         find: "@",
-        replacement: resolve(__dirname, "src"),
+        replacement: resolve(__dirname, "../src"),
       },
     ],
   },
