@@ -7,3 +7,4 @@
 ### Chore
 - Upgrade storybook to v10
 - Improve bun runtime support
+- Update testing library imports and upgrade Storybook dependencies
