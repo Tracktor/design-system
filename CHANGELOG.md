@@ -1,5 +1,9 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.22.1
-### Fix
-- useTranslation: add fallback to avoid conflicts with other i18n instances
+## v4.23.0
+
+### Feat
+- Add new button variant dashed
+### Chore
+- Upgrade storybook to v10
+- Improve bun runtime support
