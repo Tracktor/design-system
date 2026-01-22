@@ -5,13 +5,20 @@ on:
     types: [created]
 
 jobs:
-  chromatic:
+  # =============================================================================
+  # Job 1: Chromatic Build
+  # Triggered by @chromatic or /chromatic comment
+  # Shows as "Chromatic Build" in PR checklist
+  # =============================================================================
+  chromatic-build:
+    name: Chromatic Build
     if: |
       github.event.issue.pull_request &&
       (
         contains(github.event.comment.body, '@chromatic') ||
         contains(github.event.comment.body, '/chromatic')
-      )
+      ) &&
+      !contains(github.event.comment.body, '@chromatic-approve')
 
     runs-on: ubuntu-latest
 
@@ -19,6 +26,14 @@ jobs:
       contents: read
       pull-requests: write
       statuses: write
+
+    outputs:
+      sha: ${{ steps.pr.outputs.sha }}
+      ref: ${{ steps.pr.outputs.ref }}
+      change-count: ${{ steps.chromatic.outputs.changeCount }}
+      error-count: ${{ steps.chromatic.outputs.errorCount }}
+      chromatic-url: ${{ steps.chromatic.outputs.url }}
+      build-url: ${{ steps.chromatic.outputs.buildUrl }}
 
     steps:
       - name: Get PR info
@@ -33,6 +48,19 @@ jobs:
             });
             core.setOutput('ref', pr.head.ref);
             core.setOutput('sha', pr.head.sha);
+
+      - name: Set pending status for build
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ steps.pr.outputs.sha }}',
+              state: 'pending',
+              description: 'Building Storybook...',
+              context: 'Chromatic Build'
+            });
 
       - name: Checkout PR
         uses: actions/checkout@v4
@@ -55,19 +83,6 @@ jobs:
       - name: Build Storybook
         run: bun run build-storybook
 
-      - name: Create pending status
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: '${{ steps.pr.outputs.sha }}',
-              state: 'pending',
-              description: 'Running visual tests...',
-              context: 'UI Tests'
-            });
-
       - name: Run Chromatic
         id: chromatic
         uses: chromaui/action@latest
@@ -75,38 +90,157 @@ jobs:
           projectToken: c9bbc986d0d6
           storybookBuildDir: storybook-static
           exitZeroOnChanges: true
+          exitOnceUploaded: true
         env:
           CHROMATIC_SHA: ${{ steps.pr.outputs.sha }}
           CHROMATIC_BRANCH: ${{ steps.pr.outputs.ref }}
 
-      - name: Update commit status
+      - name: Update build status
         if: always()
         uses: actions/github-script@v7
         with:
           script: |
-            const changeCount = parseInt('${{ steps.chromatic.outputs.changeCount }}') || 0;
             const errorCount = parseInt('${{ steps.chromatic.outputs.errorCount }}') || 0;
-            const url = '${{ steps.chromatic.outputs.url }}';
-
-            let state, description;
+            const url = '${{ steps.chromatic.outputs.buildUrl }}' || '${{ steps.chromatic.outputs.url }}';
 
             if (errorCount > 0) {
-              state = 'failure';
-              description = `Build failed with ${errorCount} error(s)`;
-            } else if (changeCount > 0) {
-              state = 'pending';
-              description = `${changeCount} visual change(s) need review`;
+              await github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: '${{ steps.pr.outputs.sha }}',
+                state: 'failure',
+                target_url: url,
+                description: `Build failed with ${errorCount} error(s)`,
+                context: 'Chromatic Build'
+              });
             } else {
-              state = 'success';
-              description = 'No visual changes detected';
+              await github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: '${{ steps.pr.outputs.sha }}',
+                state: 'success',
+                target_url: url,
+                description: 'Build completed successfully',
+                context: 'Chromatic Build'
+              });
             }
 
+  # =============================================================================
+  # Job 2: Visual Review
+  # Runs after chromatic-build, creates a pending status until approved
+  # Shows as "Visual Review" in PR checklist
+  # =============================================================================
+  visual-review:
+    name: Visual Review
+    needs: chromatic-build
+    runs-on: ubuntu-latest
+
+    permissions:
+      statuses: write
+      pull-requests: write
+
+    steps:
+      - name: Set visual review status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const changeCount = parseInt('${{ needs.chromatic-build.outputs.change-count }}') || 0;
+            const errorCount = parseInt('${{ needs.chromatic-build.outputs.error-count }}') || 0;
+            const url = '${{ needs.chromatic-build.outputs.chromatic-url }}';
+
+            // If build failed, skip visual review
+            if (errorCount > 0) {
+              await github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: '${{ needs.chromatic-build.outputs.sha }}',
+                state: 'failure',
+                target_url: url,
+                description: 'Skipped due to build failure',
+                context: 'Visual Review'
+              });
+              return;
+            }
+
+            // If no changes, auto-approve
+            if (changeCount === 0) {
+              await github.rest.repos.createCommitStatus({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                sha: '${{ needs.chromatic-build.outputs.sha }}',
+                state: 'success',
+                target_url: url,
+                description: 'No visual changes detected',
+                context: 'Visual Review'
+              });
+              return;
+            }
+
+            // If changes exist, set to pending and wait for manual approval
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: '${{ needs.chromatic-build.outputs.sha }}',
+              state: 'pending',
+              target_url: url,
+              description: `${changeCount} visual change(s) need review - approve on Chromatic then comment @chromatic-approve`,
+              context: 'Visual Review'
+            });
+
+            // Add a comment with instructions
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `## 🎨 Visual Review Required\n\n**${changeCount} visual change(s)** detected.\n\n1. [Review changes on Chromatic](${url})\n2. Approve or reject the changes\n3. Comment \`@chromatic-approve\` to update the PR status`
+            });
+
+  # =============================================================================
+  # Job 3: Approve Visual Review
+  # Triggered by @chromatic-approve comment
+  # Updates the Visual Review status to success
+  # =============================================================================
+  approve-visual-review:
+    name: Approve Visual Review
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '@chromatic-approve')
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      statuses: write
+      pull-requests: write
+
+    steps:
+      - name: Get PR info
+        id: pr
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            core.setOutput('sha', pr.head.sha);
+
+      - name: Approve visual review
+        uses: actions/github-script@v7
+        with:
+          script: |
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: '${{ steps.pr.outputs.sha }}',
-              state,
-              target_url: url,
-              description,
-              context: 'UI Tests'
+              state: 'success',
+              description: 'Visual changes approved',
+              context: 'Visual Review'
+            });
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: '✅ Visual review approved!'
             });
