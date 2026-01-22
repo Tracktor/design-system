@@ -4,6 +4,10 @@
 
 ### Feat
 - Add new button variant `dashed` and `dashed-rounded`
+- 
+### Fix
+- chromatic configuration for pull request handling in issue comments
+
 ### Chore
 - Upgrade storybook to v10
 - Improve bun runtime support
