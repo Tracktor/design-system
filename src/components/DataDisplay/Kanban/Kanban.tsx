@@ -92,6 +92,21 @@ export const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) =
     );
   });
 
+  const titleElement = (
+    <Stack flex={1} overflow="hidden">
+      <Tooltip
+        title={title}
+        enterDelay={TOOLTIP_DELAYS.enterDelay}
+        enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
+        slotProps={{ popper: POPPER_KANBAN }}
+      >
+        <Typography noWrap variant="h6">
+          {title}
+        </Typography>
+      </Tooltip>
+    </Stack>
+  );
+
   const cardContent = (
     <Stack flex={1} overflow="hidden">
       <Tooltip
@@ -181,11 +196,12 @@ export const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) =
               {imageElement}
               <Stack sx={{ flex: 1, overflow: "hidden", position: "relative", whiteSpace: "nowrap" }}>
                 <Stack direction="row" spacing={1} flex={1}>
-                  {cardContent}
+                  {titleElement}
                   <Stack alignItems="stretch" justifyContent="space-between">
                     {tagsAlertElement}
                   </Stack>
                 </Stack>
+                {subtitleList}
                 {footerElement}
               </Stack>
             </>
