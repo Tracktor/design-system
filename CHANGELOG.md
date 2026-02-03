@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.23.1
+## v4.23.2
 
 ### Fix
-- prevent subtitle truncation 
+- **Kanban**: Renamed `previewBookingId` prop to `activeItemId`

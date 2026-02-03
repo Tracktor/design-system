@@ -29,7 +29,7 @@ type KanbanItemProps = {
   index: number;
   style: CSSProperties;
   data: {
-    previewBookingId: string;
+    activeItemId: string;
     gutterSize: number;
     onClickItem: KanbanProps["onClickItem"];
     items: KanbanDataItemProps[];
@@ -38,11 +38,11 @@ type KanbanItemProps = {
 
 export const VirtualizedKanbanItem = ({ index, style, data }: KanbanItemProps) => {
   const { palette } = useTheme();
-  const { items, onClickItem, previewBookingId, gutterSize } = data;
+  const { items, onClickItem, activeItemId, gutterSize } = data;
   const { title, subtitles, tag, image, id, Footer, Alert, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
     items[index];
 
-  const active = previewBookingId === id;
+  const active = activeItemId === id;
 
   const imageElement = (
     <Tooltip title={imageTitle} enterDelay={TOOLTIP_DELAYS.enterDelay} enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}>
@@ -227,7 +227,7 @@ interface ColumnProps {
   listWidth: number | string;
   disableCount?: boolean;
   itemCount: number;
-  previewBookingId: string;
+  activeItemId: string;
   onClickItem?: KanbanProps["onClickItem"];
   loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
   onInView?: (name: string) => void;
@@ -247,7 +247,7 @@ const Column = ({
   disableCount,
   loadMoreItems,
   itemCount,
-  previewBookingId,
+  activeItemId,
   onClickItem,
   onInView,
   chipColumVariant,
@@ -380,10 +380,10 @@ const Column = ({
                       index={virtualRow.index}
                       style={{}}
                       data={{
+                        activeItemId,
                         gutterSize,
                         items,
                         onClickItem,
-                        previewBookingId,
                       }}
                     />
                   </Box>
@@ -528,9 +528,9 @@ export interface KanbanProps {
    */
   onColumnInView?: (name: string) => void;
   /**
-   * The ID of the booking to preview, obtained from the URL search parameters.
+   * The ID of the currently active item.
    */
-  previewBookingId?: string;
+  activeItemId?: string;
   /**
    * Custom mapping of booking statuses to chip variants/colors.
    * Keys can be any string, but the value must be { color, variant? }.
@@ -555,7 +555,7 @@ const Kanban = ({
   chipColumVariant,
   chipStatus,
   headerColumnChip,
-  previewBookingId = "",
+  activeItemId = "",
   chipColumDot = true,
   height = "100%",
   itemPerPage = 50,
@@ -613,7 +613,7 @@ const Kanban = ({
               listWidth={listWidth}
               disableCount={disableCount}
               loadMoreItems={loadMoreItems}
-              previewBookingId={previewBookingId}
+              activeItemId={activeItemId}
               onClickItem={onClickItem}
               name={name}
               label={label}
