@@ -103,7 +103,7 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
                       <Fade in={!isCollapsed}>
                         <Stack direction="row" justifyContent="space-between" flex={1} whiteSpace="nowrap">
                           {label}
-                          {count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                          {!!count && <Chip color="warning" size="small" label={count} variant="rounded" />}
                         </Stack>
                       </Fade>
                     </Stack>

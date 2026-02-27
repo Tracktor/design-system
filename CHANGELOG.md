@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.23.2
+## v4.23.3
 
 ### Fix
-- **Kanban**: Renamed `previewBookingId` prop to `activeItemId`
+- Improve count display condition for clarity
