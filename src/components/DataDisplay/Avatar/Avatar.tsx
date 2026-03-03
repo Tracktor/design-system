@@ -71,7 +71,7 @@ const Avatar = forwardRef(
     { secondarySrc, secondaryAvatarProps, size, sx, ...props }: AvatarProps<C>,
     ref: MuiAvatarProps["ref"],
   ) => {
-    if (secondarySrc || secondaryAvatarProps) {
+    if (secondarySrc) {
       const { sx: secondarySx, ...restSecondaryAvatarProps } = secondaryAvatarProps || {};
       const primaryWidth = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.width : undefined);
       const primaryHeight = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.height : undefined);

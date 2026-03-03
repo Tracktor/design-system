@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.23.4
+## v4.23.5
 
 ### Fix
-- Improve secondary size calculation and destructure props for clarity
+- Simplify secondary avatar condition for clarity
