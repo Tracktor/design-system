@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.23.3
+## v4.23.4
 
 ### Fix
-- Improve count display condition for clarity
+- Improve secondary size calculation and destructure props for clarity

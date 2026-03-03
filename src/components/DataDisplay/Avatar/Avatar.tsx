@@ -29,7 +29,9 @@ const isValidSx = (sx: SxProps<Theme> | undefined): sx is { height?: SizeValue; 
   sx !== undefined && typeof sx === "object" && !Array.isArray(sx);
 
 const parseSize = (value: SizeValue | undefined): number => {
-  if (value === undefined) return SIZES.medium.primary;
+  if (value === undefined) {
+    return SIZES.medium.primary;
+  }
 
   if (typeof value === "number") {
     return value;
@@ -38,6 +40,8 @@ const parseSize = (value: SizeValue | undefined): number => {
   const numericValue = parseFloat(value);
   return Number.isNaN(numericValue) ? SIZES.medium.primary : numericValue;
 };
+
+const SECONDARY_RATIO = SIZES.medium.secondary / SIZES.medium.primary;
 
 const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps<any>["size"]) => {
   if (size) {
@@ -51,8 +55,8 @@ const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps<any>["size"]) 
     const { height, width } = sx;
 
     return {
-      height: Math.max(parseSize(height) - (SIZES.medium.primary - SIZES.medium.secondary), SIZES.small.secondary),
-      width: Math.max(parseSize(width) - (SIZES.medium.primary - SIZES.medium.secondary), SIZES.small.secondary),
+      height: Math.max(Math.round(parseSize(height) * SECONDARY_RATIO), SIZES.small.secondary),
+      width: Math.max(Math.round(parseSize(width) * SECONDARY_RATIO), SIZES.small.secondary),
     };
   }
 
@@ -68,6 +72,7 @@ const Avatar = forwardRef(
     ref: MuiAvatarProps["ref"],
   ) => {
     if (secondarySrc || secondaryAvatarProps) {
+      const { sx: secondarySx, ...restSecondaryAvatarProps } = secondaryAvatarProps || {};
       const primaryWidth = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.width : undefined);
       const primaryHeight = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.height : undefined);
       const secondarySize = getSecondarySize(sx, size);
@@ -123,7 +128,7 @@ const Avatar = forwardRef(
             }}
           />
           <MuiAvatar
-            {...secondaryAvatarProps}
+            {...restSecondaryAvatarProps}
             src={secondarySrc}
             sx={{
               bottom: 0,
@@ -132,7 +137,7 @@ const Avatar = forwardRef(
               position: "absolute",
               right: 0,
               width: secondarySize.width,
-              ...secondaryAvatarProps?.sx,
+              ...secondarySx,
             }}
           />
         </Box>
