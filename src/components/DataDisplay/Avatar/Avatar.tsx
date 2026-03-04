@@ -5,6 +5,7 @@ import { ElementType, forwardRef } from "react";
 export type AvatarProps<C extends ElementType = "div"> = {
   secondarySrc?: string;
   secondaryAvatarProps?: Omit<MuiAvatarProps, "src">;
+  showSecondaryAvatar?: boolean;
   size?: "small" | "medium" | "large";
 } & Omit<MuiAvatarProps<C>, keyof OverridableComponent<any>>;
 
@@ -68,10 +69,10 @@ const getSecondarySize = (sx?: SxProps<Theme>, size?: AvatarProps<any>["size"]) 
 
 const Avatar = forwardRef(
   <C extends ElementType = "div">(
-    { secondarySrc, secondaryAvatarProps, size, sx, ...props }: AvatarProps<C>,
+    { secondarySrc, secondaryAvatarProps, showSecondaryAvatar, size, sx, ...props }: AvatarProps<C>,
     ref: MuiAvatarProps["ref"],
   ) => {
-    if (secondarySrc) {
+    if (showSecondaryAvatar !== false && (secondarySrc || showSecondaryAvatar || secondaryAvatarProps)) {
       const { sx: secondarySx, ...restSecondaryAvatarProps } = secondaryAvatarProps || {};
       const primaryWidth = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.width : undefined);
       const primaryHeight = size ? SIZES[size].primary : parseSize(isValidSx(sx) ? sx.height : undefined);

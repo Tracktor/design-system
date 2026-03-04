@@ -1,4 +1,4 @@
-import { SwipeableDrawer, useMediaQuery, useTheme } from "@mui/material";
+import { ChipProps, SwipeableDrawer, useMediaQuery, useTheme } from "@mui/material";
 import { createContext, MouseEvent, memo, ReactElement, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 import BurgerAppBar from "@/components/Navigation/NavigationMenu/BurgerAppBar";
 import SideBar from "@/components/Navigation/NavigationMenu/SideBar";
@@ -8,6 +8,7 @@ export type ObjectNavigationItem = {
   url?: string;
   label?: string;
   count?: number;
+  countColor?: ChipProps["color"];
   icon?: ReactNode;
   active?: boolean;
   state?: any;

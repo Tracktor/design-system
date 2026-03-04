@@ -82,28 +82,35 @@ const SideBarMenu = ({ items, ...props }: SideBarMenuProps) => {
 
             // Is Object then return NavLinkItem
             if (item && typeof item === "object" && "label" in item) {
-              const { count, url, label, icon, active, disabled, target } = item;
+              const { count, countColor, url, label, icon, active, disabled, target } = item;
               const key = `${url}-${label}-${index}`;
+              const chipCollapsedSx = { position: "absolute", right: -20, top: -12 };
 
               return (
                 <ListItem key={key} disableGutters sx={{ paddingY: 0.5 }}>
                   <NavLinkItem url={url} component={NavLink} active={active} disabled={disabled} target={target}>
                     <Stack direction="row" component="span" spacing={1.5} width="100%" alignItems="center">
                       {icon ? (
-                        <Box component="div" sx={styles.iconWrapper}>
+                        <Box component="div" sx={{ ...styles.iconWrapper, position: "relative" }}>
                           {icon}
+                          {isCollapsed && !!count && (
+                            <Chip color={countColor || "warning"} size="small" label={count} variant="rounded" sx={chipCollapsedSx} />
+                          )}
                         </Box>
                       ) : (
                         isCollapsed && (
-                          <Box component="div" sx={styles.iconWrapper}>
+                          <Box component="div" sx={{ ...styles.iconWrapper, position: "relative" }}>
                             {typeof label === "string" ? label.charAt(0) : ""}
+                            {!!count && (
+                              <Chip color={countColor || "warning"} size="small" label={count} variant="rounded" sx={chipCollapsedSx} />
+                            )}
                           </Box>
                         )
                       )}
                       <Fade in={!isCollapsed}>
                         <Stack direction="row" justifyContent="space-between" flex={1} whiteSpace="nowrap">
                           {label}
-                          {!!count && <Chip color="warning" size="small" label={count} variant="rounded" />}
+                          {!!count && <Chip color={countColor || "warning"} size="small" label={count} variant="rounded" />}
                         </Stack>
                       </Fade>
                     </Stack>
