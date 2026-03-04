@@ -64,7 +64,7 @@ const ChatConversationDetail = ({
   const getDayLabel = formatDayLabel ?? defaultFormatDayLabel;
 
   useEffect(() => {
-    if (!messages) {
+    if (!messages || isLoading) {
       return;
     }
 
@@ -72,7 +72,7 @@ const ChatConversationDetail = ({
     previousThreadIdRef.current = threadId;
 
     scrollContainerRef.current?.scrollTo({ behavior: isNewThread ? "instant" : "smooth", top: scrollContainerRef.current.scrollHeight });
-  }, [messages, threadId]);
+  }, [messages, threadId, isLoading]);
 
   if (!threadId && isLoading) {
     return (
