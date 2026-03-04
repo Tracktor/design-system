@@ -800,13 +800,6 @@ const commonThemeOptions: MuiThemeOptions = {
       ],
     },
     MuiDialog: {
-      defaultProps: {
-        slotProps: {
-          paper: {
-            elevation: 0,
-          },
-        },
-      },
       styleOverrides: {
         paper: ({ ownerState, theme }) => {
           const getBackgroundColor = () => {
@@ -823,8 +816,12 @@ const commonThemeOptions: MuiThemeOptions = {
 
           const backgroundColor = getBackgroundColor();
 
+          const paperSlotProps = ownerState.slotProps?.paper as Record<string, unknown> | undefined;
+          const noElevation = !paperSlotProps?.elevation;
+
           return {
             ...(backgroundColor && { backgroundColor }),
+            ...(noElevation && { backgroundImage: "none", boxShadow: "none" }),
           };
         },
         root: ({ theme }) => ({
