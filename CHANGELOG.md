@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.25.1
+## v4.25.2
 
-### Feat
-- Replace Material UI icons with custom icons for chat components
+### Fix
+- Background dialog

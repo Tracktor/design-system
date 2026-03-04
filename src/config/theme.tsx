@@ -821,8 +821,10 @@ const commonThemeOptions: MuiThemeOptions = {
             return ownerState.backgroundColor;
           };
 
+          const backgroundColor = getBackgroundColor();
+
           return {
-            backgroundColor: getBackgroundColor(),
+            ...(backgroundColor && { backgroundColor }),
           };
         },
         root: ({ theme }) => ({
