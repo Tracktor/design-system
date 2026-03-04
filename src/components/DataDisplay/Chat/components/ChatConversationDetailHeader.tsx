@@ -1,0 +1,119 @@
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+import AvatarGroup from "@mui/material/AvatarGroup";
+import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { getInitials } from "@tracktor/react-utils";
+import { useState } from "react";
+import Avatar from "@/components/DataDisplay/Avatar";
+import ChatParticipantDialog from "@/components/DataDisplay/Chat/components/ChatParticipantDialog";
+import type { ChatConversationDetailLabels, ChatParticipant, ChatSearchUser } from "@/components/DataDisplay/Chat/types";
+import formatParticipantNames from "@/components/DataDisplay/Chat/utils/formatParticipantNames";
+import useMenu from "@/hooks/useMenu";
+
+interface ChatConversationDetailHeaderProps {
+  threadId: string;
+  participants?: ChatParticipant[] | null;
+  onDeleteConversation: (threadId: string) => void;
+  onAddParticipants: (participants: ChatSearchUser[]) => void;
+  onSearchParticipants?: (query: string) => void;
+  searchResults?: ChatSearchUser[];
+  isSearchingParticipants?: boolean;
+  avatarSrcResolver?: (src?: string | null) => string | undefined;
+  labels?: ChatConversationDetailLabels;
+}
+
+const ChatConversationDetailHeader = ({
+  threadId,
+  participants,
+  onDeleteConversation,
+  onAddParticipants,
+  onSearchParticipants,
+  searchResults,
+  isSearchingParticipants,
+  avatarSrcResolver,
+  labels,
+}: ChatConversationDetailHeaderProps) => {
+  const { isMenuOpen, anchorMenu, closeMenu, openMenu } = useMenu();
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const participantNames = formatParticipantNames(participants);
+
+  const handleDelete = () => {
+    closeMenu();
+    onDeleteConversation(threadId);
+  };
+
+  const handleOpenAddDialog = () => {
+    closeMenu();
+    setAddDialogOpen(true);
+  };
+
+  return (
+    <>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ borderBottom: ({ palette }) => `1px solid ${palette.divider}`, px: 3, py: 1.5 }}
+      >
+        <Stack direction="row" alignItems="center" spacing={1.5}>
+          <AvatarGroup max={3}>
+            {participants?.map(({ userId, avatar, firstName, lastName }) => (
+              <Avatar key={userId} src={avatarSrcResolver?.(avatar)}>
+                {getInitials({ firstName, lastName }, true)}
+              </Avatar>
+            ))}
+          </AvatarGroup>
+          <Typography variant="subtitle2" fontWeight={600}>
+            {participantNames}
+          </Typography>
+        </Stack>
+        <IconButton size="small" onClick={openMenu}>
+          <MoreHorizIcon fontSize="small" />
+        </IconButton>
+        <Menu
+          open={isMenuOpen}
+          onClose={closeMenu}
+          anchorEl={anchorMenu}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+        >
+          <MenuItem onClick={handleOpenAddDialog}>
+            <ListItemIcon>
+              <PersonAddAltRoundedIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography>{labels?.addParticipant ?? "Add Participant"}</Typography>
+          </MenuItem>
+          <MenuItem onClick={handleDelete}>
+            <ListItemIcon>
+              <DeleteOutlineRoundedIcon fontSize="small" color="error" />
+            </ListItemIcon>
+            <Typography color="error">{labels?.deleteConversation ?? "Delete Conversation"}</Typography>
+          </MenuItem>
+        </Menu>
+      </Stack>
+      <ChatParticipantDialog
+        open={addDialogOpen}
+        onClose={() => setAddDialogOpen(false)}
+        onConfirm={onAddParticipants}
+        onSearch={onSearchParticipants ?? (() => {})}
+        searchResults={searchResults}
+        isSearchLoading={isSearchingParticipants}
+        avatarSrcResolver={avatarSrcResolver}
+        labels={{
+          confirm: labels?.add ?? "Add",
+          participants: labels?.participants,
+          searchContacts: labels?.searchContacts,
+          title: labels?.addParticipant ?? "Add Participant",
+        }}
+      />
+    </>
+  );
+};
+
+export default ChatConversationDetailHeader;
