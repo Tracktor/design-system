@@ -8,11 +8,12 @@ import ChatConversationDetailHeader from "@/components/DataDisplay/Chat/componen
 import ChatMessageBubble from "@/components/DataDisplay/Chat/components/ChatMessageBubble";
 import ChatMessageInput from "@/components/DataDisplay/Chat/components/ChatMessageInput";
 import type { ChatConversationDetailProps } from "@/components/DataDisplay/Chat/types";
+import ensureUtc from "@/components/DataDisplay/Chat/utils/ensureUtc";
 import ChatBubbleIcon from "@/components/DataDisplay/Icons/ChatBubbleIcon";
 import Button from "@/components/Inputs/Button";
 
 const defaultFormatDayLabel = (date: string): string => {
-  const d = new Date(date);
+  const d = new Date(ensureUtc(date));
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -34,8 +35,8 @@ const defaultFormatDayLabel = (date: string): string => {
 };
 
 const isSameDay = (a: string, b: string): boolean => {
-  const da = new Date(a);
-  const db = new Date(b);
+  const da = new Date(ensureUtc(a));
+  const db = new Date(ensureUtc(b));
   return da.getFullYear() === db.getFullYear() && da.getMonth() === db.getMonth() && da.getDate() === db.getDate();
 };
 

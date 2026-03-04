@@ -6,13 +6,14 @@ import { getInitials } from "@tracktor/react-utils";
 import type { ReactNode } from "react";
 import Avatar from "@/components/DataDisplay/Avatar";
 import type { ChatMessageBubbleProps } from "@/components/DataDisplay/Chat/types";
+import ensureUtc from "@/components/DataDisplay/Chat/utils/ensureUtc";
 import { extractUrls } from "@/components/DataDisplay/Chat/utils/extractUrls";
 
 const URL_REGEX = /https?:\/\/\S+/g;
 
 const defaultFormatTime = (date: string): string => {
   try {
-    return new Intl.DateTimeFormat(undefined, { hour: "2-digit", hour12: false, minute: "2-digit" }).format(new Date(date));
+    return new Intl.DateTimeFormat(undefined, { hour: "2-digit", hour12: false, minute: "2-digit" }).format(new Date(ensureUtc(date)));
   } catch {
     return "";
   }

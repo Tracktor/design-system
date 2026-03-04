@@ -14,12 +14,13 @@ import { getInitials } from "@tracktor/react-utils";
 import { useState } from "react";
 import Avatar from "@/components/DataDisplay/Avatar";
 import type { ChatConversationListProps } from "@/components/DataDisplay/Chat/types";
+import ensureUtc from "@/components/DataDisplay/Chat/utils/ensureUtc";
 import formatParticipantNames from "@/components/DataDisplay/Chat/utils/formatParticipantNames";
 import PenLineIcon from "@/components/DataDisplay/Icons/PenLineIcon";
 import SearchIcon from "@/components/DataDisplay/Icons/SearchIcon";
 
 const defaultFormatDate = (date: string): string => {
-  const d = new Date(date);
+  const d = new Date(ensureUtc(date));
   const now = new Date();
 
   if (d.toDateString() === now.toDateString()) {
