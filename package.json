@@ -99,7 +99,8 @@
   },
   "readme": "ERROR: No README data found!",
   "resolutions": {
-    "jackspeak": "2.1.1"
+    "jackspeak": "2.1.1",
+    "semver": "^7.7.3"
   },
   "_id": "design-system-tracktor@1.8.4"
 }
