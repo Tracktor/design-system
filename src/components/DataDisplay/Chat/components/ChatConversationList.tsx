@@ -1,5 +1,3 @@
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -17,6 +15,8 @@ import { useState } from "react";
 import Avatar from "@/components/DataDisplay/Avatar";
 import type { ChatConversationListProps } from "@/components/DataDisplay/Chat/types";
 import formatParticipantNames from "@/components/DataDisplay/Chat/utils/formatParticipantNames";
+import PenLineIcon from "@/components/DataDisplay/Icons/PenLineIcon";
+import SearchIcon from "@/components/DataDisplay/Icons/SearchIcon";
 
 const defaultFormatDate = (date: string): string => {
   const d = new Date(date);
@@ -65,7 +65,7 @@ const ChatConversationList = ({
           {labels?.messages ?? "Messages"}
         </Typography>
         <IconButton size="small" onClick={onNewConversation}>
-          <DriveFileRenameOutlineIcon />
+          <PenLineIcon />
         </IconButton>
       </Stack>
       <Box px={2} pb={1.5}>
@@ -79,7 +79,7 @@ const ChatConversationList = ({
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchRoundedIcon fontSize="small" />
+                  <SearchIcon fontSize="small" />
                 </InputAdornment>
               ),
             },

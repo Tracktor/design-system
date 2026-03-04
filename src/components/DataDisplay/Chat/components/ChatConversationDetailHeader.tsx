@@ -1,6 +1,3 @@
-import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -14,6 +11,9 @@ import Avatar from "@/components/DataDisplay/Avatar";
 import ChatParticipantDialog from "@/components/DataDisplay/Chat/components/ChatParticipantDialog";
 import type { ChatConversationDetailLabels, ChatParticipant, ChatSearchUser } from "@/components/DataDisplay/Chat/types";
 import formatParticipantNames from "@/components/DataDisplay/Chat/utils/formatParticipantNames";
+import DeleteIcon from "@/components/DataDisplay/Icons/DeleteIcon";
+import MoreHorizIcon from "@/components/DataDisplay/Icons/MoreHorizIcon";
+import PersonAddIcon from "@/components/DataDisplay/Icons/PersonAddIcon";
 import useMenu from "@/hooks/useMenu";
 
 interface ChatConversationDetailHeaderProps {
@@ -85,13 +85,13 @@ const ChatConversationDetailHeader = ({
         >
           <MenuItem onClick={handleOpenAddDialog}>
             <ListItemIcon>
-              <PersonAddAltRoundedIcon fontSize="small" />
+              <PersonAddIcon fontSize="small" />
             </ListItemIcon>
             <Typography>{labels?.addParticipant ?? "Add Participant"}</Typography>
           </MenuItem>
           <MenuItem onClick={handleDelete}>
             <ListItemIcon>
-              <DeleteOutlineRoundedIcon fontSize="small" color="error" />
+              <DeleteIcon fontSize="small" color="error" />
             </ListItemIcon>
             <Typography color="error">{labels?.deleteConversation ?? "Delete Conversation"}</Typography>
           </MenuItem>

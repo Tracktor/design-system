@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.25.0
+## v4.25.1
 
 ### Feat
-- Add `Chat` components including conversation list, detail, message input, and participant dialog
+- Replace Material UI icons with custom icons for chat components

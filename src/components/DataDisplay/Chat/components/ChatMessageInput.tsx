@@ -1,10 +1,10 @@
-import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { type KeyboardEvent, useRef, useState } from "react";
 import type { ChatMessageInputProps } from "@/components/DataDisplay/Chat/types";
+import SendIcon from "@/components/DataDisplay/Icons/SendIcon";
 import Button from "@/components/Inputs/Button";
 
 const RADIUS = 15;
@@ -81,13 +81,7 @@ const ChatMessageInput = ({ onSend, labels, autoFocusKey }: ChatMessageInputProp
       >
         <Stack direction="row" spacing={1} />
         <Stack direction="row" alignItems="center" spacing={1}>
-          <Button
-            variant="contained"
-            size="xSmall"
-            endIcon={<SendOutlinedIcon sx={{ transform: "rotate(-35deg) scale(0.8)" }} />}
-            onClick={handleSend}
-            disabled={!message.trim()}
-          >
+          <Button variant="contained" size="xSmall" endIcon={<SendIcon />} onClick={handleSend} disabled={!message.trim()}>
             {labels?.send ?? "Send"}
           </Button>
         </Stack>

@@ -1,4 +1,3 @@
-import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
@@ -9,6 +8,7 @@ import ChatConversationDetailHeader from "@/components/DataDisplay/Chat/componen
 import ChatMessageBubble from "@/components/DataDisplay/Chat/components/ChatMessageBubble";
 import ChatMessageInput from "@/components/DataDisplay/Chat/components/ChatMessageInput";
 import type { ChatConversationDetailProps } from "@/components/DataDisplay/Chat/types";
+import ChatBubbleIcon from "@/components/DataDisplay/Icons/ChatBubbleIcon";
 import Button from "@/components/Inputs/Button";
 
 const defaultFormatDayLabel = (date: string): string => {
@@ -76,7 +76,7 @@ const ChatConversationDetail = ({
   if (!threadId) {
     return (
       <Stack flex={1} alignItems="center" justifyContent="center" spacing={2}>
-        <ChatBubbleOutlineRoundedIcon sx={{ color: "text.secondary", fontSize: 48 }} />
+        <ChatBubbleIcon sx={{ color: "text.secondary", fontSize: 48 }} />
         <Typography variant="body1" color="text.secondary">
           {labels?.createYourFirstConversation ?? "Create your first conversation"}
         </Typography>
