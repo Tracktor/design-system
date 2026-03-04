@@ -148,7 +148,7 @@ export const ConversationDetail = ConversationDetailTemplate.bind({});
 
 export const ConversationDetailLoading = ConversationDetailTemplate.bind({});
 ConversationDetailLoading.args = {
-  isLoadingMessages: true,
+  isLoading: true,
   messages: undefined,
 };
 

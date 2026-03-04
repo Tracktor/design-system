@@ -43,7 +43,7 @@ const isSameDay = (a: string, b: string): boolean => {
 const ChatConversationDetail = ({
   threadId,
   participants,
-  isLoadingMessages,
+  isLoading,
   messages,
   currentUserId,
   onDeleteConversation,
@@ -73,6 +73,16 @@ const ChatConversationDetail = ({
 
     scrollContainerRef.current?.scrollTo({ behavior: isNewThread ? "instant" : "smooth", top: scrollContainerRef.current.scrollHeight });
   }, [messages, threadId]);
+
+  if (!threadId && isLoading) {
+    return (
+      <Stack flex={1} alignItems="center" justifyContent="center">
+        <Skeleton variant="circular" width={48} height={48} sx={{ mb: 2 }} />
+        <Skeleton variant="text" width={200} />
+        <Skeleton variant="rounded" width={140} height={36} sx={{ borderRadius: 2, mt: 2 }} />
+      </Stack>
+    );
+  }
 
   if (!threadId) {
     return (
@@ -110,7 +120,7 @@ const ChatConversationDetail = ({
           py: 2,
         }}
       >
-        {isLoadingMessages ? (
+        {isLoading ? (
           <Stack spacing={3}>
             {Array.from({ length: 4 }, (_, i) => (
               <Stack key={i} alignItems={i % 2 === 0 ? "flex-start" : "flex-end"} spacing={0.5}>

@@ -78,7 +78,7 @@ export interface ChatConversationListProps {
 export interface ChatConversationDetailProps {
   threadId?: string;
   participants?: ChatParticipant[] | null;
-  isLoadingMessages?: boolean;
+  isLoading?: boolean;
   messages?: ChatMessage[];
   currentUserId: string;
   onDeleteConversation: (threadId: string) => void;

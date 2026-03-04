@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.25.4
+## v4.26.0
 
-### Fix
--  Ensure UTC parsing for date strings in chat components
+### Feat 
+-  rename isLoadingMessages to isLoading for consistency
