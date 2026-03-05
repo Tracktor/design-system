@@ -9,12 +9,12 @@ import Button from "@/components/Inputs/Button";
 
 const RADIUS = 15;
 
-const ChatMessageInput = ({ onSend, labels, autoFocusKey }: ChatMessageInputProps) => {
+const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending }: ChatMessageInputProps) => {
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSend = () => {
-    if (!message.trim()) {
+    if (!message.trim() || isSending) {
       return;
     }
     onSend(message.trim());
@@ -81,7 +81,7 @@ const ChatMessageInput = ({ onSend, labels, autoFocusKey }: ChatMessageInputProp
       >
         <Stack direction="row" spacing={1} />
         <Stack direction="row" alignItems="center" spacing={1}>
-          <Button variant="contained" size="xSmall" endIcon={<SendIcon />} onClick={handleSend} disabled={!message.trim()}>
+          <Button variant="contained" size="xSmall" endIcon={<SendIcon />} onClick={handleSend} disabled={!message.trim() || isSending}>
             {labels?.send ?? "Send"}
           </Button>
         </Stack>

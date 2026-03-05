@@ -57,6 +57,7 @@ const ChatConversationDetail = ({
   renderAfterBubble,
   labels,
   formatDayLabel,
+  isSending,
 }: ChatConversationDetailProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const previousThreadIdRef = useRef<string | undefined>(undefined);
@@ -161,6 +162,7 @@ const ChatConversationDetail = ({
         onSend={(body) => onSendMessage(threadId, body)}
         labels={{ enterToSend: labels?.enterToSend, send: labels?.send, writeAMessage: labels?.writeAMessage }}
         autoFocusKey={threadId}
+        isSending={isSending}
       />
     </Stack>
   );

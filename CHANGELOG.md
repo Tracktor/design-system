@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.26.1
+## v4.27.0
 
 ### Feat 
-- Include isLoading in messages effect dependency
+- include isLoading in messages effect dependency

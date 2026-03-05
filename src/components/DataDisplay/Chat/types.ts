@@ -92,6 +92,7 @@ export interface ChatConversationDetailProps {
   renderAfterBubble?: (message: ChatMessage, urls: string[]) => ReactNode;
   labels?: ChatConversationDetailLabels;
   formatDayLabel?: (date: string) => string;
+  isSending?: boolean;
 }
 
 export interface ChatMessageBubbleProps {
@@ -107,6 +108,7 @@ export interface ChatMessageInputProps {
   onSend: (message: string) => void;
   labels?: ChatMessageInputLabels;
   autoFocusKey?: string;
+  isSending?: boolean;
 }
 
 export interface ChatParticipantDialogProps {
