@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.27.0
+## v4.27.1
 
 ### Feat 
-- include isLoading in messages effect dependency
+- Add noWrap and flexShrink to date Typography for better layout
