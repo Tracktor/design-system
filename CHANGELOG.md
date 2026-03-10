@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.27.1
+## v4.27.2
 
-### Feat 
-- Add noWrap and flexShrink to date Typography for better layout
+### Fix 
+- Enable pre-wrap for message body Typography to improve text layout

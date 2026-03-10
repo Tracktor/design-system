@@ -88,7 +88,9 @@ const ChatMessageBubble = ({ isOwn, message, participants, avatarSrcResolver, re
     return (
       <Stack alignItems="flex-end" spacing={0.5} sx={{ maxWidth: "70%" }} alignSelf="flex-end">
         <Bubble isOwn>
-          <Typography variant="body2">{renderMessageBody(message.body, isOwn)}</Typography>
+          <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+            {renderMessageBody(message.body, isOwn)}
+          </Typography>
         </Bubble>
         {renderAfterBubble?.(urls)}
         <Typography variant="caption" color="text.secondary">
@@ -110,7 +112,9 @@ const ChatMessageBubble = ({ isOwn, message, participants, avatarSrcResolver, re
       </Avatar>
       <Stack spacing={0.5} sx={{ maxWidth: "70%" }}>
         <Bubble>
-          <Typography variant="body2">{renderMessageBody(message.body, isOwn)}</Typography>
+          <Typography variant="body2" sx={{ whiteSpace: "pre-wrap" }}>
+            {renderMessageBody(message.body, isOwn)}
+          </Typography>
         </Bubble>
         {renderAfterBubble?.(urls)}
         <Typography variant="caption" color="text.secondary">
