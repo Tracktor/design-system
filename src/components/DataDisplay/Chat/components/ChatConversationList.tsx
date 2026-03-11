@@ -135,7 +135,7 @@ const ChatConversationList = ({
                       {participantNamesList}
                     </Typography>
                     <Typography noWrap variant="caption" color="text.secondary" flexShrink={0}>
-                      {getDate(thread.updatedAt ?? thread.createdAt)}
+                      {getDate(ensureUtc(thread.updatedAt ?? thread.createdAt))}
                     </Typography>
                   </Stack>
                 }

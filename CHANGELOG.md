@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.27.2
+## v4.27.3
 
 ### Fix 
-- Enable pre-wrap for message body Typography to improve text layout
+- Ensure UTC format for date display in conversation list
