@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import type { ListProps } from "@mui/material/List";
-import { MouseEvent, ReactNode, useState } from "react";
+import { isValidElement, MouseEvent, ReactNode, useState } from "react";
 import sheetsImage from "@/assets/img/sheets.png";
 import Avatar from "@/components/DataDisplay/Avatar/Avatar";
 import FileViewer from "@/components/DataDisplay/FileViewer";
@@ -318,11 +318,14 @@ export const ListAvatar = ({
               <ListItemText
                 primary={
                   <Stack direction="row" alignItems="center" spacing={1}>
-                    {title && (
-                      <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-                        {title}
-                      </Typography>
-                    )}
+                    {title &&
+                      (isValidElement(title) ? (
+                        title
+                      ) : (
+                        <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+                          {title}
+                        </Typography>
+                      ))}
                     {chipLabel && (
                       <Chip label={chipLabel} variant="rounded" size="xSmall" color={isChipColor(chipColor) ? chipColor : "default"} />
                     )}
