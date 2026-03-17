@@ -49,10 +49,10 @@ const ChatParticipantAutocomplete = ({
 
   return (
     <Autocomplete
+      open
       multiple
       disablePortal
       disableCloseOnSelect
-      open
       options={options ?? []}
       getOptionLabel={getFullName}
       filterOptions={(x) => x}
