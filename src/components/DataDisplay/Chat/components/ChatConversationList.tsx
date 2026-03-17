@@ -12,7 +12,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { getInitials } from "@tracktor/react-utils";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Avatar from "@/components/DataDisplay/Avatar";
 import type { ChatConversationListProps } from "@/components/DataDisplay/Chat/types";
 import ensureUtc from "@/components/DataDisplay/Chat/utils/ensureUtc";
@@ -45,9 +45,43 @@ const ChatConversationList = ({
   labels,
   formatDate,
   formatParticipantName,
+  onLoadMore,
+  hasMore,
 }: ChatConversationListProps) => {
   const [search, setSearch] = useState("");
   const getDate = formatDate ?? defaultFormatDate;
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const canLoadMore = hasMore ?? !!onLoadMore;
+
+  /**
+   * Infinite scroll: observes a sentinel element at the bottom of the list.
+   * When it becomes visible in the scroll container, triggers `onLoadMore`.
+   * The observer is only active when there are more items to load (`canLoadMore`)
+   * and no pending load (`isLoading`), preventing unnecessary calls.
+   * If `hasMore` is not explicitly provided, it defaults to `true` when `onLoadMore` is set.
+   */
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    const root = listRef.current;
+
+    if (!(sentinel && root && onLoadMore && canLoadMore) || isLoading) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          onLoadMore();
+        }
+      },
+      { root, threshold: 0 },
+    );
+
+    observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, [onLoadMore, canLoadMore, isLoading]);
 
   const filteredThreads = threads?.filter((thread) =>
     formatParticipantNames(thread?.participants, formatParticipantName).toLowerCase().includes(search.toLowerCase()),
@@ -90,7 +124,7 @@ const ChatConversationList = ({
         />
       </Box>
       <Divider />
-      <List disablePadding sx={{ flex: 1, overflowY: "auto" }}>
+      <List ref={listRef} disablePadding sx={{ flex: 1, overflowY: "auto" }}>
         {isLoading &&
           Array.from({ length: 6 }, (_, i) => (
             <ListItemButton key={i} sx={{ px: 2, py: 1.5 }}>
@@ -177,6 +211,17 @@ const ChatConversationList = ({
             </ListItemButton>
           );
         })}
+        {canLoadMore && (
+          <Box ref={sentinelRef} sx={{ px: 2, py: 1.5 }}>
+            <Stack direction="row" spacing={1.5} alignItems="center">
+              <Skeleton variant="circular" width={40} height={40} />
+              <Stack flex={1}>
+                <Skeleton variant="text" width="60%" />
+                <Skeleton variant="text" width="40%" />
+              </Stack>
+            </Stack>
+          </Box>
+        )}
       </List>
     </Stack>
   );

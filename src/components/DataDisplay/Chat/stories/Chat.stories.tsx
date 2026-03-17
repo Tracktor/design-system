@@ -128,6 +128,84 @@ ConversationListLoading.args = {
   threads: undefined,
 };
 
+const FIRST_NAMES = ["Alice", "Bob", "Claire", "David", "Emma", "François", "Gabriel", "Hélène", "Ivan", "Julie"];
+const LAST_NAMES = ["Martin", "Dupont", "Bernard", "Leroy", "Moreau", "Petit", "Roux", "Simon", "Laurent", "Michel"];
+const PREVIEWS = [
+  "Sure, I'll send you the details!",
+  "The worksite visit is confirmed",
+  "Thanks for the update",
+  "Can we reschedule?",
+  "I'll check and get back to you",
+  "Sounds good, let's proceed",
+  "Please review the document",
+  "Meeting moved to 3pm",
+];
+
+const generateThreads = (count: number, startIndex: number): ChatThread[] =>
+  Array.from({ length: count }, (_, i) => {
+    const idx = startIndex + i;
+    const date = new Date(now.getTime() - idx * 3600000);
+    return {
+      createdAt: date.toISOString(),
+      id: `thread-${idx}`,
+      lastMessagePreview: PREVIEWS[idx % PREVIEWS.length],
+      participants: [
+        {
+          avatar: null,
+          firstName: FIRST_NAMES[idx % FIRST_NAMES.length],
+          lastName: LAST_NAMES[idx % LAST_NAMES.length],
+          userId: `user-${idx}`,
+        },
+        {
+          avatar: null,
+          firstName: FIRST_NAMES[(idx + 3) % FIRST_NAMES.length],
+          lastName: LAST_NAMES[(idx + 3) % LAST_NAMES.length],
+          userId: `user-${idx}-2`,
+        },
+      ],
+      unreadCount: idx % 4 === 0 ? idx % 5 : 0,
+      updatedAt: date.toISOString(),
+    };
+  });
+
+const PAGE_SIZE = 10;
+const TOTAL_ITEMS = 80;
+
+const ConversationListInfiniteScrollTemplate: StoryFn = () => {
+  const [allThreads, setAllThreads] = useState<ChatThread[]>(() => generateThreads(PAGE_SIZE, 0));
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const hasMore = allThreads.length < TOTAL_ITEMS;
+
+  const handleLoadMore = useCallback(() => {
+    if (isLoadingMore) {
+      return;
+    }
+
+    setIsLoadingMore(true);
+
+    // Simulate API delay
+    setTimeout(() => {
+      setAllThreads((prev) => [...prev, ...generateThreads(PAGE_SIZE, prev.length)]);
+      setIsLoadingMore(false);
+    }, 800);
+  }, [isLoadingMore]);
+
+  return (
+    <Chat height="100vh">
+      <Chat.ConversationList
+        threads={allThreads}
+        selectedThreadId="thread-0"
+        onSelectThread={() => {}}
+        onNewConversation={() => {}}
+        onLoadMore={handleLoadMore}
+        hasMore={hasMore}
+      />
+    </Chat>
+  );
+};
+
+export const ConversationListInfiniteScroll = ConversationListInfiniteScrollTemplate.bind({});
+
 export const ConversationListFirstNameOnly = ConversationListTemplate.bind({});
 ConversationListFirstNameOnly.args = {
   formatParticipantName: (p: ChatParticipant) => p.firstName,

@@ -75,6 +75,8 @@ export interface ChatConversationListProps {
   labels?: ChatConversationListLabels;
   formatDate?: (date: string) => string;
   formatParticipantName?: (participant: ChatParticipant) => string;
+  onLoadMore?: () => void;
+  hasMore?: boolean;
 }
 
 export interface ChatConversationDetailProps {
