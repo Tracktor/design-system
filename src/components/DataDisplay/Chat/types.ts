@@ -62,6 +62,7 @@ export interface ChatParticipantDialogLabels {
   confirm?: string;
   participants?: string;
   searchContacts?: string;
+  noOptionsText?: string;
 }
 
 export interface ChatConversationListProps {

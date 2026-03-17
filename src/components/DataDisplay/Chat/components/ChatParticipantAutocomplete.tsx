@@ -24,6 +24,7 @@ interface ChatParticipantAutocompleteProps {
   labels?: {
     participants?: string;
     searchContacts?: string;
+    noOptionsText?: string;
   };
 }
 
@@ -57,6 +58,7 @@ const ChatParticipantAutocomplete = ({
       getOptionLabel={getFullName}
       filterOptions={(x) => x}
       loading={isLoading}
+      noOptionsText={labels?.noOptionsText}
       isOptionEqualToValue={(option, val) => option.id === val.id}
       value={value}
       slotProps={{

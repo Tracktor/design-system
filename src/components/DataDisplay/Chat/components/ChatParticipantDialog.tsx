@@ -50,7 +50,7 @@ const ChatParticipantDialog = ({
             options={searchResults}
             isLoading={isSearchLoading}
             avatarSrcResolver={avatarSrcResolver}
-            labels={{ participants: labels?.participants, searchContacts: labels?.searchContacts }}
+            labels={{ noOptionsText: labels?.noOptionsText, participants: labels?.participants, searchContacts: labels?.searchContacts }}
           />
         </Stack>
       </DialogContent>
