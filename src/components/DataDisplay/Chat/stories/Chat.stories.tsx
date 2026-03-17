@@ -128,6 +128,11 @@ ConversationListLoading.args = {
   threads: undefined,
 };
 
+export const ConversationListFirstNameOnly = ConversationListTemplate.bind({});
+ConversationListFirstNameOnly.args = {
+  formatParticipantName: (p: ChatParticipant) => p.firstName,
+};
+
 const ConversationDetailTemplate: StoryFn = (args) => (
   <Chat height="100vh">
     <Chat.ConversationDetail

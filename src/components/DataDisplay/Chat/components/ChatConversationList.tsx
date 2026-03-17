@@ -1,3 +1,4 @@
+import { Theme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -43,12 +44,13 @@ const ChatConversationList = ({
   avatarSrcResolver,
   labels,
   formatDate,
+  formatParticipantName,
 }: ChatConversationListProps) => {
   const [search, setSearch] = useState("");
   const getDate = formatDate ?? defaultFormatDate;
 
   const filteredThreads = threads?.filter((thread) =>
-    formatParticipantNames(thread?.participants).toLowerCase().includes(search.toLowerCase()),
+    formatParticipantNames(thread?.participants, formatParticipantName).toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -99,7 +101,8 @@ const ChatConversationList = ({
             </ListItemButton>
           ))}
         {filteredThreads?.map((thread) => {
-          const participantNamesList = formatParticipantNames(thread?.participants);
+          const participantNamesList = formatParticipantNames(thread?.participants, formatParticipantName);
+          const isSelected = selectedThreadId === thread.id;
 
           return (
             <ListItemButton
@@ -121,6 +124,8 @@ const ChatConversationList = ({
                     },
                   }}
                   sx={{
+                    backgroundColor: ({ palette }: Theme) =>
+                      palette.mode === "dark" ? (isSelected ? "primary.30p" : "grey.500") : isSelected ? "background.paper" : "grey.100",
                     height: 40,
                     width: 40,
                   }}

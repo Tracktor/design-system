@@ -1,3 +1,4 @@
+import { Theme } from "@mui/material";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -26,6 +27,7 @@ interface ChatConversationDetailHeaderProps {
   isSearchingParticipants?: boolean;
   avatarSrcResolver?: (src?: string | null) => string | undefined;
   labels?: ChatConversationDetailLabels;
+  formatParticipantName?: (participant: ChatParticipant) => string;
 }
 
 const ChatConversationDetailHeader = ({
@@ -38,10 +40,11 @@ const ChatConversationDetailHeader = ({
   isSearchingParticipants,
   avatarSrcResolver,
   labels,
+  formatParticipantName,
 }: ChatConversationDetailHeaderProps) => {
   const { isMenuOpen, anchorMenu, closeMenu, openMenu } = useMenu();
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const participantNames = formatParticipantNames(participants);
+  const participantNames = formatParticipantNames(participants, formatParticipantName);
 
   const handleDelete = () => {
     closeMenu();
@@ -64,7 +67,11 @@ const ChatConversationDetailHeader = ({
         <Stack direction="row" alignItems="center" spacing={1.5}>
           <AvatarGroup max={3}>
             {participants?.map(({ userId, avatar, firstName, lastName }) => (
-              <Avatar key={userId} src={avatarSrcResolver?.(avatar)}>
+              <Avatar
+                key={userId}
+                src={avatarSrcResolver?.(avatar)}
+                sx={{ backgroundColor: ({ palette }: Theme) => (palette.mode === "dark" ? "grey.500" : "grey.100") }}
+              >
                 {getInitials({ firstName, lastName }, true)}
               </Avatar>
             ))}

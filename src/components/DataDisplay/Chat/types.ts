@@ -73,6 +73,7 @@ export interface ChatConversationListProps {
   avatarSrcResolver?: (src?: string | null) => string | undefined;
   labels?: ChatConversationListLabels;
   formatDate?: (date: string) => string;
+  formatParticipantName?: (participant: ChatParticipant) => string;
 }
 
 export interface ChatConversationDetailProps {
@@ -93,6 +94,7 @@ export interface ChatConversationDetailProps {
   labels?: ChatConversationDetailLabels;
   formatDayLabel?: (date: string) => string;
   isSending?: boolean;
+  formatParticipantName?: (participant: ChatParticipant) => string;
 }
 
 export interface ChatMessageBubbleProps {

@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.27.4
+## v4.28.0
 
-### Fix 
-- Handle valid React elements in title rendering for ListAvatar
+### Feat 
+- add customizable participant name formatting to conversation components

@@ -1,3 +1,4 @@
+import { Theme } from "@mui/material";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
@@ -65,7 +66,7 @@ interface BubbleProps {
 const Bubble = ({ children, isOwn }: BubbleProps) => (
   <Paper
     sx={{
-      backgroundColor: isOwn ? "primary.main" : "background.paper",
+      backgroundColor: isOwn ? "primary.main" : "tertiary.light",
       border: 0,
       borderBottomLeftRadius: isOwn ? undefined : "5px ! important",
       borderBottomRightRadius: isOwn ? "5px ! important" : undefined,
@@ -104,7 +105,16 @@ const ChatMessageBubble = ({ isOwn, message, participants, avatarSrcResolver, re
 
   return (
     <Stack direction="row" spacing={1.5} alignItems="flex-start">
-      <Avatar src={avatarSrcResolver?.(author?.avatar)} sx={{ fontSize: 12, height: 28, mt: 0.5, width: 28 }}>
+      <Avatar
+        src={avatarSrcResolver?.(author?.avatar)}
+        sx={{
+          backgroundColor: ({ palette }: Theme) => (palette.mode === "dark" ? "grey.500" : "grey.100"),
+          fontSize: 12,
+          height: 28,
+          mt: 0.5,
+          width: 28,
+        }}
+      >
         {getInitials(
           author ? { firstName: author.firstName, lastName: author.lastName } : { fullName: String(message.authorId).slice(0, 2) },
           true,

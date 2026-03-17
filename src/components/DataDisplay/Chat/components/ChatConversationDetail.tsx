@@ -58,6 +58,7 @@ const ChatConversationDetail = ({
   labels,
   formatDayLabel,
   isSending,
+  formatParticipantName,
 }: ChatConversationDetailProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const previousThreadIdRef = useRef<string | undefined>(undefined);
@@ -111,6 +112,7 @@ const ChatConversationDetail = ({
         isSearchingParticipants={isSearchingParticipants}
         avatarSrcResolver={avatarSrcResolver}
         labels={labels}
+        formatParticipantName={formatParticipantName}
       />
       <Box
         ref={scrollContainerRef}
