@@ -191,6 +191,25 @@ InfiniteScrollPages.args = {
   itemPerPage: 50,
 };
 
+export const ManyColumns = Template.bind({});
+ManyColumns.args = {
+  data: kanbanDataGenerator(8, {
+    alternateReverse: true,
+    itemsPerColumn: [20, 15, 30, 10, 25, 5, 18, 12],
+    itemTemplates: DEAL_ITEM_TEMPLATES,
+    statuses: [
+      { label: "Brouillon", name: "quotation" },
+      { label: "Demandé", name: "requested" },
+      { label: "Validé", name: "validated" },
+      { label: "Confirmé", name: "confirmed" },
+      { label: "Démarré", name: "started" },
+      { label: "En attente", name: "waiting_for_confirmation" },
+      { label: "Terminé", name: "ended" },
+      { label: "Annulé", name: "canceled" },
+    ],
+  }),
+};
+
 export const EmptyStateKanban = Template.bind({});
 EmptyStateKanban.args = {
   data: [],

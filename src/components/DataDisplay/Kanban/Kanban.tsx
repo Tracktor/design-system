@@ -45,14 +45,13 @@ const Kanban = ({
 }: KanbanProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { spacing } = useTheme();
-  const { onMouseDown, onMouseUp, onMouseMove, isDragging } = useDragScroll(containerRef);
+  const { onMouseDown, onMouseUp, onMouseMove } = useDragScroll(containerRef);
   const gutterSize = parseInt(spacing(1), 10);
   const isEmpty = data.every((column) => column.items.length === 0 && column.isFetched && !column.isLoading && !column.isFetching);
 
   return (
     <Box sx={{ height, position: "relative" }}>
       <Stack
-        className={isDragging ? "grabbing" : ""}
         direction="row"
         spacing={2}
         ref={containerRef}

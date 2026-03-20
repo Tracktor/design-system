@@ -1,68 +1,66 @@
-import { MouseEvent, RefObject, useRef, useState } from "react";
+import { MouseEvent, RefObject, useCallback, useRef } from "react";
 
 const useDragScroll = (ref: RefObject<HTMLDivElement | null>) => {
-  const [isDragging, setIsDragging] = useState(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
   const hasMoved = useRef(false);
   const isMouseDownRef = useRef(false);
 
-  const onMouseDown = (e: MouseEvent<HTMLElement>) => {
+  const onMouseDown = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      const element = ref.current;
+      if (!element) {
+        return;
+      }
+
+      isMouseDownRef.current = true;
+      startXRef.current = e.pageX - element.offsetLeft;
+      scrollLeftRef.current = element.scrollLeft;
+      hasMoved.current = false;
+    },
+    [ref],
+  );
+
+  const onMouseUp = useCallback(() => {
     const element = ref.current;
-    if (!element) {
-      return;
-    }
-
-    isMouseDownRef.current = true;
-    startXRef.current = e.pageX - element.offsetLeft;
-    scrollLeftRef.current = element.scrollLeft;
-    hasMoved.current = false;
-    element.style.cursor = "grabbing";
-  };
-
-  const onMouseUp = () => {
-    const element = ref.current;
-
     if (!element) {
       return;
     }
 
     isMouseDownRef.current = false;
 
-    if (isDragging) {
-      setIsDragging(false);
+    if (hasMoved.current) {
+      element.classList.remove("grabbing");
     }
 
     hasMoved.current = false;
-    element.style.cursor = "grab";
-  };
+  }, [ref]);
 
-  const onMouseMove = (e: MouseEvent<HTMLElement>) => {
-    const element = ref.current;
+  const onMouseMove = useCallback(
+    (e: MouseEvent<HTMLElement>) => {
+      const element = ref.current;
+      if (!(element && isMouseDownRef.current)) {
+        return;
+      }
 
-    if (!(element && isMouseDownRef.current)) {
-      return;
-    }
+      const x = e.pageX - element.offsetLeft;
+      const deltaX = Math.abs(x - startXRef.current);
 
-    const x = e.pageX - element.offsetLeft;
-    const deltaX = Math.abs(x - startXRef.current);
+      if (deltaX > 5 && !hasMoved.current) {
+        hasMoved.current = true;
+        element.classList.add("grabbing");
+      }
 
-    // If the mouse has moved more than 5 pixels, set isDragging to true
-    // Avoids setting isDragging to true if the mouse has not moved
-    if (deltaX > 5 && !hasMoved.current) {
-      hasMoved.current = true;
-      setIsDragging(true);
-    }
-
-    if (hasMoved.current) {
-      e.preventDefault();
-      const walk = x - startXRef.current;
-      element.scrollLeft = scrollLeftRef.current - walk;
-    }
-  };
+      if (hasMoved.current) {
+        e.preventDefault();
+        const walk = x - startXRef.current;
+        element.scrollLeft = scrollLeftRef.current - walk;
+      }
+    },
+    [ref],
+  );
 
   return {
-    isDragging,
     onMouseDown,
     onMouseMove,
     onMouseUp,
