@@ -70,6 +70,21 @@ FullyFilledCardsThreeColumns.args = {
   }),
 };
 
+export const FullyFilledCardsThreeColumnsSecondary = Template.bind({});
+FullyFilledCardsThreeColumnsSecondary.args = {
+  data: kanbanDataGenerator(3, {
+    alternateReverse: true,
+    itemsPerColumn: [32, 45, 13],
+    itemTemplates: DEAL_ITEM_TEMPLATES,
+    statuses: [
+      { label: "To Do", name: "todo" },
+      { label: "In Progress", name: "inprogress" },
+      { label: "Done", name: "done" },
+    ],
+  }),
+  variant: "secondary",
+};
+
 export const StatusFlowSimulation = Template.bind({});
 StatusFlowSimulation.args = {
   data: kanbanDataGenerator(5, {
@@ -174,6 +189,40 @@ export const InfiniteScrollPages = InfiniteScrollTemplate.bind({});
 InfiniteScrollPages.args = {
   initialItemsPerColumn: 30,
   itemPerPage: 50,
+};
+
+export const ManyColumns = Template.bind({});
+ManyColumns.args = {
+  data: kanbanDataGenerator(8, {
+    alternateReverse: true,
+    itemsPerColumn: [20, 15, 30, 10, 25, 5, 18, 12],
+    itemTemplates: DEAL_ITEM_TEMPLATES,
+    statuses: [
+      { label: "Brouillon", name: "quotation" },
+      { label: "Demandé", name: "requested" },
+      { label: "Validé", name: "validated" },
+      { label: "Confirmé", name: "confirmed" },
+      { label: "Démarré", name: "started" },
+      { label: "En attente", name: "waiting_for_confirmation" },
+      { label: "Terminé", name: "ended" },
+      { label: "Annulé", name: "canceled" },
+    ],
+  }),
+};
+
+export const ActiveItem = Template.bind({});
+ActiveItem.args = {
+  activeItemId: "validated-1",
+  data: kanbanDataGenerator(3, {
+    alternateReverse: true,
+    itemsPerColumn: [5, 5, 5],
+    itemTemplates: DEAL_ITEM_TEMPLATES,
+    statuses: [
+      { label: "Validé", name: "validated" },
+      { label: "Confirmé", name: "confirmed" },
+      { label: "Terminé", name: "ended" },
+    ],
+  }),
 };
 
 export const EmptyStateKanban = Template.bind({});
