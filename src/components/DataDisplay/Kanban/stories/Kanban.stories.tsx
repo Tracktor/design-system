@@ -210,6 +210,21 @@ ManyColumns.args = {
   }),
 };
 
+export const ActiveItem = Template.bind({});
+ActiveItem.args = {
+  activeItemId: "validated-1",
+  data: kanbanDataGenerator(3, {
+    alternateReverse: true,
+    itemsPerColumn: [5, 5, 5],
+    itemTemplates: DEAL_ITEM_TEMPLATES,
+    statuses: [
+      { label: "Validé", name: "validated" },
+      { label: "Confirmé", name: "confirmed" },
+      { label: "Terminé", name: "ended" },
+    ],
+  }),
+};
+
 export const EmptyStateKanban = Template.bind({});
 EmptyStateKanban.args = {
   data: [],
