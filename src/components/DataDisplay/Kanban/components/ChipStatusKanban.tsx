@@ -1,7 +1,7 @@
 import { ChipProps } from "@mui/material";
 import { ReactElement } from "react";
 import Chip from "@/components/DataDisplay/Chip/Chip";
-import { defaultKanbanChip, HeaderColumnChip } from "@/components/DataDisplay/Kanban/Kanban";
+import { defaultKanbanChip, HeaderColumnChip } from "@/components/DataDisplay/Kanban/types";
 
 interface ChipStatusProps {
   status?: keyof typeof defaultKanbanChip | keyof HeaderColumnChip | string;

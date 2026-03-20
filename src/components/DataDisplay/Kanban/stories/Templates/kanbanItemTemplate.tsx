@@ -60,7 +60,7 @@ export const DEAL_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     title: "Release v2.1",
   },
   {
-    Alert: <Chip color="secondary" size="small" label="Scheduled" />,
+    //Alert: <Chip color="secondary" size="small" label="Scheduled" />,
     Footer: (
       <Typography variant="caption" color="text.secondary">
         Starts next week

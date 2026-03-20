@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Stack } from "@mui/material";
 import { isValidElement } from "react";
 import worksiteCartoonImg from "@/assets/img/worksite-cartoon.png";
-import { KanbanProps } from "@/components/DataDisplay/Kanban/Kanban";
+import { KanbanProps } from "@/components/DataDisplay/Kanban/types";
 import Typography from "@/components/DataDisplay/Typography/stories/Typography";
 import Button from "@/components/Inputs/Button/stories/Button";
 
