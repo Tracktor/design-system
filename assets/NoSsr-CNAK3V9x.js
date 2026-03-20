@@ -1,0 +1,1 @@
+import{r,g as o}from"./iframe-C-kofbB0.js";function c(s){const{children:a,defer:e=!1,fallback:f=null}=s,[n,t]=r.useState(!1);return o(()=>{e||t(!0)},[e]),r.useEffect(()=>{e&&t(!0)},[e]),n?a:f}export{c as N};
