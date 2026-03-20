@@ -35,6 +35,7 @@ const Kanban = ({
   chipStatus,
   headerColumnChip,
   activeItemId = "",
+  variant = "primary",
   chipColumDot = true,
   height = "100%",
   itemPerPage = 50,
@@ -107,6 +108,7 @@ const Kanban = ({
               chipColumDot={chipColumDot}
               chipStatus={chipStatus}
               headerColumnChip={headerColumnChip}
+              variant={variant}
             />
           );
         })}

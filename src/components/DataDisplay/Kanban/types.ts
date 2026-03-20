@@ -1,6 +1,8 @@
 import { ChipProps } from "@mui/material";
 import { MouseEvent, ReactElement, ReactNode } from "react";
 
+export type KanbanCardVariant = "primary" | "secondary";
+
 export type KanbanChipFormat = {
   color: ChipProps["color"];
   variant?: ChipProps["variant"];
@@ -63,7 +65,6 @@ export interface KanbanDataItemProps {
   subtitles?: SubtitleDataItemProps[];
   tag: string;
   Footer?: ReactElement;
-  Alert?: ReactElement;
   RightFooter?: ReactElement;
 }
 
@@ -144,6 +145,11 @@ export interface KanbanProps {
    * The Kanban data to be displayed.
    */
   data: KanbanDataProps[];
+  /**
+   * Variant of the Kanban cards.
+   * @default "primary"
+   */
+  variant?: KanbanCardVariant;
   /**
    * Optional empty state configuration.
    */

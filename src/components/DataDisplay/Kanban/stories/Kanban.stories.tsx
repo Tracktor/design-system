@@ -70,6 +70,21 @@ FullyFilledCardsThreeColumns.args = {
   }),
 };
 
+export const FullyFilledCardsThreeColumnsSecondary = Template.bind({});
+FullyFilledCardsThreeColumnsSecondary.args = {
+  data: kanbanDataGenerator(3, {
+    alternateReverse: true,
+    itemsPerColumn: [32, 45, 13],
+    itemTemplates: DEAL_ITEM_TEMPLATES,
+    statuses: [
+      { label: "To Do", name: "todo" },
+      { label: "In Progress", name: "inprogress" },
+      { label: "Done", name: "done" },
+    ],
+  }),
+  variant: "secondary",
+};
+
 export const StatusFlowSimulation = Template.bind({});
 StatusFlowSimulation.args = {
   data: kanbanDataGenerator(5, {

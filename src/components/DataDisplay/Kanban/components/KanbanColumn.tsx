@@ -4,7 +4,7 @@ import { capitalize, useInView } from "@tracktor/react-utils";
 import { memo, useEffect, useRef, WheelEvent } from "react";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipStatusKanban";
 import KanbanCard from "@/components/DataDisplay/Kanban/components/KanbanCard";
-import { HeaderColumnChip, KanbanDataItemProps } from "@/components/DataDisplay/Kanban/types";
+import { HeaderColumnChip, KanbanCardVariant, KanbanDataItemProps } from "@/components/DataDisplay/Kanban/types";
 
 export interface KanbanColumnProps {
   name: string;
@@ -26,6 +26,7 @@ export interface KanbanColumnProps {
   loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
   onInView?: (name: string) => void;
   headerColumnChip?: HeaderColumnChip;
+  variant?: KanbanCardVariant;
 }
 
 const KanbanColumn = memo(
@@ -49,6 +50,7 @@ const KanbanColumn = memo(
     chipColumDot,
     chipStatus,
     headerColumnChip,
+    variant,
   }: KanbanColumnProps) => {
     const onInViewTriggered = useRef<string[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -108,7 +110,19 @@ const KanbanColumn = memo(
     }, [name, inView, onInView]);
 
     return (
-      <Stack ref={containerRef} spacing={2}>
+      <Stack ref={containerRef} spacing={1.5}>
+        {/* Header */}
+        <Stack direction="row" alignItems="center" spacing={1} justifyContent="space-between">
+          <ChipStatusKanban
+            dot={chipColumDot}
+            label={`${capitalize(label || name)}${getCountLabel()}`}
+            variant={chipColumVariant}
+            status={chipStatus || name}
+            size="small"
+            headerColumnChip={headerColumnChip}
+          />
+          {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
+        </Stack>
         <Card
           sx={{
             ".kanban-virtual-list": {
@@ -118,27 +132,16 @@ const KanbanColumn = memo(
               overflowY: "auto",
               scrollbarWidth: "none",
             },
+            backgroundColor: "grey.100",
+            border: 0,
             borderRadius: 2,
             flex: "1 1 auto",
             height: 0,
             width: listWidth,
           }}
-          elevation={1}
+          elevation={0}
         >
           <Stack height="100%">
-            {/* Header */}
-            <Stack direction="row" alignItems="center" spacing={1} padding={2} justifyContent="space-between">
-              <ChipStatusKanban
-                dot={chipColumDot}
-                label={`${capitalize(label || name)}${getCountLabel()}`}
-                variant={chipColumVariant}
-                status={chipStatus || name}
-                size="small"
-                headerColumnChip={headerColumnChip}
-              />
-              {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
-            </Stack>
-
             {/* Content */}
             <Box flex={1} ref={parentRef} className="kanban-virtual-list" onWheel={onWheel}>
               {showSkeletons ? (
@@ -163,6 +166,7 @@ const KanbanColumn = memo(
                       sx={{
                         left: 0,
                         paddingBottom: `${gutterSize}px`,
+                        paddingTop: virtualRow.index === 0 ? `${gutterSize}px` : 0,
                         position: "absolute",
                         top: 0,
                         transform: `translateY(${virtualRow.start}px)`,
@@ -174,6 +178,7 @@ const KanbanColumn = memo(
                         activeItemId={activeItemId}
                         gutterSize={gutterSize}
                         onClickItem={onClickItem}
+                        variant={variant}
                       />
                     </Box>
                   ))}
@@ -186,7 +191,5 @@ const KanbanColumn = memo(
     );
   },
 );
-
-KanbanColumn.displayName = "KanbanColumn";
 
 export default KanbanColumn;

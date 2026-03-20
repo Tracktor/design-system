@@ -8,11 +8,10 @@ export type KanbanItemTemplate = Omit<KanbanDataItemProps, "id">;
 
 export const DEAL_ITEM_TEMPLATES: KanbanItemTemplate[] = [
   {
-    Alert: <Chip color="warning" size="small" label="Deadline approaching" />,
     Footer: (
-      <Typography variant="caption" color="text.secondary">
-        Last updated: 1d ago
-      </Typography>
+      <Stack spacing={1} direction="row" alignItems="center">
+        <Chip color="warning" size="small" label="Deadline approaching" />
+      </Stack>
     ),
     headerTitle: "Custom Header Content With very Long Text to test overflow",
     image: "https://picsum.photos/seed/11/100/100",
@@ -29,7 +28,7 @@ export const DEAL_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     title: "Design new landing page",
   },
   {
-    Alert: <Chip color="info" size="small" label="In review" />,
+    Footer: <Chip color="info" size="small" label="In review" />,
     image: "https://picsum.photos/seed/12/100/100",
     imageTitle: "Task image",
     RightFooter: (
