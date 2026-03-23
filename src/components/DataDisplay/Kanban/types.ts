@@ -62,6 +62,7 @@ export interface KanbanDataItemProps {
   title: string;
   secondaryImage?: string;
   secondaryImageText?: string;
+  subtitle?: SubtitleDataItemProps;
   subtitles?: SubtitleDataItemProps[];
   tag: string;
   Footer?: ReactElement;

@@ -64,7 +64,8 @@ export interface KanbanCardProps {
 
 const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant = "primary" }: KanbanCardProps) => {
   const { palette } = useTheme();
-  const { title, subtitles, tag, image, id, Footer, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } = item;
+  const { title, subtitle, subtitles, tag, image, id, Footer, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
+    item;
   const active = activeItemId === id;
 
   const imageElement = (
@@ -92,13 +93,11 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
   const tagElement = <Chip label={tag} variant="rounded" color="default" size="small" />;
 
   const renderPrimary = () => {
-    const firstSubtitle = subtitles?.[0];
-    const remainingSubtitles = subtitles?.slice(1);
-    const hasBottomContent = (remainingSubtitles && remainingSubtitles.length > 0) || Footer || RightFooter;
+    const hasBottomContent = (subtitles && subtitles.length > 0) || Footer || RightFooter;
 
     return (
       <>
-        <Stack direction="row" spacing={1} alignItems="flex-start">
+        <Stack direction="row" spacing={1} alignItems="center">
           {imageElement}
           <Stack flex={1} overflow="hidden">
             {headerTitle && (
@@ -123,7 +122,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
                 {title}
               </Typography>
             </Tooltip>
-            {firstSubtitle && renderSubtitleItem(firstSubtitle, 0)}
+            {subtitle && renderSubtitleItem(subtitle, 0)}
           </Stack>
           {tagElement}
         </Stack>
@@ -131,7 +130,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
           <>
             <Divider sx={{ my: 1.5 }} />
             <Stack>
-              {remainingSubtitles?.map((subtitle, index) => renderSubtitleItem(subtitle, index + 1))}
+              {subtitles?.map((s, index) => renderSubtitleItem(s, index))}
               {footerElement}
             </Stack>
           </>

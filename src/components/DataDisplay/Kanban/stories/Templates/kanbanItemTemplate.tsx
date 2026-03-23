@@ -23,6 +23,7 @@ export const DEAL_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     ),
     secondaryImage: "https://picsum.photos/seed/secondary11/40/40",
     secondaryImageText: "AB",
+    subtitle: { text: "Acme Corporation" },
     subtitles: [{ text: "Due next week" }, { text: "Assigned to Alice" }, { text: "Priority: High" }],
     tag: "High Priority",
     title: "Design new landing page",
@@ -36,16 +37,13 @@ export const DEAL_ITEM_TEMPLATES: KanbanItemTemplate[] = [
         Edit
       </Button>
     ),
+    subtitle: { text: "Design Team" },
     subtitles: [{ text: "Draft in progress" }, { text: "Owner: Chris" }],
     tag: "Medium",
     title: "Write blog post",
   },
   {
-    Footer: (
-      <Typography variant="caption" color="text.secondary">
-        Waiting for backend API
-      </Typography>
-    ),
+    Footer: <Chip color="error" size="small" label="Blocked" variant="outlined" />,
     image: "https://picsum.photos/seed/13/100/100",
     imageTitle: "Task image",
     subtitles: [{ text: "Dependency missing" }],
@@ -59,15 +57,11 @@ export const DEAL_ITEM_TEMPLATES: KanbanItemTemplate[] = [
     title: "Release v2.1",
   },
   {
-    //Alert: <Chip color="secondary" size="small" label="Scheduled" />,
-    Footer: (
-      <Typography variant="caption" color="text.secondary">
-        Starts next week
-      </Typography>
-    ),
+    Footer: <Chip color="default" size="small" label="Scheduled" variant="outlined" />,
     headerTitle: "Upcoming task",
     image: "https://picsum.photos/seed/15/100/100",
     imageTitle: "Task image",
+    subtitle: { text: "Sprint 42" },
     tag: "Planned",
     title: "Prepare Q4 roadmap",
   },
@@ -81,6 +75,7 @@ export const ACTION_ITEM_TEMPLATE: KanbanItemTemplate[] = [
     imageTitle: "Abri de chantier isolé équipé sur roues",
     secondaryImage: "https://picsum.photos/seed/logo1/64/64",
     secondaryImageText: "V",
+    subtitle: { text: "Loxam Rental" },
     subtitles: [{ text: "Élévateur - GS-1532" }, { text: "08 Oct → 12 Oct 2025" }, { text: "SGP LIGNE 17 TRIANGLE GONESSE" }],
     tag: "N° 17605",
     title: "HELLO CONSTRUCTION",
