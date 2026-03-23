@@ -56,10 +56,10 @@ const KanbanColumn = memo(
     variant,
   }: KanbanColumnProps) => {
     const onInViewTriggered = useRef<string[]>([]);
+    const lastLoadedOffset = useRef<number>(-1);
     const containerRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLDivElement>(null);
     const inView = useInView(containerRef);
-
     const hasMoreItemsToLoad = items.length < itemCount;
 
     const rowVirtualizer = useVirtualizer({
@@ -90,7 +90,8 @@ const KanbanColumn = memo(
         return;
       }
 
-      if (lastVirtualItem.index >= items.length - 1 && hasMoreItemsToLoad) {
+      if (lastVirtualItem.index >= items.length - 1 && hasMoreItemsToLoad && lastLoadedOffset.current !== items.length) {
+        lastLoadedOffset.current = items.length;
         loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
       }
     }, [hasMoreItemsToLoad, isFetching, isLoading, items.length, itemPerPage, name, loadMoreItems, rowVirtualizer.getVirtualItems()]);
