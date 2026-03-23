@@ -124,6 +124,8 @@ const KanbanColumn = memo(
           {isFetching && <CircularProgress size={16} sx={{ color: "text.secondary" }} />}
         </Stack>
         <Card
+          variant="elevation"
+          elevation={0}
           sx={{
             ".kanban-virtual-list": {
               "&::-webkit-scrollbar": { display: "none" },
@@ -139,7 +141,6 @@ const KanbanColumn = memo(
             height: 0,
             width: listWidth,
           }}
-          elevation={0}
         >
           <Stack height="100%">
             {/* Content */}

@@ -205,7 +205,6 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
     <Box component="div" style={{ paddingLeft: gutterSize, paddingRight: gutterSize }}>
       <Card
         variant="elevation"
-        elevation={palette.mode === "dark" ? 5 : 0}
         onClick={() => onClickItem?.(id)}
         sx={{
           ".grabbing &": {
@@ -213,10 +212,10 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
             pointerEvents: "none",
           },
           "&:hover": {
-            boxShadow: 8,
+            boxShadow: 4,
           },
           background: "background.paper",
-          border: `1px solid ${active ? palette.action.active : palette.mode === "dark" ? palette.divider : "transparent"}`,
+          border: `1px solid ${active ? palette.action.active : "transparent"}`,
           boxShadow: "0px 0 8px 0 rgba(0, 0, 0, 0.10), 0px 1px 1px 0px rgba(0, 0, 0, 0.04), 0px 1px 3px 0px rgba(0, 0, 0, 0.03)",
           cursor: "pointer",
           flexShrink: 0,

@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.31.0
+## v4.31.1
 
-### Feat 
-- Update subtitle rendering in KanbanCard and adjust related types
+### Fix 
+- Adjust elevation and boxShadow for KanbanCard and KanbanColumn components
