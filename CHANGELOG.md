@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.31.4
+## v4.31.5
 
 ### Fix 
-- Simplify KanbanColumn rendering logic and adjust skeleton display
+- Refactor infinite scroll logic in KanbanColumn for improved performance and clarity

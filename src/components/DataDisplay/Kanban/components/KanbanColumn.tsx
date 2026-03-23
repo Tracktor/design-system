@@ -1,7 +1,7 @@
 import { Box, Card, CircularProgress, Skeleton, Stack } from "@mui/material";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { capitalize, useInView } from "@tracktor/react-utils";
-import { memo, useEffect, useRef, WheelEvent } from "react";
+import { memo, useEffect, useRef } from "react";
 import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipStatusKanban";
 import KanbanCard from "@/components/DataDisplay/Kanban/components/KanbanCard";
 import { HeaderColumnChip, KanbanCardVariant, KanbanDataItemProps } from "@/components/DataDisplay/Kanban/types";
@@ -60,8 +60,10 @@ const KanbanColumn = memo(
     const parentRef = useRef<HTMLDivElement>(null);
     const inView = useInView(containerRef);
 
+    const hasMoreItemsToLoad = items.length < itemCount;
+
     const rowVirtualizer = useVirtualizer({
-      count: items.length,
+      count: hasMoreItemsToLoad ? items.length + SKELETON_COUNT : items.length,
       estimateSize: () => CARD_HEIGHT + gutterSize,
       getScrollElement: () => parentRef.current,
       overscan: 5,
@@ -76,28 +78,22 @@ const KanbanColumn = memo(
     };
 
     /**
-     * Infinite scroll using `wheel` event to avoid DOM reflow loops.
-     * Loads next page when user scrolls down within 50px of bottom.
+     * Infinite scroll: trigger loadMoreItems when the last rendered
+     * virtual item reaches the end of real items (skeleton zone).
+     * Follows the official @tanstack/react-virtual infinite scroll pattern.
      */
-    const onWheel = (e: WheelEvent<HTMLDivElement>) => {
-      if (e.deltaY <= 0) {
+    // biome-ignore lint/correctness/useExhaustiveDependencies: getVirtualItems() must be called in deps to re-trigger on scroll
+    useEffect(() => {
+      const [lastVirtualItem] = [...rowVirtualizer.getVirtualItems()].reverse();
+
+      if (!lastVirtualItem || isLoading || isFetching) {
         return;
       }
 
-      const el = parentRef.current;
-
-      if (!el || isFetching || el.scrollHeight <= el.clientHeight) {
-        return;
-      }
-
-      const bottom = el.scrollTop + el.clientHeight;
-      const isNearBottom = bottom >= el.scrollHeight - 50;
-      const hasMoreItemsToLoad = items.length < itemCount;
-
-      if (isNearBottom && hasMoreItemsToLoad) {
+      if (lastVirtualItem.index >= items.length - 1 && hasMoreItemsToLoad) {
         loadMoreItems?.(items.length, items.length + (itemPerPage || 0), name);
       }
-    };
+    }, [hasMoreItemsToLoad, isFetching, isLoading, items.length, itemPerPage, name, loadMoreItems, rowVirtualizer.getVirtualItems()]);
 
     /**
      * Trigger onInView once per column
@@ -144,7 +140,7 @@ const KanbanColumn = memo(
         >
           <Stack height="100%">
             {/* Content */}
-            <Box flex={1} ref={parentRef} className="kanban-virtual-list" onWheel={onWheel}>
+            <Box flex={1} ref={parentRef} className="kanban-virtual-list">
               {isLoading ? (
                 <Stack spacing={1} p={`${gutterSize}px`}>
                   {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
@@ -152,17 +148,19 @@ const KanbanColumn = memo(
                   ))}
                 </Stack>
               ) : (
-                <>
-                  <Box
-                    sx={{
-                      height: `${rowVirtualizer.getTotalSize()}px`,
-                      position: "relative",
-                      width: "100%",
-                    }}
-                  >
-                    {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+                <Box
+                  sx={{
+                    height: `${rowVirtualizer.getTotalSize()}px`,
+                    position: "relative",
+                    width: "100%",
+                  }}
+                >
+                  {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                    const isLoaderRow = virtualRow.index >= items.length;
+
+                    return (
                       <Box
-                        key={items[virtualRow.index].id}
+                        key={isLoaderRow ? `skeleton-${virtualRow.index}` : items[virtualRow.index].id}
                         ref={rowVirtualizer.measureElement}
                         data-index={virtualRow.index}
                         sx={{
@@ -175,24 +173,23 @@ const KanbanColumn = memo(
                           width: "100%",
                         }}
                       >
-                        <KanbanCard
-                          item={items[virtualRow.index]}
-                          activeItemId={activeItemId}
-                          gutterSize={gutterSize}
-                          onClickItem={onClickItem}
-                          variant={variant}
-                        />
+                        {isLoaderRow ? (
+                          <Box sx={{ px: `${gutterSize}px` }}>
+                            <Skeleton variant="rounded" height={CARD_HEIGHT} />
+                          </Box>
+                        ) : (
+                          <KanbanCard
+                            item={items[virtualRow.index]}
+                            activeItemId={activeItemId}
+                            gutterSize={gutterSize}
+                            onClickItem={onClickItem}
+                            variant={variant}
+                          />
+                        )}
                       </Box>
-                    ))}
-                  </Box>
-                  {isFetching && (
-                    <Stack spacing={1} sx={{ padding: `0 ${gutterSize}px ${gutterSize}px` }}>
-                      {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
-                        <Skeleton key={index} variant="rounded" height={CARD_HEIGHT} />
-                      ))}
-                    </Stack>
-                  )}
-                </>
+                    );
+                  })}
+                </Box>
               )}
             </Box>
           </Stack>
