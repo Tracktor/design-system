@@ -109,24 +109,26 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
                 </Typography>
               </Tooltip>
             )}
-            <Tooltip
-              title={title}
-              enterDelay={TOOLTIP_DELAYS.enterDelay}
-              enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
-              slotProps={{ popper: POPPER_KANBAN }}
-            >
-              <Typography noWrap variant="h6">
-                {title}
-              </Typography>
-            </Tooltip>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Tooltip
+                title={title}
+                enterDelay={TOOLTIP_DELAYS.enterDelay}
+                enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
+                slotProps={{ popper: POPPER_KANBAN }}
+              >
+                <Typography noWrap variant="h6" flex={1}>
+                  {title}
+                </Typography>
+              </Tooltip>
+              {tagElement}
+            </Stack>
             {subtitle && renderSubtitleItem(subtitle, 0)}
           </Stack>
-          {tagElement}
         </Stack>
         {hasBottomContent && (
           <>
             <Divider sx={{ my: 1.5 }} />
-            <Stack>
+            <Stack spacing={0.5}>
               {subtitles?.map((subtitleData, index) => renderSubtitleItem(subtitleData, index))}
               {footerElement}
             </Stack>

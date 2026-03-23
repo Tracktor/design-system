@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.31.1
+## v4.31.2
 
 ### Fix 
-- Adjust elevation and boxShadow for KanbanCard and KanbanColumn components
+- Restructure KanbanCard layout to include tagElement alongside title
