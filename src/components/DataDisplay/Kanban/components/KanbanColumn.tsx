@@ -23,7 +23,6 @@ export interface KanbanColumnProps {
   itemPerPage?: number;
   listWidth: number | string;
   disableCount?: boolean;
-  itemCount: number;
   activeItemId: string;
   onClickItem?: (id: string) => void;
   loadMoreItems?: (startIndex: number, stopIndex: number, status?: string) => void;
@@ -45,7 +44,6 @@ const KanbanColumn = memo(
     listWidth,
     disableCount,
     loadMoreItems,
-    itemCount,
     activeItemId,
     onClickItem,
     onInView,
@@ -60,10 +58,11 @@ const KanbanColumn = memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLDivElement>(null);
     const inView = useInView(containerRef);
-    const hasMoreItemsToLoad = items.length < itemCount;
+    const hasMoreItemsToLoad = count !== undefined && items.length < count;
+    const hasLoaderRows = hasMoreItemsToLoad || isFetching;
 
     const rowVirtualizer = useVirtualizer({
-      count: hasMoreItemsToLoad ? items.length + SKELETON_COUNT : items.length,
+      count: hasLoaderRows ? items.length + SKELETON_COUNT : items.length,
       estimateSize: () => CARD_HEIGHT + gutterSize,
       getScrollElement: () => parentRef.current,
       overscan: 5,

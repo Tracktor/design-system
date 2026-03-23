@@ -40,7 +40,6 @@ const Kanban = ({
   height = "100%",
   itemPerPage = 50,
   listWidth = 360,
-  itemCount = 500,
   loadMoreItems = () => {},
 }: KanbanProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -88,7 +87,6 @@ const Kanban = ({
           return (
             <KanbanColumn
               key={key}
-              itemCount={itemCount}
               listWidth={listWidth}
               disableCount={disableCount}
               loadMoreItems={loadMoreItems}

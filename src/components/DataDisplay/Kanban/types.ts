@@ -97,10 +97,6 @@ export interface KanbanProps {
    */
   disableCount?: boolean;
   /**
-   * Total number of items in the list. Note that only a few items will be rendered and displayed at a time.
-   */
-  itemCount?: number;
-  /**
    * The number of items to display per page.
    */
   itemPerPage?: number;

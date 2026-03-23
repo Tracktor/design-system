@@ -17,26 +17,59 @@ const TOTAL_ITEMS = 1000;
  */
 type InfiniteScrollStoryArgs = ComponentProps<typeof Kanban> & {
   initialItemsPerColumn?: number;
+  totalItems?: number;
 };
 
 /**
  * Generate initial columns
  */
-const createInitialData = (initialItems: number) =>
-  kanbanDataGenerator(3, {
-    alternateReverse: true,
-    itemsPerColumn: [initialItems, initialItems, initialItems],
-    itemTemplates: DEAL_ITEM_TEMPLATES,
-    statuses: [
-      { label: "To Do", name: "todo" },
-      { label: "In Progress", name: "inprogress" },
-      { label: "Done", name: "done" },
-    ],
-  }).map((col) => ({
-    ...col,
-    isFetched: true,
+const SMALL_LIST_ITEMS = 2;
+
+const STATUSES = [
+  { label: "To Do", name: "todo" },
+  { label: "In Progress", name: "inprogress" },
+  { label: "Done", name: "done" },
+  { label: "Small List", name: "small" },
+];
+
+type ColumnData = ReturnType<typeof kanbanDataGenerator>[number] & {
+  isFetched: boolean;
+  isFetching: boolean;
+  isLoading: boolean;
+};
+
+const createLoadingData = (): ColumnData[] =>
+  STATUSES.map(({ label, name }) => ({
+    count: 0,
+    isFetched: false,
     isFetching: false,
+    isLoading: true,
+    items: [],
+    label,
+    name,
   }));
+
+const createLoadedData = (initialItems: number, totalItems: number): ColumnData[] =>
+  STATUSES.map(({ label, name }) => {
+    const isSmall = name === "small";
+    const itemCount = isSmall ? SMALL_LIST_ITEMS : initialItems;
+    const items = kanbanDataGenerator(1, {
+      alternateReverse: true,
+      itemsPerColumn: [itemCount],
+      itemTemplates: DEAL_ITEM_TEMPLATES,
+      statuses: [{ label, name }],
+    })[0].items;
+
+    return {
+      count: isSmall ? SMALL_LIST_ITEMS : totalItems,
+      isFetched: true,
+      isFetching: false,
+      isLoading: false,
+      items,
+      label,
+      name,
+    };
+  });
 
 /**
  * Generate additional items for infinite scroll
@@ -52,8 +85,9 @@ const generateAdvancedItems = (count: number, status: { label: string; name: str
 
 const InfiniteScrollTemplate: StoryFn<InfiniteScrollStoryArgs> = (args) => {
   const initialItems = args.initialItemsPerColumn ?? DEFAULT_INITIAL_ITEMS;
+  const totalItems = args.totalItems ?? TOTAL_ITEMS;
   const pageSize = args.itemPerPage ?? DEFAULT_PAGE_SIZE;
-  const [data, setData] = useState(() => createInitialData(initialItems));
+  const [data, setData] = useState(createLoadingData);
 
   /**
    * Infinite load callback
@@ -76,11 +110,12 @@ const InfiniteScrollTemplate: StoryFn<InfiniteScrollStoryArgs> = (args) => {
           }
 
           const existingCount = col.items.length;
-          if (existingCount >= TOTAL_ITEMS) {
+          const colTotal = col.count ?? totalItems;
+          if (existingCount >= colTotal) {
             return { ...col, isFetching: false };
           }
 
-          const remaining = TOTAL_ITEMS - existingCount;
+          const remaining = colTotal - existingCount;
           const toAdd = Math.min(pageSize, remaining);
 
           const newItems = generateAdvancedItems(
@@ -100,19 +135,25 @@ const InfiniteScrollTemplate: StoryFn<InfiniteScrollStoryArgs> = (args) => {
         }),
       );
     },
-    [pageSize],
+    [pageSize, totalItems],
   );
 
   /**
-   * Reset data when initial items change
+   * Simulate initial loading for all columns
    */
   useEffect(() => {
-    setData(createInitialData(initialItems));
-  }, [initialItems]);
+    setData(createLoadingData());
+
+    const timer = setTimeout(() => {
+      setData(createLoadedData(initialItems, totalItems));
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, [initialItems, totalItems]);
 
   return (
     <Stack flex={1} minHeight={0} height="100%">
-      <Kanban {...args} data={data} itemCount={TOTAL_ITEMS} itemPerPage={pageSize} loadMoreItems={loadMoreItems} />
+      <Kanban {...args} data={data} itemPerPage={pageSize} loadMoreItems={loadMoreItems} />
     </Stack>
   );
 };
