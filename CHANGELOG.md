@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.31.2
+## v4.31.4
 
 ### Fix 
-- Update KanbanColumn to use dynamic card height and skeleton count
+- Simplify KanbanColumn rendering logic and adjust skeleton display

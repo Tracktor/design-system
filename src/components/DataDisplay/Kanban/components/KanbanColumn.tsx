@@ -152,54 +152,47 @@ const KanbanColumn = memo(
                   ))}
                 </Stack>
               ) : (
-                <Box
-                  sx={{
-                    height: `${rowVirtualizer.getTotalSize() + (isFetching ? (CARD_HEIGHT + gutterSize) * SKELETON_COUNT : 0)}px`,
-                    position: "relative",
-                    width: "100%",
-                  }}
-                >
-                  {rowVirtualizer.getVirtualItems().map((virtualRow) => (
-                    <Box
-                      key={items[virtualRow.index].id}
-                      ref={rowVirtualizer.measureElement}
-                      data-index={virtualRow.index}
-                      sx={{
-                        left: 0,
-                        paddingBottom: `${gutterSize}px`,
-                        paddingTop: virtualRow.index === 0 ? `${gutterSize}px` : 0,
-                        position: "absolute",
-                        top: 0,
-                        transform: `translateY(${virtualRow.start}px)`,
-                        width: "100%",
-                      }}
-                    >
-                      <KanbanCard
-                        item={items[virtualRow.index]}
-                        activeItemId={activeItemId}
-                        gutterSize={gutterSize}
-                        onClickItem={onClickItem}
-                        variant={variant}
-                      />
-                    </Box>
-                  ))}
+                <>
+                  <Box
+                    sx={{
+                      height: `${rowVirtualizer.getTotalSize()}px`,
+                      position: "relative",
+                      width: "100%",
+                    }}
+                  >
+                    {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+                      <Box
+                        key={items[virtualRow.index].id}
+                        ref={rowVirtualizer.measureElement}
+                        data-index={virtualRow.index}
+                        sx={{
+                          left: 0,
+                          paddingBottom: `${gutterSize}px`,
+                          paddingTop: virtualRow.index === 0 ? `${gutterSize}px` : 0,
+                          position: "absolute",
+                          top: 0,
+                          transform: `translateY(${virtualRow.start}px)`,
+                          width: "100%",
+                        }}
+                      >
+                        <KanbanCard
+                          item={items[virtualRow.index]}
+                          activeItemId={activeItemId}
+                          gutterSize={gutterSize}
+                          onClickItem={onClickItem}
+                          variant={variant}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
                   {isFetching && (
-                    <Stack
-                      spacing={1}
-                      sx={{
-                        bottom: 0,
-                        left: 0,
-                        padding: `0 ${gutterSize}px ${gutterSize}px`,
-                        position: "absolute",
-                        width: "100%",
-                      }}
-                    >
+                    <Stack spacing={1} sx={{ padding: `0 ${gutterSize}px ${gutterSize}px` }}>
                       {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
                         <Skeleton key={index} variant="rounded" height={CARD_HEIGHT} />
                       ))}
                     </Stack>
                   )}
-                </Box>
+                </>
               )}
             </Box>
           </Stack>
