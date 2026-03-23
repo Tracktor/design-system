@@ -46,7 +46,7 @@ export interface EmptyStateProps {
  */
 export interface SubtitleDataItemProps {
   text: ReactNode;
-  LeftIcon?: ReactElement;
+  icon?: ReactElement;
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
 

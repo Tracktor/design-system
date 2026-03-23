@@ -1,6 +1,5 @@
 import { Box, Card, Divider, Stack, useTheme } from "@mui/material";
-import { isString } from "@tracktor/react-utils";
-import { Fragment, memo, ReactNode } from "react";
+import { isValidElement, memo, ReactNode } from "react";
 import ArticleImage from "@/components/DataDisplay/ArticleImage";
 import Chip from "@/components/DataDisplay/Chip/Chip";
 import { KanbanCardVariant, KanbanDataItemProps, SubtitleDataItemProps } from "@/components/DataDisplay/Kanban/types";
@@ -21,12 +20,10 @@ const POPPER_KANBAN = {
 
 const TOOLTIP_DELAYS = { enterDelay: 300, enterNextDelay: 300 };
 
-const renderSubtitleItem = ({ text, LeftIcon, onClick }: SubtitleDataItemProps, index: number): ReactNode => {
-  if (!isString(text)) {
-    return <Fragment key={index}>{text}</Fragment>;
-  }
-
-  const content = (
+const renderSubtitleItem = ({ text, icon, onClick }: SubtitleDataItemProps, index: number): ReactNode => {
+  const content = isValidElement(text) ? (
+    text
+  ) : (
     <Typography noWrap variant="body3" color={onClick ? "text.secondary" : "textSecondary"}>
       {text}
     </Typography>
@@ -34,7 +31,7 @@ const renderSubtitleItem = ({ text, LeftIcon, onClick }: SubtitleDataItemProps, 
 
   return (
     <Stack
-      key={text}
+      key={isValidElement(text) ? index : String(text)}
       direction="row"
       alignItems="center"
       spacing={0.5}
@@ -42,7 +39,7 @@ const renderSubtitleItem = ({ text, LeftIcon, onClick }: SubtitleDataItemProps, 
       onClick={onClick}
       sx={onClick ? { cursor: "pointer" } : undefined}
     >
-      {LeftIcon}
+      {icon}
       {onClick ? (
         <Button variant="link" sx={{ color: "text.secondary" }}>
           {content}
@@ -130,7 +127,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
           <>
             <Divider sx={{ my: 1.5 }} />
             <Stack>
-              {subtitles?.map((s, index) => renderSubtitleItem(s, index))}
+              {subtitles?.map((subtitleData, index) => renderSubtitleItem(subtitleData, index))}
               {footerElement}
             </Stack>
           </>
@@ -140,7 +137,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
   };
 
   const renderSecondary = () => {
-    const subtitleList = subtitles?.map((subtitle, index) => renderSubtitleItem(subtitle, index));
+    const subtitleList = subtitles?.map((subtitleData, index) => renderSubtitleItem(subtitleData, index));
 
     if (headerTitle) {
       return (

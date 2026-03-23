@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.30.0
+## v4.31.0
 
 ### Feat 
-- Add subtitle support to KanbanCard and update related templates
+- Update subtitle rendering in KanbanCard and adjust related types

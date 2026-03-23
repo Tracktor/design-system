@@ -88,7 +88,7 @@ export const ACTION_ITEM_TEMPLATE: KanbanItemTemplate[] = [
     secondaryImageText: "V",
     subtitles: [
       {
-        LeftIcon: <span style={{ fontSize: 16 }}>➕</span>,
+        icon: <span style={{ fontSize: 16 }}>➕</span>,
         onClick: (event: MouseEvent) => {
           event.stopPropagation();
           alert("Add resource clicked");
