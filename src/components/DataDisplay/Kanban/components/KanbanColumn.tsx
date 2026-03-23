@@ -6,6 +6,9 @@ import ChipStatusKanban from "@/components/DataDisplay/Kanban/components/ChipSta
 import KanbanCard from "@/components/DataDisplay/Kanban/components/KanbanCard";
 import { HeaderColumnChip, KanbanCardVariant, KanbanDataItemProps } from "@/components/DataDisplay/Kanban/types";
 
+const CARD_HEIGHT = 165;
+const SKELETON_COUNT = 3;
+
 export interface KanbanColumnProps {
   name: string;
   label?: string;
@@ -55,14 +58,11 @@ const KanbanColumn = memo(
     const onInViewTriggered = useRef<string[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLDivElement>(null);
-
     const inView = useInView(containerRef);
-    const showSkeletons = isLoading;
-    const skeletonsToShow = 3;
 
     const rowVirtualizer = useVirtualizer({
       count: items.length,
-      estimateSize: () => 112 + gutterSize,
+      estimateSize: () => CARD_HEIGHT + gutterSize,
       getScrollElement: () => parentRef.current,
       overscan: 5,
     });
@@ -112,7 +112,7 @@ const KanbanColumn = memo(
     return (
       <Stack ref={containerRef} spacing={1.5}>
         {/* Header */}
-        <Stack direction="row" alignItems="center" spacing={1} justifyContent="space-between">
+        <Stack direction="row" alignItems="center" spacing={1}>
           <ChipStatusKanban
             dot={chipColumDot}
             label={`${capitalize(label || name)}${getCountLabel()}`}
@@ -145,16 +145,16 @@ const KanbanColumn = memo(
           <Stack height="100%">
             {/* Content */}
             <Box flex={1} ref={parentRef} className="kanban-virtual-list" onWheel={onWheel}>
-              {showSkeletons ? (
+              {isLoading ? (
                 <Stack spacing={1} p={`${gutterSize}px`}>
-                  {Array.from({ length: skeletonsToShow }).map((_, index) => (
-                    <Skeleton key={index} variant="rounded" height={112} />
+                  {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
+                    <Skeleton key={index} variant="rounded" height={CARD_HEIGHT} />
                   ))}
                 </Stack>
               ) : (
                 <Box
                   sx={{
-                    height: `${rowVirtualizer.getTotalSize()}px`,
+                    height: `${rowVirtualizer.getTotalSize() + (isFetching ? (CARD_HEIGHT + gutterSize) * SKELETON_COUNT : 0)}px`,
                     position: "relative",
                     width: "100%",
                   }}
@@ -183,6 +183,22 @@ const KanbanColumn = memo(
                       />
                     </Box>
                   ))}
+                  {isFetching && (
+                    <Stack
+                      spacing={1}
+                      sx={{
+                        bottom: 0,
+                        left: 0,
+                        padding: `0 ${gutterSize}px ${gutterSize}px`,
+                        position: "absolute",
+                        width: "100%",
+                      }}
+                    >
+                      {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
+                        <Skeleton key={index} variant="rounded" height={CARD_HEIGHT} />
+                      ))}
+                    </Stack>
+                  )}
                 </Box>
               )}
             </Box>

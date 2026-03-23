@@ -3,4 +3,4 @@
 ## v4.31.2
 
 ### Fix 
-- Restructure KanbanCard layout to include tagElement alongside title
+- Update KanbanColumn to use dynamic card height and skeleton count
