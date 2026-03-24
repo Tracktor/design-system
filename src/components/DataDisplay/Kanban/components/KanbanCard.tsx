@@ -60,10 +60,35 @@ export interface KanbanCardProps {
 }
 
 const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant = "primary" }: KanbanCardProps) => {
+  const {
+    title,
+    subtitle,
+    subtitles,
+    tag,
+    image,
+    id,
+    Footer,
+    RightFooter,
+    secondaryImage,
+    secondaryImageText,
+    imageTitle,
+    headerTitle,
+    titleLineClamp,
+  } = item;
+
   const { palette } = useTheme();
-  const { title, subtitle, subtitles, tag, image, id, Footer, RightFooter, secondaryImage, secondaryImageText, imageTitle, headerTitle } =
-    item;
   const active = activeItemId === id;
+  const isMultiLineTitle = titleLineClamp && titleLineClamp > 1;
+
+  const titleSx = isMultiLineTitle
+    ? {
+        display: "-webkit-box",
+        overflow: "hidden",
+        WebkitBoxOrient: "vertical" as const,
+        WebkitLineClamp: titleLineClamp,
+        whiteSpace: "normal" as const,
+      }
+    : undefined;
 
   const imageElement = (
     <Tooltip title={imageTitle} enterDelay={TOOLTIP_DELAYS.enterDelay} enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}>
@@ -116,7 +141,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
                 enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
                 slotProps={{ popper: POPPER_KANBAN }}
               >
-                <Typography noWrap variant="h6" flex={1}>
+                <Typography noWrap={!isMultiLineTitle} variant="h6" flex={1} sx={titleSx}>
                   {title}
                 </Typography>
               </Tooltip>
@@ -163,7 +188,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
                     enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
                     slotProps={{ popper: POPPER_KANBAN }}
                   >
-                    <Typography noWrap variant="h6">
+                    <Typography noWrap={!isMultiLineTitle} variant="h6" sx={titleSx}>
                       {title}
                     </Typography>
                   </Tooltip>
@@ -189,7 +214,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
                 enterNextDelay={TOOLTIP_DELAYS.enterNextDelay}
                 slotProps={{ popper: POPPER_KANBAN }}
               >
-                <Typography noWrap variant="h6">
+                <Typography noWrap={!isMultiLineTitle} variant="h6" sx={titleSx}>
                   {title}
                 </Typography>
               </Tooltip>

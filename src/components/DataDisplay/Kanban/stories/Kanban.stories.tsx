@@ -225,6 +225,41 @@ ActiveItem.args = {
   }),
 };
 
+export const TitleMultiLine = Template.bind({});
+TitleMultiLine.args = {
+  data: kanbanDataGenerator(2, {
+    itemsPerColumn: [3, 3],
+    itemTemplates: [
+      {
+        headerTitle: "Projet Alpha",
+        image: "https://picsum.photos/seed/ml1/100/100",
+        subtitle: { text: "Acme Corporation" },
+        tag: "Urgent",
+        title:
+          "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock",
+        titleLineClamp: 2,
+      },
+      {
+        image: "https://picsum.photos/seed/ml2/100/100",
+        subtitle: { text: "Design Team" },
+        tag: "Medium",
+        title:
+          "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words",
+        titleLineClamp: 3,
+      },
+      {
+        image: "https://picsum.photos/seed/ml3/100/100",
+        tag: "Low",
+        title: "Short",
+      },
+    ],
+    statuses: [
+      { label: "En cours", name: "inprogress" },
+      { label: "Terminé", name: "done" },
+    ],
+  }),
+};
+
 export const EmptyStateKanban = Template.bind({});
 EmptyStateKanban.args = {
   data: [],

@@ -46,7 +46,7 @@ export interface EmptyStateProps {
  */
 export interface SubtitleDataItemProps {
   text: ReactNode;
-  icon?: ReactElement;
+  icon?: ReactNode;
   onClick?: (event: MouseEvent<HTMLElement>) => void;
 }
 
@@ -65,8 +65,9 @@ export interface KanbanDataItemProps {
   subtitle?: SubtitleDataItemProps;
   subtitles?: SubtitleDataItemProps[];
   tag: string;
-  Footer?: ReactElement;
-  RightFooter?: ReactElement;
+  titleLineClamp?: number;
+  Footer?: ReactNode;
+  RightFooter?: ReactNode;
 }
 
 /**
