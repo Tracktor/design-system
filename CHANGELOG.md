@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.33.0
+## v4.33.1
 
-### Features
-- Add multi-line title support in KanbanCard and update story for demonstration
+### Fix
+- Adjust alignment of items in KanbanCard for better visual consistency

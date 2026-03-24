@@ -134,7 +134,7 @@ const KanbanCard = memo(({ item, activeItemId, gutterSize, onClickItem, variant 
                 </Typography>
               </Tooltip>
             )}
-            <Stack direction="row" alignItems="center" spacing={1}>
+            <Stack direction="row" alignItems="flex-start" spacing={1}>
               <Tooltip
                 title={title}
                 enterDelay={TOOLTIP_DELAYS.enterDelay}
