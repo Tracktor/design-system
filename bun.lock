@@ -9,7 +9,7 @@
         "@emotion/styled": "^11.0.0",
         "@mui/material": "^7.0.0",
         "@tanstack/react-virtual": "^3.13.23",
-        "@tracktor/react-utils": "^1.28.2",
+        "@tracktor/react-utils": "^1.28.3",
       },
       "devDependencies": {
         "@babel/core": "^7.22.9",
@@ -408,7 +408,7 @@
 
     "@tracktor/biome-config-react": ["@tracktor/biome-config-react@1.4.0", "", { "dependencies": { "@biomejs/biome": "^2.3.4" } }, "sha512-JI0RTpsZX/edgtVVYaOAFEmfwVr6rlyQrMXX8UcB9qQQsjUZkL09KIWT1VXUlU3sF3jXtXT2pEjmAljNZLXl2g=="],
 
-    "@tracktor/react-utils": ["@tracktor/react-utils@1.28.2", "", { "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-rf6HGBCRJJhpTfZgklm4UG+qUwuu3uPsLlmVKrx8QFzM09Q88x1cWJgbKNXWrsUk6bk05uZvq8jrwxK8RvuSEg=="],
+    "@tracktor/react-utils": ["@tracktor/react-utils@1.28.3", "", { "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }, "sha512-FeRzgF4GH8mItwcn+3F4vznlfbCUL1O8tfCG9V65X4OVTC2WdLe8rqyqpxpJXVKtuJ9ljR3PXSJjmkEBL77l+Q=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg=="],
 

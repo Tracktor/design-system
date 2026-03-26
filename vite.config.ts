@@ -9,9 +9,6 @@ type UserConfig = UserConfigVite & {
   test: InlineConfigVitest["test"];
 };
 
-const allDependencies = [...Object.keys(dependencies), ...Object.keys(peerDependencies)];
-const external = Array.from(new Set(allDependencies));
-
 const config: UserConfig = {
   build: {
     lib: {
@@ -24,7 +21,7 @@ const config: UserConfig = {
     },
     minify: "esbuild",
     rolldownOptions: {
-      external,
+      external: [...Object.keys(dependencies), ...Object.keys(peerDependencies), "react/jsx-runtime", "react/jsx-dev-runtime"],
       output: {
         globals: {
           "@mui/material": "material",
