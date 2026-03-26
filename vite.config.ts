@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import react from "@vitejs/plugin-react";
+import dts from "unplugin-dts/vite";
 import { defineConfig, UserConfig as UserConfigVite } from "vite";
-import dts from "vite-plugin-dts";
 import { UserConfig as InlineConfigVitest } from "vitest/config";
 import { dependencies, name, peerDependencies } from "./package.json";
 
@@ -23,7 +23,7 @@ const config: UserConfig = {
       name,
     },
     minify: "esbuild",
-    rollupOptions: {
+    rolldownOptions: {
       external,
       output: {
         globals: {
