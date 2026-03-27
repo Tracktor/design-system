@@ -147,8 +147,6 @@ const File = forwardRef<HTMLInputElement, FileUploadProps>(
         inputElement?.blur();
 
         onChange?.({ ...e, target: inputElement } as unknown as ChangeEvent<HTMLInputElement>);
-
-        e.dataTransfer.clearData();
       }
     };
 

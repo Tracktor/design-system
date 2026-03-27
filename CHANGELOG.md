@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.33.3
+## v4.33.4
 
-### Fixe
-- Update external dependencies in build configuration
+### Fix
+- Remove unnecessary dataTransfer clearData call in input change handler
