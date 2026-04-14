@@ -9,7 +9,6 @@ const data = [
   {
     id: 1,
     onClick: () => {
-      // eslint-disable-next-line no-alert
       alert("Item clicked");
     },
     subtitle: "With onClick",
@@ -26,14 +25,12 @@ const data = [
     id: 3,
     image: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
     onClick: () => {
-      // eslint-disable-next-line no-alert
       alert("Primary item clicked");
     },
     secondaryAction: (
       <IconButton
         onClick={(e) => {
           e.stopPropagation();
-          // eslint-disable-next-line no-alert
           alert("Secondary action clicked");
         }}
       >
@@ -89,6 +86,98 @@ Basic.args = {};
 export const AlwaysDisplaySecondaryAction = Template.bind({});
 AlwaysDisplaySecondaryAction.args = {
   alwaysDisplaySecondaryAction: true,
+};
+
+export const ItemAlwaysDisplaySecondaryAction = Template.bind({});
+ItemAlwaysDisplaySecondaryAction.args = {
+  items: [
+    {
+      alwaysDisplaySecondaryAction: true,
+      id: 1,
+      secondaryAction: (
+        <IconButton size="small">
+          <CheckIcon />
+        </IconButton>
+      ),
+      subtitle: "Always visible",
+      title: "Item 1",
+    },
+    {
+      id: 2,
+      secondaryAction: (
+        <IconButton size="small">
+          <CloseIcon />
+        </IconButton>
+      ),
+      subtitle: "Visible on hover",
+      title: "Item 2",
+    },
+    {
+      alwaysDisplaySecondaryAction: true,
+      id: 3,
+      secondaryAction: (
+        <IconButton size="small">
+          <CheckIcon />
+        </IconButton>
+      ),
+      subtitle: "Always visible",
+      title: "Item 3",
+    },
+    {
+      id: 4,
+      secondaryAction: (
+        <IconButton size="small">
+          <CloseIcon />
+        </IconButton>
+      ),
+      subtitle: "Visible on hover",
+      title: "Item 4",
+    },
+  ],
+};
+
+export const MixedSecondaryAction = Template.bind({});
+MixedSecondaryAction.args = {
+  items: [
+    {
+      id: 1,
+      persistentSecondaryAction: (
+        <IconButton size="small">
+          <CheckIcon />
+        </IconButton>
+      ),
+      secondaryAction: (
+        <IconButton size="small">
+          <CloseIcon />
+        </IconButton>
+      ),
+      subtitle: "Persistent + hover",
+      title: "Item 1 with very long subtitle",
+    },
+    {
+      id: 2,
+      persistentSecondaryAction: (
+        <IconButton size="small">
+          <CheckIcon />
+        </IconButton>
+      ),
+      subtitle: "Persistent action only",
+      title: "Item 2",
+    },
+    {
+      id: 3,
+      secondaryAction: (
+        <IconButton size="small">
+          <CloseIcon />
+        </IconButton>
+      ),
+      subtitle: "Hover action only",
+      title: "Item 3",
+    },
+  ],
+  sx: {
+    maxWidth: 300,
+  },
 };
 
 export const Loading = Template.bind({});

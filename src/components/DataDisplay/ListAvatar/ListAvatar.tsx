@@ -24,18 +24,65 @@ import isDocumentType from "@/utils/isDocumentType";
 import isValidUrl from "@/utils/isValidUrl";
 
 interface ListAvatarItemBase {
+  /**
+   * Custom avatar component to display instead of the default avatar.
+   */
   Avatar?: ReactNode;
+  /**
+   * Unique identifier for the list item.
+   */
   id?: string | number | null;
+  /**
+   * Primary text displayed in the list item.
+   */
   title?: ReactNode;
+  /**
+   * Secondary text displayed below the title.
+   */
   subtitle?: ReactNode;
+  /**
+   * Full-size image URL used for the avatar and lightbox preview.
+   */
   image?: string | null;
+  /**
+   * Thumbnail image URL used as the avatar source when available.
+   */
   thumbnail?: string | null;
+  /**
+   * Secondary thumbnail image URL displayed as a secondary avatar source.
+   */
   thumbnailSecondary?: string | null;
+  /**
+   * Icon displayed inside the avatar when no image is provided.
+   */
   icon?: ReactNode;
+  /**
+   * Label displayed in a chip next to the title.
+   */
   chipLabel?: ReactNode;
+  /**
+   * Color of the chip. Accepts MUI Chip color values or a custom string.
+   */
   chipColor?: ChipProps["color"] | string;
+  /**
+   * Action element displayed on the right side of the item, visible on hover.
+   */
   secondaryAction?: ReactNode;
+  /**
+   * Secondary action always visible, regardless of hover state.
+   */
+  persistentSecondaryAction?: ReactNode;
+  /**
+   * Always display secondary action for this item. Overrides the list-level prop.
+   */
+  alwaysDisplaySecondaryAction?: boolean;
+  /**
+   * If true, renders a divider instead of the list item content.
+   */
   divider?: boolean;
+  /**
+   * Custom styles applied to the list item.
+   */
   sx?: SxProps<Theme>;
 }
 
@@ -117,6 +164,200 @@ const styles = {
 
 const isChipColor = (color: ChipProps["color"] | string): color is ChipProps["color"] => typeof color === "string";
 
+interface ListAvatarItemRowProps extends ListAvatarItem {
+  index: number;
+  listAlwaysDisplaySecondaryAction?: boolean;
+  listItemBaseSx: object;
+  disableLightbox?: boolean;
+  isFirefox: boolean;
+  openElement: string;
+  setOpenElement: (key: string) => void;
+}
+
+const ListAvatarItemRow = ({
+  Avatar: AvatarProp,
+  id,
+  title,
+  subtitle,
+  image,
+  thumbnail,
+  thumbnailSecondary,
+  icon,
+  chipLabel,
+  chipColor,
+  secondaryAction,
+  persistentSecondaryAction,
+  alwaysDisplaySecondaryAction,
+  divider,
+  sx,
+  onClick,
+  index,
+  listAlwaysDisplaySecondaryAction,
+  listItemBaseSx,
+  disableLightbox,
+  isFirefox,
+  openElement,
+  setOpenElement,
+}: ListAvatarItemRowProps) => {
+  const key = `key-${index}-${title}-${id}`;
+  const isPdf = !!image?.toLowerCase()?.endsWith(".pdf");
+  const isValidImageUrl = isValidUrl(image);
+  const isValidThumbnailUrl = isValidUrl(thumbnail);
+  const isFile = isDocumentType(image);
+  const userSelect = onClick ? "none" : undefined;
+  const lightBoxDisabled = disableLightbox || !!icon || !isValidImageUrl || isFile;
+  const clickable = !!onClick || !!(!(onClick || disableLightbox) && image);
+  const open = openElement === key;
+  const avatarThumb = isValidThumbnailUrl ? thumbnail : "";
+  const avatarImage = isValidImageUrl ? image : "";
+  const avatarSrc = avatarThumb || avatarImage || "";
+  const hasPersistentSecondaryAction = !!persistentSecondaryAction;
+
+  const resolvedSecondaryAction =
+    persistentSecondaryAction && secondaryAction ? (
+      <Stack direction="row" alignItems="center">
+        <Box className="ListAvatar-hoverAction">{secondaryAction}</Box>
+        {persistentSecondaryAction}
+      </Stack>
+    ) : (
+      persistentSecondaryAction || secondaryAction
+    );
+
+  if (divider) {
+    return (
+      <ListItem disableGutters key={key}>
+        <Divider flexItem sx={{ width: "100%" }} />
+      </ListItem>
+    );
+  }
+
+  return (
+    <ListItem
+      key={key}
+      secondaryAction={resolvedSecondaryAction}
+      onClick={(event) => {
+        onClick?.(event, {
+          ...(icon && { icon }),
+          ...(id && { id }),
+          ...(image && { image }),
+          ...(subtitle && { subtitle }),
+          ...(thumbnail && { thumbnail }),
+          ...(title && { thumbnail }),
+          isFile,
+          isPdf,
+        });
+
+        if (clickable && !open && !onClick) {
+          setOpenElement(key);
+        }
+      }}
+      sx={{
+        ...listItemBaseSx,
+        "& .MuiListItemSecondaryAction-root": {
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "center",
+          opacity: hasPersistentSecondaryAction || (alwaysDisplaySecondaryAction ?? listAlwaysDisplaySecondaryAction) ? 1 : 0,
+          position: "static",
+          right: ({ spacing }: Theme) => spacing(0.5),
+          transform: "none",
+        },
+        ...(hasPersistentSecondaryAction && {
+          "& .ListAvatar-hoverAction": {
+            opacity: (alwaysDisplaySecondaryAction ?? listAlwaysDisplaySecondaryAction) ? 1 : 0,
+          },
+        }),
+        "&:hover": {
+          "& .ListAvatar-hoverAction": {
+            opacity: 1,
+          },
+          "& .MuiListItemSecondaryAction-root": {
+            opacity: 1,
+          },
+          ...(!(sx && typeof sx === "object" && !Array.isArray(sx) && "backgroundColor" in sx) &&
+            clickable && {
+              backgroundColor: ({ palette }: Theme) => palette.action.hover,
+            }),
+        },
+        cursor: clickable ? "pointer" : "default",
+        ...sx,
+      }}
+    >
+      {/* Custom avatar */}
+      {AvatarProp !== undefined && <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarProp}</Box>}
+
+      {/* PDF Thumb */}
+      {!AvatarProp && isPdf && (
+        <FileViewer
+          iconOnly={isFirefox}
+          src={image}
+          srcThumb={thumbnail}
+          width={40}
+          height={40}
+          sx={{ borderRadius: 1, marginRight: AVATAR_MARGIN_RIGHT }}
+          disableLightbox={disableLightbox}
+          open={open}
+          onClose={() => setOpenElement("")}
+        />
+      )}
+
+      {/* Image or avatar */}
+      {!(AvatarProp || isPdf) && (
+        <FileViewer
+          disableThumb
+          src={image}
+          srcThumb={thumbnail}
+          disableLightbox={lightBoxDisabled}
+          open={open}
+          onClose={() => setOpenElement("")}
+        >
+          <Avatar
+            src={isFile ? sheetsImage : avatarSrc}
+            secondarySrc={thumbnailSecondary}
+            variant="rounded"
+            sx={{ marginRight: AVATAR_MARGIN_RIGHT }}
+            slotProps={{
+              img: {
+                sx: {
+                  ...(isFile && { padding: "15%" }),
+                },
+              },
+            }}
+          >
+            {!isFile && (icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase()))}
+          </Avatar>
+        </FileViewer>
+      )}
+
+      <ListItemText
+        primary={
+          <Stack direction="row" alignItems="center" spacing={1}>
+            {title &&
+              (isValidElement(title) ? (
+                title
+              ) : (
+                <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+                  {title}
+                </Typography>
+              ))}
+            {chipLabel && <Chip label={chipLabel} variant="rounded" size="xSmall" color={isChipColor(chipColor) ? chipColor : "default"} />}
+          </Stack>
+        }
+        secondary={subtitle}
+        slotProps={{
+          primary: {
+            component: "div",
+          },
+          secondary: {
+            component: "div",
+          },
+        }}
+        sx={{ marginY: 0, userSelect }}
+      />
+    </ListItem>
+  );
+};
+
 export const ListAvatar = ({
   Empty,
   action,
@@ -184,168 +425,19 @@ export const ListAvatar = ({
       }}
       {...props}
     >
-      {items?.map(
-        (
-          {
-            id,
-            title,
-            subtitle,
-            image,
-            thumbnail,
-            thumbnailSecondary,
-            secondaryAction,
-            chipLabel,
-            chipColor,
-            onClick,
-            icon,
-            divider,
-            sx: itemSx,
-            Avatar: AvatarComponent,
-          },
-          index,
-        ) => {
-          const key = `key-${index}-${title}-${id}`;
-          const isPdf = !!image?.toLowerCase()?.endsWith(".pdf");
-          const isValidImageUrl = isValidUrl(image);
-          const isValidThumbnailUrl = isValidUrl(thumbnail);
-          const isFile = isDocumentType(image);
-          const userSelect = onClick ? "none" : undefined;
-          const lightBoxDisabled = disableLightbox || !!icon || !isValidImageUrl || isFile;
-          const clickable = !!onClick || !!(!(onClick || disableLightbox) && image);
-          const open = openElement === key;
-          const avatarThumb = isValidThumbnailUrl ? thumbnail : "";
-          const avatarImage = isValidImageUrl ? image : "";
-          const avatarSrc = avatarThumb || avatarImage || "";
-
-          if (divider) {
-            return (
-              <ListItem disableGutters key={key}>
-                <Divider flexItem sx={{ width: "100%" }} />
-              </ListItem>
-            );
-          }
-
-          return (
-            <ListItem
-              key={key}
-              secondaryAction={secondaryAction}
-              onClick={(event) => {
-                onClick?.(event, {
-                  ...(icon && { icon }),
-                  ...(id && { id }),
-                  ...(image && { image }),
-                  ...(subtitle && { subtitle }),
-                  ...(thumbnail && { thumbnail }),
-                  ...(title && { thumbnail }),
-                  isFile,
-                  isPdf,
-                });
-
-                if (clickable && !open && !onClick) {
-                  setOpenElement(key);
-                }
-              }}
-              sx={{
-                ...listItemBaseSx,
-                "& .MuiListItemSecondaryAction-root": {
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",
-                  opacity: alwaysDisplaySecondaryAction ? 1 : 0,
-                  position: "static",
-                  right: ({ spacing }: Theme) => spacing(0.5),
-                  transform: "none",
-                },
-                "&:hover": {
-                  "& .MuiListItemSecondaryAction-root": {
-                    opacity: 1,
-                  },
-                  ...(!(itemSx && typeof itemSx === "object" && !Array.isArray(itemSx) && "backgroundColor" in itemSx) &&
-                    clickable && {
-                      backgroundColor: ({ palette }: Theme) => palette.action.hover,
-                    }),
-                },
-                cursor: clickable ? "pointer" : "default",
-                ...itemSx,
-              }}
-            >
-              {/* Custom avatar */}
-              {AvatarComponent !== undefined && <Box marginRight={AVATAR_MARGIN_RIGHT}>{AvatarComponent}</Box>}
-
-              {/* PDF Thumb */}
-              {!AvatarComponent && isPdf && (
-                <FileViewer
-                  iconOnly={isFirefox}
-                  src={image}
-                  srcThumb={thumbnail}
-                  width={40}
-                  height={40}
-                  sx={{ borderRadius: 1, marginRight: AVATAR_MARGIN_RIGHT }}
-                  disableLightbox={disableLightbox}
-                  open={open}
-                  onClose={() => setOpenElement("")}
-                />
-              )}
-
-              {/* Image or avatar */}
-              {!(AvatarComponent || isPdf) && (
-                <FileViewer
-                  disableThumb
-                  src={image}
-                  srcThumb={thumbnail}
-                  disableLightbox={lightBoxDisabled}
-                  open={open}
-                  onClose={() => setOpenElement("")}
-                >
-                  <Avatar
-                    src={isFile ? sheetsImage : avatarSrc}
-                    secondarySrc={thumbnailSecondary}
-                    variant="rounded"
-                    sx={{ marginRight: AVATAR_MARGIN_RIGHT }}
-                    slotProps={{
-                      img: {
-                        sx: {
-                          ...(isFile && { padding: "15%" }),
-                        },
-                      },
-                    }}
-                  >
-                    {!isFile && (icon || (typeof title === "string" && (title || "")?.charAt(0).toUpperCase()))}
-                  </Avatar>
-                </FileViewer>
-              )}
-
-              <ListItemText
-                primary={
-                  <Stack direction="row" alignItems="center" spacing={1}>
-                    {title &&
-                      (isValidElement(title) ? (
-                        title
-                      ) : (
-                        <Typography variant="h6" whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
-                          {title}
-                        </Typography>
-                      ))}
-                    {chipLabel && (
-                      <Chip label={chipLabel} variant="rounded" size="xSmall" color={isChipColor(chipColor) ? chipColor : "default"} />
-                    )}
-                  </Stack>
-                }
-                secondary={subtitle}
-                slotProps={{
-                  primary: {
-                    component: "div",
-                  },
-                  secondary: {
-                    component: "div",
-                  },
-                }}
-                sx={{ marginY: 0, userSelect }}
-              />
-            </ListItem>
-          );
-        },
-      )}
+      {items?.map((item, index) => (
+        <ListAvatarItemRow
+          key={`key-${index}-${item.title}-${item.id}`}
+          {...item}
+          index={index}
+          listAlwaysDisplaySecondaryAction={alwaysDisplaySecondaryAction}
+          listItemBaseSx={listItemBaseSx}
+          disableLightbox={disableLightbox}
+          isFirefox={isFirefox}
+          openElement={openElement}
+          setOpenElement={setOpenElement}
+        />
+      ))}
       {action && (
         <ListItemButton
           onClick={action?.onClick}

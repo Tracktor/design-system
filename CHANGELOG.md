@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.33.4
+## v4.34.0
 
-### Fix
-- Remove unnecessary dataTransfer clearData call in input change handler
+### Feat
+- Add headerAction prop to ChatConversationDetail and ChatConversationDetailHeader
