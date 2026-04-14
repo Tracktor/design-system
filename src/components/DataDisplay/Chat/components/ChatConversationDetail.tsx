@@ -61,6 +61,7 @@ const ChatConversationDetail = ({
   formatParticipantName,
   headerAction,
   defaultMessage,
+  onAddParticipantDialogOpenChange,
 }: ChatConversationDetailProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const previousThreadIdRef = useRef<string | undefined>(undefined);
@@ -119,6 +120,7 @@ const ChatConversationDetail = ({
         labels={labels}
         formatParticipantName={formatParticipantName}
         headerAction={headerAction}
+        onAddParticipantDialogOpenChange={onAddParticipantDialogOpenChange}
       />
       <Box
         ref={scrollContainerRef}

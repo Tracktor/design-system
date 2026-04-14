@@ -30,6 +30,7 @@ interface ChatConversationDetailHeaderProps {
   labels?: ChatConversationDetailLabels;
   formatParticipantName?: (participant: ChatParticipant) => string;
   headerAction?: ReactNode;
+  onAddParticipantDialogOpenChange?: (open: boolean) => void;
 }
 
 const ChatConversationDetailHeader = ({
@@ -44,6 +45,7 @@ const ChatConversationDetailHeader = ({
   labels,
   formatParticipantName,
   headerAction,
+  onAddParticipantDialogOpenChange,
 }: ChatConversationDetailHeaderProps) => {
   const { isMenuOpen, anchorMenu, closeMenu, openMenu } = useMenu();
   const [addDialogOpen, setAddDialogOpen] = useState(false);
@@ -57,6 +59,7 @@ const ChatConversationDetailHeader = ({
   const handleOpenAddDialog = () => {
     closeMenu();
     setAddDialogOpen(true);
+    onAddParticipantDialogOpenChange?.(true);
   };
 
   return (
@@ -113,7 +116,10 @@ const ChatConversationDetailHeader = ({
       </Stack>
       <ChatParticipantDialog
         open={addDialogOpen}
-        onClose={() => setAddDialogOpen(false)}
+        onClose={() => {
+          setAddDialogOpen(false);
+          onAddParticipantDialogOpenChange?.(false);
+        }}
         onConfirm={onAddParticipants}
         onSearch={onSearchParticipants ?? (() => {})}
         searchResults={searchResults}

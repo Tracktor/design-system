@@ -100,6 +100,7 @@ export interface ChatConversationDetailProps {
   formatParticipantName?: (participant: ChatParticipant) => string;
   headerAction?: ReactNode;
   defaultMessage?: string;
+  onAddParticipantDialogOpenChange?: (open: boolean) => void;
 }
 
 export interface ChatMessageBubbleProps {
