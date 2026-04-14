@@ -2,14 +2,14 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { type KeyboardEvent, useRef, useState } from "react";
+import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import type { ChatMessageInputProps } from "@/components/DataDisplay/Chat/types";
 import SendIcon from "@/components/DataDisplay/Icons/SendIcon";
 import Button from "@/components/Inputs/Button";
 
 const RADIUS = 15;
 
-const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending }: ChatMessageInputProps) => {
+const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending, defaultMessage }: ChatMessageInputProps) => {
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,6 +27,15 @@ const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending }: ChatMessa
       handleSend();
     }
   };
+
+  /**
+   * Sync message state when defaultMessage prop changes (e.g. pre-filled message on drawer open)
+   */
+  useEffect(() => {
+    if (defaultMessage) {
+      setMessage(defaultMessage);
+    }
+  }, [defaultMessage]);
 
   return (
     <Box

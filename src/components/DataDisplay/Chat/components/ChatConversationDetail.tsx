@@ -60,12 +60,16 @@ const ChatConversationDetail = ({
   isSending,
   formatParticipantName,
   headerAction,
+  defaultMessage,
 }: ChatConversationDetailProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const previousThreadIdRef = useRef<string | undefined>(undefined);
 
   const getDayLabel = formatDayLabel ?? defaultFormatDayLabel;
 
+  /**
+   * Auto-scroll to the bottom of the conversation when messages change
+   */
   useEffect(() => {
     if (!messages || isLoading) {
       return;
@@ -167,6 +171,7 @@ const ChatConversationDetail = ({
         labels={{ enterToSend: labels?.enterToSend, send: labels?.send, writeAMessage: labels?.writeAMessage }}
         autoFocusKey={threadId}
         isSending={isSending}
+        defaultMessage={defaultMessage}
       />
     </Stack>
   );

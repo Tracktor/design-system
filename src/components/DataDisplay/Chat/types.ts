@@ -99,6 +99,7 @@ export interface ChatConversationDetailProps {
   isSending?: boolean;
   formatParticipantName?: (participant: ChatParticipant) => string;
   headerAction?: ReactNode;
+  defaultMessage?: string;
 }
 
 export interface ChatMessageBubbleProps {
@@ -115,6 +116,7 @@ export interface ChatMessageInputProps {
   labels?: ChatMessageInputLabels;
   autoFocusKey?: string;
   isSending?: boolean;
+  defaultMessage?: string;
 }
 
 export interface ChatParticipantDialogProps {
