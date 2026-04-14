@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { getInitials } from "@tracktor/react-utils";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import Avatar from "@/components/DataDisplay/Avatar";
 import ChatParticipantDialog from "@/components/DataDisplay/Chat/components/ChatParticipantDialog";
@@ -28,6 +29,7 @@ interface ChatConversationDetailHeaderProps {
   avatarSrcResolver?: (src?: string | null) => string | undefined;
   labels?: ChatConversationDetailLabels;
   formatParticipantName?: (participant: ChatParticipant) => string;
+  headerAction?: ReactNode;
 }
 
 const ChatConversationDetailHeader = ({
@@ -41,6 +43,7 @@ const ChatConversationDetailHeader = ({
   avatarSrcResolver,
   labels,
   formatParticipantName,
+  headerAction,
 }: ChatConversationDetailHeaderProps) => {
   const { isMenuOpen, anchorMenu, closeMenu, openMenu } = useMenu();
   const [addDialogOpen, setAddDialogOpen] = useState(false);
@@ -80,29 +83,33 @@ const ChatConversationDetailHeader = ({
             {participantNames}
           </Typography>
         </Stack>
-        <IconButton size="small" onClick={openMenu}>
-          <MoreHorizIcon fontSize="small" />
-        </IconButton>
-        <Menu
-          open={isMenuOpen}
-          onClose={closeMenu}
-          anchorEl={anchorMenu}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          transformOrigin={{ horizontal: "right", vertical: "top" }}
-        >
-          <MenuItem onClick={handleOpenAddDialog}>
-            <ListItemIcon>
-              <PersonAddIcon fontSize="small" />
-            </ListItemIcon>
-            <Typography>{labels?.addParticipant ?? "Add Participant"}</Typography>
-          </MenuItem>
-          <MenuItem onClick={handleDelete}>
-            <ListItemIcon>
-              <DeleteIcon fontSize="small" color="error" />
-            </ListItemIcon>
-            <Typography color="error">{labels?.deleteConversation ?? "Delete Conversation"}</Typography>
-          </MenuItem>
-        </Menu>
+        {headerAction ?? (
+          <>
+            <IconButton size="small" onClick={openMenu}>
+              <MoreHorizIcon fontSize="small" />
+            </IconButton>
+            <Menu
+              open={isMenuOpen}
+              onClose={closeMenu}
+              anchorEl={anchorMenu}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+            >
+              <MenuItem onClick={handleOpenAddDialog}>
+                <ListItemIcon>
+                  <PersonAddIcon fontSize="small" />
+                </ListItemIcon>
+                <Typography>{labels?.addParticipant ?? "Add Participant"}</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <ListItemIcon>
+                  <DeleteIcon fontSize="small" color="error" />
+                </ListItemIcon>
+                <Typography color="error">{labels?.deleteConversation ?? "Delete Conversation"}</Typography>
+              </MenuItem>
+            </Menu>
+          </>
+        )}
       </Stack>
       <ChatParticipantDialog
         open={addDialogOpen}

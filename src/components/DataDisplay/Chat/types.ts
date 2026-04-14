@@ -98,6 +98,7 @@ export interface ChatConversationDetailProps {
   formatDayLabel?: (date: string) => string;
   isSending?: boolean;
   formatParticipantName?: (participant: ChatParticipant) => string;
+  headerAction?: ReactNode;
 }
 
 export interface ChatMessageBubbleProps {
