@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.35.0
+## v4.36.0
 
 ### Feat
-- Add `defaultMessage` prop to `ChatMessageInput` and update ChatConversationDetail
+- Add isConfirmLoading prop to ChatParticipantDialog and update confirm button loading state

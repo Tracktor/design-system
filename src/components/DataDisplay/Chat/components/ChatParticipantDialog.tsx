@@ -18,6 +18,7 @@ const ChatParticipantDialog = ({
   onSearch,
   searchResults,
   isSearchLoading,
+  isConfirmLoading,
   avatarSrcResolver,
   labels,
 }: ChatParticipantDialogProps) => {
@@ -55,7 +56,7 @@ const ChatParticipantDialog = ({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button fullWidth variant="contained" onClick={handleConfirm} disabled={!selectedParticipants.length}>
+        <Button fullWidth variant="contained" onClick={handleConfirm} disabled={!selectedParticipants.length} loading={isConfirmLoading}>
           {labels?.confirm ?? "Chat"}
         </Button>
       </DialogActions>

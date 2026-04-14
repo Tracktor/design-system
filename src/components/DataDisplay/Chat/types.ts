@@ -126,6 +126,7 @@ export interface ChatParticipantDialogProps {
   onSearch: (query: string) => void;
   searchResults?: ChatSearchUser[];
   isSearchLoading?: boolean;
+  isConfirmLoading?: boolean;
   avatarSrcResolver?: (src?: string | null) => string | undefined;
   labels?: ChatParticipantDialogLabels;
 }
