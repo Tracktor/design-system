@@ -1,0 +1,1 @@
+import{t as e}from"./generateUtilityClass-DUL8zXGJ.js";import{t}from"./generateUtilityClasses-DFWpRkIR.js";function n(t){return e(`MuiListItemIcon`,t)}var r=t(`MuiListItemIcon`,[`root`,`alignItemsFlexStart`]);export{r as n,n as t};

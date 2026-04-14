@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";var n=e(t()),r=n.createContext(void 0);function i(){return n.useContext(r)}export{r as n,i as t};

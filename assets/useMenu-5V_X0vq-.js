@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";var n=e(t(),1),r=()=>{let[e,t]=(0,n.useState)(null),r=!!e;return{anchorMenu:e,closeMenu:(0,n.useCallback)(()=>{t(null)},[]),isMenuOpen:r,openMenu:(0,n.useCallback)(({currentTarget:e})=>{t(e)},[])}};export{r as t};

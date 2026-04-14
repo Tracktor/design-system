@@ -1,0 +1,1 @@
+function e({props:e,states:t,muiFormControl:n}){return t.reduce((t,r)=>(t[r]=e[r],n&&e[r]===void 0&&(t[r]=n[r]),t),{})}export{e as t};

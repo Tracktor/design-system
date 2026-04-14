@@ -1,0 +1,19 @@
+import{n as e,r as t}from"./emotion-react-jsx-runtime.browser.esm-oEpu3ON2.js";import{t as n}from"./Stack-BIr57r_j.js";import{t as r}from"./Checkbox-Cm3_-XC0.js";import{t as i}from"./FormControlLabel-DBN0FxR_.js";import{t as a}from"./FormGroup-CZRSVaUx.js";var o=t=>e(r,{...t});try{o.displayName=`Checkbox`,o.__docgenInfo={description:``,displayName:`Checkbox`,props:{component:{defaultValue:null,description:``,name:`component`,required:!1,type:{name:`ElementType<any, keyof IntrinsicElements>`}},slots:{defaultValue:{value:`{}`},description:`The components used for each slot inside.`,name:`slots`,required:!1,type:{name:`Partial<CheckboxSlots>`}},slotProps:{defaultValue:{value:`{}`},description:`The props used for each slot inside.`,name:`slotProps`,required:!1,type:{name:`{ root?: SlotProps<ElementType<SwitchBaseProps, keyof IntrinsicElements>, CheckboxRootSlotPropsOverrides, CheckboxOwnerState>; input?: SlotProps<...>; } | undefined`}}}}}catch{}var s={inputProps:{"aria-label":`Checkbox demo`}},c=r=>t(n,{direction:`row`,spacing:2,alignItems:`center`,justifyContent:`center`,height:`100%`,children:[e(o,{...s,defaultChecked:!0,...r}),e(o,{...s,...r}),e(o,{...s,disabled:!0,...r}),e(o,{...s,disabled:!0,checked:!0,...r})]}),l=r=>e(n,{alignItems:`center`,justifyContent:`center`,height:`100%`,children:t(a,{children:[e(i,{control:e(o,{defaultChecked:!0,...r}),label:`Label`}),e(i,{disabled:!0,control:e(o,{...r}),label:`Disabled`})]})}),u=r=>t(n,{direction:`row`,spacing:2,alignItems:`center`,justifyContent:`center`,height:`100%`,children:[e(o,{...s,defaultChecked:!0,...r}),e(o,{...s,defaultChecked:!0,color:`secondary`,...r}),e(o,{...s,defaultChecked:!0,color:`info`,...r}),e(o,{...s,defaultChecked:!0,color:`success`,...r}),e(o,{...s,defaultChecked:!0,color:`warning`,...r}),e(o,{...s,defaultChecked:!0,color:`default`,...r}),e(o,{...s,defaultChecked:!0,color:`error`,...r})]}),d=c.bind({});d.args={};var f=l.bind({});f.args={};var p=u.bind({});p.args={};var m={component:o,title:`Components/Inputs/Checkbox`};d.parameters={...d.parameters,docs:{...d.parameters?.docs,source:{originalSource:`args => <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Checkbox {...label} defaultChecked {...args} />
+    <Checkbox {...label} {...args} />
+    <Checkbox {...label} disabled {...args} />
+    <Checkbox {...label} disabled checked {...args} />
+  </Stack>`,...d.parameters?.docs?.source}}},f.parameters={...f.parameters,docs:{...f.parameters?.docs,source:{originalSource:`args => <Stack alignItems="center" justifyContent="center" height="100%">
+    <FormGroup>
+      <FormControlLabel control={<Checkbox defaultChecked {...args} />} label="Label" />
+      <FormControlLabel disabled control={<Checkbox {...args} />} label="Disabled" />
+    </FormGroup>
+  </Stack>`,...f.parameters?.docs?.source}}},p.parameters={...p.parameters,docs:{...p.parameters?.docs,source:{originalSource:`args => <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" height="100%">
+    <Checkbox {...label} defaultChecked {...args} />
+    <Checkbox {...label} defaultChecked color="secondary" {...args} />
+    <Checkbox {...label} defaultChecked color="info" {...args} />
+    <Checkbox {...label} defaultChecked color="success" {...args} />
+    <Checkbox {...label} defaultChecked color="warning" {...args} />
+    <Checkbox {...label} defaultChecked color="default" {...args} />
+    <Checkbox {...label} defaultChecked color="error" {...args} />
+  </Stack>`,...p.parameters?.docs?.source}}};var h=[`Basic`,`Label`,`Color`];export{d as Basic,p as Color,f as Label,h as __namedExportsOrder,m as default};

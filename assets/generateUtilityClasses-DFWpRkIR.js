@@ -1,0 +1,1 @@
+import{t as e}from"./generateUtilityClass-DUL8zXGJ.js";function t(t,n,r=`Mui`){let i={};return n.forEach(n=>{i[n]=e(t,n,r)}),i}export{t};

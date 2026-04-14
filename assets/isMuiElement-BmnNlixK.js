@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";var n=e(t());function r(e,t){return n.isValidElement(e)&&t.indexOf(e.type.muiName??e.type?._payload?.value?.muiName)!==-1}export{r as t};

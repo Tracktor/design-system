@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";var n=e(t()),r=typeof window<`u`?n.useLayoutEffect:n.useEffect;export{r as t};

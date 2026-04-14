@@ -1,0 +1,1 @@
+import{l as e}from"./DefaultPropsProvider-DDS0Jp9_.js";var t={theme:void 0};function n(n){let r,i;return function(a){let o=r;return(o===void 0||a.theme!==i)&&(t.theme=a.theme,o=e(n(t)),r=o,i=a.theme),o}}var r=n;export{r as t};

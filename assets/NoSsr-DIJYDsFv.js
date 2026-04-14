@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";import{t as n}from"./useEnhancedEffect-D07FKj6L.js";var r=e(t());function i(e){let{children:t,defer:i=!1,fallback:a=null}=e,[o,s]=r.useState(!1);return n(()=>{i||s(!0)},[i]),r.useEffect(()=>{i&&s(!0)},[i]),o?t:a}export{i as t};

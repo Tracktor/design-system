@@ -1,0 +1,26 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./jsx-runtime-prWBgBgC.js";import{n}from"./lib-BYeNhzQt.js";import{o as r}from"./blocks-eIJHG9y-.js";var i=e(t());function a(e){let t={code:`code`,h1:`h1`,h3:`h3`,p:`p`,pre:`pre`,...n(),...e.components};return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(r,{title:`Hooks/useMenu`}),`
+`,(0,i.jsx)(t.h1,{id:`usemenu`,children:(0,i.jsx)(t.code,{children:`useMenu`})}),`
+`,(0,i.jsx)(t.p,{children:`Utility hook for handle menu`}),`
+`,(0,i.jsx)(t.h3,{id:`usage`,children:`Usage`}),`
+`,(0,i.jsx)(t.pre,{children:(0,i.jsx)(t.code,{className:`language-typescript`,children:`import { Button, Menu, MenuItem, useMenu } from "@tracktor/design-system";
+
+const { isMenuOpen, anchorMenu, closeMenu, openMenu } = useMenu();
+
+const App = () => (
+  <>
+    <Button onClick={openMenu}>Open menu</Button>
+    <Menu
+      open={isMenuOpen}
+      onClose={closeMenu}
+      anchorEl={anchorMenu}
+    >
+      <MenuItem>...</MenuItem>
+    </Menu>
+  </>
+);
+
+export default App;
+`})}),`
+`,(0,i.jsx)(t.h3,{id:`available-state--function`,children:`Available state & function`}),`
+`,(0,i.jsx)(t.h3,{id:`available-state--function-1`,children:`Available state & function`}),`
+`,(0,i.jsxs)(`table`,{children:[(0,i.jsx)(`thead`,{children:(0,i.jsxs)(`tr`,{children:[(0,i.jsx)(`th`,{children:`Name`}),(0,i.jsx)(`th`,{children:`Type`}),(0,i.jsx)(`th`,{children:`Description`})]})}),(0,i.jsxs)(`tbody`,{children:[(0,i.jsxs)(`tr`,{children:[(0,i.jsx)(`td`,{children:(0,i.jsx)(`code`,{children:`closeMenu`})}),(0,i.jsx)(`td`,{children:`Function`}),(0,i.jsx)(`td`,{children:`Handles closing the menu`})]}),(0,i.jsxs)(`tr`,{children:[(0,i.jsx)(`td`,{children:(0,i.jsx)(`code`,{children:`openMenu`})}),(0,i.jsx)(`td`,{children:`Function`}),(0,i.jsx)(`td`,{children:`Handles opening the menu`})]}),(0,i.jsxs)(`tr`,{children:[(0,i.jsx)(`td`,{children:(0,i.jsx)(`code`,{children:`anchorMenu`})}),(0,i.jsx)(`td`,{children:`HTMLElement`}),(0,i.jsx)(`td`,{children:`Anchor element for the menu`})]}),(0,i.jsxs)(`tr`,{children:[(0,i.jsx)(`td`,{children:(0,i.jsx)(`code`,{children:`isMenuOpen`})}),(0,i.jsx)(`td`,{children:`boolean`}),(0,i.jsx)(`td`,{children:`Indicates if the menu is open`})]})]})]})]})}function o(e={}){let{wrapper:t}={...n(),...e.components};return t?(0,i.jsx)(t,{...e,children:(0,i.jsx)(a,{...e})}):a(e)}export{o as default};

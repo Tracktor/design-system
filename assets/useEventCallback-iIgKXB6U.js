@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";import{t as n}from"./useEnhancedEffect-D07FKj6L.js";var r=e(t());function i(e){let t=r.useRef(e);return n(()=>{t.current=e}),r.useRef((...e)=>(0,t.current)(...e)).current}export{i as t};

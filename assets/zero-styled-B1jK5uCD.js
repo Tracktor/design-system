@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{f as t}from"./emotion-react-jsx-runtime.browser.esm-oEpu3ON2.js";import{t as n}from"./jsx-runtime-prWBgBgC.js";import{t as r}from"./GlobalStyles-DXlWX7xR.js";var i=e(n());function a(e){return function(t){return(0,i.jsx)(r,{styles:typeof e==`function`?n=>e({theme:n,...t}):e})}}function o(){return t}export{o as n,a as t};

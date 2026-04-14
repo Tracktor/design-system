@@ -1,0 +1,1 @@
+var e=``+new URL(`tracktor-supplier-dark-C015UTmn.svg`,import.meta.url).href;export{e as default};

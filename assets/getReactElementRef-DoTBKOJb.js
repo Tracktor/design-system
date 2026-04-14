@@ -1,0 +1,1 @@
+import"./chunk-DseTPa7n.js";import{t as e}from"./react-BFE3z-Ps.js";e();function t(e){return e?.props?.ref||null}export{t};

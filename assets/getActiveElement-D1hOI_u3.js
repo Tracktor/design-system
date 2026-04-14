@@ -1,0 +1,1 @@
+function e(e){let t=e.activeElement;for(;t?.shadowRoot?.activeElement!=null;)t=t.shadowRoot.activeElement;return t}var t=e;export{t};

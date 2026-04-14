@@ -1,0 +1,1 @@
+import{i as e}from"./chunk-DseTPa7n.js";import{t}from"./react-BFE3z-Ps.js";import{t as n}from"./jsx-runtime-prWBgBgC.js";import{t as r}from"./SvgIcon-c7Jm5eCq.js";var i=e(t()),a=e(n());function o(e,t){function n(t,n){return(0,a.jsx)(r,{"data-testid":void 0,ref:n,...t,children:e})}return n.muiName=r.muiName,i.memo(i.forwardRef(n))}export{o as t};
