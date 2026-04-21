@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.38.0
+## v4.39.0
 
 ### Feat
-- Add messageMaxLength prop to `ChatMessageInput` and `ChatConversationDetail`
+- Increase maxLength prop in ChatMessageInput to 10000
