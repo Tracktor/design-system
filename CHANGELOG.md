@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.37.0
+## v4.38.0
 
 ### Feat
-- add onAddParticipantDialogOpenChange prop to ChatConversationDetail and ChatConversationDetailHeader
+- Add messageMaxLength prop to `ChatMessageInput` and `ChatConversationDetail`

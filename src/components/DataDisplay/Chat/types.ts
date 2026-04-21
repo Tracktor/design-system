@@ -101,6 +101,7 @@ export interface ChatConversationDetailProps {
   headerAction?: ReactNode;
   defaultMessage?: string;
   onAddParticipantDialogOpenChange?: (open: boolean) => void;
+  messageMaxLength?: number;
 }
 
 export interface ChatMessageBubbleProps {
@@ -118,6 +119,7 @@ export interface ChatMessageInputProps {
   autoFocusKey?: string;
   isSending?: boolean;
   defaultMessage?: string;
+  maxLength?: number;
 }
 
 export interface ChatParticipantDialogProps {

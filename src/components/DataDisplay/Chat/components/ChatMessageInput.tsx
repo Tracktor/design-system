@@ -9,7 +9,7 @@ import Button from "@/components/Inputs/Button";
 
 const RADIUS = 15;
 
-const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending, defaultMessage }: ChatMessageInputProps) => {
+const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending, defaultMessage, maxLength = 1000 }: ChatMessageInputProps) => {
   const [message, setMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -56,6 +56,7 @@ const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending, defaultMess
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={handleKeyDown}
+        slotProps={{ htmlInput: { maxLength } }}
         sx={{
           "& .MuiOutlinedInput-root": {
             "&:hover fieldset": { borderColor: "divider" },
@@ -90,6 +91,9 @@ const ChatMessageInput = ({ onSend, labels, autoFocusKey, isSending, defaultMess
       >
         <Stack direction="row" spacing={1} />
         <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography variant="caption" color="text.secondary">
+            {message.length}/{maxLength}
+          </Typography>
           <Button variant="contained" size="xSmall" endIcon={<SendIcon />} onClick={handleSend} disabled={!message.trim() || isSending}>
             {labels?.send ?? "Send"}
           </Button>

@@ -62,6 +62,7 @@ const ChatConversationDetail = ({
   headerAction,
   defaultMessage,
   onAddParticipantDialogOpenChange,
+  messageMaxLength,
 }: ChatConversationDetailProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const previousThreadIdRef = useRef<string | undefined>(undefined);
@@ -174,6 +175,7 @@ const ChatConversationDetail = ({
         autoFocusKey={threadId}
         isSending={isSending}
         defaultMessage={defaultMessage}
+        maxLength={messageMaxLength}
       />
     </Stack>
   );
