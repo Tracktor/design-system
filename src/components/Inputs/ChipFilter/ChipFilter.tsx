@@ -1,5 +1,5 @@
 import { Button, Checkbox, Chip, ChipProps, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Radio, Stack } from "@mui/material";
-import { MouseEvent, ReactNode, useState } from "react";
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 import ChevronIcon from "@/components/DataDisplay/Icons/ChevronIcon";
 import CloseIcon from "@/components/DataDisplay/Icons/CloseIcon";
 import useMenu from "@/hooks/useMenu";
@@ -190,7 +190,7 @@ function ChipFilter<T = OptionValue>({
   // Determine if component has a value
   const hasValue = (() => {
     if (isToggleMode) {
-      return checked === true;
+      return checked;
     }
     if (multiple) {
       return (value as T[])?.length > 0;
@@ -295,7 +295,7 @@ function ChipFilter<T = OptionValue>({
 
   const isOptionSelected = (optionValue: T): boolean => {
     if (isToggleMode) {
-      return checked === true;
+      return checked;
     }
     if (multiple) {
       return (internalValue as T[])?.includes(optionValue);
@@ -356,6 +356,19 @@ function ChipFilter<T = OptionValue>({
     // No value selected
     return label;
   };
+
+  /**
+   * Sync internal state when controlled props change externally (e.g. parent reset).
+   */
+  useEffect(() => {
+    if (isToggleMode) {
+      setInternalValue(checked);
+    } else if (multiple) {
+      setInternalValue(value || []);
+    } else {
+      setInternalValue(value as T | undefined);
+    }
+  }, [isToggleMode, multiple, checked, value]);
 
   return (
     <>
