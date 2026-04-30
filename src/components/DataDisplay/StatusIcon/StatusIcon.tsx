@@ -25,7 +25,10 @@ export interface StatusIconProps extends Omit<SvgIconProps, "color" | "fontSize"
   variant?: "filled" | "outlined";
 }
 
-const StatusIcon = ({ color, sx, variant = "filled", fontSize = "medium" }: StatusIconProps, ref: ForwardedRef<SVGSVGElement>) => {
+const StatusIcon = (
+  { color, sx, variant = "filled", fontSize = "medium", ...props }: StatusIconProps,
+  ref: ForwardedRef<SVGSVGElement>,
+) => {
   const { palette } = useTheme();
   const colorInherit = palette.mode === "dark" ? palette.text.disabled : palette.grey[400];
   const colorProps = color || colorInherit;
@@ -34,6 +37,7 @@ const StatusIcon = ({ color, sx, variant = "filled", fontSize = "medium" }: Stat
 
   return (
     <SvgIcon
+      {...props}
       viewBox="0 0 16 16"
       ref={ref}
       fontSize={fontSize}

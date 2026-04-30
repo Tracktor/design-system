@@ -1,6 +1,6 @@
 # [Releases](https://github.com/Tracktor/design-system/releases)
 
-## v4.39.0
+## v4.39.1
 
-### Feat
-- Increase maxLength prop in ChatMessageInput to 10000
+### Fix
+- Spread additional props to `SvgIcon` component
